@@ -9,6 +9,14 @@ on:
         default: false
         type: boolean
 
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+
   schedule:
     - cron: '0 2 * * *'
 
