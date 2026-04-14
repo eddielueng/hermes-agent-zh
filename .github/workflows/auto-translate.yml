@@ -309,20 +309,37 @@ jobs:
         run: |
           # 添加所有变更的文件
           git add -A
-          
-          # 生成提交信息
-          COMMIT_MSG="🔄 自动汉化同步 - $(date '+%Y-%m-%d %H:%M')
 
-          ✨ 主要更新：
-          - 同步上游 ${steps.fetch_upstream.outputs.commits_ahead} 个提交
-          - 自动翻译 ${steps.translate.outputs.translations} 条用户可见文本
-          - 更新 ${steps.translate.outputs.changed_files} 个文件
+          # 生成提交信息到临时文件（避免 shell 变量替换错误）
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
+          COMMITS_AHEAD="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+          TRANSLATIONS="${{ steps.translate.outputs.translations }}"
+          CHANGED_FILES="${{ steps.translate.outputs.changed_files }}"
 
-          🤖 *此提交由 GitHub Actions 自动生成*"
-          
-          # 提交
-          git commit -m "$COMMIT_MSG" || echo "ℹ️ 无需提交（没有新的变更）"
-          
+          cat > /tmp/commit_msg.txt << 'EOF'
+🔄 自动汉化同步 - TIMESTAMP_PLACEHOLDER
+
+✨ 主要更新：
+- 同步上游 COMMITS_PLACEHOLDER 个提交
+- 自动翻译 TRANS_PLACEHOLDER 条用户可见文本
+- 更新 FILES_PLACEHOLDER 个文件
+
+🤖 *此提交由 GitHub Actions 自动生成*
+EOF
+
+          # 替换占位符为实际值
+          sed -i "s/TIMESTAMP_PLACEHOLDER/${TIMESTAMP}/g" /tmp/commit_msg.txt
+          sed -i "s/COMMITS_PLACEHOLDER/${COMMITS_AHEAD}/g" /tmp/commit_msg.txt
+          sed -i "s/TRANS_PLACEHOLDER/${TRANSLATIONS}/g" /tmp/commit_msg.txt
+          sed -i "s/FILES_PLACEHOLDER/${CHANGED_FILES}/g" /tmp/commit_msg.txt
+
+          echo "📝 提交信息："
+          cat /tmp/commit_msg.txt
+          echo ""
+
+          # 提交（从文件读取）
+          git commit -F /tmp/commit_msg.txt || echo "ℹ️ 无需提交（没有新的变更）"
+
           echo "✅ 已提交更改"
 
       # ----------------------------------------
@@ -334,48 +351,71 @@ jobs:
           if [ "$CREATE_PR" = "true" ] && [ -n "$branch_name" ]; then
             # 创建 PR
             echo "📤 正在创建 Pull Request..."
-            
-            gh pr create \
-              --title "🔄 自动汉化同步 - $(date '+%Y-%m-%d') (${steps.fetch_upstream.outputs.commits_ahead} commits)" \
-              --body "## 🔄 自动汉化同步报告
 
-            **同步时间**: $(date '+%Y-%m-%d %H:%M:%S')
-            **上游 commit**: \`${steps.fetch_upstream.outputs.upstream_commit:0:7}\`
-            **修改文件数**: ${steps.translate.outputs.changed_files}
-            
-            ### ✅ 本次汉化内容
-            
-            - **同步上游**: ${steps.fetch_upstream.outputs.commits_ahead} 个新提交
-            - **翻译文本**: 约 ${steps.translate.outputs.translations} 条用户可见文本
-            - **涉及文件**: ${steps.translate.outputs.changed_files} 个
-            
-            ### 📋 详细变更
-            
-            <details>
-            <summary>点击查看详细翻译记录</summary>
-            
-            \`\`\`
-            $(git diff --stat HEAD~1)
-            \`\`\`
-            
-            </details>
-            
-            ---
-            
-            🤖 *此 PR 由 [Auto Translation Workflow](.github/workflows/auto-translate.yml) 自动生成*
-            
-            ℹ️ **审核建议**:
-            1. 检查翻译是否准确
-            2. 测试功能是否正常
-            3. 如有问题请评论或关闭此 PR" \
+            # 准备变量
+            PR_DATE=$(date '+%Y-%m-%d')
+            SYNC_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+            UPSTREAM_COMMIT="${{ steps.fetch_upstream.outputs.upstream_commit }}"
+            COMMITS_AHEAD="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+            TRANSLATIONS="${{ steps.translate.outputs.translations }}"
+            CHANGED_FILES="${{ steps.translate.outputs.changed_files }}"
+            COMMIT_SHORT=$(echo "${UPSTREAM_COMMIT}" | cut -c1-7)
+
+            # 创建 PR body 文件
+            cat > /tmp/pr_body.txt << 'EOF'
+## 🔄 自动化汉化同步报告
+
+**同步时间**: SYNC_TIME_PLACEHOLDER
+**上游 commit**: `COMMIT_PLACEHOLDER`
+**修改文件数**: FILES_PLACEHOLDER
+
+### ✅ 本次汉化内容
+
+- **同步上游**: COMMITS_AHEAD_PLACEHOLDER 个新提交
+- **翻译文本**: 约 TRANS_PLACEHOLDER 条用户可见文本
+- **涉及文件**: FILES_PLACEHOLDER2 个
+
+### 📋 详细变更
+
+<details>
+<summary>点击查看详细翻译记录</summary>
+
+\`\`\`
+DIFF_STAT_PLACEHOLDER
+\`\`\`
+
+</details>
+
+---
+
+🤖 *此 PR 由 [Auto Translation Workflow](.github/workflows/auto-translate.yml) 自动生成*
+
+ℹ️ **审核建议**:
+1. 检查翻译是否准确
+2. 测试功能是否正常
+3. 如有问题请评论或关闭此 PR
+EOF
+
+            # 替换占位符
+            sed -i "s/SYNC_TIME_PLACEHOLDER/${SYNC_TIME}/g" /tmp/pr_body.txt
+            sed -i "s/COMMIT_PLACEHOLDER/${COMMIT_SHORT}/g" /tmp/pr_body.txt
+            sed -i "s/FILES_PLACEHOLDER/${CHANGED_FILES}/g" /tmp/pr_body.txt
+            sed -i "s/COMMITS_AHEAD_PLACEHOLDER/${COMMITS_AHEAD}/g" /tmp/pr_body.txt
+            sed -i "s/TRANS_PLACEHOLDER/${TRANSLATIONS}/g" /tmp/pr_body.txt
+            sed -i "s/FILES_PLACEHOLDER2/${CHANGED_FILES}/g" /tmp/pr_body.txt
+            sed -i "s/DIFF_STAT_PLACEHOLDER/$(git diff --stat HEAD~1 | head -20)/g" /tmp/pr_body.txt
+
+            # 创建 PR（从文件读取 body）
+            gh pr create \
+              --title "🔄 自动汉化同步 - ${PR_DATE} (${COMMITS_AHEAD} commits)" \
+              --body-file /tmp/pr_body.txt \
               --label "automated" \
               --label "translation" \
               --base main || {
                 echo "⚠️ PR 创建失败或已存在"
-                # 尝试推送分支
                 git push origin "$branch_name" || true
               }
-              
+
             echo "✅ PR 创建成功！"
             
           else
