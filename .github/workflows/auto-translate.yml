@@ -1,4 +1,4 @@
-name: Auto Translation Sync
+name: Auto Translation Sync v2
 
 on:
   workflow_dispatch:
