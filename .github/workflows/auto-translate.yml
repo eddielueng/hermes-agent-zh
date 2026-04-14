@@ -1,29 +1,10 @@
 # =============================================
 # Hermes Agent 中文版 - 自动化汉化同步工作流
 # =============================================
-#
-# 功能说明：
-# 1. 定时从官方仓库 (nousresearch/hermes-agent) 同步最新代码
-# 2. 运行 auto_translate.py 自动翻译新增/修改的英文文本
-# 3. 创建 Pull Request 或直接推送到 main 分支
-#
-# 触发方式：
-# - 手动触发（推荐用于测试）
-# - 定时任务（每天/每周）
-# - 监听上游 release
-#
-# 使用方法：
-#   1. 确保 GitHub Token 有写权限
-#   2. 在仓库 Settings > Secrets 中配置：
-#      - GH_TOKEN: GitHub Personal Access Token
-#   3. 启用此工作流即可
-#
-# =============================================
 
 name: 🔄 Auto Translation Sync
 
 on:
-  # 手动触发（推荐）
   workflow_dispatch:
     inputs:
       upstream_branch:
@@ -46,21 +27,17 @@ on:
         default: true
         type: boolean
 
-  # 定时任务：每天 UTC 时间 2:00（北京时间 10:00）运行
   schedule:
     - cron: '0 2 * * *'
 
-# 解决 Node.js 20 弃用警告
 permissions:
   contents: write
   pull-requests: write
 
-# 并发控制：同一时间只允许一个实例运行
 concurrency:
   group: auto-translation
   cancel-in-progress: false
 
-# 环境变量
 env:
   UPSTREAM_REPO: "nousresearch/hermes-agent"
   UPSTREAM_BRANCH: "${{ github.event.inputs.upstream_branch || 'main' }}"
@@ -69,82 +46,48 @@ env:
   CREATE_PR: "${{ github.event.inputs.create_pr || 'true' }}"
 
 jobs:
-  # =============================================
-  # Job 1: 同步上游代码并执行翻译
-  # =============================================
   sync-and-translate:
     name: 🔄 Sync & Translate
     runs-on: ubuntu-latest
-    
-    # 权限设置
     permissions:
       contents: write
       pull-requests: write
-
-    # 强制使用 Node.js 24（解决弃用警告）
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
-      # ----------------------------------------
-      # Step 1: 检出代码
-      # ----------------------------------------
       - name: 🔍 Checkout code
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
-          fetch-depth: 0  # 获取完整历史，便于合并
+          fetch-depth: 0
 
-      # ----------------------------------------
-      # Step 2: 配置 Git
-      # ----------------------------------------
       - name: ⚙️ Configure Git
         run: |
-          git config --global user.name "Hermes Agent 中文版 Bot"
+          git config --global user.name "Hermes Agent Bot"
           git config --global user.email "bot@hermes-zh.com"
-          
-          # 添加上游远程仓库
           if ! git remote get-url upstream &>/dev/null; then
             git remote add upstream https://github.com/${UPSTREAM_REPO}.git
-            echo "✅ 已添加上游远程仓库"
-          else
-            echo "ℹ️ 上游远程仓库已存在"
           fi
 
-      # ----------------------------------------
-      # Step 3: 从上游拉取最新代码
-      # ----------------------------------------
       - name: 📥 Fetch upstream changes
         id: fetch_upstream
         run: |
           echo "🔄 正在从 ${UPSTREAM_REPO} 获取最新代码..."
-          
-          # 添加上游远程仓库（如果不存在）
           if ! git remote get-url upstream &>/dev/null; then
             git remote add upstream https://github.com/${UPSTREAM_REPO}.git
-            echo "✅ 已添加上游远程仓库"
           fi
-          
-          # 尝试获取上游代码
-          set +e  # 临时禁用 exit on error
+          set +e
           git fetch upstream ${UPSTREAM_BRANCH} 2>&1 || {
-            echo "⚠️ 无法从上游获取代码，可能是首次运行或网络问题"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "error=fetch_failed" >> $GITHUB_OUTPUT
             exit 0
           }
-          set -e  # 重新启用
-          
-          # 检查是否有新的提交
+          set -e
           LOCAL=$(git rev-parse HEAD)
           REMOTE=$(git rev-parse upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "")
-          
           if [ -z "$REMOTE" ] || [ "$LOCAL" = "$REMOTE" ]; then
-            echo "ℹ️ 已经是最新版本或首次运行"
-            
-            # 首次运行时也尝试翻译本地文件
             if [ -z "$REMOTE" ]; then
-              echo "📝 首次运行：将扫描并翻译当前所有文件"
               echo "has_changes=true" >> $GITHUB_OUTPUT
               echo "commits_ahead=0" >> $GITHUB_OUTPUT
               echo "upstream_commit=initial" >> $GITHUB_OUTPUT
@@ -154,226 +97,111 @@ jobs:
             fi
             exit 0
           fi
-          
-          # 计算新的提交数量
           COMMITS_AHEAD=$(git rev-list --count HEAD..upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "0")
           echo "📊 发现 ${COMMITS_AHEAD} 个新提交"
-          
           echo "has_changes=true" >> $GITHUB_OUTPUT
           echo "commits_ahead=${COMMITS_AHEAD}" >> $GITHUB_OUTPUT
           echo "upstream_commit=${REMOTE}" >> $GITHUB_OUTPUT
 
-      # ----------------------------------------
-      # Step 4: 合并上游更改
-      # ----------------------------------------
       - name: 🔀 Merge upstream changes
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
           echo "🔀 正在合并上游更改..."
-          
-          # 创建新分支（如果启用 PR 模式）
           if [ "$CREATE_PR" = "true" ]; then
             BRANCH_NAME="auto-sync-$(date +%Y%m%d-%H%M%S)"
             git checkout -b "$BRANCH_NAME"
             echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
           fi
-          
-          # 执行合并
-          git merge upstream/${UPSTREAM_BRANCH} \
-            --no-edit \
-            -m "🔄 Merge upstream ${UPSTREAM_BRANCH}: $(date '+%Y-%m-%d %H:%M')" || {
-            echo "⚠️ 合并出现冲突或错误，尝试继续..."
-            # 如果有冲突，使用 ours 策略保留我们的版本
-            # 实际生产中可能需要人工介入
+          git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream" || {
+            echo "⚠️ 合并出现冲突或错误"
           }
-          
           echo "✅ 合并完成"
 
-      # ----------------------------------------
-      # Step 5: 设置 Python 环境
-      # ----------------------------------------
       - name: 🐍 Setup Python
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      # ----------------------------------------
-      # Step 6: 安装依赖
-      # ----------------------------------------
       - name: 📦 Install dependencies
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pyyaml
-          echo "✅ Python 依赖安装完成"
 
-      # ----------------------------------------
-      # Step 7: 执行自动翻译
-      # ----------------------------------------
       - name: 🌐 Run auto translation
         id: translate
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
           echo "🌐 开始执行自动汉化..."
-          echo "模式: $([ '$DRY_RUN' = 'true' ] && echo '预览' || echo '正式')"
-          echo "工作目录: $(pwd)"
-          echo "Python 版本: $(python --version)"
-          
-          # 显示文件列表
-          echo ""
-          echo "📋 当前目录结构:"
-          ls -la hermes_cli/ tools/ gateway/ 2>/dev/null | head -20
-          echo ""
-          
-          # 运行翻译脚本（带完整错误处理）
+          mkdir -p output
           DRY_RUN_FLAG=""
           if [ "$DRY_RUN" = "true" ]; then
             DRY_RUN_FLAG="--dry-run"
           fi
-          
-          # 创建输出目录（确保报告能生成）
-          mkdir -p output
-          
-          # 运行翻译脚本
-          set +e  # 禁用 exit on error
-          
-          python auto_translate.py \
-            --rules translation_rules.yaml \
-            --upstream ${UPSTREAM_REPO} \
-            --branch ${UPSTREAM_BRANCH} \
-            --output output/translation_report.md \
-            ${DRY_RUN_FLAG} 2>&1 | tee output/translation_output.log
-          
+          set +e
+          python auto_translate.py --rules translation_rules.yaml --upstream ${UPSTREAM_REPO} --branch ${UPSTREAM_BRANCH} --output output/translation_report.md ${DRY_RUN_FLAG} 2>&1 | tee output/translation_output.log
           TRANSLATE_EXIT_CODE=$?
-          
-          set -e  # 重新启用
-          
-          echo ""
-          echo "=========================================="
-          echo "📊 翻译脚本执行结果"
-          echo "=========================================="
-          echo "退出码: ${TRANSLATE_EXIT_CODE}"
-          
-          # 检查是否有实际文件变更（即使脚本报错）
+          set -e
           CHANGED_FILES=$(git diff --name-only 2>/dev/null | wc -l)
-          echo "检测到变更文件数: ${CHANGED_FILES}"
-          
-          # 统计翻译数量
+          echo "📊 检测到变更文件数: ${CHANGED_FILES}"
           if [ $CHANGED_FILES -gt 0 ]; then
             TRANSLATIONS=$(git diff --stat 2>/dev/null | tail -1 | awk '{print $4}' || echo "0")
-            echo "翻译条目数: ~${TRANSLATIONS}"
-            
             echo "changed_files=${CHANGED_FILES}" >> $GITHUB_OUTPUT
             echo "translations=${TRANSLATIONS}" >> $GITHUB_OUTPUT
-            echo "status=success" >> $GITHUB_OUTPUT
-            
-            echo ""
             echo "✅ 翻译完成！发现 ${CHANGED_FILES} 个文件有变更"
-            
           else
+            echo "changed_files=0" >> $GITHUB_OUTPUT
+            echo "translations=0" >> $GITHUB_OUTPUT
             if [ $TRANSLATE_EXIT_CODE -ne 0 ]; then
-              echo ""
-              echo "⚠️ 翻译脚本执行失败（退出码: ${TRANSLATE_EXIT_CODE}）"
-              echo "查看上方日志了解详情"
-              
-              # 输出调试信息
-              echo ""
-              echo "🔍 调试信息:"
-              echo "   - auto_translate.py 存在: $(test -f auto_translate.py && echo '是' || echo '否')"
-              echo "   - translation_rules.yaml 存在: $(test -f translation_rules.yaml && echo '是' || echo '否')"
-              echo "   - Python pyyaml: $(python -c 'import yaml; print("已安装")' 2>&1 || echo '未安装')"
-              echo "   - 脚本输出日志:"
-              tail -20 output/translation_output.log 2>/dev/null || echo "无日志"
-              
-              echo "changed_files=0" >> $GITHUB_OUTPUT
-              echo "translations=0" >> $GITHUB_OUTPUT
               echo "error=translate_failed" >> $GITHUB_OUTPUT
+              echo "⚠️ 翻译脚本执行失败（退出码: ${TRANSLATE_EXIT_CODE}）"
+              tail -20 output/translation_output.log 2>/dev/null || true
             else
-              echo ""
-              echo "ℹ️ 无需翻译（没有检测到可翻译的内容）"
-              
-              echo "changed_files=0" >> $GITHUB_OUTPUT
-              echo "translations=0" >> $GITHUB_OUTPUT
               echo "status=no_changes" >> $GITHUB_OUTPUT
+              echo "ℹ️ 无需翻译"
             fi
           fi
-          
-          echo "=========================================="
 
-      # ----------------------------------------
-      # Step 8: 提交更改
-      # ----------------------------------------
       - name: 💾 Commit changes
         if: steps.translate.outputs.changed_files != '0'
         run: |
-          # 添加所有变更的文件
           git add -A
-
-          # 生成提交信息到临时文件（避免 shell 变量替换错误）
           TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
-          COMMITS_AHEAD="${{ steps.fetch_upstream.outputs.commits_ahead }}"
-          TRANSLATIONS="${{ steps.translate.outputs.translations }}"
-          CHANGED_FILES="${{ steps.translate.outputs.changed_files }}"
-
-          cat > /tmp/commit_msg.txt << 'EOF'
-🔄 自动汉化同步 - TIMESTAMP_PLACEHOLDER
-
-✨ 主要更新：
-- 同步上游 COMMITS_PLACEHOLDER 个提交
-- 自动翻译 TRANS_PLACEHOLDER 条用户可见文本
-- 更新 FILES_PLACEHOLDER 个文件
-
-🤖 *此提交由 GitHub Actions 自动生成*
-EOF
-
-          # 替换占位符为实际值
-          sed -i "s/TIMESTAMP_PLACEHOLDER/${TIMESTAMP}/g" /tmp/commit_msg.txt
-          sed -i "s/COMMITS_PLACEHOLDER/${COMMITS_AHEAD}/g" /tmp/commit_msg.txt
-          sed -i "s/TRANS_PLACEHOLDER/${TRANSLATIONS}/g" /tmp/commit_msg.txt
-          sed -i "s/FILES_PLACEHOLDER/${CHANGED_FILES}/g" /tmp/commit_msg.txt
-
-          echo "📝 提交信息："
-          cat /tmp/commit_msg.txt
-          echo ""
-
-          # 提交（从文件读取）
-          git commit -F /tmp/commit_msg.txt || echo "ℹ️ 无需提交（没有新的变更）"
-
+          COMMITS="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+          TRANS="${{ steps.translate.outputs.translations }}"
+          FILES="${{ steps.translate.outputs.changed_files }}"
+          printf "🔄 自动汉化同步 - %s\n\n✨ 主要更新：\n- 同步上游 %s 个提交\n- 自动翻译 %s 条用户可见文本\n- 更新 %s 个文件\n\n🤖 *此提交由 GitHub Actions 自动生成*" "$TIMESTAMP" "$COMMITS" "$TRANS" "$FILES" > /tmp/commit_msg.txt
+          git commit -F /tmp/commit_msg.txt || echo "ℹ️ 无需提交"
           echo "✅ 已提交更改"
 
-      # ----------------------------------------
-      # Step 9: 推送或创建 PR
-      # ----------------------------------------
       - name: 🚀 Push or Create PR
         if: steps.translate.outputs.changed_files != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           if [ "$CREATE_PR" = "true" ] && [ -n "$branch_name" ]; then
-            # 创建 PR
             echo "📤 正在创建 Pull Request..."
-
-            # 准备变量
             PR_DATE=$(date '+%Y-%m-%d')
             SYNC_TIME=$(date '+%Y-%m-%d %H:%M:%S')
             UPSTREAM_COMMIT="${{ steps.fetch_upstream.outputs.upstream_commit }}"
-            COMMITS_AHEAD="${{ steps.fetch_upstream.outputs.commits_ahead }}"
-            TRANSLATIONS="${{ steps.translate.outputs.translations }}"
-            CHANGED_FILES="${{ steps.translate.outputs.changed_files }}"
+            COMMITS="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+            TRANS="${{ steps.translate.outputs.translations }}"
+            FILES="${{ steps.translate.outputs.changed_files }}"
             COMMIT_SHORT=$(echo "${UPSTREAM_COMMIT}" | cut -c1-7)
-
-            # 创建 PR body 文件
-            cat > /tmp/pr_body.txt << 'EOF'
+            DIFF_STAT=$(git diff --stat HEAD~1 2>/dev/null | head -20 || echo "无变更统计")
+            cat > /tmp/pr_body.txt << ENDOFFILE
 ## 🔄 自动化汉化同步报告
 
-**同步时间**: SYNC_TIME_PLACEHOLDER
-**上游 commit**: `COMMIT_PLACEHOLDER`
-**修改文件数**: FILES_PLACEHOLDER
+**同步时间**: ${SYNC_TIME}
+**上游 commit**: \`${COMMIT_SHORT}\`
+**修改文件数**: ${FILES}
 
 ### ✅ 本次汉化内容
 
-- **同步上游**: COMMITS_AHEAD_PLACEHOLDER 个新提交
-- **翻译文本**: 约 TRANS_PLACEHOLDER 条用户可见文本
-- **涉及文件**: FILES_PLACEHOLDER2 个
+- **同步上游**: ${COMMITS} 个新提交
+- **翻译文本**: 约 ${TRANS} 条用户可见文本
+- **涉及文件**: ${FILES} 个
 
 ### 📋 详细变更
 
@@ -381,33 +209,22 @@ EOF
 <summary>点击查看详细翻译记录</summary>
 
 \`\`\`
-DIFF_STAT_PLACEHOLDER
+${DIFF_STAT}
 \`\`\`
 
 </details>
 
 ---
 
-🤖 *此 PR 由 [Auto Translation Workflow](.github/workflows/auto-translate.yml) 自动生成*
+🤖 *此 PR 由 Auto Translation Workflow 自动生成*
 
 ℹ️ **审核建议**:
 1. 检查翻译是否准确
 2. 测试功能是否正常
 3. 如有问题请评论或关闭此 PR
-EOF
-
-            # 替换占位符
-            sed -i "s/SYNC_TIME_PLACEHOLDER/${SYNC_TIME}/g" /tmp/pr_body.txt
-            sed -i "s/COMMIT_PLACEHOLDER/${COMMIT_SHORT}/g" /tmp/pr_body.txt
-            sed -i "s/FILES_PLACEHOLDER/${CHANGED_FILES}/g" /tmp/pr_body.txt
-            sed -i "s/COMMITS_AHEAD_PLACEHOLDER/${COMMITS_AHEAD}/g" /tmp/pr_body.txt
-            sed -i "s/TRANS_PLACEHOLDER/${TRANSLATIONS}/g" /tmp/pr_body.txt
-            sed -i "s/FILES_PLACEHOLDER2/${CHANGED_FILES}/g" /tmp/pr_body.txt
-            sed -i "s/DIFF_STAT_PLACEHOLDER/$(git diff --stat HEAD~1 | head -20)/g" /tmp/pr_body.txt
-
-            # 创建 PR（从文件读取 body）
+ENDOFFILE
             gh pr create \
-              --title "🔄 自动汉化同步 - ${PR_DATE} (${COMMITS_AHEAD} commits)" \
+              --title "🔄 自动汉化同步 - ${PR_DATE} (${COMMITS} commits)" \
               --body-file /tmp/pr_body.txt \
               --label "automated" \
               --label "translation" \
@@ -415,60 +232,38 @@ EOF
                 echo "⚠️ PR 创建失败或已存在"
                 git push origin "$branch_name" || true
               }
-
             echo "✅ PR 创建成功！"
-            
           else
-            # 直接推送到 main
             echo "🚀 正在推送到 main 分支..."
             git push origin main
             echo "✅ 推送成功！"
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      # ----------------------------------------
-      # Step 10: 上传翻译报告
-      # ----------------------------------------
       - name: 📄 Upload translation report
         if: always() && steps.translate.outputs.changed_files != '0'
         uses: actions/upload-artifact@v4
         with:
           name: translation-report-${{ github.run_id }}
-          path: |
-            output/
+          path: output/
           retention-days: 30
-          if-no-files-found: ignore  # 即使没有文件也不报错
+          if-no-files-found: ignore
 
-      # ----------------------------------------
-      # Step 11: 发送通知（可选）
-      # ----------------------------------------
       - name: 📢 Send notification
         if: success() && steps.translate.outputs.changed_files != '0'
         run: |
           echo "🎉 自动化汉化流程已完成！"
-          echo ""
-          echo "📊 本次统计:"
-          echo "   • 上游新提交: ${steps.fetch_upstream.outputs.commits_ahead}"
-          echo "   • 变更文件数: ${steps.translate.outputs.changed_files}"
-          echo "   • 翻译文本数: ~${steps.translate.outputs.translations}"
-          echo ""
-          echo "📍 查看详情:"
-          if [ "$CREATE_PR" = "true" ]; then
-            echo "   • PR 链接: (查看 Actions 日志获取)"
-          else
-            echo "   • 直接已推送到 main 分支"
-          fi
+          COMMITS="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+          FILES="${{ steps.translate.outputs.changed_files }}"
+          TRANS="${{ steps.translate.outputs.translations }}"
+          echo "   • 上游新提交: ${COMMITS}"
+          echo "   • 变更文件数: ${FILES}"
+          echo "   • 翻译文本数: ~${TRANS}"
 
-  # =============================================
-  # Job 2: 清理和总结（可选）
-  # =============================================
   summary:
     name: 📊 Summary
     runs-on: ubuntu-latest
     needs: sync-and-translate
     if: always()
-    
     steps:
       - name: 📊 Generate summary
         run: |
