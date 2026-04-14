@@ -214,12 +214,23 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Creating PR from branch: ${branch_name}"
+          
           gh pr create \
+            --head "${branch_name}" \
+            --base main \
             --title "Auto sync & translate $(date '+%Y-%m-%d')" \
-            --body "Automated sync from upstream nousresearch/hermes-agent + Chinese translation" \
+            --body "Automated sync from upstream nousresearch/hermes-agent + Chinese translation
+
+          **Sync details:**
+          - Upstream commits: ${{ steps.fetch_upstream.outputs.commits_ahead }}
+          - Files translated: ${{ steps.translate.outputs.changed_files }}" \
             --label "automated" \
-            --label "translation" \
-            --base main || echo "PR exists or failed"
+            --label "translation" || {
+              echo "PR may already exist or creation failed"
+              echo "Branch URL: https://github.com/${{ github.repository }}/tree/${branch_name}"
+            }
 
       - name: Upload report
         if: always()
