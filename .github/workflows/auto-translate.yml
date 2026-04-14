@@ -217,6 +217,10 @@ jobs:
           echo "Current branch: $(git branch --show-current)"
           echo "Creating PR from branch: ${branch_name}"
           
+          # 先确保 labels 存在（如果不存在则创建）
+          gh label create "automated" --color "0075ca" 2>/dev/null || true
+          gh label create "translation" --color "5319e7" 2>/dev/null || true
+          
           gh pr create \
             --head "${branch_name}" \
             --base main \
@@ -226,10 +230,16 @@ jobs:
           **Sync details:**
           - Upstream commits: ${{ steps.fetch_upstream.outputs.commits_ahead }}
           - Files translated: ${{ steps.translate.outputs.changed_files }}" \
-            --label "automated" \
-            --label "translation" || {
-              echo "PR may already exist or creation failed"
-              echo "Branch URL: https://github.com/${{ github.repository }}/tree/${branch_name}"
+            --label "automated,translation" || {
+              echo "PR creation failed, trying without labels..."
+              gh pr create \
+                --head "${branch_name}" \
+                --base main \
+                --title "Auto sync & translate $(date '+%Y-%m-%d')" \
+                --body "Automated sync + Chinese translation" || {
+                  echo "PR may already exist"
+                  echo "Branch URL: https://github.com/${{ github.repository }}/tree/${branch_name}"
+                }
             }
 
       - name: Upload report
