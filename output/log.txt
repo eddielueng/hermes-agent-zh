@@ -1,2929 +1,2943 @@
 ✅ 已加载规则文件: translation_rules.yaml
    模式: 实际翻译
 
-📝 开始翻译 1461 个文件...
+📝 开始翻译 1468 个文件...
 
-[1/1461] 正在处理: ./README.md
+[1/1468] 正在处理: ./README.md
    ℹ️ 无需翻译
-[2/1461] 正在处理: ./AUTO_TRANSLATE_GUIDE.md
+[2/1468] 正在处理: ./AUTO_TRANSLATE_GUIDE.md
    ℹ️ 无需翻译
-[3/1461] 正在处理: ./AGENTS.md
+[3/1468] 正在处理: ./AGENTS.md
    ℹ️ 无需翻译
-[4/1461] 正在处理: ./model_tools.py
+[4/1468] 正在处理: ./model_tools.py
    ℹ️ 无需翻译
-[5/1461] 正在处理: ./run_agent.py
+[5/1468] 正在处理: ./run_agent.py
    ℹ️ 无需翻译
-[6/1461] 正在处理: ./utils.py
+[6/1468] 正在处理: ./utils.py
    ℹ️ 无需翻译
-[7/1461] 正在处理: ./RELEASE_v0.7.0.md
+[7/1468] 正在处理: ./RELEASE_v0.7.0.md
    ℹ️ 无需翻译
-[8/1461] 正在处理: ./RELEASE_v0.6.0.md
+[8/1468] 正在处理: ./RELEASE_v0.6.0.md
    ℹ️ 无需翻译
-[9/1461] 正在处理: ./hermes_logging.py
+[9/1468] 正在处理: ./hermes_logging.py
    ℹ️ 无需翻译
-[10/1461] 正在处理: ./hermes_state.py
+[10/1468] 正在处理: ./hermes_state.py
    ℹ️ 无需翻译
-[11/1461] 正在处理: ./package-lock.json
+[11/1468] 正在处理: ./package-lock.json
    ℹ️ 无需翻译
-[12/1461] 正在处理: ./rl_cli.py
+[12/1468] 正在处理: ./rl_cli.py
    ℹ️ 无需翻译
-[13/1461] 正在处理: ./RELEASE_v0.3.0.md
+[13/1468] 正在处理: ./RELEASE_v0.3.0.md
    ℹ️ 无需翻译
-[14/1461] 正在处理: ./toolsets.py
+[14/1468] 正在处理: ./toolsets.py
    ℹ️ 无需翻译
-[15/1461] 正在处理: ./RELEASE_v0.4.0.md
+[15/1468] 正在处理: ./RELEASE_v0.4.0.md
    ℹ️ 无需翻译
-[16/1461] 正在处理: ./hermes_constants.py
+[16/1468] 正在处理: ./hermes_constants.py
    ℹ️ 无需翻译
-[17/1461] 正在处理: ./RELEASE_v0.8.0.md
+[17/1468] 正在处理: ./RELEASE_v0.8.0.md
    ℹ️ 无需翻译
-[18/1461] 正在处理: ./RELEASE_v0.9.0.md
+[18/1468] 正在处理: ./RELEASE_v0.9.0.md
    ℹ️ 无需翻译
-[19/1461] 正在处理: ./cli.py
+[19/1468] 正在处理: ./cli.py
    ℹ️ 无需翻译
-[20/1461] 正在处理: ./auto_translate.py
+[20/1468] 正在处理: ./auto_translate.py
    ℹ️ 无需翻译
-[21/1461] 正在处理: ./trajectory_compressor.py
+[21/1468] 正在处理: ./trajectory_compressor.py
    ℹ️ 无需翻译
-[22/1461] 正在处理: ./XIDAO_API_配置指南.md
+[22/1468] 正在处理: ./XIDAO_API_配置指南.md
    ℹ️ 无需翻译
-[23/1461] 正在处理: ./hermes_time.py
+[23/1468] 正在处理: ./hermes_time.py
    ℹ️ 无需翻译
-[24/1461] 正在处理: ./RELEASE_v0.2.0.md
+[24/1468] 正在处理: ./RELEASE_v0.2.0.md
    ℹ️ 无需翻译
-[25/1461] 正在处理: ./mcp_serve.py
+[25/1468] 正在处理: ./mcp_serve.py
    ℹ️ 无需翻译
-[26/1461] 正在处理: ./translation_rules.yaml
+[26/1468] 正在处理: ./translation_rules.yaml
    ℹ️ 无需翻译
-[27/1461] 正在处理: ./mini_swe_runner.py
+[27/1468] 正在处理: ./mini_swe_runner.py
    ℹ️ 无需翻译
-[28/1461] 正在处理: ./toolset_distributions.py
+[28/1468] 正在处理: ./toolset_distributions.py
    ℹ️ 无需翻译
-[29/1461] 正在处理: ./CONTRIBUTING.md
+[29/1468] 正在处理: ./CONTRIBUTING.md
    ℹ️ 无需翻译
-[30/1461] 正在处理: ./RELEASE_v0.5.0.md
+[30/1468] 正在处理: ./RELEASE_v0.5.0.md
    ℹ️ 无需翻译
-[31/1461] 正在处理: ./package.json
+[31/1468] 正在处理: ./package.json
    ℹ️ 无需翻译
-[32/1461] 正在处理: ./batch_runner.py
+[32/1468] 正在处理: ./batch_runner.py
    ℹ️ 无需翻译
-[33/1461] 正在处理: ./hermes_cli/main.py
+[33/1468] 正在处理: ./hermes_cli/main.py
    ℹ️ 无需翻译
-[34/1461] 正在处理: ./hermes_cli/gateway.py
+[34/1468] 正在处理: ./hermes_cli/gateway.py
    ℹ️ 无需翻译
-[35/1461] 正在处理: ./hermes_cli/doctor.py
+[35/1468] 正在处理: ./hermes_cli/doctor.py
    ℹ️ 无需翻译
-[36/1461] 正在处理: ./hermes_cli/setup.py
+[36/1468] 正在处理: ./hermes_cli/setup.py
    ℹ️ 无需翻译
-[37/1461] 正在处理: ./hermes_cli/config.py
+[37/1468] 正在处理: ./hermes_cli/config.py
    ℹ️ 无需翻译
-[38/1461] 正在处理: ./hermes_cli/tips.py
+[38/1468] 正在处理: ./hermes_cli/tips.py
    ℹ️ 无需翻译
-[39/1461] 正在处理: ./hermes_cli/platforms.py
+[39/1468] 正在处理: ./hermes_cli/platforms.py
    ℹ️ 无需翻译
-[40/1461] 正在处理: ./hermes_cli/auth.py
+[40/1468] 正在处理: ./hermes_cli/auth.py
    ℹ️ 无需翻译
-[41/1461] 正在处理: ./hermes_cli/pairing.py
+[41/1468] 正在处理: ./hermes_cli/pairing.py
    ℹ️ 无需翻译
-[42/1461] 正在处理: ./hermes_cli/debug.py
+[42/1468] 正在处理: ./hermes_cli/debug.py
    ℹ️ 无需翻译
-[43/1461] 正在处理: ./hermes_cli/uninstall.py
+[43/1468] 正在处理: ./hermes_cli/uninstall.py
    ℹ️ 无需翻译
-[44/1461] 正在处理: ./hermes_cli/status.py
+[44/1468] 正在处理: ./hermes_cli/status.py
    ℹ️ 无需翻译
-[45/1461] 正在处理: ./hermes_cli/copilot_auth.py
+[45/1468] 正在处理: ./hermes_cli/copilot_auth.py
    ℹ️ 无需翻译
-[46/1461] 正在处理: ./hermes_cli/cron.py
+[46/1468] 正在处理: ./hermes_cli/cron.py
    ℹ️ 无需翻译
-[47/1461] 正在处理: ./hermes_cli/cli_output.py
+[47/1468] 正在处理: ./hermes_cli/cli_output.py
    ℹ️ 无需翻译
-[48/1461] 正在处理: ./hermes_cli/default_soul.py
+[48/1468] 正在处理: ./hermes_cli/default_soul.py
    ℹ️ 无需翻译
-[49/1461] 正在处理: ./hermes_cli/models.py
+[49/1468] 正在处理: ./hermes_cli/models.py
    ℹ️ 无需翻译
-[50/1461] 正在处理: ./hermes_cli/providers.py
+[50/1468] 正在处理: ./hermes_cli/providers.py
    ℹ️ 无需翻译
-[51/1461] 正在处理: ./hermes_cli/nous_subscription.py
+[51/1468] 正在处理: ./hermes_cli/nous_subscription.py
    ℹ️ 无需翻译
-[52/1461] 正在处理: ./hermes_cli/plugins.py
+[52/1468] 正在处理: ./hermes_cli/plugins.py
    ℹ️ 无需翻译
-[53/1461] 正在处理: ./hermes_cli/clipboard.py
+[53/1468] 正在处理: ./hermes_cli/clipboard.py
    ℹ️ 无需翻译
-[54/1461] 正在处理: ./hermes_cli/skin_engine.py
+[54/1468] 正在处理: ./hermes_cli/skin_engine.py
    ℹ️ 无需翻译
-[55/1461] 正在处理: ./hermes_cli/memory_setup.py
+[55/1468] 正在处理: ./hermes_cli/memory_setup.py
    ℹ️ 无需翻译
-[56/1461] 正在处理: ./hermes_cli/runtime_provider.py
+[56/1468] 正在处理: ./hermes_cli/runtime_provider.py
    ℹ️ 无需翻译
-[57/1461] 正在处理: ./hermes_cli/colors.py
+[57/1468] 正在处理: ./hermes_cli/colors.py
    ℹ️ 无需翻译
-[58/1461] 正在处理: ./hermes_cli/plugins_cmd.py
+[58/1468] 正在处理: ./hermes_cli/plugins_cmd.py
    ℹ️ 无需翻译
-[59/1461] 正在处理: ./hermes_cli/model_normalize.py
+[59/1468] 正在处理: ./hermes_cli/model_normalize.py
    ℹ️ 无需翻译
-[60/1461] 正在处理: ./hermes_cli/logs.py
+[60/1468] 正在处理: ./hermes_cli/logs.py
    ℹ️ 无需翻译
-[61/1461] 正在处理: ./hermes_cli/mcp_config.py
+[61/1468] 正在处理: ./hermes_cli/mcp_config.py
    ℹ️ 无需翻译
-[62/1461] 正在处理: ./hermes_cli/curses_ui.py
+[62/1468] 正在处理: ./hermes_cli/curses_ui.py
    ℹ️ 无需翻译
-[63/1461] 正在处理: ./hermes_cli/skills_hub.py
+[63/1468] 正在处理: ./hermes_cli/skills_hub.py
    ℹ️ 无需翻译
-[64/1461] 正在处理: ./hermes_cli/tools_config.py
+[64/1468] 正在处理: ./hermes_cli/tools_config.py
    ℹ️ 无需翻译
-[65/1461] 正在处理: ./hermes_cli/webhook.py
+[65/1468] 正在处理: ./hermes_cli/completion.py
    ℹ️ 无需翻译
-[66/1461] 正在处理: ./hermes_cli/profiles.py
+[66/1468] 正在处理: ./hermes_cli/webhook.py
    ℹ️ 无需翻译
-[67/1461] 正在处理: ./hermes_cli/env_loader.py
+[67/1468] 正在处理: ./hermes_cli/profiles.py
    ℹ️ 无需翻译
-[68/1461] 正在处理: ./hermes_cli/codex_models.py
+[68/1468] 正在处理: ./hermes_cli/env_loader.py
    ℹ️ 无需翻译
-[69/1461] 正在处理: ./hermes_cli/callbacks.py
+[69/1468] 正在处理: ./hermes_cli/codex_models.py
    ℹ️ 无需翻译
-[70/1461] 正在处理: ./hermes_cli/auth_commands.py
+[70/1468] 正在处理: ./hermes_cli/callbacks.py
    ℹ️ 无需翻译
-[71/1461] 正在处理: ./hermes_cli/model_switch.py
+[71/1468] 正在处理: ./hermes_cli/auth_commands.py
    ℹ️ 无需翻译
-[72/1461] 正在处理: ./hermes_cli/skills_config.py
+[72/1468] 正在处理: ./hermes_cli/model_switch.py
    ℹ️ 无需翻译
-[73/1461] 正在处理: ./hermes_cli/web_server.py
+[73/1468] 正在处理: ./hermes_cli/skills_config.py
    ℹ️ 无需翻译
-[74/1461] 正在处理: ./hermes_cli/dump.py
+[74/1468] 正在处理: ./hermes_cli/web_server.py
    ℹ️ 无需翻译
-[75/1461] 正在处理: ./hermes_cli/commands.py
+[75/1468] 正在处理: ./hermes_cli/dump.py
    ℹ️ 无需翻译
-[76/1461] 正在处理: ./hermes_cli/backup.py
+[76/1468] 正在处理: ./hermes_cli/commands.py
    ℹ️ 无需翻译
-[77/1461] 正在处理: ./hermes_cli/__init__.py
+[77/1468] 正在处理: ./hermes_cli/backup.py
    ℹ️ 无需翻译
-[78/1461] 正在处理: ./hermes_cli/banner.py
+[78/1468] 正在处理: ./hermes_cli/__init__.py
    ℹ️ 无需翻译
-[79/1461] 正在处理: ./hermes_cli/claw.py
+[79/1468] 正在处理: ./hermes_cli/banner.py
    ℹ️ 无需翻译
-[80/1461] 正在处理: ./tests/test_sql_injection.py
+[80/1468] 正在处理: ./hermes_cli/claw.py
    ℹ️ 无需翻译
-[81/1461] 正在处理: ./tests/test_minisweagent_path.py
+[81/1468] 正在处理: ./tests/test_sql_injection.py
    ℹ️ 无需翻译
-[82/1461] 正在处理: ./tests/test_model_picker_scroll.py
+[82/1468] 正在处理: ./tests/test_minisweagent_path.py
    ℹ️ 无需翻译
-[83/1461] 正在处理: ./tests/test_evidence_store.py
+[83/1468] 正在处理: ./tests/test_model_picker_scroll.py
    ℹ️ 无需翻译
-[84/1461] 正在处理: ./tests/run_interrupt_test.py
+[84/1468] 正在处理: ./tests/test_evidence_store.py
    ℹ️ 无需翻译
-[85/1461] 正在处理: ./tests/test_retry_utils.py
+[85/1468] 正在处理: ./tests/run_interrupt_test.py
    ℹ️ 无需翻译
-[86/1461] 正在处理: ./tests/test_trajectory_compressor_async.py
+[86/1468] 正在处理: ./tests/test_retry_utils.py
    ℹ️ 无需翻译
-[87/1461] 正在处理: ./tests/test_cli_skin_integration.py
+[87/1468] 正在处理: ./tests/test_trajectory_compressor_async.py
    ℹ️ 无需翻译
-[88/1461] 正在处理: ./tests/test_toolset_distributions.py
+[88/1468] 正在处理: ./tests/test_cli_skin_integration.py
    ℹ️ 无需翻译
-[89/1461] 正在处理: ./tests/test_batch_runner_checkpoint.py
+[89/1468] 正在处理: ./tests/test_toolset_distributions.py
    ℹ️ 无需翻译
-[90/1461] 正在处理: ./tests/test_timezone.py
+[90/1468] 正在处理: ./tests/test_batch_runner_checkpoint.py
    ℹ️ 无需翻译
-[91/1461] 正在处理: ./tests/test_utils_truthy_values.py
+[91/1468] 正在处理: ./tests/test_timezone.py
    ℹ️ 无需翻译
-[92/1461] 正在处理: ./tests/test_model_tools_async_bridge.py
+[92/1468] 正在处理: ./tests/test_utils_truthy_values.py
    ℹ️ 无需翻译
-[93/1461] 正在处理: ./tests/conftest.py
+[93/1468] 正在处理: ./tests/test_model_tools_async_bridge.py
    ℹ️ 无需翻译
-[94/1461] 正在处理: ./tests/test_ollama_num_ctx.py
+[94/1468] 正在处理: ./tests/conftest.py
    ℹ️ 无需翻译
-[95/1461] 正在处理: ./tests/test_hermes_state.py
+[95/1468] 正在处理: ./tests/test_ollama_num_ctx.py
    ℹ️ 无需翻译
-[96/1461] 正在处理: ./tests/test_packaging_metadata.py
+[96/1468] 正在处理: ./tests/test_hermes_state.py
    ℹ️ 无需翻译
-[97/1461] 正在处理: ./tests/test_trajectory_compressor.py
+[97/1468] 正在处理: ./tests/test_packaging_metadata.py
    ℹ️ 无需翻译
-[98/1461] 正在处理: ./tests/test_project_metadata.py
+[98/1468] 正在处理: ./tests/test_trajectory_compressor.py
    ℹ️ 无需翻译
-[99/1461] 正在处理: ./tests/test_ctx_halving_fix.py
+[99/1468] 正在处理: ./tests/test_project_metadata.py
    ℹ️ 无需翻译
-[100/1461] 正在处理: ./tests/test_ipv4_preference.py
+[100/1468] 正在处理: ./tests/test_ctx_halving_fix.py
    ℹ️ 无需翻译
-[101/1461] 正在处理: ./tests/test_cli_file_drop.py
+[101/1468] 正在处理: ./tests/test_ipv4_preference.py
    ℹ️ 无需翻译
-[102/1461] 正在处理: ./tests/test_empty_model_fallback.py
+[102/1468] 正在处理: ./tests/test_cli_file_drop.py
    ℹ️ 无需翻译
-[103/1461] 正在处理: ./tests/test_subprocess_home_isolation.py
+[103/1468] 正在处理: ./tests/test_plugin_skills.py
    ℹ️ 无需翻译
-[104/1461] 正在处理: ./tests/test_hermes_logging.py
+[104/1468] 正在处理: ./tests/test_empty_model_fallback.py
    ℹ️ 无需翻译
-[105/1461] 正在处理: ./tests/test_toolsets.py
+[105/1468] 正在处理: ./tests/test_subprocess_home_isolation.py
    ℹ️ 无需翻译
-[106/1461] 正在处理: ./tests/test_model_tools.py
+[106/1468] 正在处理: ./tests/test_hermes_logging.py
    ℹ️ 无需翻译
-[107/1461] 正在处理: ./tests/test_honcho_client_config.py
+[107/1468] 正在处理: ./tests/test_toolsets.py
    ℹ️ 无需翻译
-[108/1461] 正在处理: ./tests/__init__.py
+[108/1468] 正在处理: ./tests/test_model_tools.py
    ℹ️ 无需翻译
-[109/1461] 正在处理: ./tests/test_mcp_serve.py
+[109/1468] 正在处理: ./tests/test_honcho_client_config.py
    ℹ️ 无需翻译
-[110/1461] 正在处理: ./tests/test_hermes_constants.py
+[110/1468] 正在处理: ./tests/__init__.py
    ℹ️ 无需翻译
-[111/1461] 正在处理: ./tests/hermes_cli/test_backup.py
+[111/1468] 正在处理: ./tests/test_mcp_serve.py
    ℹ️ 无需翻译
-[112/1461] 正在处理: ./tests/hermes_cli/test_auth_nous_provider.py
+[112/1468] 正在处理: ./tests/test_hermes_constants.py
    ℹ️ 无需翻译
-[113/1461] 正在处理: ./tests/hermes_cli/test_banner_git_state.py
+[113/1468] 正在处理: ./tests/hermes_cli/test_backup.py
    ℹ️ 无需翻译
-[114/1461] 正在处理: ./tests/hermes_cli/test_banner.py
+[114/1468] 正在处理: ./tests/hermes_cli/test_auth_nous_provider.py
    ℹ️ 无需翻译
-[115/1461] 正在处理: ./tests/hermes_cli/test_web_server.py
+[115/1468] 正在处理: ./tests/hermes_cli/test_banner_git_state.py
    ℹ️ 无需翻译
-[116/1461] 正在处理: ./tests/hermes_cli/test_nous_subscription.py
+[116/1468] 正在处理: ./tests/hermes_cli/test_banner.py
    ℹ️ 无需翻译
-[117/1461] 正在处理: ./tests/hermes_cli/test_user_providers_model_switch.py
+[117/1468] 正在处理: ./tests/hermes_cli/test_web_server.py
    ℹ️ 无需翻译
-[118/1461] 正在处理: ./tests/hermes_cli/test_update_check.py
+[118/1468] 正在处理: ./tests/hermes_cli/test_nous_subscription.py
    ℹ️ 无需翻译
-[119/1461] 正在处理: ./tests/hermes_cli/test_gemini_provider.py
+[119/1468] 正在处理: ./tests/hermes_cli/test_user_providers_model_switch.py
    ℹ️ 无需翻译
-[120/1461] 正在处理: ./tests/hermes_cli/test_status.py
+[120/1468] 正在处理: ./tests/hermes_cli/test_update_check.py
    ℹ️ 无需翻译
-[121/1461] 正在处理: ./tests/hermes_cli/test_set_config_value.py
+[121/1468] 正在处理: ./tests/hermes_cli/test_gemini_provider.py
    ℹ️ 无需翻译
-[122/1461] 正在处理: ./tests/hermes_cli/test_gateway_wsl.py
+[122/1468] 正在处理: ./tests/hermes_cli/test_status.py
    ℹ️ 无需翻译
-[123/1461] 正在处理: ./tests/hermes_cli/test_argparse_flag_propagation.py
+[123/1468] 正在处理: ./tests/hermes_cli/test_set_config_value.py
    ℹ️ 无需翻译
-[124/1461] 正在处理: ./tests/hermes_cli/test_model_provider_persistence.py
+[124/1468] 正在处理: ./tests/hermes_cli/test_gateway_wsl.py
    ℹ️ 无需翻译
-[125/1461] 正在处理: ./tests/hermes_cli/test_setup_model_provider.py
+[125/1468] 正在处理: ./tests/hermes_cli/test_argparse_flag_propagation.py
    ℹ️ 无需翻译
-[126/1461] 正在处理: ./tests/hermes_cli/test_custom_provider_model_switch.py
+[126/1468] 正在处理: ./tests/hermes_cli/test_model_provider_persistence.py
    ℹ️ 无需翻译
-[127/1461] 正在处理: ./tests/hermes_cli/test_xiaomi_provider.py
+[127/1468] 正在处理: ./tests/hermes_cli/test_setup_model_provider.py
    ℹ️ 无需翻译
-[128/1461] 正在处理: ./tests/hermes_cli/test_banner_skills.py
+[128/1468] 正在处理: ./tests/hermes_cli/test_custom_provider_model_switch.py
    ℹ️ 无需翻译
-[129/1461] 正在处理: ./tests/hermes_cli/test_container_aware_cli.py
+[129/1468] 正在处理: ./tests/hermes_cli/test_xiaomi_provider.py
    ℹ️ 无需翻译
-[130/1461] 正在处理: ./tests/hermes_cli/test_cmd_update.py
+[130/1468] 正在处理: ./tests/hermes_cli/test_banner_skills.py
    ℹ️ 无需翻译
-[131/1461] 正在处理: ./tests/hermes_cli/test_mcp_tools_config.py
+[131/1468] 正在处理: ./tests/hermes_cli/test_container_aware_cli.py
    ℹ️ 无需翻译
-[132/1461] 正在处理: ./tests/hermes_cli/test_setup_matrix_e2ee.py
+[132/1468] 正在处理: ./tests/hermes_cli/test_cmd_update.py
    ℹ️ 无需翻译
-[133/1461] 正在处理: ./tests/hermes_cli/test_skin_engine.py
+[133/1468] 正在处理: ./tests/hermes_cli/test_mcp_tools_config.py
    ℹ️ 无需翻译
-[134/1461] 正在处理: ./tests/hermes_cli/test_subprocess_timeouts.py
+[134/1468] 正在处理: ./tests/hermes_cli/test_setup_matrix_e2ee.py
    ℹ️ 无需翻译
-[135/1461] 正在处理: ./tests/hermes_cli/test_nous_hermes_non_agentic.py
+[135/1468] 正在处理: ./tests/hermes_cli/test_skin_engine.py
    ℹ️ 无需翻译
-[136/1461] 正在处理: ./tests/hermes_cli/test_anthropic_provider_persistence.py
+[136/1468] 正在处理: ./tests/hermes_cli/test_subprocess_timeouts.py
    ℹ️ 无需翻译
-[137/1461] 正在处理: ./tests/hermes_cli/test_coalesce_session_args.py
+[137/1468] 正在处理: ./tests/hermes_cli/test_nous_hermes_non_agentic.py
    ℹ️ 无需翻译
-[138/1461] 正在处理: ./tests/hermes_cli/test_status_model_provider.py
+[138/1468] 正在处理: ./tests/hermes_cli/test_anthropic_provider_persistence.py
    ℹ️ 无需翻译
-[139/1461] 正在处理: ./tests/hermes_cli/test_reasoning_effort_menu.py
+[139/1468] 正在处理: ./tests/hermes_cli/test_coalesce_session_args.py
    ℹ️ 无需翻译
-[140/1461] 正在处理: ./tests/hermes_cli/test_debug.py
+[140/1468] 正在处理: ./tests/hermes_cli/test_status_model_provider.py
    ℹ️ 无需翻译
-[141/1461] 正在处理: ./tests/hermes_cli/test_terminal_menu_fallbacks.py
+[141/1468] 正在处理: ./tests/hermes_cli/test_reasoning_effort_menu.py
    ℹ️ 无需翻译
-[142/1461] 正在处理: ./tests/hermes_cli/test_tool_token_estimation.py
+[142/1468] 正在处理: ./tests/hermes_cli/test_debug.py
    ℹ️ 无需翻译
-[143/1461] 正在处理: ./tests/hermes_cli/test_codex_models.py
+[143/1468] 正在处理: ./tests/hermes_cli/test_terminal_menu_fallbacks.py
    ℹ️ 无需翻译
-[144/1461] 正在处理: ./tests/hermes_cli/test_copilot_auth.py
+[144/1468] 正在处理: ./tests/hermes_cli/test_tool_token_estimation.py
    ℹ️ 无需翻译
-[145/1461] 正在处理: ./tests/hermes_cli/test_commands.py
+[145/1468] 正在处理: ./tests/hermes_cli/test_codex_models.py
    ℹ️ 无需翻译
-[146/1461] 正在处理: ./tests/hermes_cli/test_anthropic_oauth_flow.py
+[146/1468] 正在处理: ./tests/hermes_cli/test_completion.py
    ℹ️ 无需翻译
-[147/1461] 正在处理: ./tests/hermes_cli/test_config_env_expansion.py
+[147/1468] 正在处理: ./tests/hermes_cli/test_copilot_auth.py
    ℹ️ 无需翻译
-[148/1461] 正在处理: ./tests/hermes_cli/test_profile_export_credentials.py
+[148/1468] 正在处理: ./tests/hermes_cli/test_commands.py
    ℹ️ 无需翻译
-[149/1461] 正在处理: ./tests/hermes_cli/test_session_browse.py
+[149/1468] 正在处理: ./tests/hermes_cli/test_anthropic_oauth_flow.py
    ℹ️ 无需翻译
-[150/1461] 正在处理: ./tests/hermes_cli/test_model_validation.py
+[150/1468] 正在处理: ./tests/hermes_cli/test_config_env_expansion.py
    ℹ️ 无需翻译
-[151/1461] 正在处理: ./tests/hermes_cli/test_plugins.py
+[151/1468] 正在处理: ./tests/hermes_cli/test_profile_export_credentials.py
    ℹ️ 无需翻译
-[152/1461] 正在处理: ./tests/hermes_cli/test_setup_noninteractive.py
+[152/1468] 正在处理: ./tests/hermes_cli/test_session_browse.py
    ℹ️ 无需翻译
-[153/1461] 正在处理: ./tests/hermes_cli/test_profiles.py
+[153/1468] 正在处理: ./tests/hermes_cli/test_model_validation.py
    ℹ️ 无需翻译
-[154/1461] 正在处理: ./tests/hermes_cli/test_doctor.py
+[154/1468] 正在处理: ./tests/hermes_cli/test_plugins.py
    ℹ️ 无需翻译
-[155/1461] 正在处理: ./tests/hermes_cli/test_launcher.py
+[155/1468] 正在处理: ./tests/hermes_cli/test_setup_noninteractive.py
    ℹ️ 无需翻译
-[156/1461] 正在处理: ./tests/hermes_cli/test_update_autostash.py
+[156/1468] 正在处理: ./tests/hermes_cli/test_profiles.py
    ℹ️ 无需翻译
-[157/1461] 正在处理: ./tests/hermes_cli/test_env_loader.py
+[157/1468] 正在处理: ./tests/hermes_cli/test_doctor.py
    ℹ️ 无需翻译
-[158/1461] 正在处理: ./tests/hermes_cli/test_models.py
+[158/1468] 正在处理: ./tests/hermes_cli/test_launcher.py
    ℹ️ 无需翻译
-[159/1461] 正在处理: ./tests/hermes_cli/test_plugin_cli_registration.py
+[159/1468] 正在处理: ./tests/hermes_cli/test_update_autostash.py
    ℹ️ 无需翻译
-[160/1461] 正在处理: ./tests/hermes_cli/test_config_validation.py
+[160/1468] 正在处理: ./tests/hermes_cli/test_env_loader.py
    ℹ️ 无需翻译
-[161/1461] 正在处理: ./tests/hermes_cli/test_chat_skills_flag.py
+[161/1468] 正在处理: ./tests/hermes_cli/test_models.py
    ℹ️ 无需翻译
-[162/1461] 正在处理: ./tests/hermes_cli/test_managed_installs.py
+[162/1468] 正在处理: ./tests/hermes_cli/test_plugin_cli_registration.py
    ℹ️ 无需翻译
-[163/1461] 正在处理: ./tests/hermes_cli/test_tools_config.py
+[163/1468] 正在处理: ./tests/hermes_cli/test_config_validation.py
    ℹ️ 无需翻译
-[164/1461] 正在处理: ./tests/hermes_cli/test_gateway_runtime_health.py
+[164/1468] 正在处理: ./tests/hermes_cli/test_chat_skills_flag.py
    ℹ️ 无需翻译
-[165/1461] 正在处理: ./tests/hermes_cli/test_gateway.py
+[165/1468] 正在处理: ./tests/hermes_cli/test_managed_installs.py
    ℹ️ 无需翻译
-[166/1461] 正在处理: ./tests/hermes_cli/test_overlay_slug_resolution.py
+[166/1468] 正在处理: ./tests/hermes_cli/test_tools_config.py
    ℹ️ 无需翻译
-[167/1461] 正在处理: ./tests/hermes_cli/test_env_sanitize_on_load.py
+[167/1468] 正在处理: ./tests/hermes_cli/test_gateway_runtime_health.py
    ℹ️ 无需翻译
-[168/1461] 正在处理: ./tests/hermes_cli/test_auth_provider_gate.py
+[168/1468] 正在处理: ./tests/hermes_cli/test_gateway.py
    ℹ️ 无需翻译
-[169/1461] 正在处理: ./tests/hermes_cli/test_setup.py
+[169/1468] 正在处理: ./tests/hermes_cli/test_overlay_slug_resolution.py
    ℹ️ 无需翻译
-[170/1461] 正在处理: ./tests/hermes_cli/test_skills_subparser.py
+[170/1468] 正在处理: ./tests/hermes_cli/test_env_sanitize_on_load.py
    ℹ️ 无需翻译
-[171/1461] 正在处理: ./tests/hermes_cli/test_setup_openclaw_migration.py
+[171/1468] 正在处理: ./tests/hermes_cli/test_auth_provider_gate.py
    ℹ️ 无需翻译
-[172/1461] 正在处理: ./tests/hermes_cli/test_logs.py
+[172/1468] 正在处理: ./tests/hermes_cli/test_setup.py
    ℹ️ 无需翻译
-[173/1461] 正在处理: ./tests/hermes_cli/test_plugins_cmd.py
+[173/1468] 正在处理: ./tests/hermes_cli/test_skills_subparser.py
    ℹ️ 无需翻译
-[174/1461] 正在处理: ./tests/hermes_cli/test_model_normalize.py
+[174/1468] 正在处理: ./tests/hermes_cli/test_setup_openclaw_migration.py
    ℹ️ 无需翻译
-[175/1461] 正在处理: ./tests/hermes_cli/test_auth_commands.py
+[175/1468] 正在处理: ./tests/hermes_cli/test_logs.py
    ℹ️ 无需翻译
-[176/1461] 正在处理: ./tests/hermes_cli/test_atomic_yaml_write.py
+[176/1468] 正在处理: ./tests/hermes_cli/test_plugins_cmd.py
    ℹ️ 无需翻译
-[177/1461] 正在处理: ./tests/hermes_cli/test_runtime_provider_resolution.py
+[177/1468] 正在处理: ./tests/hermes_cli/test_model_normalize.py
    ℹ️ 无需翻译
-[178/1461] 正在处理: ./tests/hermes_cli/test_opencode_go_in_model_list.py
+[178/1468] 正在处理: ./tests/hermes_cli/test_auth_commands.py
    ℹ️ 无需翻译
-[179/1461] 正在处理: ./tests/hermes_cli/test_cron.py
+[179/1468] 正在处理: ./tests/hermes_cli/test_atomic_yaml_write.py
    ℹ️ 无需翻译
-[180/1461] 正在处理: ./tests/hermes_cli/test_tools_disable_enable.py
+[180/1468] 正在处理: ./tests/hermes_cli/test_runtime_provider_resolution.py
    ℹ️ 无需翻译
-[181/1461] 正在处理: ./tests/hermes_cli/test_placeholder_usage.py
+[181/1468] 正在处理: ./tests/hermes_cli/test_opencode_go_in_model_list.py
    ℹ️ 无需翻译
-[182/1461] 正在处理: ./tests/hermes_cli/test_codex_cli_model_picker.py
+[182/1468] 正在处理: ./tests/hermes_cli/test_cron.py
    ℹ️ 无需翻译
-[183/1461] 正在处理: ./tests/hermes_cli/test_skills_skip_confirm.py
+[183/1468] 正在处理: ./tests/hermes_cli/test_tools_disable_enable.py
    ℹ️ 无需翻译
-[184/1461] 正在处理: ./tests/hermes_cli/test_ollama_cloud_auth.py
+[184/1468] 正在处理: ./tests/hermes_cli/test_placeholder_usage.py
    ℹ️ 无需翻译
-[185/1461] 正在处理: ./tests/hermes_cli/test_setup_hermes_script.py
+[185/1468] 正在处理: ./tests/hermes_cli/test_codex_cli_model_picker.py
    ℹ️ 无需翻译
-[186/1461] 正在处理: ./tests/hermes_cli/test_update_gateway_restart.py
+[186/1468] 正在处理: ./tests/hermes_cli/test_skills_skip_confirm.py
    ℹ️ 无需翻译
-[187/1461] 正在处理: ./tests/hermes_cli/test_model_switch_custom_providers.py
+[187/1468] 正在处理: ./tests/hermes_cli/test_ollama_cloud_auth.py
    ℹ️ 无需翻译
-[188/1461] 正在处理: ./tests/hermes_cli/test_gateway_service.py
+[188/1468] 正在处理: ./tests/hermes_cli/test_setup_hermes_script.py
    ℹ️ 无需翻译
-[189/1461] 正在处理: ./tests/hermes_cli/test_atomic_json_write.py
+[189/1468] 正在处理: ./tests/hermes_cli/test_update_gateway_restart.py
    ℹ️ 无需翻译
-[190/1461] 正在处理: ./tests/hermes_cli/test_mcp_config.py
+[190/1468] 正在处理: ./tests/hermes_cli/test_model_switch_custom_providers.py
    ℹ️ 无需翻译
-[191/1461] 正在处理: ./tests/hermes_cli/test_tips.py
+[191/1468] 正在处理: ./tests/hermes_cli/test_gateway_service.py
    ℹ️ 无需翻译
-[192/1461] 正在处理: ./tests/hermes_cli/test_auth_codex_provider.py
+[192/1468] 正在处理: ./tests/hermes_cli/test_atomic_json_write.py
    ℹ️ 无需翻译
-[193/1461] 正在处理: ./tests/hermes_cli/test_path_completion.py
+[193/1468] 正在处理: ./tests/hermes_cli/test_mcp_config.py
    ℹ️ 无需翻译
-[194/1461] 正在处理: ./tests/hermes_cli/test_setup_prompt_menus.py
+[194/1468] 正在处理: ./tests/hermes_cli/test_tips.py
    ℹ️ 无需翻译
-[195/1461] 正在处理: ./tests/hermes_cli/test_api_key_providers.py
+[195/1468] 正在处理: ./tests/hermes_cli/test_auth_codex_provider.py
    ℹ️ 无需翻译
-[196/1461] 正在处理: ./tests/hermes_cli/test_skills_config.py
+[196/1468] 正在处理: ./tests/hermes_cli/test_path_completion.py
    ℹ️ 无需翻译
-[197/1461] 正在处理: ./tests/hermes_cli/test_auth_qwen_provider.py
+[197/1468] 正在处理: ./tests/hermes_cli/test_setup_prompt_menus.py
    ℹ️ 无需翻译
-[198/1461] 正在处理: ./tests/hermes_cli/test_webhook_cli.py
+[198/1468] 正在处理: ./tests/hermes_cli/test_api_key_providers.py
    ℹ️ 无需翻译
-[199/1461] 正在处理: ./tests/hermes_cli/test_model_switch_variant_tags.py
+[199/1468] 正在处理: ./tests/hermes_cli/test_skills_config.py
    ℹ️ 无需翻译
-[200/1461] 正在处理: ./tests/hermes_cli/test_claw.py
+[200/1468] 正在处理: ./tests/hermes_cli/test_auth_qwen_provider.py
    ℹ️ 无需翻译
-[201/1461] 正在处理: ./tests/hermes_cli/test_skills_install_flags.py
+[201/1468] 正在处理: ./tests/hermes_cli/test_webhook_cli.py
    ℹ️ 无需翻译
-[202/1461] 正在处理: ./tests/hermes_cli/__init__.py
+[202/1468] 正在处理: ./tests/hermes_cli/test_model_switch_variant_tags.py
    ℹ️ 无需翻译
-[203/1461] 正在处理: ./tests/hermes_cli/test_clear_stale_base_url.py
+[203/1468] 正在处理: ./tests/hermes_cli/test_claw.py
    ℹ️ 无需翻译
-[204/1461] 正在处理: ./tests/hermes_cli/test_sessions_delete.py
+[204/1468] 正在处理: ./tests/hermes_cli/test_skills_install_flags.py
    ℹ️ 无需翻译
-[205/1461] 正在处理: ./tests/hermes_cli/test_config.py
+[205/1468] 正在处理: ./tests/hermes_cli/__init__.py
    ℹ️ 无需翻译
-[206/1461] 正在处理: ./tests/hermes_cli/test_skills_hub.py
+[206/1468] 正在处理: ./tests/hermes_cli/test_clear_stale_base_url.py
    ℹ️ 无需翻译
-[207/1461] 正在处理: ./tests/hermes_cli/test_gateway_linger.py
+[207/1468] 正在处理: ./tests/hermes_cli/test_sessions_delete.py
    ℹ️ 无需翻译
-[208/1461] 正在处理: ./tests/hermes_cli/test_arcee_provider.py
+[208/1468] 正在处理: ./tests/hermes_cli/test_config.py
    ℹ️ 无需翻译
-[209/1461] 正在处理: ./tests/tools/test_terminal_exit_semantics.py
+[209/1468] 正在处理: ./tests/hermes_cli/test_skills_hub.py
    ℹ️ 无需翻译
-[210/1461] 正在处理: ./tests/tools/test_singularity_preflight.py
+[210/1468] 正在处理: ./tests/hermes_cli/test_gateway_linger.py
    ℹ️ 无需翻译
-[211/1461] 正在处理: ./tests/tools/test_zombie_process_cleanup.py
+[211/1468] 正在处理: ./tests/hermes_cli/test_arcee_provider.py
    ℹ️ 无需翻译
-[212/1461] 正在处理: ./tests/tools/test_skill_size_limits.py
+[212/1468] 正在处理: ./tests/tools/test_terminal_exit_semantics.py
    ℹ️ 无需翻译
-[213/1461] 正在处理: ./tests/tools/test_mcp_oauth.py
+[213/1468] 正在处理: ./tests/tools/test_singularity_preflight.py
    ℹ️ 无需翻译
-[214/1461] 正在处理: ./tests/tools/test_budget_config.py
+[214/1468] 正在处理: ./tests/tools/test_memory_tool_import_fallback.py
    ℹ️ 无需翻译
-[215/1461] 正在处理: ./tests/tools/test_osv_check.py
+[215/1468] 正在处理: ./tests/tools/test_zombie_process_cleanup.py
    ℹ️ 无需翻译
-[216/1461] 正在处理: ./tests/tools/test_delegate.py
+[216/1468] 正在处理: ./tests/tools/test_skill_size_limits.py
    ℹ️ 无需翻译
-[217/1461] 正在处理: ./tests/tools/test_vision_tools.py
+[217/1468] 正在处理: ./tests/tools/test_mcp_oauth.py
    ℹ️ 无需翻译
-[218/1461] 正在处理: ./tests/tools/test_file_operations.py
+[218/1468] 正在处理: ./tests/tools/test_budget_config.py
    ℹ️ 无需翻译
-[219/1461] 正在处理: ./tests/tools/test_file_sync.py
+[219/1468] 正在处理: ./tests/tools/test_osv_check.py
    ℹ️ 无需翻译
-[220/1461] 正在处理: ./tests/tools/test_daytona_environment.py
+[220/1468] 正在处理: ./tests/tools/test_delegate.py
    ℹ️ 无需翻译
-[221/1461] 正在处理: ./tests/tools/test_managed_modal_environment.py
+[221/1468] 正在处理: ./tests/tools/test_vision_tools.py
    ℹ️ 无需翻译
-[222/1461] 正在处理: ./tests/tools/test_process_registry.py
+[222/1468] 正在处理: ./tests/tools/test_file_operations.py
    ℹ️ 无需翻译
-[223/1461] 正在处理: ./tests/tools/test_local_env_blocklist.py
+[223/1468] 正在处理: ./tests/tools/test_file_sync.py
    ℹ️ 无需翻译
-[224/1461] 正在处理: ./tests/tools/test_threaded_process_handle.py
+[224/1468] 正在处理: ./tests/tools/test_daytona_environment.py
    ℹ️ 无需翻译
-[225/1461] 正在处理: ./tests/tools/test_file_operations_edge_cases.py
+[225/1468] 正在处理: ./tests/tools/test_managed_modal_environment.py
    ℹ️ 无需翻译
-[226/1461] 正在处理: ./tests/tools/test_mcp_tool.py
+[226/1468] 正在处理: ./tests/tools/test_process_registry.py
    ℹ️ 无需翻译
-[227/1461] 正在处理: ./tests/tools/test_config_null_guard.py
+[227/1468] 正在处理: ./tests/tools/test_local_env_blocklist.py
    ℹ️ 无需翻译
-[228/1461] 正在处理: ./tests/tools/test_ansi_strip.py
+[228/1468] 正在处理: ./tests/tools/test_threaded_process_handle.py
    ℹ️ 无需翻译
-[229/1461] 正在处理: ./tests/tools/test_credential_files.py
+[229/1468] 正在处理: ./tests/tools/test_file_operations_edge_cases.py
    ℹ️ 无需翻译
-[230/1461] 正在处理: ./tests/tools/test_ssh_environment.py
+[230/1468] 正在处理: ./tests/tools/test_mcp_tool.py
    ℹ️ 无需翻译
-[231/1461] 正在处理: ./tests/tools/test_base_environment.py
+[231/1468] 正在处理: ./tests/tools/test_config_null_guard.py
    ℹ️ 无需翻译
-[232/1461] 正在处理: ./tests/tools/test_tirith_security.py
+[232/1468] 正在处理: ./tests/tools/test_ansi_strip.py
    ℹ️ 无需翻译
-[233/1461] 正在处理: ./tests/tools/test_managed_media_gateways.py
+[233/1468] 正在处理: ./tests/tools/test_credential_files.py
    ℹ️ 无需翻译
-[234/1461] 正在处理: ./tests/tools/test_memory_tool.py
+[234/1468] 正在处理: ./tests/tools/test_ssh_environment.py
    ℹ️ 无需翻译
-[235/1461] 正在处理: ./tests/tools/test_approval.py
+[235/1468] 正在处理: ./tests/tools/test_base_environment.py
    ℹ️ 无需翻译
-[236/1461] 正在处理: ./tests/tools/test_skills_guard.py
+[236/1468] 正在处理: ./tests/tools/test_tirith_security.py
    ℹ️ 无需翻译
-[237/1461] 正在处理: ./tests/tools/test_yolo_mode.py
+[237/1468] 正在处理: ./tests/tools/test_managed_media_gateways.py
    ℹ️ 无需翻译
-[238/1461] 正在处理: ./tests/tools/test_mcp_structured_content.py
+[238/1468] 正在处理: ./tests/tools/test_memory_tool.py
    ℹ️ 无需翻译
-[239/1461] 正在处理: ./tests/tools/test_rl_training_tool.py
+[239/1468] 正在处理: ./tests/tools/test_approval.py
    ℹ️ 无需翻译
-[240/1461] 正在处理: ./tests/tools/test_tts_speed.py
+[240/1468] 正在处理: ./tests/tools/test_skills_guard.py
    ℹ️ 无需翻译
-[241/1461] 正在处理: ./tests/tools/test_delegate_toolset_scope.py
+[241/1468] 正在处理: ./tests/tools/test_yolo_mode.py
    ℹ️ 无需翻译
-[242/1461] 正在处理: ./tests/tools/test_docker_find.py
+[242/1468] 正在处理: ./tests/tools/test_mcp_structured_content.py
    ℹ️ 无需翻译
-[243/1461] 正在处理: ./tests/tools/test_mcp_probe.py
+[243/1468] 正在处理: ./tests/tools/test_rl_training_tool.py
    ℹ️ 无需翻译
-[244/1461] 正在处理: ./tests/tools/test_file_tools.py
+[244/1468] 正在处理: ./tests/tools/test_tts_speed.py
    ℹ️ 无需翻译
-[245/1461] 正在处理: ./tests/tools/test_browser_homebrew_paths.py
+[245/1468] 正在处理: ./tests/tools/test_delegate_toolset_scope.py
    ℹ️ 无需翻译
-[246/1461] 正在处理: ./tests/tools/test_notify_on_complete.py
+[246/1468] 正在处理: ./tests/tools/test_docker_find.py
    ℹ️ 无需翻译
-[247/1461] 正在处理: ./tests/tools/test_mcp_tool_issue_948.py
+[247/1468] 正在处理: ./tests/tools/test_mcp_probe.py
    ℹ️ 无需翻译
-[248/1461] 正在处理: ./tests/tools/test_interrupt.py
+[248/1468] 正在处理: ./tests/tools/test_file_tools.py
    ℹ️ 无需翻译
-[249/1461] 正在处理: ./tests/tools/test_registry.py
+[249/1468] 正在处理: ./tests/tools/test_browser_homebrew_paths.py
    ℹ️ 无需翻译
-[250/1461] 正在处理: ./tests/tools/test_skills_sync.py
+[250/1468] 正在处理: ./tests/tools/test_notify_on_complete.py
    ℹ️ 无需翻译
-[251/1461] 正在处理: ./tests/tools/test_patch_parser.py
+[251/1468] 正在处理: ./tests/tools/test_mcp_tool_issue_948.py
    ℹ️ 无需翻译
-[252/1461] 正在处理: ./tests/tools/test_skills_tool.py
+[252/1468] 正在处理: ./tests/tools/test_interrupt.py
    ℹ️ 无需翻译
-[253/1461] 正在处理: ./tests/tools/test_browser_camofox.py
+[253/1468] 正在处理: ./tests/tools/test_registry.py
    ℹ️ 无需翻译
-[254/1461] 正在处理: ./tests/tools/test_skill_view_path_check.py
+[254/1468] 正在处理: ./tests/tools/test_skills_sync.py
    ℹ️ 无需翻译
-[255/1461] 正在处理: ./tests/tools/test_terminal_none_command_guard.py
+[255/1468] 正在处理: ./tests/tools/test_patch_parser.py
    ℹ️ 无需翻译
-[256/1461] 正在处理: ./tests/tools/test_fuzzy_match.py
+[256/1468] 正在处理: ./tests/tools/test_skills_tool.py
    ℹ️ 无需翻译
-[257/1461] 正在处理: ./tests/tools/test_env_passthrough.py
+[257/1468] 正在处理: ./tests/tools/test_browser_camofox.py
    ℹ️ 无需翻译
-[258/1461] 正在处理: ./tests/tools/test_tool_backend_helpers.py
+[258/1468] 正在处理: ./tests/tools/test_skill_view_path_check.py
    ℹ️ 无需翻译
-[259/1461] 正在处理: ./tests/tools/test_todo_tool.py
+[259/1468] 正在处理: ./tests/tools/test_terminal_none_command_guard.py
    ℹ️ 无需翻译
-[260/1461] 正在处理: ./tests/tools/test_ssh_bulk_upload.py
+[260/1468] 正在处理: ./tests/tools/test_fuzzy_match.py
    ℹ️ 无需翻译
-[261/1461] 正在处理: ./tests/tools/test_mcp_dynamic_discovery.py
+[261/1468] 正在处理: ./tests/tools/test_env_passthrough.py
    ℹ️ 无需翻译
-[262/1461] 正在处理: ./tests/tools/test_modal_snapshot_isolation.py
+[262/1468] 正在处理: ./tests/tools/test_tool_backend_helpers.py
    ℹ️ 无需翻译
-[263/1461] 正在处理: ./tests/tools/test_terminal_tool_pty_fallback.py
+[263/1468] 正在处理: ./tests/tools/test_todo_tool.py
    ℹ️ 无需翻译
-[264/1461] 正在处理: ./tests/tools/test_terminal_foreground_timeout_cap.py
+[264/1468] 正在处理: ./tests/tools/test_ssh_bulk_upload.py
    ℹ️ 无需翻译
-[265/1461] 正在处理: ./tests/tools/test_checkpoint_manager.py
+[265/1468] 正在处理: ./tests/tools/test_mcp_dynamic_discovery.py
    ℹ️ 无需翻译
-[266/1461] 正在处理: ./tests/tools/test_voice_mode.py
+[266/1468] 正在处理: ./tests/tools/test_modal_snapshot_isolation.py
    ℹ️ 无需翻译
-[267/1461] 正在处理: ./tests/tools/test_force_dangerous_override.py
+[267/1468] 正在处理: ./tests/tools/test_terminal_tool_pty_fallback.py
    ℹ️ 无需翻译
-[268/1461] 正在处理: ./tests/tools/test_browser_console.py
+[268/1468] 正在处理: ./tests/tools/test_terminal_foreground_timeout_cap.py
    ℹ️ 无需翻译
-[269/1461] 正在处理: ./tests/tools/test_skills_hub_clawhub.py
+[269/1468] 正在处理: ./tests/tools/test_checkpoint_manager.py
    ℹ️ 无需翻译
-[270/1461] 正在处理: ./tests/tools/test_terminal_tool_requirements.py
+[270/1468] 正在处理: ./tests/tools/test_voice_mode.py
    ℹ️ 无需翻译
-[271/1461] 正在处理: ./tests/tools/test_managed_browserbase_and_modal.py
+[271/1468] 正在处理: ./tests/tools/test_force_dangerous_override.py
    ℹ️ 无需翻译
-[272/1461] 正在处理: ./tests/tools/test_transcription.py
+[272/1468] 正在处理: ./tests/tools/test_browser_console.py
    ℹ️ 无需翻译
-[273/1461] 正在处理: ./tests/tools/test_skill_env_passthrough.py
+[273/1468] 正在处理: ./tests/tools/test_skills_hub_clawhub.py
    ℹ️ 无需翻译
-[274/1461] 正在处理: ./tests/tools/test_clipboard.py
+[274/1468] 正在处理: ./tests/tools/test_terminal_tool_requirements.py
    ℹ️ 无需翻译
-[275/1461] 正在处理: ./tests/tools/test_clarify_tool.py
+[275/1468] 正在处理: ./tests/tools/test_managed_browserbase_and_modal.py
    ℹ️ 无需翻译
-[276/1461] 正在处理: ./tests/tools/test_browser_cleanup.py
+[276/1468] 正在处理: ./tests/tools/test_transcription.py
    ℹ️ 无需翻译
-[277/1461] 正在处理: ./tests/tools/test_tts_mistral.py
+[277/1468] 正在处理: ./tests/tools/test_skill_env_passthrough.py
    ℹ️ 无需翻译
-[278/1461] 正在处理: ./tests/tools/test_modal_bulk_upload.py
+[278/1468] 正在处理: ./tests/tools/test_clipboard.py
    ℹ️ 无需翻译
-[279/1461] 正在处理: ./tests/tools/test_command_guards.py
+[279/1468] 正在处理: ./tests/tools/test_clarify_tool.py
    ℹ️ 无需翻译
-[280/1461] 正在处理: ./tests/tools/test_local_tempdir.py
+[280/1468] 正在处理: ./tests/tools/test_browser_cleanup.py
    ℹ️ 无需翻译
-[281/1461] 正在处理: ./tests/tools/test_symlink_prefix_confusion.py
+[281/1468] 正在处理: ./tests/tools/test_tts_mistral.py
    ℹ️ 无需翻译
-[282/1461] 正在处理: ./tests/tools/test_write_deny.py
+[282/1468] 正在处理: ./tests/tools/test_modal_bulk_upload.py
    ℹ️ 无需翻译
-[283/1461] 正在处理: ./tests/tools/test_file_staleness.py
+[283/1468] 正在处理: ./tests/tools/test_command_guards.py
    ℹ️ 无需翻译
-[284/1461] 正在处理: ./tests/tools/test_llm_content_none_guard.py
+[284/1468] 正在处理: ./tests/tools/test_local_tempdir.py
    ℹ️ 无需翻译
-[285/1461] 正在处理: ./tests/tools/test_skill_manager_tool.py
+[285/1468] 正在处理: ./tests/tools/test_symlink_prefix_confusion.py
    ℹ️ 无需翻译
-[286/1461] 正在处理: ./tests/tools/test_read_loop_detection.py
+[286/1468] 正在处理: ./tests/tools/test_write_deny.py
    ℹ️ 无需翻译
-[287/1461] 正在处理: ./tests/tools/test_terminal_tool.py
+[287/1468] 正在处理: ./tests/tools/test_file_staleness.py
    ℹ️ 无需翻译
-[288/1461] 正在处理: ./tests/tools/test_browser_camofox_state.py
+[288/1468] 正在处理: ./tests/tools/test_llm_content_none_guard.py
    ℹ️ 无需翻译
-[289/1461] 正在处理: ./tests/tools/test_hidden_dir_filter.py
+[289/1468] 正在处理: ./tests/tools/test_skill_manager_tool.py
    ℹ️ 无需翻译
-[290/1461] 正在处理: ./tests/tools/test_modal_sandbox_fixes.py
+[290/1468] 正在处理: ./tests/tools/test_read_loop_detection.py
    ℹ️ 无需翻译
-[291/1461] 正在处理: ./tests/tools/test_managed_server_tool_support.py
+[291/1468] 正在处理: ./tests/tools/test_terminal_tool.py
    ℹ️ 无需翻译
-[292/1461] 正在处理: ./tests/tools/test_managed_tool_gateway.py
+[292/1468] 正在处理: ./tests/tools/test_browser_camofox_state.py
    ℹ️ 无需翻译
-[293/1461] 正在处理: ./tests/tools/test_homeassistant_tool.py
+[293/1468] 正在处理: ./tests/tools/test_hidden_dir_filter.py
    ℹ️ 无需翻译
-[294/1461] 正在处理: ./tests/tools/test_file_write_safety.py
+[294/1468] 正在处理: ./tests/tools/test_modal_sandbox_fixes.py
    ℹ️ 无需翻译
-[295/1461] 正在处理: ./tests/tools/test_search_hidden_dirs.py
+[295/1468] 正在处理: ./tests/tools/test_managed_server_tool_support.py
    ℹ️ 无需翻译
-[296/1461] 正在处理: ./tests/tools/test_tool_result_storage.py
+[296/1468] 正在处理: ./tests/tools/test_managed_tool_gateway.py
    ℹ️ 无需翻译
-[297/1461] 正在处理: ./tests/tools/test_send_message_missing_platforms.py
+[297/1468] 正在处理: ./tests/tools/test_homeassistant_tool.py
    ℹ️ 无需翻译
-[298/1461] 正在处理: ./tests/tools/test_code_execution.py
+[298/1468] 正在处理: ./tests/tools/test_file_write_safety.py
    ℹ️ 无需翻译
-[299/1461] 正在处理: ./tests/tools/test_web_tools_config.py
+[299/1468] 正在处理: ./tests/tools/test_search_hidden_dirs.py
    ℹ️ 无需翻译
-[300/1461] 正在处理: ./tests/tools/test_file_sync_perf.py
+[300/1468] 正在处理: ./tests/tools/test_tool_result_storage.py
    ℹ️ 无需翻译
-[301/1461] 正在处理: ./tests/tools/test_browser_camofox_persistence.py
+[301/1468] 正在处理: ./tests/tools/test_send_message_missing_platforms.py
    ℹ️ 无需翻译
-[302/1461] 正在处理: ./tests/tools/test_website_policy.py
+[302/1468] 正在处理: ./tests/tools/test_code_execution.py
    ℹ️ 无需翻译
-[303/1461] 正在处理: ./tests/tools/test_url_safety.py
+[303/1468] 正在处理: ./tests/tools/test_web_tools_config.py
    ℹ️ 无需翻译
-[304/1461] 正在处理: ./tests/tools/test_voice_cli_integration.py
+[304/1468] 正在处理: ./tests/tools/test_file_sync_perf.py
    ℹ️ 无需翻译
-[305/1461] 正在处理: ./tests/tools/test_terminal_requirements.py
+[305/1468] 正在处理: ./tests/tools/test_browser_camofox_persistence.py
    ℹ️ 无需翻译
-[306/1461] 正在处理: ./tests/tools/test_docker_environment.py
+[306/1468] 正在处理: ./tests/tools/test_website_policy.py
    ℹ️ 无需翻译
-[307/1461] 正在处理: ./tests/tools/test_debug_helpers.py
+[307/1468] 正在处理: ./tests/tools/test_url_safety.py
    ℹ️ 无需翻译
-[308/1461] 正在处理: ./tests/tools/test_browser_cdp_override.py
+[308/1468] 正在处理: ./tests/tools/test_voice_cli_integration.py
    ℹ️ 无需翻译
-[309/1461] 正在处理: ./tests/tools/test_terminal_timeout_output.py
+[309/1468] 正在处理: ./tests/tools/test_terminal_requirements.py
    ℹ️ 无需翻译
-[310/1461] 正在处理: ./tests/tools/test_windows_compat.py
+[310/1468] 正在处理: ./tests/tools/test_docker_environment.py
    ℹ️ 无需翻译
-[311/1461] 正在处理: ./tests/tools/test_skill_improvements.py
+[311/1468] 正在处理: ./tests/tools/test_debug_helpers.py
    ℹ️ 无需翻译
-[312/1461] 正在处理: ./tests/tools/test_parse_env_var.py
+[312/1468] 正在处理: ./tests/tools/test_browser_cdp_override.py
    ℹ️ 无需翻译
-[313/1461] 正在处理: ./tests/tools/test_browser_hardening.py
+[313/1468] 正在处理: ./tests/tools/test_terminal_timeout_output.py
    ℹ️ 无需翻译
-[314/1461] 正在处理: ./tests/tools/test_session_search.py
+[314/1468] 正在处理: ./tests/tools/test_windows_compat.py
    ℹ️ 无需翻译
-[315/1461] 正在处理: ./tests/tools/test_tool_call_parsers.py
+[315/1468] 正在处理: ./tests/tools/test_skill_improvements.py
    ℹ️ 无需翻译
-[316/1461] 正在处理: ./tests/tools/test_transcription_tools.py
+[316/1468] 正在处理: ./tests/tools/test_parse_env_var.py
    ℹ️ 无需翻译
-[317/1461] 正在处理: ./tests/tools/test_browser_secret_exfil.py
+[317/1468] 正在处理: ./tests/tools/test_browser_hardening.py
    ℹ️ 无需翻译
-[318/1461] 正在处理: ./tests/tools/test_browser_orphan_reaper.py
+[318/1468] 正在处理: ./tests/tools/test_session_search.py
    ℹ️ 无需翻译
-[319/1461] 正在处理: ./tests/tools/test_skill_view_traversal.py
+[319/1468] 正在处理: ./tests/tools/test_tool_call_parsers.py
    ℹ️ 无需翻译
-[320/1461] 正在处理: ./tests/tools/test_browser_content_none_guard.py
+[320/1468] 正在处理: ./tests/tools/test_transcription_tools.py
    ℹ️ 无需翻译
-[321/1461] 正在处理: ./tests/tools/test_browser_ssrf_local.py
+[321/1468] 正在处理: ./tests/tools/test_browser_secret_exfil.py
    ℹ️ 无需翻译
-[322/1461] 正在处理: ./tests/tools/test_web_tools_tavily.py
+[322/1468] 正在处理: ./tests/tools/test_browser_orphan_reaper.py
    ℹ️ 无需翻译
-[323/1461] 正在处理: ./tests/tools/test_file_tools_live.py
+[323/1468] 正在处理: ./tests/tools/test_skill_view_traversal.py
    ℹ️ 无需翻译
-[324/1461] 正在处理: ./tests/tools/test_mcp_stability.py
+[324/1468] 正在处理: ./tests/tools/test_browser_content_none_guard.py
    ℹ️ 无需翻译
-[325/1461] 正在处理: ./tests/tools/test_cronjob_tools.py
+[325/1468] 正在处理: ./tests/tools/test_browser_ssrf_local.py
    ℹ️ 无需翻译
-[326/1461] 正在处理: ./tests/tools/__init__.py
+[326/1468] 正在处理: ./tests/tools/test_web_tools_tavily.py
    ℹ️ 无需翻译
-[327/1461] 正在处理: ./tests/tools/test_skills_hub.py
+[327/1468] 正在处理: ./tests/tools/test_file_tools_live.py
    ℹ️ 无需翻译
-[328/1461] 正在处理: ./tests/tools/test_file_read_guards.py
+[328/1468] 正在处理: ./tests/tools/test_mcp_stability.py
    ℹ️ 无需翻译
-[329/1461] 正在处理: ./tests/tools/test_send_message_tool.py
+[329/1468] 正在处理: ./tests/tools/test_cronjob_tools.py
    ℹ️ 无需翻译
-[330/1461] 正在处理: ./tests/tools/test_cron_prompt_injection.py
+[330/1468] 正在处理: ./tests/tools/__init__.py
    ℹ️ 无需翻译
-[331/1461] 正在处理: ./tests/tools/test_mixture_of_agents_tool.py
+[331/1468] 正在处理: ./tests/tools/test_skills_hub.py
    ℹ️ 无需翻译
-[332/1461] 正在处理: ./tests/tools/test_watch_patterns.py
+[332/1468] 正在处理: ./tests/tools/test_file_read_guards.py
    ℹ️ 无需翻译
-[333/1461] 正在处理: ./tests/fakes/fake_ha_server.py
+[333/1468] 正在处理: ./tests/tools/test_send_message_tool.py
    ℹ️ 无需翻译
-[334/1461] 正在处理: ./tests/fakes/__init__.py
+[334/1468] 正在处理: ./tests/tools/test_cron_prompt_injection.py
    ℹ️ 无需翻译
-[335/1461] 正在处理: ./tests/e2e/test_platform_commands.py
+[335/1468] 正在处理: ./tests/tools/test_mixture_of_agents_tool.py
    ℹ️ 无需翻译
-[336/1461] 正在处理: ./tests/e2e/conftest.py
+[336/1468] 正在处理: ./tests/tools/test_watch_patterns.py
    ℹ️ 无需翻译
-[337/1461] 正在处理: ./tests/e2e/__init__.py
+[337/1468] 正在处理: ./tests/fakes/fake_ha_server.py
    ℹ️ 无需翻译
-[338/1461] 正在处理: ./tests/integration/test_web_tools.py
+[338/1468] 正在处理: ./tests/fakes/__init__.py
    ℹ️ 无需翻译
-[339/1461] 正在处理: ./tests/integration/test_batch_runner.py
+[339/1468] 正在处理: ./tests/e2e/test_platform_commands.py
    ℹ️ 无需翻译
-[340/1461] 正在处理: ./tests/integration/test_modal_terminal.py
+[340/1468] 正在处理: ./tests/e2e/conftest.py
    ℹ️ 无需翻译
-[341/1461] 正在处理: ./tests/integration/test_voice_channel_flow.py
+[341/1468] 正在处理: ./tests/e2e/__init__.py
    ℹ️ 无需翻译
-[342/1461] 正在处理: ./tests/integration/test_checkpoint_resumption.py
+[342/1468] 正在处理: ./tests/integration/test_web_tools.py
    ℹ️ 无需翻译
-[343/1461] 正在处理: ./tests/integration/test_ha_integration.py
+[343/1468] 正在处理: ./tests/integration/test_batch_runner.py
    ℹ️ 无需翻译
-[344/1461] 正在处理: ./tests/integration/test_daytona_terminal.py
+[344/1468] 正在处理: ./tests/integration/test_modal_terminal.py
    ℹ️ 无需翻译
-[345/1461] 正在处理: ./tests/integration/__init__.py
+[345/1468] 正在处理: ./tests/integration/test_voice_channel_flow.py
    ℹ️ 无需翻译
-[346/1461] 正在处理: ./tests/run_agent/test_redirect_stdout_issue.py
+[346/1468] 正在处理: ./tests/integration/test_checkpoint_resumption.py
    ℹ️ 无需翻译
-[347/1461] 正在处理: ./tests/run_agent/test_agent_loop_vllm.py
+[347/1468] 正在处理: ./tests/integration/test_ha_integration.py
    ℹ️ 无需翻译
-[348/1461] 正在处理: ./tests/run_agent/test_context_token_tracking.py
+[348/1468] 正在处理: ./tests/integration/test_daytona_terminal.py
    ℹ️ 无需翻译
-[349/1461] 正在处理: ./tests/run_agent/test_strict_api_validation.py
+[349/1468] 正在处理: ./tests/integration/__init__.py
    ℹ️ 无需翻译
-[350/1461] 正在处理: ./tests/run_agent/test_context_pressure.py
+[350/1468] 正在处理: ./tests/run_agent/test_redirect_stdout_issue.py
    ℹ️ 无需翻译
-[351/1461] 正在处理: ./tests/run_agent/test_unicode_ascii_codec.py
+[351/1468] 正在处理: ./tests/run_agent/test_agent_loop_vllm.py
    ℹ️ 无需翻译
-[352/1461] 正在处理: ./tests/run_agent/test_anthropic_error_handling.py
+[352/1468] 正在处理: ./tests/run_agent/test_context_token_tracking.py
    ℹ️ 无需翻译
-[353/1461] 正在处理: ./tests/run_agent/test_token_persistence_non_cli.py
+[353/1468] 正在处理: ./tests/run_agent/test_strict_api_validation.py
    ℹ️ 无需翻译
-[354/1461] 正在处理: ./tests/run_agent/test_provider_fallback.py
+[354/1468] 正在处理: ./tests/run_agent/test_context_pressure.py
    ℹ️ 无需翻译
-[355/1461] 正在处理: ./tests/run_agent/test_switch_model_context.py
+[355/1468] 正在处理: ./tests/run_agent/test_unicode_ascii_codec.py
    ℹ️ 无需翻译
-[356/1461] 正在处理: ./tests/run_agent/test_openai_client_lifecycle.py
+[356/1468] 正在处理: ./tests/run_agent/test_anthropic_error_handling.py
    ℹ️ 无需翻译
-[357/1461] 正在处理: ./tests/run_agent/test_plugin_context_engine_init.py
+[357/1468] 正在处理: ./tests/run_agent/test_token_persistence_non_cli.py
    ℹ️ 无需翻译
-[358/1461] 正在处理: ./tests/run_agent/test_streaming.py
+[358/1468] 正在处理: ./tests/run_agent/test_provider_fallback.py
    ℹ️ 无需翻译
-[359/1461] 正在处理: ./tests/run_agent/test_long_context_tier_429.py
+[359/1468] 正在处理: ./tests/run_agent/test_switch_model_context.py
    ℹ️ 无需翻译
-[360/1461] 正在处理: ./tests/run_agent/test_flush_memories_codex.py
+[360/1468] 正在处理: ./tests/run_agent/test_openai_client_lifecycle.py
    ℹ️ 无需翻译
-[361/1461] 正在处理: ./tests/run_agent/test_provider_parity.py
+[361/1468] 正在处理: ./tests/run_agent/test_plugin_context_engine_init.py
    ℹ️ 无需翻译
-[362/1461] 正在处理: ./tests/run_agent/test_interrupt_propagation.py
+[362/1468] 正在处理: ./tests/run_agent/test_streaming.py
    ℹ️ 无需翻译
-[363/1461] 正在处理: ./tests/run_agent/test_fallback_model.py
+[363/1468] 正在处理: ./tests/run_agent/test_long_context_tier_429.py
    ℹ️ 无需翻译
-[364/1461] 正在处理: ./tests/run_agent/test_compression_feasibility.py
+[364/1468] 正在处理: ./tests/run_agent/test_flush_memories_codex.py
    ℹ️ 无需翻译
-[365/1461] 正在处理: ./tests/run_agent/test_dict_tool_call_args.py
+[365/1468] 正在处理: ./tests/run_agent/test_provider_parity.py
    ℹ️ 无需翻译
-[366/1461] 正在处理: ./tests/run_agent/test_compressor_fallback_update.py
+[366/1468] 正在处理: ./tests/run_agent/test_interrupt_propagation.py
    ℹ️ 无需翻译
-[367/1461] 正在处理: ./tests/run_agent/test_agent_loop_tool_calling.py
+[367/1468] 正在处理: ./tests/run_agent/test_fallback_model.py
    ℹ️ 无需翻译
-[368/1461] 正在处理: ./tests/run_agent/test_run_agent_codex_responses.py
+[368/1468] 正在处理: ./tests/run_agent/test_compression_feasibility.py
    ℹ️ 无需翻译
-[369/1461] 正在处理: ./tests/run_agent/test_real_interrupt_subagent.py
+[369/1468] 正在处理: ./tests/run_agent/test_dict_tool_call_args.py
    ℹ️ 无需翻译
-[370/1461] 正在处理: ./tests/run_agent/test_agent_guardrails.py
+[370/1468] 正在处理: ./tests/run_agent/test_compressor_fallback_update.py
    ℹ️ 无需翻译
-[371/1461] 正在处理: ./tests/run_agent/test_compression_persistence.py
+[371/1468] 正在处理: ./tests/run_agent/test_agent_loop_tool_calling.py
    ℹ️ 无需翻译
-[372/1461] 正在处理: ./tests/run_agent/test_agent_loop.py
+[372/1468] 正在处理: ./tests/run_agent/test_run_agent_codex_responses.py
    ℹ️ 无需翻译
-[373/1461] 正在处理: ./tests/run_agent/test_run_agent.py
+[373/1468] 正在处理: ./tests/run_agent/test_real_interrupt_subagent.py
    ℹ️ 无需翻译
-[374/1461] 正在处理: ./tests/run_agent/test_session_meta_filtering.py
+[374/1468] 正在处理: ./tests/run_agent/test_agent_guardrails.py
    ℹ️ 无需翻译
-[375/1461] 正在处理: ./tests/run_agent/test_exit_cleanup_interrupt.py
+[375/1468] 正在处理: ./tests/run_agent/test_compression_persistence.py
    ℹ️ 无需翻译
-[376/1461] 正在处理: ./tests/run_agent/test_session_reset_fix.py
+[376/1468] 正在处理: ./tests/run_agent/test_agent_loop.py
    ℹ️ 无需翻译
-[377/1461] 正在处理: ./tests/run_agent/test_interactive_interrupt.py
+[377/1468] 正在处理: ./tests/run_agent/test_run_agent.py
    ℹ️ 无需翻译
-[378/1461] 正在处理: ./tests/run_agent/test_compression_boundary.py
+[378/1468] 正在处理: ./tests/run_agent/test_session_meta_filtering.py
    ℹ️ 无需翻译
-[379/1461] 正在处理: ./tests/run_agent/test_primary_runtime_restore.py
+[379/1468] 正在处理: ./tests/run_agent/test_exit_cleanup_interrupt.py
    ℹ️ 无需翻译
-[380/1461] 正在处理: ./tests/run_agent/test_1630_context_overflow_loop.py
+[380/1468] 正在处理: ./tests/run_agent/test_session_reset_fix.py
    ℹ️ 无需翻译
-[381/1461] 正在处理: ./tests/run_agent/test_async_httpx_del_neuter.py
+[381/1468] 正在处理: ./tests/run_agent/test_interactive_interrupt.py
    ℹ️ 无需翻译
-[382/1461] 正在处理: ./tests/run_agent/test_860_dedup.py
+[382/1468] 正在处理: ./tests/run_agent/test_compression_boundary.py
    ℹ️ 无需翻译
-[383/1461] 正在处理: ./tests/run_agent/__init__.py
+[383/1468] 正在处理: ./tests/run_agent/test_primary_runtime_restore.py
    ℹ️ 无需翻译
-[384/1461] 正在处理: ./tests/run_agent/test_413_compression.py
+[384/1468] 正在处理: ./tests/run_agent/test_1630_context_overflow_loop.py
    ℹ️ 无需翻译
-[385/1461] 正在处理: ./tests/run_agent/test_tool_arg_coercion.py
+[385/1468] 正在处理: ./tests/run_agent/test_async_httpx_del_neuter.py
    ℹ️ 无需翻译
-[386/1461] 正在处理: ./tests/run_agent/test_percentage_clamp.py
+[386/1468] 正在处理: ./tests/run_agent/test_860_dedup.py
    ℹ️ 无需翻译
-[387/1461] 正在处理: ./tests/environments/benchmarks/test_terminalbench2_env_security.py
+[387/1468] 正在处理: ./tests/run_agent/__init__.py
    ℹ️ 无需翻译
-[388/1461] 正在处理: ./tests/honcho_plugin/test_async_memory.py
+[388/1468] 正在处理: ./tests/run_agent/test_413_compression.py
    ℹ️ 无需翻译
-[389/1461] 正在处理: ./tests/honcho_plugin/test_session.py
+[389/1468] 正在处理: ./tests/run_agent/test_tool_arg_coercion.py
    ℹ️ 无需翻译
-[390/1461] 正在处理: ./tests/honcho_plugin/__init__.py
+[390/1468] 正在处理: ./tests/run_agent/test_percentage_clamp.py
    ℹ️ 无需翻译
-[391/1461] 正在处理: ./tests/honcho_plugin/test_client.py
+[391/1468] 正在处理: ./tests/environments/benchmarks/test_terminalbench2_env_security.py
    ℹ️ 无需翻译
-[392/1461] 正在处理: ./tests/gateway/test_clean_shutdown_marker.py
+[392/1468] 正在处理: ./tests/honcho_plugin/test_async_memory.py
    ℹ️ 无需翻译
-[393/1461] 正在处理: ./tests/gateway/test_text_batching.py
+[393/1468] 正在处理: ./tests/honcho_plugin/test_session.py
    ℹ️ 无需翻译
-[394/1461] 正在处理: ./tests/gateway/test_discord_system_messages.py
+[394/1468] 正在处理: ./tests/honcho_plugin/__init__.py
    ℹ️ 无需翻译
-[395/1461] 正在处理: ./tests/gateway/test_delivery.py
+[395/1468] 正在处理: ./tests/honcho_plugin/test_client.py
    ℹ️ 无需翻译
-[396/1461] 正在处理: ./tests/gateway/test_channel_directory.py
+[396/1468] 正在处理: ./tests/gateway/test_proxy_mode.py
    ℹ️ 无需翻译
-[397/1461] 正在处理: ./tests/gateway/test_wecom_callback.py
+[397/1468] 正在处理: ./tests/gateway/test_clean_shutdown_marker.py
    ℹ️ 无需翻译
-[398/1461] 正在处理: ./tests/gateway/test_fast_command.py
+[398/1468] 正在处理: ./tests/gateway/test_text_batching.py
    ℹ️ 无需翻译
-[399/1461] 正在处理: ./tests/gateway/test_qqbot.py
+[399/1468] 正在处理: ./tests/gateway/test_discord_system_messages.py
    ℹ️ 无需翻译
-[400/1461] 正在处理: ./tests/gateway/test_model_switch_persistence.py
+[400/1468] 正在处理: ./tests/gateway/test_delivery.py
    ℹ️ 无需翻译
-[401/1461] 正在处理: ./tests/gateway/test_pairing.py
+[401/1468] 正在处理: ./tests/gateway/test_channel_directory.py
    ℹ️ 无需翻译
-[402/1461] 正在处理: ./tests/gateway/test_telegram_text_batching.py
+[402/1468] 正在处理: ./tests/gateway/test_wecom_callback.py
    ℹ️ 无需翻译
-[403/1461] 正在处理: ./tests/gateway/test_slack_mention.py
+[403/1468] 正在处理: ./tests/gateway/test_fast_command.py
    ℹ️ 无需翻译
-[404/1461] 正在处理: ./tests/gateway/test_slack.py
+[404/1468] 正在处理: ./tests/gateway/test_qqbot.py
    ℹ️ 无需翻译
-[405/1461] 正在处理: ./tests/gateway/test_status.py
+[405/1468] 正在处理: ./tests/gateway/test_model_switch_persistence.py
    ℹ️ 无需翻译
-[406/1461] 正在处理: ./tests/gateway/test_telegram_group_gating.py
+[406/1468] 正在处理: ./tests/gateway/test_pairing.py
    ℹ️ 无需翻译
-[407/1461] 正在处理: ./tests/gateway/test_retry_response.py
+[407/1468] 正在处理: ./tests/gateway/test_telegram_text_batching.py
    ℹ️ 无需翻译
-[408/1461] 正在处理: ./tests/gateway/test_sse_agent_cancel.py
+[408/1468] 正在处理: ./tests/gateway/test_slack_mention.py
    ℹ️ 无需翻译
-[409/1461] 正在处理: ./tests/gateway/test_matrix_mention.py
+[409/1468] 正在处理: ./tests/gateway/test_slack.py
    ℹ️ 无需翻译
-[410/1461] 正在处理: ./tests/gateway/test_display_config.py
+[410/1468] 正在处理: ./tests/gateway/test_status.py
    ℹ️ 无需翻译
-[411/1461] 正在处理: ./tests/gateway/test_api_server_bind_guard.py
+[411/1468] 正在处理: ./tests/gateway/test_telegram_group_gating.py
    ℹ️ 无需翻译
-[412/1461] 正在处理: ./tests/gateway/test_discord_connect.py
+[412/1468] 正在处理: ./tests/gateway/test_retry_response.py
    ℹ️ 无需翻译
-[413/1461] 正在处理: ./tests/gateway/test_telegram_photo_interrupts.py
+[413/1468] 正在处理: ./tests/gateway/test_sse_agent_cancel.py
    ℹ️ 无需翻译
-[414/1461] 正在处理: ./tests/gateway/test_approve_deny_commands.py
+[414/1468] 正在处理: ./tests/gateway/test_matrix_mention.py
    ℹ️ 无需翻译
-[415/1461] 正在处理: ./tests/gateway/test_stt_config.py
+[415/1468] 正在处理: ./tests/gateway/test_display_config.py
    ℹ️ 无需翻译
-[416/1461] 正在处理: ./tests/gateway/test_update_streaming.py
+[416/1468] 正在处理: ./tests/gateway/test_api_server_bind_guard.py
    ℹ️ 无需翻译
-[417/1461] 正在处理: ./tests/gateway/test_run_progress_topics.py
+[417/1468] 正在处理: ./tests/gateway/test_discord_connect.py
    ℹ️ 无需翻译
-[418/1461] 正在处理: ./tests/gateway/test_step_callback_compat.py
+[418/1468] 正在处理: ./tests/gateway/test_telegram_photo_interrupts.py
    ℹ️ 无需翻译
-[419/1461] 正在处理: ./tests/gateway/test_bluebubbles.py
+[419/1468] 正在处理: ./tests/gateway/test_approve_deny_commands.py
    ℹ️ 无需翻译
-[420/1461] 正在处理: ./tests/gateway/test_command_bypass_active_session.py
+[420/1468] 正在处理: ./tests/gateway/test_stt_config.py
    ℹ️ 无需翻译
-[421/1461] 正在处理: ./tests/gateway/test_plan_command.py
+[421/1468] 正在处理: ./tests/gateway/test_update_streaming.py
    ℹ️ 无需翻译
-[422/1461] 正在处理: ./tests/gateway/test_runner_startup_failures.py
+[422/1468] 正在处理: ./tests/gateway/test_run_progress_topics.py
    ℹ️ 无需翻译
-[423/1461] 正在处理: ./tests/gateway/test_update_command.py
+[423/1468] 正在处理: ./tests/gateway/test_step_callback_compat.py
    ℹ️ 无需翻译
-[424/1461] 正在处理: ./tests/gateway/test_voice_command.py
+[424/1468] 正在处理: ./tests/gateway/test_bluebubbles.py
    ℹ️ 无需翻译
-[425/1461] 正在处理: ./tests/gateway/test_weak_credential_guard.py
+[425/1468] 正在处理: ./tests/gateway/test_command_bypass_active_session.py
    ℹ️ 无需翻译
-[426/1461] 正在处理: ./tests/gateway/test_compress_focus.py
+[426/1468] 正在处理: ./tests/gateway/test_plan_command.py
    ℹ️ 无需翻译
-[427/1461] 正在处理: ./tests/gateway/test_dm_topics.py
+[427/1468] 正在处理: ./tests/gateway/test_runner_startup_failures.py
    ℹ️ 无需翻译
-[428/1461] 正在处理: ./tests/gateway/test_sticker_cache.py
+[428/1468] 正在处理: ./tests/gateway/test_update_command.py
    ℹ️ 无需翻译
-[429/1461] 正在处理: ./tests/gateway/test_api_server.py
+[429/1468] 正在处理: ./tests/gateway/test_voice_command.py
    ℹ️ 无需翻译
-[430/1461] 正在处理: ./tests/gateway/test_restart_drain.py
+[430/1468] 正在处理: ./tests/gateway/test_weak_credential_guard.py
    ℹ️ 无需翻译
-[431/1461] 正在处理: ./tests/gateway/test_whatsapp_reply_prefix.py
+[431/1468] 正在处理: ./tests/gateway/test_compress_focus.py
    ℹ️ 无需翻译
-[432/1461] 正在处理: ./tests/gateway/test_async_memory_flush.py
+[432/1468] 正在处理: ./tests/gateway/test_dm_topics.py
    ℹ️ 无需翻译
-[433/1461] 正在处理: ./tests/gateway/test_platform_reconnect.py
+[433/1468] 正在处理: ./tests/gateway/test_sticker_cache.py
    ℹ️ 无需翻译
-[434/1461] 正在处理: ./tests/gateway/test_sms.py
+[434/1468] 正在处理: ./tests/gateway/test_api_server.py
    ℹ️ 无需翻译
-[435/1461] 正在处理: ./tests/gateway/test_flush_memory_stale_guard.py
+[435/1468] 正在处理: ./tests/gateway/test_restart_drain.py
    ℹ️ 无需翻译
-[436/1461] 正在处理: ./tests/gateway/test_pii_redaction.py
+[436/1468] 正在处理: ./tests/gateway/test_whatsapp_reply_prefix.py
    ℹ️ 无需翻译
-[437/1461] 正在处理: ./tests/gateway/test_dingtalk.py
+[437/1468] 正在处理: ./tests/gateway/test_async_memory_flush.py
    ℹ️ 无需翻译
-[438/1461] 正在处理: ./tests/gateway/test_telegram_network.py
+[438/1468] 正在处理: ./tests/gateway/test_platform_reconnect.py
    ℹ️ 无需翻译
-[439/1461] 正在处理: ./tests/gateway/test_gateway_inactivity_timeout.py
+[439/1468] 正在处理: ./tests/gateway/test_sms.py
    ℹ️ 无需翻译
-[440/1461] 正在处理: ./tests/gateway/test_verbose_command.py
+[440/1468] 正在处理: ./tests/gateway/test_flush_memory_stale_guard.py
    ℹ️ 无需翻译
-[441/1461] 正在处理: ./tests/gateway/test_session_info.py
+[441/1468] 正在处理: ./tests/gateway/test_pii_redaction.py
    ℹ️ 无需翻译
-[442/1461] 正在处理: ./tests/gateway/test_unknown_command.py
+[442/1468] 正在处理: ./tests/gateway/test_dingtalk.py
    ℹ️ 无需翻译
-[443/1461] 正在处理: ./tests/gateway/test_api_server_toolset.py
+[443/1468] 正在处理: ./tests/gateway/test_telegram_network.py
    ℹ️ 无需翻译
-[444/1461] 正在处理: ./tests/gateway/test_yolo_command.py
+[444/1468] 正在处理: ./tests/gateway/test_gateway_inactivity_timeout.py
    ℹ️ 无需翻译
-[445/1461] 正在处理: ./tests/gateway/test_telegram_caption_merge.py
+[445/1468] 正在处理: ./tests/gateway/test_verbose_command.py
    ℹ️ 无需翻译
-[446/1461] 正在处理: ./tests/gateway/test_feishu_onboard.py
+[446/1468] 正在处理: ./tests/gateway/test_session_info.py
    ℹ️ 无需翻译
-[447/1461] 正在处理: ./tests/gateway/test_background_process_notifications.py
+[447/1468] 正在处理: ./tests/gateway/test_unknown_command.py
    ℹ️ 无需翻译
-[448/1461] 正在处理: ./tests/gateway/test_webhook_dynamic_routes.py
+[448/1468] 正在处理: ./tests/gateway/test_api_server_toolset.py
    ℹ️ 无需翻译
-[449/1461] 正在处理: ./tests/gateway/test_media_extraction.py
+[449/1468] 正在处理: ./tests/gateway/test_yolo_command.py
    ℹ️ 无需翻译
-[450/1461] 正在处理: ./tests/gateway/test_discord_channel_controls.py
+[450/1468] 正在处理: ./tests/gateway/test_telegram_caption_merge.py
    ℹ️ 无需翻译
-[451/1461] 正在处理: ./tests/gateway/test_base_topic_sessions.py
+[451/1468] 正在处理: ./tests/gateway/test_feishu_onboard.py
    ℹ️ 无需翻译
-[452/1461] 正在处理: ./tests/gateway/test_send_retry.py
+[452/1468] 正在处理: ./tests/gateway/test_background_process_notifications.py
    ℹ️ 无需翻译
-[453/1461] 正在处理: ./tests/gateway/test_discord_thread_persistence.py
+[453/1468] 正在处理: ./tests/gateway/test_webhook_dynamic_routes.py
    ℹ️ 无需翻译
-[454/1461] 正在处理: ./tests/gateway/test_agent_cache.py
+[454/1468] 正在处理: ./tests/gateway/test_media_extraction.py
    ℹ️ 无需翻译
-[455/1461] 正在处理: ./tests/gateway/test_hooks.py
+[455/1468] 正在处理: ./tests/gateway/test_discord_channel_controls.py
    ℹ️ 无需翻译
-[456/1461] 正在处理: ./tests/gateway/test_mattermost.py
+[456/1468] 正在处理: ./tests/gateway/test_base_topic_sessions.py
    ℹ️ 无需翻译
-[457/1461] 正在处理: ./tests/gateway/test_ssl_certs.py
+[457/1468] 正在处理: ./tests/gateway/test_send_retry.py
    ℹ️ 无需翻译
-[458/1461] 正在处理: ./tests/gateway/test_restart_notification.py
+[458/1468] 正在处理: ./tests/gateway/test_discord_thread_persistence.py
    ℹ️ 无需翻译
-[459/1461] 正在处理: ./tests/gateway/test_session_hygiene.py
+[459/1468] 正在处理: ./tests/gateway/test_agent_cache.py
    ℹ️ 无需翻译
-[460/1461] 正在处理: ./tests/gateway/test_signal.py
+[460/1468] 正在处理: ./tests/gateway/test_hooks.py
    ℹ️ 无需翻译
-[461/1461] 正在处理: ./tests/gateway/test_ws_auth_retry.py
+[461/1468] 正在处理: ./tests/gateway/test_mattermost.py
    ℹ️ 无需翻译
-[462/1461] 正在处理: ./tests/gateway/test_discord_reply_mode.py
+[462/1468] 正在处理: ./tests/gateway/test_ssl_certs.py
    ℹ️ 无需翻译
-[463/1461] 正在处理: ./tests/gateway/test_transcript_offset.py
+[463/1468] 正在处理: ./tests/gateway/test_restart_notification.py
    ℹ️ 无需翻译
-[464/1461] 正在处理: ./tests/gateway/test_session_boundary_hooks.py
+[464/1468] 正在处理: ./tests/gateway/test_session_hygiene.py
    ℹ️ 无需翻译
-[465/1461] 正在处理: ./tests/gateway/test_allowlist_startup_check.py
+[465/1468] 正在处理: ./tests/gateway/test_signal.py
    ℹ️ 无需翻译
-[466/1461] 正在处理: ./tests/gateway/test_wecom.py
+[466/1468] 正在处理: ./tests/gateway/test_ws_auth_retry.py
    ℹ️ 无需翻译
-[467/1461] 正在处理: ./tests/gateway/test_telegram_format.py
+[467/1468] 正在处理: ./tests/gateway/test_discord_reply_mode.py
    ℹ️ 无需翻译
-[468/1461] 正在处理: ./tests/gateway/test_homeassistant.py
+[468/1468] 正在处理: ./tests/gateway/test_transcript_offset.py
    ℹ️ 无需翻译
-[469/1461] 正在处理: ./tests/gateway/test_matrix.py
+[469/1468] 正在处理: ./tests/gateway/test_session_boundary_hooks.py
    ℹ️ 无需翻译
-[470/1461] 正在处理: ./tests/gateway/test_config_cwd_bridge.py
+[470/1468] 正在处理: ./tests/gateway/test_allowlist_startup_check.py
    ℹ️ 无需翻译
-[471/1461] 正在处理: ./tests/gateway/test_discord_opus.py
+[471/1468] 正在处理: ./tests/gateway/test_wecom.py
    ℹ️ 无需翻译
-[472/1461] 正在处理: ./tests/gateway/test_status_command.py
+[472/1468] 正在处理: ./tests/gateway/test_telegram_format.py
    ℹ️ 无需翻译
-[473/1461] 正在处理: ./tests/gateway/test_telegram_thread_fallback.py
+[473/1468] 正在处理: ./tests/gateway/test_homeassistant.py
    ℹ️ 无需翻译
-[474/1461] 正在处理: ./tests/gateway/test_whatsapp_group_gating.py
+[474/1468] 正在处理: ./tests/gateway/test_matrix.py
    ℹ️ 无需翻译
-[475/1461] 正在处理: ./tests/gateway/test_session.py
+[475/1468] 正在处理: ./tests/gateway/test_config_cwd_bridge.py
    ℹ️ 无需翻译
-[476/1461] 正在处理: ./tests/gateway/test_telegram_reactions.py
+[476/1468] 正在处理: ./tests/gateway/test_discord_opus.py
    ℹ️ 无需翻译
-[477/1461] 正在处理: ./tests/gateway/test_session_reset_notify.py
+[477/1468] 正在处理: ./tests/gateway/test_status_command.py
    ℹ️ 无需翻译
-[478/1461] 正在处理: ./tests/gateway/test_discord_free_response.py
+[478/1468] 正在处理: ./tests/gateway/test_telegram_thread_fallback.py
    ℹ️ 无需翻译
-[479/1461] 正在处理: ./tests/gateway/test_email.py
+[479/1468] 正在处理: ./tests/gateway/test_whatsapp_group_gating.py
    ℹ️ 无需翻译
-[480/1461] 正在处理: ./tests/gateway/test_queue_consumption.py
+[480/1468] 正在处理: ./tests/gateway/test_session.py
    ℹ️ 无需翻译
-[481/1461] 正在处理: ./tests/gateway/test_model_command_custom_providers.py
+[481/1468] 正在处理: ./tests/gateway/test_telegram_reactions.py
    ℹ️ 无需翻译
-[482/1461] 正在处理: ./tests/gateway/test_telegram_approval_buttons.py
+[482/1468] 正在处理: ./tests/gateway/test_session_reset_notify.py
    ℹ️ 无需翻译
-[483/1461] 正在处理: ./tests/gateway/test_discord_imports.py
+[483/1468] 正在处理: ./tests/gateway/test_discord_free_response.py
    ℹ️ 无需翻译
-[484/1461] 正在处理: ./tests/gateway/test_resume_command.py
+[484/1468] 正在处理: ./tests/gateway/test_email.py
    ℹ️ 无需翻译
-[485/1461] 正在处理: ./tests/gateway/test_mirror.py
+[485/1468] 正在处理: ./tests/gateway/test_queue_consumption.py
    ℹ️ 无需翻译
-[486/1461] 正在处理: ./tests/gateway/test_platform_base.py
+[486/1468] 正在处理: ./tests/gateway/test_model_command_custom_providers.py
    ℹ️ 无需翻译
-[487/1461] 正在处理: ./tests/gateway/test_setup_feishu.py
+[487/1468] 正在处理: ./tests/gateway/test_telegram_approval_buttons.py
    ℹ️ 无需翻译
-[488/1461] 正在处理: ./tests/gateway/test_telegram_reply_mode.py
+[488/1468] 正在处理: ./tests/gateway/test_discord_imports.py
    ℹ️ 无需翻译
-[489/1461] 正在处理: ./tests/gateway/test_session_race_guard.py
+[489/1468] 正在处理: ./tests/gateway/test_resume_command.py
    ℹ️ 无需翻译
-[490/1461] 正在处理: ./tests/gateway/test_fallback_eviction.py
+[490/1468] 正在处理: ./tests/gateway/test_mirror.py
    ℹ️ 无需翻译
-[491/1461] 正在处理: ./tests/gateway/test_telegram_network_reconnect.py
+[491/1468] 正在处理: ./tests/gateway/test_platform_base.py
    ℹ️ 无需翻译
-[492/1461] 正在处理: ./tests/gateway/test_api_server_jobs.py
+[492/1468] 正在处理: ./tests/gateway/test_setup_feishu.py
    ℹ️ 无需翻译
-[493/1461] 正在处理: ./tests/gateway/test_api_server_normalize.py
+[493/1468] 正在处理: ./tests/gateway/test_telegram_reply_mode.py
    ℹ️ 无需翻译
-[494/1461] 正在处理: ./tests/gateway/test_compress_command.py
+[494/1468] 正在处理: ./tests/gateway/test_session_race_guard.py
    ℹ️ 无需翻译
-[495/1461] 正在处理: ./tests/gateway/test_discord_send.py
+[495/1468] 正在处理: ./tests/gateway/test_fallback_eviction.py
    ℹ️ 无需翻译
-[496/1461] 正在处理: ./tests/gateway/test_reasoning_command.py
+[496/1468] 正在处理: ./tests/gateway/test_telegram_network_reconnect.py
    ℹ️ 无需翻译
-[497/1461] 正在处理: ./tests/gateway/test_send_image_file.py
+[497/1468] 正在处理: ./tests/gateway/test_api_server_jobs.py
    ℹ️ 无需翻译
-[498/1461] 正在处理: ./tests/gateway/test_session_model_reset.py
+[498/1468] 正在处理: ./tests/gateway/test_api_server_normalize.py
    ℹ️ 无需翻译
-[499/1461] 正在处理: ./tests/gateway/test_session_model_override_routing.py
+[499/1468] 正在处理: ./tests/gateway/test_compress_command.py
    ℹ️ 无需翻译
-[500/1461] 正在处理: ./tests/gateway/test_document_cache.py
+[500/1468] 正在处理: ./tests/gateway/test_discord_send.py
    ℹ️ 无需翻译
-[501/1461] 正在处理: ./tests/gateway/test_discord_reactions.py
+[501/1468] 正在处理: ./tests/gateway/test_reasoning_command.py
    ℹ️ 无需翻译
-[502/1461] 正在处理: ./tests/gateway/test_discord_document_handling.py
+[502/1468] 正在处理: ./tests/gateway/test_send_image_file.py
    ℹ️ 无需翻译
-[503/1461] 正在处理: ./tests/gateway/test_telegram_documents.py
+[503/1468] 正在处理: ./tests/gateway/test_session_model_reset.py
    ℹ️ 无需翻译
-[504/1461] 正在处理: ./tests/gateway/test_telegram_conflict.py
+[504/1468] 正在处理: ./tests/gateway/test_session_model_override_routing.py
    ℹ️ 无需翻译
-[505/1461] 正在处理: ./tests/gateway/test_feishu.py
+[505/1468] 正在处理: ./tests/gateway/test_document_cache.py
    ℹ️ 无需翻译
-[506/1461] 正在处理: ./tests/gateway/test_retry_replacement.py
+[506/1468] 正在处理: ./tests/gateway/test_discord_reactions.py
    ℹ️ 无需翻译
-[507/1461] 正在处理: ./tests/gateway/test_runner_fatal_adapter.py
+[507/1468] 正在处理: ./tests/gateway/test_discord_document_handling.py
    ℹ️ 无需翻译
-[508/1461] 正在处理: ./tests/gateway/test_matrix_voice.py
+[508/1468] 正在处理: ./tests/gateway/test_telegram_documents.py
    ℹ️ 无需翻译
-[509/1461] 正在处理: ./tests/gateway/test_whatsapp_formatting.py
+[509/1468] 正在处理: ./tests/gateway/test_telegram_conflict.py
    ℹ️ 无需翻译
-[510/1461] 正在处理: ./tests/gateway/test_extract_local_files.py
+[510/1468] 正在处理: ./tests/gateway/test_feishu.py
    ℹ️ 无需翻译
-[511/1461] 正在处理: ./tests/gateway/test_title_command.py
+[511/1468] 正在处理: ./tests/gateway/test_retry_replacement.py
    ℹ️ 无需翻译
-[512/1461] 正在处理: ./tests/gateway/test_whatsapp_connect.py
+[512/1468] 正在处理: ./tests/gateway/test_runner_fatal_adapter.py
    ℹ️ 无需翻译
-[513/1461] 正在处理: ./tests/gateway/test_unauthorized_dm_behavior.py
+[513/1468] 正在处理: ./tests/gateway/test_matrix_voice.py
    ℹ️ 无需翻译
-[514/1461] 正在处理: ./tests/gateway/test_webhook_integration.py
+[514/1468] 正在处理: ./tests/gateway/test_whatsapp_formatting.py
    ℹ️ 无需翻译
-[515/1461] 正在处理: ./tests/gateway/test_discord_slash_commands.py
+[515/1468] 正在处理: ./tests/gateway/test_extract_local_files.py
    ℹ️ 无需翻译
-[516/1461] 正在处理: ./tests/gateway/test_interrupt_key_match.py
+[516/1468] 正在处理: ./tests/gateway/test_title_command.py
    ℹ️ 无需翻译
-[517/1461] 正在处理: ./tests/gateway/test_usage_command.py
+[517/1468] 正在处理: ./tests/gateway/test_whatsapp_connect.py
    ℹ️ 无需翻译
-[518/1461] 正在处理: ./tests/gateway/test_discord_channel_skills.py
+[518/1468] 正在处理: ./tests/gateway/test_unauthorized_dm_behavior.py
    ℹ️ 无需翻译
-[519/1461] 正在处理: ./tests/gateway/test_session_env.py
+[519/1468] 正在处理: ./tests/gateway/test_webhook_integration.py
    ℹ️ 无需翻译
-[520/1461] 正在处理: ./tests/gateway/test_weixin.py
+[520/1468] 正在处理: ./tests/gateway/test_discord_slash_commands.py
    ℹ️ 无需翻译
-[521/1461] 正在处理: ./tests/gateway/test_internal_event_bypass_pairing.py
+[521/1468] 正在处理: ./tests/gateway/test_interrupt_key_match.py
    ℹ️ 无需翻译
-[522/1461] 正在处理: ./tests/gateway/test_gateway_shutdown.py
+[522/1468] 正在处理: ./tests/gateway/test_usage_command.py
    ℹ️ 无需翻译
-[523/1461] 正在处理: ./tests/gateway/test_discord_media_metadata.py
+[523/1468] 正在处理: ./tests/gateway/test_discord_channel_skills.py
    ℹ️ 无需翻译
-[524/1461] 正在处理: ./tests/gateway/restart_test_helpers.py
+[524/1468] 正在处理: ./tests/gateway/test_session_env.py
    ℹ️ 无需翻译
-[525/1461] 正在处理: ./tests/gateway/test_webhook_adapter.py
+[525/1468] 正在处理: ./tests/gateway/test_weixin.py
    ℹ️ 无需翻译
-[526/1461] 正在处理: ./tests/gateway/__init__.py
+[526/1468] 正在处理: ./tests/gateway/test_internal_event_bypass_pairing.py
    ℹ️ 无需翻译
-[527/1461] 正在处理: ./tests/gateway/test_discord_bot_filter.py
+[527/1468] 正在处理: ./tests/gateway/test_gateway_shutdown.py
    ℹ️ 无需翻译
-[528/1461] 正在处理: ./tests/gateway/test_media_download_retry.py
+[528/1468] 正在处理: ./tests/gateway/test_discord_media_metadata.py
    ℹ️ 无需翻译
-[529/1461] 正在处理: ./tests/gateway/test_config.py
+[529/1468] 正在处理: ./tests/gateway/restart_test_helpers.py
    ℹ️ 无需翻译
-[530/1461] 正在处理: ./tests/gateway/test_feishu_approval_buttons.py
+[530/1468] 正在处理: ./tests/gateway/test_webhook_adapter.py
    ℹ️ 无需翻译
-[531/1461] 正在处理: ./tests/gateway/test_background_command.py
+[531/1468] 正在处理: ./tests/gateway/__init__.py
    ℹ️ 无需翻译
-[532/1461] 正在处理: ./tests/gateway/test_stream_consumer.py
+[532/1468] 正在处理: ./tests/gateway/test_discord_bot_filter.py
    ℹ️ 无需翻译
-[533/1461] 正在处理: ./tests/gateway/test_session_dm_thread_seeding.py
+[533/1468] 正在处理: ./tests/gateway/test_media_download_retry.py
    ℹ️ 无需翻译
-[534/1461] 正在处理: ./tests/gateway/test_slack_approval_buttons.py
+[534/1468] 正在处理: ./tests/gateway/test_config.py
    ℹ️ 无需翻译
-[535/1461] 正在处理: ./tests/plugins/test_retaindb_plugin.py
+[535/1468] 正在处理: ./tests/gateway/test_feishu_approval_buttons.py
    ℹ️ 无需翻译
-[536/1461] 正在处理: ./tests/plugins/__init__.py
+[536/1468] 正在处理: ./tests/gateway/test_background_command.py
    ℹ️ 无需翻译
-[537/1461] 正在处理: ./tests/plugins/memory/test_hindsight_provider.py
+[537/1468] 正在处理: ./tests/gateway/test_stream_consumer.py
    ℹ️ 无需翻译
-[538/1461] 正在处理: ./tests/plugins/memory/test_supermemory_provider.py
+[538/1468] 正在处理: ./tests/gateway/test_session_dm_thread_seeding.py
    ℹ️ 无需翻译
-[539/1461] 正在处理: ./tests/plugins/memory/test_mem0_v2.py
+[539/1468] 正在处理: ./tests/gateway/test_slack_approval_buttons.py
    ℹ️ 无需翻译
-[540/1461] 正在处理: ./tests/plugins/memory/__init__.py
+[540/1468] 正在处理: ./tests/plugins/test_retaindb_plugin.py
    ℹ️ 无需翻译
-[541/1461] 正在处理: ./tests/acp/test_events.py
+[541/1468] 正在处理: ./tests/plugins/__init__.py
    ℹ️ 无需翻译
-[542/1461] 正在处理: ./tests/acp/test_auth.py
+[542/1468] 正在处理: ./tests/plugins/memory/test_hindsight_provider.py
    ℹ️ 无需翻译
-[543/1461] 正在处理: ./tests/acp/test_entry.py
+[543/1468] 正在处理: ./tests/plugins/memory/test_supermemory_provider.py
    ℹ️ 无需翻译
-[544/1461] 正在处理: ./tests/acp/test_permissions.py
+[544/1468] 正在处理: ./tests/plugins/memory/test_openviking_provider.py
    ℹ️ 无需翻译
-[545/1461] 正在处理: ./tests/acp/test_session.py
+[545/1468] 正在处理: ./tests/plugins/memory/test_mem0_v2.py
    ℹ️ 无需翻译
-[546/1461] 正在处理: ./tests/acp/test_mcp_e2e.py
+[546/1468] 正在处理: ./tests/plugins/memory/__init__.py
    ℹ️ 无需翻译
-[547/1461] 正在处理: ./tests/acp/test_server.py
+[547/1468] 正在处理: ./tests/acp/test_events.py
    ℹ️ 无需翻译
-[548/1461] 正在处理: ./tests/acp/__init__.py
+[548/1468] 正在处理: ./tests/acp/test_auth.py
    ℹ️ 无需翻译
-[549/1461] 正在处理: ./tests/acp/test_tools.py
+[549/1468] 正在处理: ./tests/acp/test_entry.py
    ℹ️ 无需翻译
-[550/1461] 正在处理: ./tests/cli/test_cli_prefix_matching.py
+[550/1468] 正在处理: ./tests/acp/test_permissions.py
    ℹ️ 无需翻译
-[551/1461] 正在处理: ./tests/cli/test_fast_command.py
+[551/1468] 正在处理: ./tests/acp/test_session.py
    ℹ️ 无需翻译
-[552/1461] 正在处理: ./tests/cli/test_resume_display.py
+[552/1468] 正在处理: ./tests/acp/test_mcp_e2e.py
    ℹ️ 无需翻译
-[553/1461] 正在处理: ./tests/cli/test_cli_background_tui_refresh.py
+[553/1468] 正在处理: ./tests/acp/test_server.py
    ℹ️ 无需翻译
-[554/1461] 正在处理: ./tests/cli/test_cli_context_warning.py
+[554/1468] 正在处理: ./tests/acp/__init__.py
    ℹ️ 无需翻译
-[555/1461] 正在处理: ./tests/cli/test_cli_image_command.py
+[555/1468] 正在处理: ./tests/acp/test_tools.py
    ℹ️ 无需翻译
-[556/1461] 正在处理: ./tests/cli/test_branch_command.py
+[556/1468] 正在处理: ./tests/cli/test_cli_prefix_matching.py
    ℹ️ 无需翻译
-[557/1461] 正在处理: ./tests/cli/test_cli_provider_resolution.py
+[557/1468] 正在处理: ./tests/cli/test_fast_command.py
    ℹ️ 无需翻译
-[558/1461] 正在处理: ./tests/cli/test_cli_browser_connect.py
+[558/1468] 正在处理: ./tests/cli/test_resume_display.py
    ℹ️ 无需翻译
-[559/1461] 正在处理: ./tests/cli/test_surrogate_sanitization.py
+[559/1468] 正在处理: ./tests/cli/test_cli_background_tui_refresh.py
    ℹ️ 无需翻译
-[560/1461] 正在处理: ./tests/cli/test_compress_focus.py
+[560/1468] 正在处理: ./tests/cli/test_cli_context_warning.py
    ℹ️ 无需翻译
-[561/1461] 正在处理: ./tests/cli/test_cli_save_config_value.py
+[561/1468] 正在处理: ./tests/cli/test_cli_image_command.py
    ℹ️ 无需翻译
-[562/1461] 正在处理: ./tests/cli/test_manual_compress.py
+[562/1468] 正在处理: ./tests/cli/test_branch_command.py
    ℹ️ 无需翻译
-[563/1461] 正在处理: ./tests/cli/test_tool_progress_scrollback.py
+[563/1468] 正在处理: ./tests/cli/test_cli_provider_resolution.py
    ℹ️ 无需翻译
-[564/1461] 正在处理: ./tests/cli/test_cli_extension_hooks.py
+[564/1468] 正在处理: ./tests/cli/test_cli_browser_connect.py
    ℹ️ 无需翻译
-[565/1461] 正在处理: ./tests/cli/test_cli_skin_integration.py
+[565/1468] 正在处理: ./tests/cli/test_surrogate_sanitization.py
    ℹ️ 无需翻译
-[566/1461] 正在处理: ./tests/cli/test_stream_delta_think_tag.py
+[566/1468] 正在处理: ./tests/cli/test_compress_focus.py
    ℹ️ 无需翻译
-[567/1461] 正在处理: ./tests/cli/test_cli_mcp_config_watch.py
+[567/1468] 正在处理: ./tests/cli/test_cli_save_config_value.py
    ℹ️ 无需翻译
-[568/1461] 正在处理: ./tests/cli/test_cli_init.py
+[568/1468] 正在处理: ./tests/cli/test_manual_compress.py
    ℹ️ 无需翻译
-[569/1461] 正在处理: ./tests/cli/test_cli_secret_capture.py
+[569/1468] 正在处理: ./tests/cli/test_tool_progress_scrollback.py
    ℹ️ 无需翻译
-[570/1461] 正在处理: ./tests/cli/test_session_boundary_hooks.py
+[570/1468] 正在处理: ./tests/cli/test_cli_extension_hooks.py
    ℹ️ 无需翻译
-[571/1461] 正在处理: ./tests/cli/test_cli_interrupt_subagent.py
+[571/1468] 正在处理: ./tests/cli/test_cli_skin_integration.py
    ℹ️ 无需翻译
-[572/1461] 正在处理: ./tests/cli/test_quick_commands.py
+[572/1468] 正在处理: ./tests/cli/test_stream_delta_think_tag.py
    ℹ️ 无需翻译
-[573/1461] 正在处理: ./tests/cli/test_cli_status_bar.py
+[573/1468] 正在处理: ./tests/cli/test_cli_mcp_config_watch.py
    ℹ️ 无需翻译
-[574/1461] 正在处理: ./tests/cli/test_worktree.py
+[574/1468] 正在处理: ./tests/cli/test_cli_init.py
    ℹ️ 无需翻译
-[575/1461] 正在处理: ./tests/cli/test_cli_retry.py
+[575/1468] 正在处理: ./tests/cli/test_cli_secret_capture.py
    ℹ️ 无需翻译
-[576/1461] 正在处理: ./tests/cli/test_worktree_security.py
+[576/1468] 正在处理: ./tests/cli/test_session_boundary_hooks.py
    ℹ️ 无需翻译
-[577/1461] 正在处理: ./tests/cli/test_cli_tools_command.py
+[577/1468] 正在处理: ./tests/cli/test_cli_interrupt_subagent.py
    ℹ️ 无需翻译
-[578/1461] 正在处理: ./tests/cli/test_reasoning_command.py
+[578/1468] 正在处理: ./tests/cli/test_quick_commands.py
    ℹ️ 无需翻译
-[579/1461] 正在处理: ./tests/cli/test_personality_none.py
+[579/1468] 正在处理: ./tests/cli/test_cli_status_bar.py
    ℹ️ 无需翻译
-[580/1461] 正在处理: ./tests/cli/test_cli_file_drop.py
+[580/1468] 正在处理: ./tests/cli/test_worktree.py
    ℹ️ 无需翻译
-[581/1461] 正在处理: ./tests/cli/test_cli_approval_ui.py
+[581/1468] 正在处理: ./tests/cli/test_cli_retry.py
    ℹ️ 无需翻译
-[582/1461] 正在处理: ./tests/cli/test_cli_loading_indicator.py
+[582/1468] 正在处理: ./tests/cli/test_worktree_security.py
    ℹ️ 无需翻译
-[583/1461] 正在处理: ./tests/cli/test_cli_status_command.py
+[583/1468] 正在处理: ./tests/cli/test_cli_tools_command.py
    ℹ️ 无需翻译
-[584/1461] 正在处理: ./tests/cli/test_cli_plan_command.py
+[584/1468] 正在处理: ./tests/cli/test_reasoning_command.py
    ℹ️ 无需翻译
-[585/1461] 正在处理: ./tests/cli/__init__.py
+[585/1468] 正在处理: ./tests/cli/test_personality_none.py
    ℹ️ 无需翻译
-[586/1461] 正在处理: ./tests/cli/test_cli_preloaded_skills.py
+[586/1468] 正在处理: ./tests/cli/test_cli_file_drop.py
    ℹ️ 无需翻译
-[587/1461] 正在处理: ./tests/cli/test_cli_new_session.py
+[587/1468] 正在处理: ./tests/cli/test_cli_approval_ui.py
    ℹ️ 无需翻译
-[588/1461] 正在处理: ./tests/agent/test_display.py
+[588/1468] 正在处理: ./tests/cli/test_cli_loading_indicator.py
    ℹ️ 无需翻译
-[589/1461] 正在处理: ./tests/agent/test_error_classifier.py
+[589/1468] 正在处理: ./tests/cli/test_cli_status_command.py
    ℹ️ 无需翻译
-[590/1461] 正在处理: ./tests/agent/test_subdirectory_hints.py
+[590/1468] 正在处理: ./tests/cli/test_cli_plan_command.py
    ℹ️ 无需翻译
-[591/1461] 正在处理: ./tests/agent/test_prompt_caching.py
+[591/1468] 正在处理: ./tests/cli/__init__.py
    ℹ️ 无需翻译
-[592/1461] 正在处理: ./tests/agent/test_auxiliary_config_bridge.py
+[592/1468] 正在处理: ./tests/cli/test_cli_preloaded_skills.py
    ℹ️ 无需翻译
-[593/1461] 正在处理: ./tests/agent/test_memory_provider.py
+[593/1468] 正在处理: ./tests/cli/test_cli_new_session.py
    ℹ️ 无需翻译
-[594/1461] 正在处理: ./tests/agent/test_compress_focus.py
+[594/1468] 正在处理: ./tests/agent/test_display.py
    ℹ️ 无需翻译
-[595/1461] 正在处理: ./tests/agent/test_external_skills.py
+[595/1468] 正在处理: ./tests/agent/test_error_classifier.py
    ℹ️ 无需翻译
-[596/1461] 正在处理: ./tests/agent/test_title_generator.py
+[596/1468] 正在处理: ./tests/agent/test_subdirectory_hints.py
    ℹ️ 无需翻译
-[597/1461] 正在处理: ./tests/agent/test_anthropic_adapter.py
+[597/1468] 正在处理: ./tests/agent/test_prompt_caching.py
    ℹ️ 无需翻译
-[598/1461] 正在处理: ./tests/agent/test_rate_limit_tracker.py
+[598/1468] 正在处理: ./tests/agent/test_auxiliary_config_bridge.py
    ℹ️ 无需翻译
-[599/1461] 正在处理: ./tests/agent/test_smart_model_routing.py
+[599/1468] 正在处理: ./tests/agent/test_memory_provider.py
    ℹ️ 无需翻译
-[600/1461] 正在处理: ./tests/agent/test_models_dev.py
+[600/1468] 正在处理: ./tests/agent/test_compress_focus.py
    ℹ️ 无需翻译
-[601/1461] 正在处理: ./tests/agent/test_model_metadata.py
+[601/1468] 正在处理: ./tests/agent/test_external_skills.py
    ℹ️ 无需翻译
-[602/1461] 正在处理: ./tests/agent/test_local_stream_timeout.py
+[602/1468] 正在处理: ./tests/agent/test_title_generator.py
    ℹ️ 无需翻译
-[603/1461] 正在处理: ./tests/agent/test_crossloop_client_cache.py
+[603/1468] 正在处理: ./tests/agent/test_anthropic_adapter.py
    ℹ️ 无需翻译
-[604/1461] 正在处理: ./tests/agent/test_insights.py
+[604/1468] 正在处理: ./tests/agent/test_rate_limit_tracker.py
    ℹ️ 无需翻译
-[605/1461] 正在处理: ./tests/agent/test_display_emoji.py
+[605/1468] 正在处理: ./tests/agent/test_smart_model_routing.py
    ℹ️ 无需翻译
-[606/1461] 正在处理: ./tests/agent/test_auxiliary_client.py
+[606/1468] 正在处理: ./tests/agent/test_models_dev.py
    ℹ️ 无需翻译
-[607/1461] 正在处理: ./tests/agent/test_subagent_progress.py
+[607/1468] 正在处理: ./tests/agent/test_model_metadata.py
    ℹ️ 无需翻译
-[608/1461] 正在处理: ./tests/agent/test_credential_pool.py
+[608/1468] 正在处理: ./tests/agent/test_local_stream_timeout.py
    ℹ️ 无需翻译
-[609/1461] 正在处理: ./tests/agent/test_usage_pricing.py
+[609/1468] 正在处理: ./tests/agent/test_crossloop_client_cache.py
    ℹ️ 无需翻译
-[610/1461] 正在处理: ./tests/agent/test_memory_user_id.py
+[610/1468] 正在处理: ./tests/agent/test_insights.py
    ℹ️ 无需翻译
-[611/1461] 正在处理: ./tests/agent/test_skill_commands.py
+[611/1468] 正在处理: ./tests/agent/test_display_emoji.py
    ℹ️ 无需翻译
-[612/1461] 正在处理: ./tests/agent/test_context_engine.py
+[612/1468] 正在处理: ./tests/agent/test_auxiliary_client.py
    ℹ️ 无需翻译
-[613/1461] 正在处理: ./tests/agent/test_prompt_builder.py
+[613/1468] 正在处理: ./tests/agent/test_subagent_progress.py
    ℹ️ 无需翻译
-[614/1461] 正在处理: ./tests/agent/test_auxiliary_named_custom_providers.py
+[614/1468] 正在处理: ./tests/agent/test_credential_pool.py
    ℹ️ 无需翻译
-[615/1461] 正在处理: ./tests/agent/test_context_compressor.py
+[615/1468] 正在处理: ./tests/agent/test_usage_pricing.py
    ℹ️ 无需翻译
-[616/1461] 正在处理: ./tests/agent/test_redact.py
+[616/1468] 正在处理: ./tests/agent/test_memory_user_id.py
    ℹ️ 无需翻译
-[617/1461] 正在处理: ./tests/agent/test_minimax_provider.py
+[617/1468] 正在处理: ./tests/agent/test_skill_commands.py
    ℹ️ 无需翻译
-[618/1461] 正在处理: ./tests/agent/test_model_metadata_local_ctx.py
+[618/1468] 正在处理: ./tests/agent/test_context_engine.py
    ℹ️ 无需翻译
-[619/1461] 正在处理: ./tests/agent/test_minimax_auxiliary_url.py
+[619/1468] 正在处理: ./tests/agent/test_prompt_builder.py
    ℹ️ 无需翻译
-[620/1461] 正在处理: ./tests/agent/test_credential_pool_routing.py
+[620/1468] 正在处理: ./tests/agent/test_auxiliary_named_custom_providers.py
    ℹ️ 无需翻译
-[621/1461] 正在处理: ./tests/agent/__init__.py
+[621/1468] 正在处理: ./tests/agent/test_context_compressor.py
    ℹ️ 无需翻译
-[622/1461] 正在处理: ./tests/agent/test_context_references.py
+[622/1468] 正在处理: ./tests/agent/test_redact.py
    ℹ️ 无需翻译
-[623/1461] 正在处理: ./tests/cron/test_cron_script.py
+[623/1468] 正在处理: ./tests/agent/test_minimax_provider.py
    ℹ️ 无需翻译
-[624/1461] 正在处理: ./tests/cron/test_cron_inactivity_timeout.py
+[624/1468] 正在处理: ./tests/agent/test_model_metadata_local_ctx.py
    ℹ️ 无需翻译
-[625/1461] 正在处理: ./tests/cron/test_jobs.py
+[625/1468] 正在处理: ./tests/agent/test_minimax_auxiliary_url.py
    ℹ️ 无需翻译
-[626/1461] 正在处理: ./tests/cron/test_file_permissions.py
+[626/1468] 正在处理: ./tests/agent/test_credential_pool_routing.py
    ℹ️ 无需翻译
-[627/1461] 正在处理: ./tests/cron/test_codex_execution_paths.py
+[627/1468] 正在处理: ./tests/agent/__init__.py
    ℹ️ 无需翻译
-[628/1461] 正在处理: ./tests/cron/test_scheduler.py
+[628/1468] 正在处理: ./tests/agent/test_context_references.py
    ℹ️ 无需翻译
-[629/1461] 正在处理: ./tests/cron/__init__.py
+[629/1468] 正在处理: ./tests/cron/test_cron_script.py
    ℹ️ 无需翻译
-[630/1461] 正在处理: ./tests/skills/test_openclaw_migration.py
+[630/1468] 正在处理: ./tests/cron/test_cron_inactivity_timeout.py
    ℹ️ 无需翻译
-[631/1461] 正在处理: ./tests/skills/test_memento_cards.py
+[631/1468] 正在处理: ./tests/cron/test_jobs.py
    ℹ️ 无需翻译
-[632/1461] 正在处理: ./tests/skills/test_youtube_quiz.py
+[632/1468] 正在处理: ./tests/cron/test_file_permissions.py
    ℹ️ 无需翻译
-[633/1461] 正在处理: ./tests/skills/test_telephony_skill.py
+[633/1468] 正在处理: ./tests/cron/test_codex_execution_paths.py
    ℹ️ 无需翻译
-[634/1461] 正在处理: ./tests/skills/test_google_workspace_api.py
+[634/1468] 正在处理: ./tests/cron/test_scheduler.py
    ℹ️ 无需翻译
-[635/1461] 正在处理: ./tests/skills/test_google_oauth_setup.py
+[635/1468] 正在处理: ./tests/cron/__init__.py
    ℹ️ 无需翻译
-[636/1461] 正在处理: ./tools/image_generation_tool.py
+[636/1468] 正在处理: ./tests/skills/test_openclaw_migration.py
    ℹ️ 无需翻译
-[637/1461] 正在处理: ./tools/mixture_of_agents_tool.py
+[637/1468] 正在处理: ./tests/skills/test_memento_cards.py
    ℹ️ 无需翻译
-[638/1461] 正在处理: ./tools/credential_files.py
+[638/1468] 正在处理: ./tests/skills/test_youtube_quiz.py
    ℹ️ 无需翻译
-[639/1461] 正在处理: ./tools/code_execution_tool.py
+[639/1468] 正在处理: ./tests/skills/test_telephony_skill.py
    ℹ️ 无需翻译
-[640/1461] 正在处理: ./tools/env_passthrough.py
+[640/1468] 正在处理: ./tests/skills/test_google_workspace_api.py
    ℹ️ 无需翻译
-[641/1461] 正在处理: ./tools/approval.py
+[641/1468] 正在处理: ./tests/skills/test_google_oauth_setup.py
    ℹ️ 无需翻译
-[642/1461] 正在处理: ./tools/website_policy.py
+[642/1468] 正在处理: ./tools/image_generation_tool.py
    ℹ️ 无需翻译
-[643/1461] 正在处理: ./tools/tool_backend_helpers.py
+[643/1468] 正在处理: ./tools/mixture_of_agents_tool.py
    ℹ️ 无需翻译
-[644/1461] 正在处理: ./tools/fuzzy_match.py
+[644/1468] 正在处理: ./tools/credential_files.py
    ℹ️ 无需翻译
-[645/1461] 正在处理: ./tools/clarify_tool.py
+[645/1468] 正在处理: ./tools/code_execution_tool.py
    ℹ️ 无需翻译
-[646/1461] 正在处理: ./tools/transcription_tools.py
+[646/1468] 正在处理: ./tools/env_passthrough.py
    ℹ️ 无需翻译
-[647/1461] 正在处理: ./tools/debug_helpers.py
+[647/1468] 正在处理: ./tools/approval.py
    ℹ️ 无需翻译
-[648/1461] 正在处理: ./tools/mcp_oauth.py
+[648/1468] 正在处理: ./tools/website_policy.py
    ℹ️ 无需翻译
-[649/1461] 正在处理: ./tools/skills_tool.py
+[649/1468] 正在处理: ./tools/tool_backend_helpers.py
    ℹ️ 无需翻译
-[650/1461] 正在处理: ./tools/rl_training_tool.py
+[650/1468] 正在处理: ./tools/fuzzy_match.py
    ℹ️ 无需翻译
-[651/1461] 正在处理: ./tools/terminal_tool.py
+[651/1468] 正在处理: ./tools/clarify_tool.py
    ℹ️ 无需翻译
-[652/1461] 正在处理: ./tools/file_operations.py
+[652/1468] 正在处理: ./tools/transcription_tools.py
    ℹ️ 无需翻译
-[653/1461] 正在处理: ./tools/vision_tools.py
+[653/1468] 正在处理: ./tools/debug_helpers.py
    ℹ️ 无需翻译
-[654/1461] 正在处理: ./tools/interrupt.py
+[654/1468] 正在处理: ./tools/mcp_oauth.py
    ℹ️ 无需翻译
-[655/1461] 正在处理: ./tools/voice_mode.py
+[655/1468] 正在处理: ./tools/skills_tool.py
    ℹ️ 无需翻译
-[656/1461] 正在处理: ./tools/browser_tool.py
+[656/1468] 正在处理: ./tools/rl_training_tool.py
    ℹ️ 无需翻译
-[657/1461] 正在处理: ./tools/web_tools.py
+[657/1468] 正在处理: ./tools/terminal_tool.py
    ℹ️ 无需翻译
-[658/1461] 正在处理: ./tools/file_tools.py
+[658/1468] 正在处理: ./tools/file_operations.py
    ℹ️ 无需翻译
-[659/1461] 正在处理: ./tools/memory_tool.py
+[659/1468] 正在处理: ./tools/vision_tools.py
    ℹ️ 无需翻译
-[660/1461] 正在处理: ./tools/checkpoint_manager.py
+[660/1468] 正在处理: ./tools/interrupt.py
    ℹ️ 无需翻译
-[661/1461] 正在处理: ./tools/mcp_tool.py
+[661/1468] 正在处理: ./tools/voice_mode.py
    ℹ️ 无需翻译
-[662/1461] 正在处理: ./tools/cronjob_tools.py
+[662/1468] 正在处理: ./tools/browser_tool.py
    ℹ️ 无需翻译
-[663/1461] 正在处理: ./tools/path_security.py
+[663/1468] 正在处理: ./tools/web_tools.py
    ℹ️ 无需翻译
-[664/1461] 正在处理: ./tools/managed_tool_gateway.py
+[664/1468] 正在处理: ./tools/file_tools.py
    ℹ️ 无需翻译
-[665/1461] 正在处理: ./tools/skills_hub.py
+[665/1468] 正在处理: ./tools/memory_tool.py
    ℹ️ 无需翻译
-[666/1461] 正在处理: ./tools/skill_manager_tool.py
+[666/1468] 正在处理: ./tools/checkpoint_manager.py
    ℹ️ 无需翻译
-[667/1461] 正在处理: ./tools/tirith_security.py
+[667/1468] 正在处理: ./tools/mcp_tool.py
    ℹ️ 无需翻译
-[668/1461] 正在处理: ./tools/skills_guard.py
+[668/1468] 正在处理: ./tools/cronjob_tools.py
    ℹ️ 无需翻译
-[669/1461] 正在处理: ./tools/browser_camofox_state.py
+[669/1468] 正在处理: ./tools/path_security.py
    ℹ️ 无需翻译
-[670/1461] 正在处理: ./tools/tool_result_storage.py
+[670/1468] 正在处理: ./tools/managed_tool_gateway.py
    ℹ️ 无需翻译
-[671/1461] 正在处理: ./tools/tts_tool.py
+[671/1468] 正在处理: ./tools/skills_hub.py
    ℹ️ 无需翻译
-[672/1461] 正在处理: ./tools/budget_config.py
+[672/1468] 正在处理: ./tools/skill_manager_tool.py
    ℹ️ 无需翻译
-[673/1461] 正在处理: ./tools/ansi_strip.py
+[673/1468] 正在处理: ./tools/tirith_security.py
    ℹ️ 无需翻译
-[674/1461] 正在处理: ./tools/registry.py
+[674/1468] 正在处理: ./tools/skills_guard.py
    ℹ️ 无需翻译
-[675/1461] 正在处理: ./tools/openrouter_client.py
+[675/1468] 正在处理: ./tools/browser_camofox_state.py
    ℹ️ 无需翻译
-[676/1461] 正在处理: ./tools/osv_check.py
+[676/1468] 正在处理: ./tools/tool_result_storage.py
    ℹ️ 无需翻译
-[677/1461] 正在处理: ./tools/binary_extensions.py
+[677/1468] 正在处理: ./tools/tts_tool.py
    ℹ️ 无需翻译
-[678/1461] 正在处理: ./tools/session_search_tool.py
+[678/1468] 正在处理: ./tools/budget_config.py
    ℹ️ 无需翻译
-[679/1461] 正在处理: ./tools/url_safety.py
+[679/1468] 正在处理: ./tools/ansi_strip.py
    ℹ️ 无需翻译
-[680/1461] 正在处理: ./tools/process_registry.py
+[680/1468] 正在处理: ./tools/registry.py
    ℹ️ 无需翻译
-[681/1461] 正在处理: ./tools/send_message_tool.py
+[681/1468] 正在处理: ./tools/openrouter_client.py
    ℹ️ 无需翻译
-[682/1461] 正在处理: ./tools/browser_camofox.py
+[682/1468] 正在处理: ./tools/osv_check.py
    ℹ️ 无需翻译
-[683/1461] 正在处理: ./tools/skills_sync.py
+[683/1468] 正在处理: ./tools/binary_extensions.py
    ℹ️ 无需翻译
-[684/1461] 正在处理: ./tools/homeassistant_tool.py
+[684/1468] 正在处理: ./tools/session_search_tool.py
    ℹ️ 无需翻译
-[685/1461] 正在处理: ./tools/patch_parser.py
+[685/1468] 正在处理: ./tools/url_safety.py
    ℹ️ 无需翻译
-[686/1461] 正在处理: ./tools/__init__.py
+[686/1468] 正在处理: ./tools/process_registry.py
    ℹ️ 无需翻译
-[687/1461] 正在处理: ./tools/neutts_synth.py
+[687/1468] 正在处理: ./tools/send_message_tool.py
    ℹ️ 无需翻译
-[688/1461] 正在处理: ./tools/delegate_tool.py
+[688/1468] 正在处理: ./tools/browser_camofox.py
    ℹ️ 无需翻译
-[689/1461] 正在处理: ./tools/todo_tool.py
+[689/1468] 正在处理: ./tools/skills_sync.py
    ℹ️ 无需翻译
-[690/1461] 正在处理: ./tools/browser_providers/base.py
+[690/1468] 正在处理: ./tools/homeassistant_tool.py
    ℹ️ 无需翻译
-[691/1461] 正在处理: ./tools/browser_providers/firecrawl.py
+[691/1468] 正在处理: ./tools/patch_parser.py
    ℹ️ 无需翻译
-[692/1461] 正在处理: ./tools/browser_providers/browser_use.py
+[692/1468] 正在处理: ./tools/__init__.py
    ℹ️ 无需翻译
-[693/1461] 正在处理: ./tools/browser_providers/browserbase.py
+[693/1468] 正在处理: ./tools/neutts_synth.py
    ℹ️ 无需翻译
-[694/1461] 正在处理: ./tools/browser_providers/__init__.py
+[694/1468] 正在处理: ./tools/delegate_tool.py
    ℹ️ 无需翻译
-[695/1461] 正在处理: ./tools/environments/file_sync.py
+[695/1468] 正在处理: ./tools/todo_tool.py
    ℹ️ 无需翻译
-[696/1461] 正在处理: ./tools/environments/base.py
+[696/1468] 正在处理: ./tools/browser_providers/base.py
    ℹ️ 无需翻译
-[697/1461] 正在处理: ./tools/environments/managed_modal.py
+[697/1468] 正在处理: ./tools/browser_providers/firecrawl.py
    ℹ️ 无需翻译
-[698/1461] 正在处理: ./tools/environments/daytona.py
+[698/1468] 正在处理: ./tools/browser_providers/browser_use.py
    ℹ️ 无需翻译
-[699/1461] 正在处理: ./tools/environments/ssh.py
+[699/1468] 正在处理: ./tools/browser_providers/browserbase.py
    ℹ️ 无需翻译
-[700/1461] 正在处理: ./tools/environments/local.py
+[700/1468] 正在处理: ./tools/browser_providers/__init__.py
    ℹ️ 无需翻译
-[701/1461] 正在处理: ./tools/environments/modal_utils.py
+[701/1468] 正在处理: ./tools/environments/file_sync.py
    ℹ️ 无需翻译
-[702/1461] 正在处理: ./tools/environments/docker.py
+[702/1468] 正在处理: ./tools/environments/base.py
    ℹ️ 无需翻译
-[703/1461] 正在处理: ./tools/environments/singularity.py
+[703/1468] 正在处理: ./tools/environments/managed_modal.py
    ℹ️ 无需翻译
-[704/1461] 正在处理: ./tools/environments/modal.py
+[704/1468] 正在处理: ./tools/environments/daytona.py
    ℹ️ 无需翻译
-[705/1461] 正在处理: ./tools/environments/__init__.py
+[705/1468] 正在处理: ./tools/environments/ssh.py
    ℹ️ 无需翻译
-[706/1461] 正在处理: ./docker/SOUL.md
+[706/1468] 正在处理: ./tools/environments/local.py
    ℹ️ 无需翻译
-[707/1461] 正在处理: ./optional-skills/DESCRIPTION.md
+[707/1468] 正在处理: ./tools/environments/modal_utils.py
    ℹ️ 无需翻译
-[708/1461] 正在处理: ./optional-skills/mcp/DESCRIPTION.md
+[708/1468] 正在处理: ./tools/environments/docker.py
    ℹ️ 无需翻译
-[709/1461] 正在处理: ./optional-skills/mcp/fastmcp/SKILL.md
+[709/1468] 正在处理: ./tools/environments/singularity.py
    ℹ️ 无需翻译
-[710/1461] 正在处理: ./optional-skills/mcp/fastmcp/templates/database_server.py
+[710/1468] 正在处理: ./tools/environments/modal.py
    ℹ️ 无需翻译
-[711/1461] 正在处理: ./optional-skills/mcp/fastmcp/templates/api_wrapper.py
+[711/1468] 正在处理: ./tools/environments/__init__.py
    ℹ️ 无需翻译
-[712/1461] 正在处理: ./optional-skills/mcp/fastmcp/templates/file_processor.py
+[712/1468] 正在处理: ./output/report.md
    ℹ️ 无需翻译
-[713/1461] 正在处理: ./optional-skills/mcp/fastmcp/scripts/scaffold_fastmcp.py
+[713/1468] 正在处理: ./docker/SOUL.md
    ℹ️ 无需翻译
-[714/1461] 正在处理: ./optional-skills/mcp/fastmcp/references/fastmcp-cli.md
+[714/1468] 正在处理: ./optional-skills/DESCRIPTION.md
    ℹ️ 无需翻译
-[715/1461] 正在处理: ./optional-skills/blockchain/solana/SKILL.md
+[715/1468] 正在处理: ./optional-skills/mcp/DESCRIPTION.md
    ℹ️ 无需翻译
-[716/1461] 正在处理: ./optional-skills/blockchain/solana/scripts/solana_client.py
+[716/1468] 正在处理: ./optional-skills/mcp/fastmcp/SKILL.md
    ℹ️ 无需翻译
-[717/1461] 正在处理: ./optional-skills/blockchain/base/SKILL.md
+[717/1468] 正在处理: ./optional-skills/mcp/fastmcp/templates/database_server.py
    ℹ️ 无需翻译
-[718/1461] 正在处理: ./optional-skills/blockchain/base/scripts/base_client.py
+[718/1468] 正在处理: ./optional-skills/mcp/fastmcp/templates/api_wrapper.py
    ℹ️ 无需翻译
-[719/1461] 正在处理: ./optional-skills/research/gitnexus-explorer/SKILL.md
+[719/1468] 正在处理: ./optional-skills/mcp/fastmcp/templates/file_processor.py
    ℹ️ 无需翻译
-[720/1461] 正在处理: ./optional-skills/research/qmd/SKILL.md
+[720/1468] 正在处理: ./optional-skills/mcp/fastmcp/scripts/scaffold_fastmcp.py
    ℹ️ 无需翻译
-[721/1461] 正在处理: ./optional-skills/research/parallel-cli/SKILL.md
+[721/1468] 正在处理: ./optional-skills/mcp/fastmcp/references/fastmcp-cli.md
    ℹ️ 无需翻译
-[722/1461] 正在处理: ./optional-skills/research/duckduckgo-search/SKILL.md
+[722/1468] 正在处理: ./optional-skills/blockchain/solana/SKILL.md
    ℹ️ 无需翻译
-[723/1461] 正在处理: ./optional-skills/research/bioinformatics/SKILL.md
+[723/1468] 正在处理: ./optional-skills/blockchain/solana/scripts/solana_client.py
    ℹ️ 无需翻译
-[724/1461] 正在处理: ./optional-skills/research/domain-intel/SKILL.md
+[724/1468] 正在处理: ./optional-skills/blockchain/base/SKILL.md
    ℹ️ 无需翻译
-[725/1461] 正在处理: ./optional-skills/research/domain-intel/scripts/domain_intel.py
+[725/1468] 正在处理: ./optional-skills/blockchain/base/scripts/base_client.py
    ℹ️ 无需翻译
-[726/1461] 正在处理: ./optional-skills/research/scrapling/SKILL.md
+[726/1468] 正在处理: ./optional-skills/research/gitnexus-explorer/SKILL.md
    ℹ️ 无需翻译
-[727/1461] 正在处理: ./optional-skills/research/drug-discovery/SKILL.md
+[727/1468] 正在处理: ./optional-skills/research/qmd/SKILL.md
    ℹ️ 无需翻译
-[728/1461] 正在处理: ./optional-skills/research/drug-discovery/scripts/ro5_screen.py
+[728/1468] 正在处理: ./optional-skills/research/parallel-cli/SKILL.md
    ℹ️ 无需翻译
-[729/1461] 正在处理: ./optional-skills/research/drug-discovery/scripts/chembl_target.py
+[729/1468] 正在处理: ./optional-skills/research/duckduckgo-search/SKILL.md
    ℹ️ 无需翻译
-[730/1461] 正在处理: ./optional-skills/research/drug-discovery/references/ADMET_REFERENCE.md
+[730/1468] 正在处理: ./optional-skills/research/bioinformatics/SKILL.md
    ℹ️ 无需翻译
-[731/1461] 正在处理: ./optional-skills/mlops/tensorrt-llm/SKILL.md
+[731/1468] 正在处理: ./optional-skills/research/domain-intel/SKILL.md
    ℹ️ 无需翻译
-[732/1461] 正在处理: ./optional-skills/mlops/tensorrt-llm/references/optimization.md
+[732/1468] 正在处理: ./optional-skills/research/domain-intel/scripts/domain_intel.py
    ℹ️ 无需翻译
-[733/1461] 正在处理: ./optional-skills/mlops/tensorrt-llm/references/serving.md
+[733/1468] 正在处理: ./optional-skills/research/scrapling/SKILL.md
    ℹ️ 无需翻译
-[734/1461] 正在处理: ./optional-skills/mlops/tensorrt-llm/references/multi-gpu.md
+[734/1468] 正在处理: ./optional-skills/research/drug-discovery/SKILL.md
    ℹ️ 无需翻译
-[735/1461] 正在处理: ./optional-skills/mlops/accelerate/SKILL.md
+[735/1468] 正在处理: ./optional-skills/research/drug-discovery/scripts/ro5_screen.py
    ℹ️ 无需翻译
-[736/1461] 正在处理: ./optional-skills/mlops/accelerate/references/megatron-integration.md
+[736/1468] 正在处理: ./optional-skills/research/drug-discovery/scripts/chembl_target.py
    ℹ️ 无需翻译
-[737/1461] 正在处理: ./optional-skills/mlops/accelerate/references/custom-plugins.md
+[737/1468] 正在处理: ./optional-skills/research/drug-discovery/references/ADMET_REFERENCE.md
    ℹ️ 无需翻译
-[738/1461] 正在处理: ./optional-skills/mlops/accelerate/references/performance.md
+[738/1468] 正在处理: ./optional-skills/mlops/tensorrt-llm/SKILL.md
    ℹ️ 无需翻译
-[739/1461] 正在处理: ./optional-skills/mlops/llava/SKILL.md
+[739/1468] 正在处理: ./optional-skills/mlops/tensorrt-llm/references/optimization.md
    ℹ️ 无需翻译
-[740/1461] 正在处理: ./optional-skills/mlops/llava/references/training.md
+[740/1468] 正在处理: ./optional-skills/mlops/tensorrt-llm/references/serving.md
    ℹ️ 无需翻译
-[741/1461] 正在处理: ./optional-skills/mlops/saelens/SKILL.md
+[741/1468] 正在处理: ./optional-skills/mlops/tensorrt-llm/references/multi-gpu.md
    ℹ️ 无需翻译
-[742/1461] 正在处理: ./optional-skills/mlops/saelens/references/README.md
+[742/1468] 正在处理: ./optional-skills/mlops/accelerate/SKILL.md
    ℹ️ 无需翻译
-[743/1461] 正在处理: ./optional-skills/mlops/saelens/references/tutorials.md
+[743/1468] 正在处理: ./optional-skills/mlops/accelerate/references/megatron-integration.md
    ℹ️ 无需翻译
-[744/1461] 正在处理: ./optional-skills/mlops/saelens/references/api.md
+[744/1468] 正在处理: ./optional-skills/mlops/accelerate/references/custom-plugins.md
    ℹ️ 无需翻译
-[745/1461] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/SKILL.md
+[745/1468] 正在处理: ./optional-skills/mlops/accelerate/references/performance.md
    ℹ️ 无需翻译
-[746/1461] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/references/atropos-base-env.md
+[746/1468] 正在处理: ./optional-skills/mlops/llava/SKILL.md
    ℹ️ 无需翻译
-[747/1461] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/references/usage-patterns.md
+[747/1468] 正在处理: ./optional-skills/mlops/llava/references/training.md
    ℹ️ 无需翻译
-[748/1461] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/references/agentresult-fields.md
+[748/1468] 正在处理: ./optional-skills/mlops/saelens/SKILL.md
    ℹ️ 无需翻译
-[749/1461] 正在处理: ./optional-skills/mlops/pinecone/SKILL.md
+[749/1468] 正在处理: ./optional-skills/mlops/saelens/references/README.md
    ℹ️ 无需翻译
-[750/1461] 正在处理: ./optional-skills/mlops/pinecone/references/deployment.md
+[750/1468] 正在处理: ./optional-skills/mlops/saelens/references/tutorials.md
    ℹ️ 无需翻译
-[751/1461] 正在处理: ./optional-skills/mlops/chroma/SKILL.md
+[751/1468] 正在处理: ./optional-skills/mlops/saelens/references/api.md
    ℹ️ 无需翻译
-[752/1461] 正在处理: ./optional-skills/mlops/chroma/references/integration.md
+[752/1468] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/SKILL.md
    ℹ️ 无需翻译
-[753/1461] 正在处理: ./optional-skills/mlops/nemo-curator/SKILL.md
+[753/1468] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/references/atropos-base-env.md
    ℹ️ 无需翻译
-[754/1461] 正在处理: ./optional-skills/mlops/nemo-curator/references/deduplication.md
+[754/1468] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/references/usage-patterns.md
    ℹ️ 无需翻译
-[755/1461] 正在处理: ./optional-skills/mlops/nemo-curator/references/filtering.md
+[755/1468] 正在处理: ./optional-skills/mlops/hermes-atropos-environments/references/agentresult-fields.md
    ℹ️ 无需翻译
-[756/1461] 正在处理: ./optional-skills/mlops/lambda-labs/SKILL.md
+[756/1468] 正在处理: ./optional-skills/mlops/pinecone/SKILL.md
    ℹ️ 无需翻译
-[757/1461] 正在处理: ./optional-skills/mlops/lambda-labs/references/advanced-usage.md
+[757/1468] 正在处理: ./optional-skills/mlops/pinecone/references/deployment.md
    ℹ️ 无需翻译
-[758/1461] 正在处理: ./optional-skills/mlops/lambda-labs/references/troubleshooting.md
+[758/1468] 正在处理: ./optional-skills/mlops/chroma/SKILL.md
    ℹ️ 无需翻译
-[759/1461] 正在处理: ./optional-skills/mlops/simpo/SKILL.md
+[759/1468] 正在处理: ./optional-skills/mlops/chroma/references/integration.md
    ℹ️ 无需翻译
-[760/1461] 正在处理: ./optional-skills/mlops/simpo/references/hyperparameters.md
+[760/1468] 正在处理: ./optional-skills/mlops/nemo-curator/SKILL.md
    ℹ️ 无需翻译
-[761/1461] 正在处理: ./optional-skills/mlops/simpo/references/loss-functions.md
+[761/1468] 正在处理: ./optional-skills/mlops/nemo-curator/references/deduplication.md
    ℹ️ 无需翻译
-[762/1461] 正在处理: ./optional-skills/mlops/simpo/references/datasets.md
+[762/1468] 正在处理: ./optional-skills/mlops/nemo-curator/references/filtering.md
    ℹ️ 无需翻译
-[763/1461] 正在处理: ./optional-skills/mlops/pytorch-lightning/SKILL.md
+[763/1468] 正在处理: ./optional-skills/mlops/lambda-labs/SKILL.md
    ℹ️ 无需翻译
-[764/1461] 正在处理: ./optional-skills/mlops/pytorch-lightning/references/distributed.md
+[764/1468] 正在处理: ./optional-skills/mlops/lambda-labs/references/advanced-usage.md
    ℹ️ 无需翻译
-[765/1461] 正在处理: ./optional-skills/mlops/pytorch-lightning/references/hyperparameter-tuning.md
+[765/1468] 正在处理: ./optional-skills/mlops/lambda-labs/references/troubleshooting.md
    ℹ️ 无需翻译
-[766/1461] 正在处理: ./optional-skills/mlops/pytorch-lightning/references/callbacks.md
+[766/1468] 正在处理: ./optional-skills/mlops/simpo/SKILL.md
    ℹ️ 无需翻译
-[767/1461] 正在处理: ./optional-skills/mlops/torchtitan/SKILL.md
+[767/1468] 正在处理: ./optional-skills/mlops/simpo/references/hyperparameters.md
    ℹ️ 无需翻译
-[768/1461] 正在处理: ./optional-skills/mlops/torchtitan/references/fsdp.md
+[768/1468] 正在处理: ./optional-skills/mlops/simpo/references/loss-functions.md
    ℹ️ 无需翻译
-[769/1461] 正在处理: ./optional-skills/mlops/torchtitan/references/checkpoint.md
+[769/1468] 正在处理: ./optional-skills/mlops/simpo/references/datasets.md
    ℹ️ 无需翻译
-[770/1461] 正在处理: ./optional-skills/mlops/torchtitan/references/custom-models.md
+[770/1468] 正在处理: ./optional-skills/mlops/pytorch-lightning/SKILL.md
    ℹ️ 无需翻译
-[771/1461] 正在处理: ./optional-skills/mlops/torchtitan/references/float8.md
+[771/1468] 正在处理: ./optional-skills/mlops/pytorch-lightning/references/distributed.md
    ℹ️ 无需翻译
-[772/1461] 正在处理: ./optional-skills/mlops/slime/SKILL.md
+[772/1468] 正在处理: ./optional-skills/mlops/pytorch-lightning/references/hyperparameter-tuning.md
    ℹ️ 无需翻译
-[773/1461] 正在处理: ./optional-skills/mlops/slime/references/troubleshooting.md
+[773/1468] 正在处理: ./optional-skills/mlops/pytorch-lightning/references/callbacks.md
    ℹ️ 无需翻译
-[774/1461] 正在处理: ./optional-skills/mlops/slime/references/api-reference.md
+[774/1468] 正在处理: ./optional-skills/mlops/torchtitan/SKILL.md
    ℹ️ 无需翻译
-[775/1461] 正在处理: ./optional-skills/mlops/instructor/SKILL.md
+[775/1468] 正在处理: ./optional-skills/mlops/torchtitan/references/fsdp.md
    ℹ️ 无需翻译
-[776/1461] 正在处理: ./optional-skills/mlops/instructor/references/examples.md
+[776/1468] 正在处理: ./optional-skills/mlops/torchtitan/references/checkpoint.md
    ℹ️ 无需翻译
-[777/1461] 正在处理: ./optional-skills/mlops/instructor/references/providers.md
+[777/1468] 正在处理: ./optional-skills/mlops/torchtitan/references/custom-models.md
    ℹ️ 无需翻译
-[778/1461] 正在处理: ./optional-skills/mlops/instructor/references/validation.md
+[778/1468] 正在处理: ./optional-skills/mlops/torchtitan/references/float8.md
    ℹ️ 无需翻译
-[779/1461] 正在处理: ./optional-skills/mlops/flash-attention/SKILL.md
+[779/1468] 正在处理: ./optional-skills/mlops/slime/SKILL.md
    ℹ️ 无需翻译
-[780/1461] 正在处理: ./optional-skills/mlops/flash-attention/references/transformers-integration.md
+[780/1468] 正在处理: ./optional-skills/mlops/slime/references/troubleshooting.md
    ℹ️ 无需翻译
-[781/1461] 正在处理: ./optional-skills/mlops/flash-attention/references/benchmarks.md
+[781/1468] 正在处理: ./optional-skills/mlops/slime/references/api-reference.md
    ℹ️ 无需翻译
-[782/1461] 正在处理: ./optional-skills/mlops/faiss/SKILL.md
+[782/1468] 正在处理: ./optional-skills/mlops/instructor/SKILL.md
    ℹ️ 无需翻译
-[783/1461] 正在处理: ./optional-skills/mlops/faiss/references/index_types.md
+[783/1468] 正在处理: ./optional-skills/mlops/instructor/references/examples.md
    ℹ️ 无需翻译
-[784/1461] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/SKILL.md
+[784/1468] 正在处理: ./optional-skills/mlops/instructor/references/providers.md
    ℹ️ 无需翻译
-[785/1461] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/algorithms.md
+[785/1468] 正在处理: ./optional-skills/mlops/instructor/references/validation.md
    ℹ️ 无需翻译
-[786/1461] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/pipeline.md
+[786/1468] 正在处理: ./optional-skills/mlops/flash-attention/SKILL.md
    ℹ️ 无需翻译
-[787/1461] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/training.md
+[787/1468] 正在处理: ./optional-skills/mlops/flash-attention/references/transformers-integration.md
    ℹ️ 无需翻译
-[788/1461] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/integration.md
+[788/1468] 正在处理: ./optional-skills/mlops/flash-attention/references/benchmarks.md
    ℹ️ 无需翻译
-[789/1461] 正在处理: ./optional-skills/mlops/qdrant/SKILL.md
+[789/1468] 正在处理: ./optional-skills/mlops/faiss/SKILL.md
    ℹ️ 无需翻译
-[790/1461] 正在处理: ./optional-skills/mlops/qdrant/references/advanced-usage.md
+[790/1468] 正在处理: ./optional-skills/mlops/faiss/references/index_types.md
    ℹ️ 无需翻译
-[791/1461] 正在处理: ./optional-skills/mlops/qdrant/references/troubleshooting.md
+[791/1468] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/SKILL.md
    ℹ️ 无需翻译
-[792/1461] 正在处理: ./optional-skills/creative/blender-mcp/SKILL.md
+[792/1468] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/algorithms.md
    ℹ️ 无需翻译
-[793/1461] 正在处理: ./optional-skills/creative/meme-generation/SKILL.md
+[793/1468] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/pipeline.md
    ℹ️ 无需翻译
-[794/1461] 正在处理: ./optional-skills/creative/meme-generation/EXAMPLES.md
+[794/1468] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/training.md
    ℹ️ 无需翻译
-[795/1461] 正在处理: ./optional-skills/creative/meme-generation/scripts/templates.json
+[795/1468] 正在处理: ./optional-skills/mlops/huggingface-tokenizers/references/integration.md
    ℹ️ 无需翻译
-[796/1461] 正在处理: ./optional-skills/creative/meme-generation/scripts/generate_meme.py
+[796/1468] 正在处理: ./optional-skills/mlops/qdrant/SKILL.md
    ℹ️ 无需翻译
-[797/1461] 正在处理: ./optional-skills/health/DESCRIPTION.md
+[797/1468] 正在处理: ./optional-skills/mlops/qdrant/references/advanced-usage.md
    ℹ️ 无需翻译
-[798/1461] 正在处理: ./optional-skills/health/fitness-nutrition/SKILL.md
+[798/1468] 正在处理: ./optional-skills/mlops/qdrant/references/troubleshooting.md
    ℹ️ 无需翻译
-[799/1461] 正在处理: ./optional-skills/health/fitness-nutrition/scripts/body_calc.py
+[799/1468] 正在处理: ./optional-skills/creative/blender-mcp/SKILL.md
    ℹ️ 无需翻译
-[800/1461] 正在处理: ./optional-skills/health/fitness-nutrition/scripts/nutrition_search.py
+[800/1468] 正在处理: ./optional-skills/creative/meme-generation/SKILL.md
    ℹ️ 无需翻译
-[801/1461] 正在处理: ./optional-skills/health/fitness-nutrition/references/FORMULAS.md
+[801/1468] 正在处理: ./optional-skills/creative/meme-generation/EXAMPLES.md
    ℹ️ 无需翻译
-[802/1461] 正在处理: ./optional-skills/health/neuroskill-bci/SKILL.md
+[802/1468] 正在处理: ./optional-skills/creative/meme-generation/scripts/templates.json
    ℹ️ 无需翻译
-[803/1461] 正在处理: ./optional-skills/health/neuroskill-bci/references/metrics.md
+[803/1468] 正在处理: ./optional-skills/creative/meme-generation/scripts/generate_meme.py
    ℹ️ 无需翻译
-[804/1461] 正在处理: ./optional-skills/health/neuroskill-bci/references/api.md
+[804/1468] 正在处理: ./optional-skills/health/DESCRIPTION.md
    ℹ️ 无需翻译
-[805/1461] 正在处理: ./optional-skills/health/neuroskill-bci/references/protocols.md
+[805/1468] 正在处理: ./optional-skills/health/fitness-nutrition/SKILL.md
    ℹ️ 无需翻译
-[806/1461] 正在处理: ./optional-skills/email/agentmail/SKILL.md
+[806/1468] 正在处理: ./optional-skills/health/fitness-nutrition/scripts/body_calc.py
    ℹ️ 无需翻译
-[807/1461] 正在处理: ./optional-skills/productivity/canvas/SKILL.md
+[807/1468] 正在处理: ./optional-skills/health/fitness-nutrition/scripts/nutrition_search.py
    ℹ️ 无需翻译
-[808/1461] 正在处理: ./optional-skills/productivity/canvas/scripts/canvas_api.py
+[808/1468] 正在处理: ./optional-skills/health/fitness-nutrition/references/FORMULAS.md
    ℹ️ 无需翻译
-[809/1461] 正在处理: ./optional-skills/productivity/memento-flashcards/SKILL.md
+[809/1468] 正在处理: ./optional-skills/health/neuroskill-bci/SKILL.md
    ℹ️ 无需翻译
-[810/1461] 正在处理: ./optional-skills/productivity/memento-flashcards/scripts/memento_cards.py
+[810/1468] 正在处理: ./optional-skills/health/neuroskill-bci/references/metrics.md
    ℹ️ 无需翻译
-[811/1461] 正在处理: ./optional-skills/productivity/memento-flashcards/scripts/youtube_quiz.py
+[811/1468] 正在处理: ./optional-skills/health/neuroskill-bci/references/api.md
    ℹ️ 无需翻译
-[812/1461] 正在处理: ./optional-skills/productivity/siyuan/SKILL.md
+[812/1468] 正在处理: ./optional-skills/health/neuroskill-bci/references/protocols.md
    ℹ️ 无需翻译
-[813/1461] 正在处理: ./optional-skills/productivity/telephony/SKILL.md
+[813/1468] 正在处理: ./optional-skills/email/agentmail/SKILL.md
    ℹ️ 无需翻译
-[814/1461] 正在处理: ./optional-skills/productivity/telephony/scripts/telephony.py
+[814/1468] 正在处理: ./optional-skills/productivity/canvas/SKILL.md
    ℹ️ 无需翻译
-[815/1461] 正在处理: ./optional-skills/communication/DESCRIPTION.md
+[815/1468] 正在处理: ./optional-skills/productivity/canvas/scripts/canvas_api.py
    ℹ️ 无需翻译
-[816/1461] 正在处理: ./optional-skills/communication/one-three-one-rule/SKILL.md
+[816/1468] 正在处理: ./optional-skills/productivity/memento-flashcards/SKILL.md
    ℹ️ 无需翻译
-[817/1461] 正在处理: ./optional-skills/migration/DESCRIPTION.md
+[817/1468] 正在处理: ./optional-skills/productivity/memento-flashcards/scripts/memento_cards.py
    ℹ️ 无需翻译
-[818/1461] 正在处理: ./optional-skills/migration/openclaw-migration/SKILL.md
+[818/1468] 正在处理: ./optional-skills/productivity/memento-flashcards/scripts/youtube_quiz.py
    ℹ️ 无需翻译
-[819/1461] 正在处理: ./optional-skills/migration/openclaw-migration/scripts/openclaw_to_hermes.py
+[819/1468] 正在处理: ./optional-skills/productivity/siyuan/SKILL.md
    ℹ️ 无需翻译
-[820/1461] 正在处理: ./optional-skills/devops/docker-management/SKILL.md
+[820/1468] 正在处理: ./optional-skills/productivity/telephony/SKILL.md
    ℹ️ 无需翻译
-[821/1461] 正在处理: ./optional-skills/devops/cli/SKILL.md
+[821/1468] 正在处理: ./optional-skills/productivity/telephony/scripts/telephony.py
    ℹ️ 无需翻译
-[822/1461] 正在处理: ./optional-skills/devops/cli/references/app-discovery.md
+[822/1468] 正在处理: ./optional-skills/communication/DESCRIPTION.md
    ℹ️ 无需翻译
-[823/1461] 正在处理: ./optional-skills/devops/cli/references/authentication.md
+[823/1468] 正在处理: ./optional-skills/communication/one-three-one-rule/SKILL.md
    ℹ️ 无需翻译
-[824/1461] 正在处理: ./optional-skills/devops/cli/references/cli-reference.md
+[824/1468] 正在处理: ./optional-skills/migration/DESCRIPTION.md
    ℹ️ 无需翻译
-[825/1461] 正在处理: ./optional-skills/devops/cli/references/running-apps.md
+[825/1468] 正在处理: ./optional-skills/migration/openclaw-migration/SKILL.md
    ℹ️ 无需翻译
-[826/1461] 正在处理: ./optional-skills/security/DESCRIPTION.md
+[826/1468] 正在处理: ./optional-skills/migration/openclaw-migration/scripts/openclaw_to_hermes.py
    ℹ️ 无需翻译
-[827/1461] 正在处理: ./optional-skills/security/sherlock/SKILL.md
+[827/1468] 正在处理: ./optional-skills/devops/docker-management/SKILL.md
    ℹ️ 无需翻译
-[828/1461] 正在处理: ./optional-skills/security/oss-forensics/SKILL.md
+[828/1468] 正在处理: ./optional-skills/devops/cli/SKILL.md
    ℹ️ 无需翻译
-[829/1461] 正在处理: ./optional-skills/security/oss-forensics/templates/malicious-package-report.md
+[829/1468] 正在处理: ./optional-skills/devops/cli/references/app-discovery.md
    ℹ️ 无需翻译
-[830/1461] 正在处理: ./optional-skills/security/oss-forensics/templates/forensic-report.md
+[830/1468] 正在处理: ./optional-skills/devops/cli/references/authentication.md
    ℹ️ 无需翻译
-[831/1461] 正在处理: ./optional-skills/security/oss-forensics/scripts/evidence-store.py
+[831/1468] 正在处理: ./optional-skills/devops/cli/references/cli-reference.md
    ℹ️ 无需翻译
-[832/1461] 正在处理: ./optional-skills/security/oss-forensics/references/github-archive-guide.md
+[832/1468] 正在处理: ./optional-skills/devops/cli/references/running-apps.md
    ℹ️ 无需翻译
-[833/1461] 正在处理: ./optional-skills/security/oss-forensics/references/evidence-types.md
+[833/1468] 正在处理: ./optional-skills/security/DESCRIPTION.md
    ℹ️ 无需翻译
-[834/1461] 正在处理: ./optional-skills/security/oss-forensics/references/recovery-techniques.md
+[834/1468] 正在处理: ./optional-skills/security/sherlock/SKILL.md
    ℹ️ 无需翻译
-[835/1461] 正在处理: ./optional-skills/security/oss-forensics/references/investigation-templates.md
+[835/1468] 正在处理: ./optional-skills/security/oss-forensics/SKILL.md
    ℹ️ 无需翻译
-[836/1461] 正在处理: ./optional-skills/security/1password/SKILL.md
+[836/1468] 正在处理: ./optional-skills/security/oss-forensics/templates/malicious-package-report.md
    ℹ️ 无需翻译
-[837/1461] 正在处理: ./optional-skills/security/1password/references/get-started.md
+[837/1468] 正在处理: ./optional-skills/security/oss-forensics/templates/forensic-report.md
    ℹ️ 无需翻译
-[838/1461] 正在处理: ./optional-skills/security/1password/references/cli-examples.md
+[838/1468] 正在处理: ./optional-skills/security/oss-forensics/scripts/evidence-store.py
    ℹ️ 无需翻译
-[839/1461] 正在处理: ./optional-skills/autonomous-ai-agents/DESCRIPTION.md
+[839/1468] 正在处理: ./optional-skills/security/oss-forensics/references/github-archive-guide.md
    ℹ️ 无需翻译
-[840/1461] 正在处理: ./optional-skills/autonomous-ai-agents/honcho/SKILL.md
+[840/1468] 正在处理: ./optional-skills/security/oss-forensics/references/evidence-types.md
    ℹ️ 无需翻译
-[841/1461] 正在处理: ./optional-skills/autonomous-ai-agents/blackbox/SKILL.md
+[841/1468] 正在处理: ./optional-skills/security/oss-forensics/references/recovery-techniques.md
    ℹ️ 无需翻译
-[842/1461] 正在处理: ./acp_registry/agent.json
+[842/1468] 正在处理: ./optional-skills/security/oss-forensics/references/investigation-templates.md
    ℹ️ 无需翻译
-[843/1461] 正在处理: ./scripts/contributor_audit.py
+[843/1468] 正在处理: ./optional-skills/security/1password/SKILL.md
    ℹ️ 无需翻译
-[844/1461] 正在处理: ./scripts/discord-voice-doctor.py
+[844/1468] 正在处理: ./optional-skills/security/1password/references/get-started.md
    ℹ️ 无需翻译
-[845/1461] 正在处理: ./scripts/sample_and_compress.py
+[845/1468] 正在处理: ./optional-skills/security/1password/references/cli-examples.md
    ℹ️ 无需翻译
-[846/1461] 正在处理: ./scripts/build_skills_index.py
+[846/1468] 正在处理: ./optional-skills/autonomous-ai-agents/DESCRIPTION.md
    ℹ️ 无需翻译
-[847/1461] 正在处理: ./scripts/release.py
+[847/1468] 正在处理: ./optional-skills/autonomous-ai-agents/honcho/SKILL.md
    ℹ️ 无需翻译
-[848/1461] 正在处理: ./scripts/whatsapp-bridge/package-lock.json
+[848/1468] 正在处理: ./optional-skills/autonomous-ai-agents/blackbox/SKILL.md
    ℹ️ 无需翻译
-[849/1461] 正在处理: ./scripts/whatsapp-bridge/package.json
+[849/1468] 正在处理: ./acp_registry/agent.json
    ℹ️ 无需翻译
-[850/1461] 正在处理: ./docs/acp-setup.md
+[850/1468] 正在处理: ./scripts/contributor_audit.py
    ℹ️ 无需翻译
-[851/1461] 正在处理: ./docs/honcho-integration-spec.md
+[851/1468] 正在处理: ./scripts/discord-voice-doctor.py
    ℹ️ 无需翻译
-[852/1461] 正在处理: ./docs/specs/container-cli-review-fixes.md
+[852/1468] 正在处理: ./scripts/sample_and_compress.py
    ℹ️ 无需翻译
-[853/1461] 正在处理: ./docs/skins/example-skin.yaml
+[853/1468] 正在处理: ./scripts/build_skills_index.py
    ℹ️ 无需翻译
-[854/1461] 正在处理: ./docs/migration/openclaw.md
+[854/1468] 正在处理: ./scripts/release.py
    ℹ️ 无需翻译
-[855/1461] 正在处理: ./docs/plans/2026-03-16-pricing-accuracy-architecture-design.md
+[855/1468] 正在处理: ./scripts/whatsapp-bridge/package-lock.json
    ℹ️ 无需翻译
-[856/1461] 正在处理: ./packaging/homebrew/README.md
+[856/1468] 正在处理: ./scripts/whatsapp-bridge/package.json
    ℹ️ 无需翻译
-[857/1461] 正在处理: ./datagen-config-examples/web_research.yaml
+[857/1468] 正在处理: ./docs/acp-setup.md
    ℹ️ 无需翻译
-[858/1461] 正在处理: ./datagen-config-examples/trajectory_compression.yaml
+[858/1468] 正在处理: ./docs/honcho-integration-spec.md
    ℹ️ 无需翻译
-[859/1461] 正在处理: ./website/README.md
+[859/1468] 正在处理: ./docs/specs/container-cli-review-fixes.md
    ℹ️ 无需翻译
-[860/1461] 正在处理: ./website/package-lock.json
+[860/1468] 正在处理: ./docs/skins/example-skin.yaml
    ℹ️ 无需翻译
-[861/1461] 正在处理: ./website/tsconfig.json
+[861/1468] 正在处理: ./docs/migration/openclaw.md
    ℹ️ 无需翻译
-[862/1461] 正在处理: ./website/package.json
+[862/1468] 正在处理: ./docs/plans/2026-03-16-pricing-accuracy-architecture-design.md
    ℹ️ 无需翻译
-[863/1461] 正在处理: ./website/scripts/extract-skills.py
+[863/1468] 正在处理: ./packaging/homebrew/README.md
    ℹ️ 无需翻译
-[864/1461] 正在处理: ./website/docs/index.md
+[864/1468] 正在处理: ./datagen-config-examples/web_research.yaml
    ℹ️ 无需翻译
-[865/1461] 正在处理: ./website/docs/reference/environment-variables.md
+[865/1468] 正在处理: ./datagen-config-examples/trajectory_compression.yaml
    ℹ️ 无需翻译
-[866/1461] 正在处理: ./website/docs/reference/faq.md
+[866/1468] 正在处理: ./website/README.md
    ℹ️ 无需翻译
-[867/1461] 正在处理: ./website/docs/reference/slash-commands.md
+[867/1468] 正在处理: ./website/package-lock.json
    ℹ️ 无需翻译
-[868/1461] 正在处理: ./website/docs/reference/profile-commands.md
+[868/1468] 正在处理: ./website/tsconfig.json
    ℹ️ 无需翻译
-[869/1461] 正在处理: ./website/docs/reference/optional-skills-catalog.md
+[869/1468] 正在处理: ./website/package.json
    ℹ️ 无需翻译
-[870/1461] 正在处理: ./website/docs/reference/_category_.json
+[870/1468] 正在处理: ./website/scripts/extract-skills.py
    ℹ️ 无需翻译
-[871/1461] 正在处理: ./website/docs/reference/toolsets-reference.md
+[871/1468] 正在处理: ./website/docs/index.md
    ℹ️ 无需翻译
-[872/1461] 正在处理: ./website/docs/reference/tools-reference.md
+[872/1468] 正在处理: ./website/docs/reference/environment-variables.md
    ℹ️ 无需翻译
-[873/1461] 正在处理: ./website/docs/reference/skills-catalog.md
+[873/1468] 正在处理: ./website/docs/reference/faq.md
    ℹ️ 无需翻译
-[874/1461] 正在处理: ./website/docs/reference/mcp-config-reference.md
+[874/1468] 正在处理: ./website/docs/reference/slash-commands.md
    ℹ️ 无需翻译
-[875/1461] 正在处理: ./website/docs/reference/cli-commands.md
+[875/1468] 正在处理: ./website/docs/reference/profile-commands.md
    ℹ️ 无需翻译
-[876/1461] 正在处理: ./website/docs/developer-guide/tools-runtime.md
+[876/1468] 正在处理: ./website/docs/reference/optional-skills-catalog.md
    ℹ️ 无需翻译
-[877/1461] 正在处理: ./website/docs/developer-guide/gateway-internals.md
+[877/1468] 正在处理: ./website/docs/reference/_category_.json
    ℹ️ 无需翻译
-[878/1461] 正在处理: ./website/docs/developer-guide/adding-providers.md
+[878/1468] 正在处理: ./website/docs/reference/toolsets-reference.md
    ℹ️ 无需翻译
-[879/1461] 正在处理: ./website/docs/developer-guide/adding-platform-adapters.md
+[879/1468] 正在处理: ./website/docs/reference/tools-reference.md
    ℹ️ 无需翻译
-[880/1461] 正在处理: ./website/docs/developer-guide/cron-internals.md
+[880/1468] 正在处理: ./website/docs/reference/skills-catalog.md
    ℹ️ 无需翻译
-[881/1461] 正在处理: ./website/docs/developer-guide/extending-the-cli.md
+[881/1468] 正在处理: ./website/docs/reference/mcp-config-reference.md
    ℹ️ 无需翻译
-[882/1461] 正在处理: ./website/docs/developer-guide/agent-loop.md
+[882/1468] 正在处理: ./website/docs/reference/cli-commands.md
    ℹ️ 无需翻译
-[883/1461] 正在处理: ./website/docs/developer-guide/session-storage.md
+[883/1468] 正在处理: ./website/docs/developer-guide/tools-runtime.md
    ℹ️ 无需翻译
-[884/1461] 正在处理: ./website/docs/developer-guide/context-compression-and-caching.md
+[884/1468] 正在处理: ./website/docs/developer-guide/gateway-internals.md
    ℹ️ 无需翻译
-[885/1461] 正在处理: ./website/docs/developer-guide/architecture.md
+[885/1468] 正在处理: ./website/docs/developer-guide/adding-providers.md
    ℹ️ 无需翻译
-[886/1461] 正在处理: ./website/docs/developer-guide/context-engine-plugin.md
+[886/1468] 正在处理: ./website/docs/developer-guide/adding-platform-adapters.md
    ℹ️ 无需翻译
-[887/1461] 正在处理: ./website/docs/developer-guide/provider-runtime.md
+[887/1468] 正在处理: ./website/docs/developer-guide/cron-internals.md
    ℹ️ 无需翻译
-[888/1461] 正在处理: ./website/docs/developer-guide/_category_.json
+[888/1468] 正在处理: ./website/docs/developer-guide/extending-the-cli.md
    ℹ️ 无需翻译
-[889/1461] 正在处理: ./website/docs/developer-guide/prompt-assembly.md
+[889/1468] 正在处理: ./website/docs/developer-guide/agent-loop.md
    ℹ️ 无需翻译
-[890/1461] 正在处理: ./website/docs/developer-guide/creating-skills.md
+[890/1468] 正在处理: ./website/docs/developer-guide/session-storage.md
    ℹ️ 无需翻译
-[891/1461] 正在处理: ./website/docs/developer-guide/memory-provider-plugin.md
+[891/1468] 正在处理: ./website/docs/developer-guide/context-compression-and-caching.md
    ℹ️ 无需翻译
-[892/1461] 正在处理: ./website/docs/developer-guide/adding-tools.md
+[892/1468] 正在处理: ./website/docs/developer-guide/architecture.md
    ℹ️ 无需翻译
-[893/1461] 正在处理: ./website/docs/developer-guide/trajectory-format.md
+[893/1468] 正在处理: ./website/docs/developer-guide/context-engine-plugin.md
    ℹ️ 无需翻译
-[894/1461] 正在处理: ./website/docs/developer-guide/contributing.md
+[894/1468] 正在处理: ./website/docs/developer-guide/provider-runtime.md
    ℹ️ 无需翻译
-[895/1461] 正在处理: ./website/docs/developer-guide/environments.md
+[895/1468] 正在处理: ./website/docs/developer-guide/_category_.json
    ℹ️ 无需翻译
-[896/1461] 正在处理: ./website/docs/developer-guide/acp-internals.md
+[896/1468] 正在处理: ./website/docs/developer-guide/prompt-assembly.md
    ℹ️ 无需翻译
-[897/1461] 正在处理: ./website/docs/user-guide/git-worktrees.md
+[897/1468] 正在处理: ./website/docs/developer-guide/creating-skills.md
    ℹ️ 无需翻译
-[898/1461] 正在处理: ./website/docs/user-guide/cli.md
+[898/1468] 正在处理: ./website/docs/developer-guide/memory-provider-plugin.md
    ℹ️ 无需翻译
-[899/1461] 正在处理: ./website/docs/user-guide/_category_.json
+[899/1468] 正在处理: ./website/docs/developer-guide/adding-tools.md
    ℹ️ 无需翻译
-[900/1461] 正在处理: ./website/docs/user-guide/checkpoints-and-rollback.md
+[900/1468] 正在处理: ./website/docs/developer-guide/trajectory-format.md
    ℹ️ 无需翻译
-[901/1461] 正在处理: ./website/docs/user-guide/sessions.md
+[901/1468] 正在处理: ./website/docs/developer-guide/contributing.md
    ℹ️ 无需翻译
-[902/1461] 正在处理: ./website/docs/user-guide/profiles.md
+[902/1468] 正在处理: ./website/docs/developer-guide/environments.md
    ℹ️ 无需翻译
-[903/1461] 正在处理: ./website/docs/user-guide/configuration.md
+[903/1468] 正在处理: ./website/docs/developer-guide/acp-internals.md
    ℹ️ 无需翻译
-[904/1461] 正在处理: ./website/docs/user-guide/security.md
+[904/1468] 正在处理: ./website/docs/user-guide/git-worktrees.md
    ℹ️ 无需翻译
-[905/1461] 正在处理: ./website/docs/user-guide/docker.md
+[905/1468] 正在处理: ./website/docs/user-guide/cli.md
    ℹ️ 无需翻译
-[906/1461] 正在处理: ./website/docs/user-guide/features/tts.md
+[906/1468] 正在处理: ./website/docs/user-guide/_category_.json
    ℹ️ 无需翻译
-[907/1461] 正在处理: ./website/docs/user-guide/features/skills.md
+[907/1468] 正在处理: ./website/docs/user-guide/checkpoints-and-rollback.md
    ℹ️ 无需翻译
-[908/1461] 正在处理: ./website/docs/user-guide/features/overview.md
+[908/1468] 正在处理: ./website/docs/user-guide/sessions.md
    ℹ️ 无需翻译
-[909/1461] 正在处理: ./website/docs/user-guide/features/cron.md
+[909/1468] 正在处理: ./website/docs/user-guide/profiles.md
    ℹ️ 无需翻译
-[910/1461] 正在处理: ./website/docs/user-guide/features/tools.md
+[910/1468] 正在处理: ./website/docs/user-guide/configuration.md
    ℹ️ 无需翻译
-[911/1461] 正在处理: ./website/docs/user-guide/features/mcp.md
+[911/1468] 正在处理: ./website/docs/user-guide/security.md
    ℹ️ 无需翻译
-[912/1461] 正在处理: ./website/docs/user-guide/features/code-execution.md
+[912/1468] 正在处理: ./website/docs/user-guide/docker.md
    ℹ️ 无需翻译
-[913/1461] 正在处理: ./website/docs/user-guide/features/personality.md
+[913/1468] 正在处理: ./website/docs/user-guide/features/tts.md
    ℹ️ 无需翻译
-[914/1461] 正在处理: ./website/docs/user-guide/features/context-references.md
+[914/1468] 正在处理: ./website/docs/user-guide/features/skills.md
    ℹ️ 无需翻译
-[915/1461] 正在处理: ./website/docs/user-guide/features/voice-mode.md
+[915/1468] 正在处理: ./website/docs/user-guide/features/overview.md
    ℹ️ 无需翻译
-[916/1461] 正在处理: ./website/docs/user-guide/features/rl-training.md
+[916/1468] 正在处理: ./website/docs/user-guide/features/cron.md
    ℹ️ 无需翻译
-[917/1461] 正在处理: ./website/docs/user-guide/features/vision.md
+[917/1468] 正在处理: ./website/docs/user-guide/features/tools.md
    ℹ️ 无需翻译
-[918/1461] 正在处理: ./website/docs/user-guide/features/plugins.md
+[918/1468] 正在处理: ./website/docs/user-guide/features/mcp.md
    ℹ️ 无需翻译
-[919/1461] 正在处理: ./website/docs/user-guide/features/delegation.md
+[919/1468] 正在处理: ./website/docs/user-guide/features/code-execution.md
    ℹ️ 无需翻译
-[920/1461] 正在处理: ./website/docs/user-guide/features/image-generation.md
+[920/1468] 正在处理: ./website/docs/user-guide/features/personality.md
    ℹ️ 无需翻译
-[921/1461] 正在处理: ./website/docs/user-guide/features/skins.md
+[921/1468] 正在处理: ./website/docs/user-guide/features/context-references.md
    ℹ️ 无需翻译
-[922/1461] 正在处理: ./website/docs/user-guide/features/hooks.md
+[922/1468] 正在处理: ./website/docs/user-guide/features/voice-mode.md
    ℹ️ 无需翻译
-[923/1461] 正在处理: ./website/docs/user-guide/features/api-server.md
+[923/1468] 正在处理: ./website/docs/user-guide/features/rl-training.md
    ℹ️ 无需翻译
-[924/1461] 正在处理: ./website/docs/user-guide/features/_category_.json
+[924/1468] 正在处理: ./website/docs/user-guide/features/vision.md
    ℹ️ 无需翻译
-[925/1461] 正在处理: ./website/docs/user-guide/features/batch-processing.md
+[925/1468] 正在处理: ./website/docs/user-guide/features/plugins.md
    ℹ️ 无需翻译
-[926/1461] 正在处理: ./website/docs/user-guide/features/browser.md
+[926/1468] 正在处理: ./website/docs/user-guide/features/delegation.md
    ℹ️ 无需翻译
-[927/1461] 正在处理: ./website/docs/user-guide/features/context-files.md
+[927/1468] 正在处理: ./website/docs/user-guide/features/image-generation.md
    ℹ️ 无需翻译
-[928/1461] 正在处理: ./website/docs/user-guide/features/acp.md
+[928/1468] 正在处理: ./website/docs/user-guide/features/skins.md
    ℹ️ 无需翻译
-[929/1461] 正在处理: ./website/docs/user-guide/features/memory-providers.md
+[929/1468] 正在处理: ./website/docs/user-guide/features/hooks.md
    ℹ️ 无需翻译
-[930/1461] 正在处理: ./website/docs/user-guide/features/memory.md
+[930/1468] 正在处理: ./website/docs/user-guide/features/api-server.md
    ℹ️ 无需翻译
-[931/1461] 正在处理: ./website/docs/user-guide/features/fallback-providers.md
+[931/1468] 正在处理: ./website/docs/user-guide/features/_category_.json
    ℹ️ 无需翻译
-[932/1461] 正在处理: ./website/docs/user-guide/features/credential-pools.md
+[932/1468] 正在处理: ./website/docs/user-guide/features/batch-processing.md
    ℹ️ 无需翻译
-[933/1461] 正在处理: ./website/docs/user-guide/features/provider-routing.md
+[933/1468] 正在处理: ./website/docs/user-guide/features/browser.md
    ℹ️ 无需翻译
-[934/1461] 正在处理: ./website/docs/user-guide/features/honcho.md
+[934/1468] 正在处理: ./website/docs/user-guide/features/context-files.md
    ℹ️ 无需翻译
-[935/1461] 正在处理: ./website/docs/user-guide/features/web-dashboard.md
+[935/1468] 正在处理: ./website/docs/user-guide/features/acp.md
    ℹ️ 无需翻译
-[936/1461] 正在处理: ./website/docs/user-guide/messaging/mattermost.md
+[936/1468] 正在处理: ./website/docs/user-guide/features/memory-providers.md
    ℹ️ 无需翻译
-[937/1461] 正在处理: ./website/docs/user-guide/messaging/weixin.md
+[937/1468] 正在处理: ./website/docs/user-guide/features/memory.md
    ℹ️ 无需翻译
-[938/1461] 正在处理: ./website/docs/user-guide/messaging/dingtalk.md
+[938/1468] 正在处理: ./website/docs/user-guide/features/fallback-providers.md
    ℹ️ 无需翻译
-[939/1461] 正在处理: ./website/docs/user-guide/messaging/telegram.md
+[939/1468] 正在处理: ./website/docs/user-guide/features/credential-pools.md
    ℹ️ 无需翻译
-[940/1461] 正在处理: ./website/docs/user-guide/messaging/slack.md
+[940/1468] 正在处理: ./website/docs/user-guide/features/provider-routing.md
    ℹ️ 无需翻译
-[941/1461] 正在处理: ./website/docs/user-guide/messaging/open-webui.md
+[941/1468] 正在处理: ./website/docs/user-guide/features/honcho.md
    ℹ️ 无需翻译
-[942/1461] 正在处理: ./website/docs/user-guide/messaging/matrix.md
+[942/1468] 正在处理: ./website/docs/user-guide/features/web-dashboard.md
    ℹ️ 无需翻译
-[943/1461] 正在处理: ./website/docs/user-guide/messaging/qqbot.md
+[943/1468] 正在处理: ./website/docs/user-guide/messaging/mattermost.md
    ℹ️ 无需翻译
-[944/1461] 正在处理: ./website/docs/user-guide/messaging/wecom-callback.md
+[944/1468] 正在处理: ./website/docs/user-guide/messaging/weixin.md
    ℹ️ 无需翻译
-[945/1461] 正在处理: ./website/docs/user-guide/messaging/index.md
+[945/1468] 正在处理: ./website/docs/user-guide/messaging/dingtalk.md
    ℹ️ 无需翻译
-[946/1461] 正在处理: ./website/docs/user-guide/messaging/webhooks.md
+[946/1468] 正在处理: ./website/docs/user-guide/messaging/telegram.md
    ℹ️ 无需翻译
-[947/1461] 正在处理: ./website/docs/user-guide/messaging/_category_.json
+[947/1468] 正在处理: ./website/docs/user-guide/messaging/slack.md
    ℹ️ 无需翻译
-[948/1461] 正在处理: ./website/docs/user-guide/messaging/discord.md
+[948/1468] 正在处理: ./website/docs/user-guide/messaging/open-webui.md
    ℹ️ 无需翻译
-[949/1461] 正在处理: ./website/docs/user-guide/messaging/feishu.md
+[949/1468] 正在处理: ./website/docs/user-guide/messaging/matrix.md
    ℹ️ 无需翻译
-[950/1461] 正在处理: ./website/docs/user-guide/messaging/bluebubbles.md
+[950/1468] 正在处理: ./website/docs/user-guide/messaging/qqbot.md
    ℹ️ 无需翻译
-[951/1461] 正在处理: ./website/docs/user-guide/messaging/homeassistant.md
+[951/1468] 正在处理: ./website/docs/user-guide/messaging/wecom-callback.md
    ℹ️ 无需翻译
-[952/1461] 正在处理: ./website/docs/user-guide/messaging/whatsapp.md
+[952/1468] 正在处理: ./website/docs/user-guide/messaging/index.md
    ℹ️ 无需翻译
-[953/1461] 正在处理: ./website/docs/user-guide/messaging/signal.md
+[953/1468] 正在处理: ./website/docs/user-guide/messaging/webhooks.md
    ℹ️ 无需翻译
-[954/1461] 正在处理: ./website/docs/user-guide/messaging/email.md
+[954/1468] 正在处理: ./website/docs/user-guide/messaging/_category_.json
    ℹ️ 无需翻译
-[955/1461] 正在处理: ./website/docs/user-guide/messaging/sms.md
+[955/1468] 正在处理: ./website/docs/user-guide/messaging/discord.md
    ℹ️ 无需翻译
-[956/1461] 正在处理: ./website/docs/user-guide/messaging/wecom.md
+[956/1468] 正在处理: ./website/docs/user-guide/messaging/feishu.md
    ℹ️ 无需翻译
-[957/1461] 正在处理: ./website/docs/user-guide/skills/godmode.md
+[957/1468] 正在处理: ./website/docs/user-guide/messaging/bluebubbles.md
    ℹ️ 无需翻译
-[958/1461] 正在处理: ./website/docs/guides/automate-with-cron.md
+[958/1468] 正在处理: ./website/docs/user-guide/messaging/homeassistant.md
    ℹ️ 无需翻译
-[959/1461] 正在处理: ./website/docs/guides/team-telegram-assistant.md
+[959/1468] 正在处理: ./website/docs/user-guide/messaging/whatsapp.md
    ℹ️ 无需翻译
-[960/1461] 正在处理: ./website/docs/guides/cron-troubleshooting.md
+[960/1468] 正在处理: ./website/docs/user-guide/messaging/signal.md
    ℹ️ 无需翻译
-[961/1461] 正在处理: ./website/docs/guides/local-llm-on-mac.md
+[961/1468] 正在处理: ./website/docs/user-guide/messaging/email.md
    ℹ️ 无需翻译
-[962/1461] 正在处理: ./website/docs/guides/build-a-hermes-plugin.md
+[962/1468] 正在处理: ./website/docs/user-guide/messaging/sms.md
    ℹ️ 无需翻译
-[963/1461] 正在处理: ./website/docs/guides/use-mcp-with-hermes.md
+[963/1468] 正在处理: ./website/docs/user-guide/messaging/wecom.md
    ℹ️ 无需翻译
-[964/1461] 正在处理: ./website/docs/guides/tips.md
+[964/1468] 正在处理: ./website/docs/user-guide/skills/godmode.md
    ℹ️ 无需翻译
-[965/1461] 正在处理: ./website/docs/guides/python-library.md
+[965/1468] 正在处理: ./website/docs/guides/automate-with-cron.md
    ℹ️ 无需翻译
-[966/1461] 正在处理: ./website/docs/guides/_category_.json
+[966/1468] 正在处理: ./website/docs/guides/team-telegram-assistant.md
    ℹ️ 无需翻译
-[967/1461] 正在处理: ./website/docs/guides/use-voice-mode-with-hermes.md
+[967/1468] 正在处理: ./website/docs/guides/cron-troubleshooting.md
    ℹ️ 无需翻译
-[968/1461] 正在处理: ./website/docs/guides/use-soul-with-hermes.md
+[968/1468] 正在处理: ./website/docs/guides/local-llm-on-mac.md
    ℹ️ 无需翻译
-[969/1461] 正在处理: ./website/docs/guides/migrate-from-openclaw.md
+[969/1468] 正在处理: ./website/docs/guides/build-a-hermes-plugin.md
    ℹ️ 无需翻译
-[970/1461] 正在处理: ./website/docs/guides/delegation-patterns.md
+[970/1468] 正在处理: ./website/docs/guides/use-mcp-with-hermes.md
    ℹ️ 无需翻译
-[971/1461] 正在处理: ./website/docs/guides/daily-briefing-bot.md
+[971/1468] 正在处理: ./website/docs/guides/tips.md
    ℹ️ 无需翻译
-[972/1461] 正在处理: ./website/docs/guides/work-with-skills.md
+[972/1468] 正在处理: ./website/docs/guides/python-library.md
    ℹ️ 无需翻译
-[973/1461] 正在处理: ./website/docs/getting-started/nix-setup.md
+[973/1468] 正在处理: ./website/docs/guides/_category_.json
    ℹ️ 无需翻译
-[974/1461] 正在处理: ./website/docs/getting-started/quickstart.md
+[974/1468] 正在处理: ./website/docs/guides/use-voice-mode-with-hermes.md
    ℹ️ 无需翻译
-[975/1461] 正在处理: ./website/docs/getting-started/updating.md
+[975/1468] 正在处理: ./website/docs/guides/use-soul-with-hermes.md
    ℹ️ 无需翻译
-[976/1461] 正在处理: ./website/docs/getting-started/_category_.json
+[976/1468] 正在处理: ./website/docs/guides/migrate-from-openclaw.md
    ℹ️ 无需翻译
-[977/1461] 正在处理: ./website/docs/getting-started/learning-path.md
+[977/1468] 正在处理: ./website/docs/guides/delegation-patterns.md
    ℹ️ 无需翻译
-[978/1461] 正在处理: ./website/docs/getting-started/termux.md
+[978/1468] 正在处理: ./website/docs/guides/daily-briefing-bot.md
    ℹ️ 无需翻译
-[979/1461] 正在处理: ./website/docs/getting-started/installation.md
+[979/1468] 正在处理: ./website/docs/guides/work-with-skills.md
    ℹ️ 无需翻译
-[980/1461] 正在处理: ./website/docs/integrations/index.md
+[980/1468] 正在处理: ./website/docs/getting-started/nix-setup.md
    ℹ️ 无需翻译
-[981/1461] 正在处理: ./website/docs/integrations/providers.md
+[981/1468] 正在处理: ./website/docs/getting-started/quickstart.md
    ℹ️ 无需翻译
-[982/1461] 正在处理: ./environments/README.md
+[982/1468] 正在处理: ./website/docs/getting-started/updating.md
    ℹ️ 无需翻译
-[983/1461] 正在处理: ./environments/tool_context.py
+[983/1468] 正在处理: ./website/docs/getting-started/_category_.json
    ℹ️ 无需翻译
-[984/1461] 正在处理: ./environments/web_research_env.py
+[984/1468] 正在处理: ./website/docs/getting-started/learning-path.md
    ℹ️ 无需翻译
-[985/1461] 正在处理: ./environments/patches.py
+[985/1468] 正在处理: ./website/docs/getting-started/termux.md
    ℹ️ 无需翻译
-[986/1461] 正在处理: ./environments/agentic_opd_env.py
+[986/1468] 正在处理: ./website/docs/getting-started/installation.md
    ℹ️ 无需翻译
-[987/1461] 正在处理: ./environments/hermes_base_env.py
+[987/1468] 正在处理: ./website/docs/integrations/index.md
    ℹ️ 无需翻译
-[988/1461] 正在处理: ./environments/agent_loop.py
+[988/1468] 正在处理: ./website/docs/integrations/providers.md
    ℹ️ 无需翻译
-[989/1461] 正在处理: ./environments/__init__.py
+[989/1468] 正在处理: ./environments/README.md
    ℹ️ 无需翻译
-[990/1461] 正在处理: ./environments/hermes_swe_env/default.yaml
+[990/1468] 正在处理: ./environments/tool_context.py
    ℹ️ 无需翻译
-[991/1461] 正在处理: ./environments/hermes_swe_env/hermes_swe_env.py
+[991/1468] 正在处理: ./environments/web_research_env.py
    ℹ️ 无需翻译
-[992/1461] 正在处理: ./environments/hermes_swe_env/__init__.py
+[992/1468] 正在处理: ./environments/patches.py
    ℹ️ 无需翻译
-[993/1461] 正在处理: ./environments/tool_call_parsers/longcat_parser.py
+[993/1468] 正在处理: ./environments/agentic_opd_env.py
    ℹ️ 无需翻译
-[994/1461] 正在处理: ./environments/tool_call_parsers/mistral_parser.py
+[994/1468] 正在处理: ./environments/hermes_base_env.py
    ℹ️ 无需翻译
-[995/1461] 正在处理: ./environments/tool_call_parsers/glm47_parser.py
+[995/1468] 正在处理: ./environments/agent_loop.py
    ℹ️ 无需翻译
-[996/1461] 正在处理: ./environments/tool_call_parsers/hermes_parser.py
+[996/1468] 正在处理: ./environments/__init__.py
    ℹ️ 无需翻译
-[997/1461] 正在处理: ./environments/tool_call_parsers/kimi_k2_parser.py
+[997/1468] 正在处理: ./environments/hermes_swe_env/default.yaml
    ℹ️ 无需翻译
-[998/1461] 正在处理: ./environments/tool_call_parsers/llama_parser.py
+[998/1468] 正在处理: ./environments/hermes_swe_env/hermes_swe_env.py
    ℹ️ 无需翻译
-[999/1461] 正在处理: ./environments/tool_call_parsers/glm45_parser.py
+[999/1468] 正在处理: ./environments/hermes_swe_env/__init__.py
    ℹ️ 无需翻译
-[1000/1461] 正在处理: ./environments/tool_call_parsers/deepseek_v3_parser.py
+[1000/1468] 正在处理: ./environments/tool_call_parsers/longcat_parser.py
    ℹ️ 无需翻译
-[1001/1461] 正在处理: ./environments/tool_call_parsers/qwen_parser.py
+[1001/1468] 正在处理: ./environments/tool_call_parsers/mistral_parser.py
    ℹ️ 无需翻译
-[1002/1461] 正在处理: ./environments/tool_call_parsers/deepseek_v3_1_parser.py
+[1002/1468] 正在处理: ./environments/tool_call_parsers/glm47_parser.py
    ℹ️ 无需翻译
-[1003/1461] 正在处理: ./environments/tool_call_parsers/qwen3_coder_parser.py
+[1003/1468] 正在处理: ./environments/tool_call_parsers/hermes_parser.py
    ℹ️ 无需翻译
-[1004/1461] 正在处理: ./environments/tool_call_parsers/__init__.py
+[1004/1468] 正在处理: ./environments/tool_call_parsers/kimi_k2_parser.py
    ℹ️ 无需翻译
-[1005/1461] 正在处理: ./environments/terminal_test_env/default.yaml
+[1005/1468] 正在处理: ./environments/tool_call_parsers/llama_parser.py
    ℹ️ 无需翻译
-[1006/1461] 正在处理: ./environments/terminal_test_env/terminal_test_env.py
+[1006/1468] 正在处理: ./environments/tool_call_parsers/glm45_parser.py
    ℹ️ 无需翻译
-[1007/1461] 正在处理: ./environments/terminal_test_env/__init__.py
+[1007/1468] 正在处理: ./environments/tool_call_parsers/deepseek_v3_parser.py
    ℹ️ 无需翻译
-[1008/1461] 正在处理: ./environments/benchmarks/__init__.py
+[1008/1468] 正在处理: ./environments/tool_call_parsers/qwen_parser.py
    ℹ️ 无需翻译
-[1009/1461] 正在处理: ./environments/benchmarks/yc_bench/README.md
+[1009/1468] 正在处理: ./environments/tool_call_parsers/deepseek_v3_1_parser.py
    ℹ️ 无需翻译
-[1010/1461] 正在处理: ./environments/benchmarks/yc_bench/default.yaml
+[1010/1468] 正在处理: ./environments/tool_call_parsers/qwen3_coder_parser.py
    ℹ️ 无需翻译
-[1011/1461] 正在处理: ./environments/benchmarks/yc_bench/yc_bench_env.py
+[1011/1468] 正在处理: ./environments/tool_call_parsers/__init__.py
    ℹ️ 无需翻译
-[1012/1461] 正在处理: ./environments/benchmarks/yc_bench/__init__.py
+[1012/1468] 正在处理: ./environments/terminal_test_env/default.yaml
    ℹ️ 无需翻译
-[1013/1461] 正在处理: ./environments/benchmarks/terminalbench_2/default.yaml
+[1013/1468] 正在处理: ./environments/terminal_test_env/terminal_test_env.py
    ℹ️ 无需翻译
-[1014/1461] 正在处理: ./environments/benchmarks/terminalbench_2/terminalbench2_env.py
+[1014/1468] 正在处理: ./environments/terminal_test_env/__init__.py
    ℹ️ 无需翻译
-[1015/1461] 正在处理: ./environments/benchmarks/terminalbench_2/__init__.py
+[1015/1468] 正在处理: ./environments/benchmarks/__init__.py
    ℹ️ 无需翻译
-[1016/1461] 正在处理: ./environments/benchmarks/tblite/README.md
+[1016/1468] 正在处理: ./environments/benchmarks/yc_bench/README.md
    ℹ️ 无需翻译
-[1017/1461] 正在处理: ./environments/benchmarks/tblite/default.yaml
+[1017/1468] 正在处理: ./environments/benchmarks/yc_bench/default.yaml
    ℹ️ 无需翻译
-[1018/1461] 正在处理: ./environments/benchmarks/tblite/local_vllm.yaml
+[1018/1468] 正在处理: ./environments/benchmarks/yc_bench/yc_bench_env.py
    ℹ️ 无需翻译
-[1019/1461] 正在处理: ./environments/benchmarks/tblite/local.yaml
+[1019/1468] 正在处理: ./environments/benchmarks/yc_bench/__init__.py
    ℹ️ 无需翻译
-[1020/1461] 正在处理: ./environments/benchmarks/tblite/tblite_env.py
+[1020/1468] 正在处理: ./environments/benchmarks/terminalbench_2/default.yaml
    ℹ️ 无需翻译
-[1021/1461] 正在处理: ./environments/benchmarks/tblite/__init__.py
+[1021/1468] 正在处理: ./environments/benchmarks/terminalbench_2/terminalbench2_env.py
    ℹ️ 无需翻译
-[1022/1461] 正在处理: ./gateway/session.py
+[1022/1468] 正在处理: ./environments/benchmarks/terminalbench_2/__init__.py
    ℹ️ 无需翻译
-[1023/1461] 正在处理: ./gateway/channel_directory.py
+[1023/1468] 正在处理: ./environments/benchmarks/tblite/README.md
    ℹ️ 无需翻译
-[1024/1461] 正在处理: ./gateway/config.py
+[1024/1468] 正在处理: ./environments/benchmarks/tblite/default.yaml
    ℹ️ 无需翻译
-[1025/1461] 正在处理: ./gateway/sticker_cache.py
+[1025/1468] 正在处理: ./environments/benchmarks/tblite/local_vllm.yaml
    ℹ️ 无需翻译
-[1026/1461] 正在处理: ./gateway/pairing.py
+[1026/1468] 正在处理: ./environments/benchmarks/tblite/local.yaml
    ℹ️ 无需翻译
-[1027/1461] 正在处理: ./gateway/status.py
+[1027/1468] 正在处理: ./environments/benchmarks/tblite/tblite_env.py
    ℹ️ 无需翻译
-[1028/1461] 正在处理: ./gateway/display_config.py
+[1028/1468] 正在处理: ./environments/benchmarks/tblite/__init__.py
    ℹ️ 无需翻译
-[1029/1461] 正在处理: ./gateway/mirror.py
+[1029/1468] 正在处理: ./gateway/session.py
    ℹ️ 无需翻译
-[1030/1461] 正在处理: ./gateway/run.py
+[1030/1468] 正在处理: ./gateway/channel_directory.py
    ℹ️ 无需翻译
-[1031/1461] 正在处理: ./gateway/stream_consumer.py
+[1031/1468] 正在处理: ./gateway/config.py
    ℹ️ 无需翻译
-[1032/1461] 正在处理: ./gateway/delivery.py
+[1032/1468] 正在处理: ./gateway/sticker_cache.py
    ℹ️ 无需翻译
-[1033/1461] 正在处理: ./gateway/restart.py
+[1033/1468] 正在处理: ./gateway/pairing.py
    ℹ️ 无需翻译
-[1034/1461] 正在处理: ./gateway/hooks.py
+[1034/1468] 正在处理: ./gateway/status.py
    ℹ️ 无需翻译
-[1035/1461] 正在处理: ./gateway/__init__.py
+[1035/1468] 正在处理: ./gateway/display_config.py
    ℹ️ 无需翻译
-[1036/1461] 正在处理: ./gateway/session_context.py
+[1036/1468] 正在处理: ./gateway/mirror.py
    ℹ️ 无需翻译
-[1037/1461] 正在处理: ./gateway/builtin_hooks/boot_md.py
+[1037/1468] 正在处理: ./gateway/run.py
    ℹ️ 无需翻译
-[1038/1461] 正在处理: ./gateway/builtin_hooks/__init__.py
+[1038/1468] 正在处理: ./gateway/stream_consumer.py
    ℹ️ 无需翻译
-[1039/1461] 正在处理: ./gateway/platforms/slack.py
+[1039/1468] 正在处理: ./gateway/delivery.py
    ℹ️ 无需翻译
-[1040/1461] 正在处理: ./gateway/platforms/weixin.py
+[1040/1468] 正在处理: ./gateway/restart.py
    ℹ️ 无需翻译
-[1041/1461] 正在处理: ./gateway/platforms/base.py
+[1041/1468] 正在处理: ./gateway/hooks.py
    ℹ️ 无需翻译
-[1042/1461] 正在处理: ./gateway/platforms/wecom_crypto.py
+[1042/1468] 正在处理: ./gateway/__init__.py
    ℹ️ 无需翻译
-[1043/1461] 正在处理: ./gateway/platforms/telegram.py
+[1043/1468] 正在处理: ./gateway/session_context.py
    ℹ️ 无需翻译
-[1044/1461] 正在处理: ./gateway/platforms/whatsapp.py
+[1044/1468] 正在处理: ./gateway/builtin_hooks/boot_md.py
    ℹ️ 无需翻译
-[1045/1461] 正在处理: ./gateway/platforms/feishu.py
+[1045/1468] 正在处理: ./gateway/builtin_hooks/__init__.py
    ℹ️ 无需翻译
-[1046/1461] 正在处理: ./gateway/platforms/homeassistant.py
+[1046/1468] 正在处理: ./gateway/platforms/slack.py
    ℹ️ 无需翻译
-[1047/1461] 正在处理: ./gateway/platforms/helpers.py
+[1047/1468] 正在处理: ./gateway/platforms/weixin.py
    ℹ️ 无需翻译
-[1048/1461] 正在处理: ./gateway/platforms/bluebubbles.py
+[1048/1468] 正在处理: ./gateway/platforms/base.py
    ℹ️ 无需翻译
-[1049/1461] 正在处理: ./gateway/platforms/matrix.py
+[1049/1468] 正在处理: ./gateway/platforms/wecom_crypto.py
    ℹ️ 无需翻译
-[1050/1461] 正在处理: ./gateway/platforms/wecom.py
+[1050/1468] 正在处理: ./gateway/platforms/telegram.py
    ℹ️ 无需翻译
-[1051/1461] 正在处理: ./gateway/platforms/api_server.py
+[1051/1468] 正在处理: ./gateway/platforms/whatsapp.py
    ℹ️ 无需翻译
-[1052/1461] 正在处理: ./gateway/platforms/discord.py
+[1052/1468] 正在处理: ./gateway/platforms/feishu.py
    ℹ️ 无需翻译
-[1053/1461] 正在处理: ./gateway/platforms/email.py
+[1053/1468] 正在处理: ./gateway/platforms/homeassistant.py
    ℹ️ 无需翻译
-[1054/1461] 正在处理: ./gateway/platforms/sms.py
+[1054/1468] 正在处理: ./gateway/platforms/helpers.py
    ℹ️ 无需翻译
-[1055/1461] 正在处理: ./gateway/platforms/webhook.py
+[1055/1468] 正在处理: ./gateway/platforms/bluebubbles.py
    ℹ️ 无需翻译
-[1056/1461] 正在处理: ./gateway/platforms/dingtalk.py
+[1056/1468] 正在处理: ./gateway/platforms/matrix.py
    ℹ️ 无需翻译
-[1057/1461] 正在处理: ./gateway/platforms/telegram_network.py
+[1057/1468] 正在处理: ./gateway/platforms/wecom.py
    ℹ️ 无需翻译
-[1058/1461] 正在处理: ./gateway/platforms/ADDING_A_PLATFORM.md
+[1058/1468] 正在处理: ./gateway/platforms/api_server.py
    ℹ️ 无需翻译
-[1059/1461] 正在处理: ./gateway/platforms/signal.py
+[1059/1468] 正在处理: ./gateway/platforms/discord.py
    ℹ️ 无需翻译
-[1060/1461] 正在处理: ./gateway/platforms/mattermost.py
+[1060/1468] 正在处理: ./gateway/platforms/email.py
    ℹ️ 无需翻译
-[1061/1461] 正在处理: ./gateway/platforms/wecom_callback.py
+[1061/1468] 正在处理: ./gateway/platforms/sms.py
    ℹ️ 无需翻译
-[1062/1461] 正在处理: ./gateway/platforms/qqbot.py
+[1062/1468] 正在处理: ./gateway/platforms/webhook.py
    ℹ️ 无需翻译
-[1063/1461] 正在处理: ./gateway/platforms/__init__.py
+[1063/1468] 正在处理: ./gateway/platforms/dingtalk.py
    ℹ️ 无需翻译
-[1064/1461] 正在处理: ./plugins/__init__.py
+[1064/1468] 正在处理: ./gateway/platforms/telegram_network.py
    ℹ️ 无需翻译
-[1065/1461] 正在处理: ./plugins/context_engine/__init__.py
+[1065/1468] 正在处理: ./gateway/platforms/ADDING_A_PLATFORM.md
    ℹ️ 无需翻译
-[1066/1461] 正在处理: ./plugins/memory/__init__.py
+[1066/1468] 正在处理: ./gateway/platforms/signal.py
    ℹ️ 无需翻译
-[1067/1461] 正在处理: ./plugins/memory/openviking/README.md
+[1067/1468] 正在处理: ./gateway/platforms/mattermost.py
    ℹ️ 无需翻译
-[1068/1461] 正在处理: ./plugins/memory/openviking/plugin.yaml
+[1068/1468] 正在处理: ./gateway/platforms/wecom_callback.py
    ℹ️ 无需翻译
-[1069/1461] 正在处理: ./plugins/memory/openviking/__init__.py
+[1069/1468] 正在处理: ./gateway/platforms/qqbot.py
    ℹ️ 无需翻译
-[1070/1461] 正在处理: ./plugins/memory/hindsight/README.md
+[1070/1468] 正在处理: ./gateway/platforms/__init__.py
    ℹ️ 无需翻译
-[1071/1461] 正在处理: ./plugins/memory/hindsight/plugin.yaml
+[1071/1468] 正在处理: ./plugins/__init__.py
    ℹ️ 无需翻译
-[1072/1461] 正在处理: ./plugins/memory/hindsight/__init__.py
+[1072/1468] 正在处理: ./plugins/context_engine/__init__.py
    ℹ️ 无需翻译
-[1073/1461] 正在处理: ./plugins/memory/supermemory/README.md
+[1073/1468] 正在处理: ./plugins/memory/__init__.py
    ℹ️ 无需翻译
-[1074/1461] 正在处理: ./plugins/memory/supermemory/plugin.yaml
+[1074/1468] 正在处理: ./plugins/memory/openviking/README.md
    ℹ️ 无需翻译
-[1075/1461] 正在处理: ./plugins/memory/supermemory/__init__.py
+[1075/1468] 正在处理: ./plugins/memory/openviking/plugin.yaml
    ℹ️ 无需翻译
-[1076/1461] 正在处理: ./plugins/memory/honcho/session.py
+[1076/1468] 正在处理: ./plugins/memory/openviking/__init__.py
    ℹ️ 无需翻译
-[1077/1461] 正在处理: ./plugins/memory/honcho/README.md
+[1077/1468] 正在处理: ./plugins/memory/hindsight/README.md
    ℹ️ 无需翻译
-[1078/1461] 正在处理: ./plugins/memory/honcho/plugin.yaml
+[1078/1468] 正在处理: ./plugins/memory/hindsight/plugin.yaml
    ℹ️ 无需翻译
-[1079/1461] 正在处理: ./plugins/memory/honcho/client.py
+[1079/1468] 正在处理: ./plugins/memory/hindsight/__init__.py
    ℹ️ 无需翻译
-[1080/1461] 正在处理: ./plugins/memory/honcho/cli.py
+[1080/1468] 正在处理: ./plugins/memory/supermemory/README.md
    ℹ️ 无需翻译
-[1081/1461] 正在处理: ./plugins/memory/honcho/__init__.py
+[1081/1468] 正在处理: ./plugins/memory/supermemory/plugin.yaml
    ℹ️ 无需翻译
-[1082/1461] 正在处理: ./plugins/memory/mem0/README.md
+[1082/1468] 正在处理: ./plugins/memory/supermemory/__init__.py
    ℹ️ 无需翻译
-[1083/1461] 正在处理: ./plugins/memory/mem0/plugin.yaml
+[1083/1468] 正在处理: ./plugins/memory/honcho/session.py
    ℹ️ 无需翻译
-[1084/1461] 正在处理: ./plugins/memory/mem0/__init__.py
+[1084/1468] 正在处理: ./plugins/memory/honcho/README.md
    ℹ️ 无需翻译
-[1085/1461] 正在处理: ./plugins/memory/retaindb/README.md
+[1085/1468] 正在处理: ./plugins/memory/honcho/plugin.yaml
    ℹ️ 无需翻译
-[1086/1461] 正在处理: ./plugins/memory/retaindb/plugin.yaml
+[1086/1468] 正在处理: ./plugins/memory/honcho/client.py
    ℹ️ 无需翻译
-[1087/1461] 正在处理: ./plugins/memory/retaindb/__init__.py
+[1087/1468] 正在处理: ./plugins/memory/honcho/cli.py
    ℹ️ 无需翻译
-[1088/1461] 正在处理: ./plugins/memory/byterover/README.md
+[1088/1468] 正在处理: ./plugins/memory/honcho/__init__.py
    ℹ️ 无需翻译
-[1089/1461] 正在处理: ./plugins/memory/byterover/plugin.yaml
+[1089/1468] 正在处理: ./plugins/memory/mem0/README.md
    ℹ️ 无需翻译
-[1090/1461] 正在处理: ./plugins/memory/byterover/__init__.py
+[1090/1468] 正在处理: ./plugins/memory/mem0/plugin.yaml
    ℹ️ 无需翻译
-[1091/1461] 正在处理: ./plugins/memory/holographic/README.md
+[1091/1468] 正在处理: ./plugins/memory/mem0/__init__.py
    ℹ️ 无需翻译
-[1092/1461] 正在处理: ./plugins/memory/holographic/holographic.py
+[1092/1468] 正在处理: ./plugins/memory/retaindb/README.md
    ℹ️ 无需翻译
-[1093/1461] 正在处理: ./plugins/memory/holographic/plugin.yaml
+[1093/1468] 正在处理: ./plugins/memory/retaindb/plugin.yaml
    ℹ️ 无需翻译
-[1094/1461] 正在处理: ./plugins/memory/holographic/retrieval.py
+[1094/1468] 正在处理: ./plugins/memory/retaindb/__init__.py
    ℹ️ 无需翻译
-[1095/1461] 正在处理: ./plugins/memory/holographic/store.py
+[1095/1468] 正在处理: ./plugins/memory/byterover/README.md
    ℹ️ 无需翻译
-[1096/1461] 正在处理: ./plugins/memory/holographic/__init__.py
+[1096/1468] 正在处理: ./plugins/memory/byterover/plugin.yaml
    ℹ️ 无需翻译
-[1097/1461] 正在处理: ./web/README.md
+[1097/1468] 正在处理: ./plugins/memory/byterover/__init__.py
    ℹ️ 无需翻译
-[1098/1461] 正在处理: ./web/tsconfig.app.json
+[1098/1468] 正在处理: ./plugins/memory/holographic/README.md
    ℹ️ 无需翻译
-[1099/1461] 正在处理: ./web/package-lock.json
+[1099/1468] 正在处理: ./plugins/memory/holographic/holographic.py
    ℹ️ 无需翻译
-[1100/1461] 正在处理: ./web/tsconfig.node.json
+[1100/1468] 正在处理: ./plugins/memory/holographic/plugin.yaml
    ℹ️ 无需翻译
-[1101/1461] 正在处理: ./web/tsconfig.json
+[1101/1468] 正在处理: ./plugins/memory/holographic/retrieval.py
    ℹ️ 无需翻译
-[1102/1461] 正在处理: ./web/package.json
+[1102/1468] 正在处理: ./plugins/memory/holographic/store.py
    ℹ️ 无需翻译
-[1103/1461] 正在处理: ./agent/title_generator.py
+[1103/1468] 正在处理: ./plugins/memory/holographic/__init__.py
    ℹ️ 无需翻译
-[1104/1461] 正在处理: ./agent/skill_utils.py
+[1104/1468] 正在处理: ./web/README.md
    ℹ️ 无需翻译
-[1105/1461] 正在处理: ./agent/context_compressor.py
+[1105/1468] 正在处理: ./web/tsconfig.app.json
    ℹ️ 无需翻译
-[1106/1461] 正在处理: ./agent/prompt_builder.py
+[1106/1468] 正在处理: ./web/package-lock.json
    ℹ️ 无需翻译
-[1107/1461] 正在处理: ./agent/memory_provider.py
+[1107/1468] 正在处理: ./web/tsconfig.node.json
    ℹ️ 无需翻译
-[1108/1461] 正在处理: ./agent/usage_pricing.py
+[1108/1468] 正在处理: ./web/tsconfig.json
    ℹ️ 无需翻译
-[1109/1461] 正在处理: ./agent/display.py
+[1109/1468] 正在处理: ./web/package.json
    ℹ️ 无需翻译
-[1110/1461] 正在处理: ./agent/models_dev.py
+[1110/1468] 正在处理: ./agent/title_generator.py
    ℹ️ 无需翻译
-[1111/1461] 正在处理: ./agent/redact.py
+[1111/1468] 正在处理: ./agent/skill_utils.py
    ℹ️ 无需翻译
-[1112/1461] 正在处理: ./agent/trajectory.py
+[1112/1468] 正在处理: ./agent/context_compressor.py
    ℹ️ 无需翻译
-[1113/1461] 正在处理: ./agent/credential_pool.py
+[1113/1468] 正在处理: ./agent/prompt_builder.py
    ℹ️ 无需翻译
-[1114/1461] 正在处理: ./agent/error_classifier.py
+[1114/1468] 正在处理: ./agent/memory_provider.py
    ℹ️ 无需翻译
-[1115/1461] 正在处理: ./agent/auxiliary_client.py
+[1115/1468] 正在处理: ./agent/usage_pricing.py
    ℹ️ 无需翻译
-[1116/1461] 正在处理: ./agent/subdirectory_hints.py
+[1116/1468] 正在处理: ./agent/display.py
    ℹ️ 无需翻译
-[1117/1461] 正在处理: ./agent/rate_limit_tracker.py
+[1117/1468] 正在处理: ./agent/models_dev.py
    ℹ️ 无需翻译
-[1118/1461] 正在处理: ./agent/anthropic_adapter.py
+[1118/1468] 正在处理: ./agent/redact.py
    ℹ️ 无需翻译
-[1119/1461] 正在处理: ./agent/smart_model_routing.py
+[1119/1468] 正在处理: ./agent/trajectory.py
    ℹ️ 无需翻译
-[1120/1461] 正在处理: ./agent/memory_manager.py
+[1120/1468] 正在处理: ./agent/credential_pool.py
    ℹ️ 无需翻译
-[1121/1461] 正在处理: ./agent/insights.py
+[1121/1468] 正在处理: ./agent/error_classifier.py
    ℹ️ 无需翻译
-[1122/1461] 正在处理: ./agent/prompt_caching.py
+[1122/1468] 正在处理: ./agent/auxiliary_client.py
    ℹ️ 无需翻译
-[1123/1461] 正在处理: ./agent/skill_commands.py
+[1123/1468] 正在处理: ./agent/subdirectory_hints.py
    ℹ️ 无需翻译
-[1124/1461] 正在处理: ./agent/retry_utils.py
+[1124/1468] 正在处理: ./agent/rate_limit_tracker.py
    ℹ️ 无需翻译
-[1125/1461] 正在处理: ./agent/model_metadata.py
+[1125/1468] 正在处理: ./agent/anthropic_adapter.py
    ℹ️ 无需翻译
-[1126/1461] 正在处理: ./agent/context_engine.py
+[1126/1468] 正在处理: ./agent/smart_model_routing.py
    ℹ️ 无需翻译
-[1127/1461] 正在处理: ./agent/__init__.py
+[1127/1468] 正在处理: ./agent/memory_manager.py
    ℹ️ 无需翻译
-[1128/1461] 正在处理: ./agent/copilot_acp_client.py
+[1128/1468] 正在处理: ./agent/insights.py
    ℹ️ 无需翻译
-[1129/1461] 正在处理: ./agent/manual_compression_feedback.py
+[1129/1468] 正在处理: ./agent/prompt_caching.py
    ℹ️ 无需翻译
-[1130/1461] 正在处理: ./agent/context_references.py
+[1130/1468] 正在处理: ./agent/skill_commands.py
    ℹ️ 无需翻译
-[1131/1461] 正在处理: ./cron/jobs.py
+[1131/1468] 正在处理: ./agent/retry_utils.py
    ℹ️ 无需翻译
-[1132/1461] 正在处理: ./cron/scheduler.py
+[1132/1468] 正在处理: ./agent/model_metadata.py
    ℹ️ 无需翻译
-[1133/1461] 正在处理: ./cron/__init__.py
+[1133/1468] 正在处理: ./agent/context_engine.py
    ℹ️ 无需翻译
-[1134/1461] 正在处理: ./plans/gemini-oauth-provider.md
+[1134/1468] 正在处理: ./agent/__init__.py
    ℹ️ 无需翻译
-[1135/1461] 正在处理: ./acp_adapter/session.py
+[1135/1468] 正在处理: ./agent/copilot_acp_client.py
    ℹ️ 无需翻译
-[1136/1461] 正在处理: ./acp_adapter/auth.py
+[1136/1468] 正在处理: ./agent/manual_compression_feedback.py
    ℹ️ 无需翻译
-[1137/1461] 正在处理: ./acp_adapter/entry.py
+[1137/1468] 正在处理: ./agent/context_references.py
    ℹ️ 无需翻译
-[1138/1461] 正在处理: ./acp_adapter/events.py
+[1138/1468] 正在处理: ./cron/jobs.py
    ℹ️ 无需翻译
-[1139/1461] 正在处理: ./acp_adapter/server.py
+[1139/1468] 正在处理: ./cron/scheduler.py
    ℹ️ 无需翻译
-[1140/1461] 正在处理: ./acp_adapter/tools.py
+[1140/1468] 正在处理: ./cron/__init__.py
    ℹ️ 无需翻译
-[1141/1461] 正在处理: ./acp_adapter/permissions.py
+[1141/1468] 正在处理: ./plans/gemini-oauth-provider.md
    ℹ️ 无需翻译
-[1142/1461] 正在处理: ./acp_adapter/__init__.py
+[1142/1468] 正在处理: ./acp_adapter/session.py
    ℹ️ 无需翻译
-[1143/1461] 正在处理: ./acp_adapter/__main__.py
+[1143/1468] 正在处理: ./acp_adapter/auth.py
    ℹ️ 无需翻译
-[1144/1461] 正在处理: ./skills/mcp/DESCRIPTION.md
+[1144/1468] 正在处理: ./acp_adapter/entry.py
    ℹ️ 无需翻译
-[1145/1461] 正在处理: ./skills/mcp/mcporter/SKILL.md
+[1145/1468] 正在处理: ./acp_adapter/events.py
    ℹ️ 无需翻译
-[1146/1461] 正在处理: ./skills/mcp/native-mcp/SKILL.md
+[1146/1468] 正在处理: ./acp_adapter/server.py
    ℹ️ 无需翻译
-[1147/1461] 正在处理: ./skills/red-teaming/godmode/SKILL.md
+[1147/1468] 正在处理: ./acp_adapter/tools.py
    ℹ️ 无需翻译
-[1148/1461] 正在处理: ./skills/red-teaming/godmode/templates/prefill.json
+[1148/1468] 正在处理: ./acp_adapter/permissions.py
    ℹ️ 无需翻译
-[1149/1461] 正在处理: ./skills/red-teaming/godmode/templates/prefill-subtle.json
+[1149/1468] 正在处理: ./acp_adapter/__init__.py
    ℹ️ 无需翻译
-[1150/1461] 正在处理: ./skills/red-teaming/godmode/scripts/parseltongue.py
+[1150/1468] 正在处理: ./acp_adapter/__main__.py
    ℹ️ 无需翻译
-[1151/1461] 正在处理: ./skills/red-teaming/godmode/scripts/load_godmode.py
+[1151/1468] 正在处理: ./skills/mcp/DESCRIPTION.md
    ℹ️ 无需翻译
-[1152/1461] 正在处理: ./skills/red-teaming/godmode/scripts/auto_jailbreak.py
+[1152/1468] 正在处理: ./skills/mcp/mcporter/SKILL.md
    ℹ️ 无需翻译
-[1153/1461] 正在处理: ./skills/red-teaming/godmode/scripts/godmode_race.py
+[1153/1468] 正在处理: ./skills/mcp/native-mcp/SKILL.md
    ℹ️ 无需翻译
-[1154/1461] 正在处理: ./skills/red-teaming/godmode/references/jailbreak-templates.md
+[1154/1468] 正在处理: ./skills/red-teaming/godmode/SKILL.md
    ℹ️ 无需翻译
-[1155/1461] 正在处理: ./skills/red-teaming/godmode/references/refusal-detection.md
+[1155/1468] 正在处理: ./skills/red-teaming/godmode/templates/prefill.json
    ℹ️ 无需翻译
-[1156/1461] 正在处理: ./skills/smart-home/DESCRIPTION.md
+[1156/1468] 正在处理: ./skills/red-teaming/godmode/templates/prefill-subtle.json
    ℹ️ 无需翻译
-[1157/1461] 正在处理: ./skills/smart-home/openhue/SKILL.md
+[1157/1468] 正在处理: ./skills/red-teaming/godmode/scripts/parseltongue.py
    ℹ️ 无需翻译
-[1158/1461] 正在处理: ./skills/feeds/DESCRIPTION.md
+[1158/1468] 正在处理: ./skills/red-teaming/godmode/scripts/load_godmode.py
    ℹ️ 无需翻译
-[1159/1461] 正在处理: ./skills/research/DESCRIPTION.md
+[1159/1468] 正在处理: ./skills/red-teaming/godmode/scripts/auto_jailbreak.py
    ℹ️ 无需翻译
-[1160/1461] 正在处理: ./skills/research/blogwatcher/SKILL.md
+[1160/1468] 正在处理: ./skills/red-teaming/godmode/scripts/godmode_race.py
    ℹ️ 无需翻译
-[1161/1461] 正在处理: ./skills/research/llm-wiki/SKILL.md
+[1161/1468] 正在处理: ./skills/red-teaming/godmode/references/jailbreak-templates.md
    ℹ️ 无需翻译
-[1162/1461] 正在处理: ./skills/research/polymarket/SKILL.md
+[1162/1468] 正在处理: ./skills/red-teaming/godmode/references/refusal-detection.md
    ℹ️ 无需翻译
-[1163/1461] 正在处理: ./skills/research/polymarket/scripts/polymarket.py
+[1163/1468] 正在处理: ./skills/smart-home/DESCRIPTION.md
    ℹ️ 无需翻译
-[1164/1461] 正在处理: ./skills/research/polymarket/references/api-endpoints.md
+[1164/1468] 正在处理: ./skills/smart-home/openhue/SKILL.md
    ℹ️ 无需翻译
-[1165/1461] 正在处理: ./skills/research/arxiv/SKILL.md
+[1165/1468] 正在处理: ./skills/feeds/DESCRIPTION.md
    ℹ️ 无需翻译
-[1166/1461] 正在处理: ./skills/research/arxiv/scripts/search_arxiv.py
+[1166/1468] 正在处理: ./skills/research/DESCRIPTION.md
    ℹ️ 无需翻译
-[1167/1461] 正在处理: ./skills/research/research-paper-writing/SKILL.md
+[1167/1468] 正在处理: ./skills/research/blogwatcher/SKILL.md
    ℹ️ 无需翻译
-[1168/1461] 正在处理: ./skills/research/research-paper-writing/templates/README.md
+[1168/1468] 正在处理: ./skills/research/llm-wiki/SKILL.md
    ℹ️ 无需翻译
-[1169/1461] 正在处理: ./skills/research/research-paper-writing/templates/acl/README.md
+[1169/1468] 正在处理: ./skills/research/polymarket/SKILL.md
    ℹ️ 无需翻译
-[1170/1461] 正在处理: ./skills/research/research-paper-writing/templates/acl/formatting.md
+[1170/1468] 正在处理: ./skills/research/polymarket/scripts/polymarket.py
    ℹ️ 无需翻译
-[1171/1461] 正在处理: ./skills/research/research-paper-writing/templates/colm2025/README.md
+[1171/1468] 正在处理: ./skills/research/polymarket/references/api-endpoints.md
    ℹ️ 无需翻译
-[1172/1461] 正在处理: ./skills/research/research-paper-writing/templates/aaai2026/README.md
+[1172/1468] 正在处理: ./skills/research/arxiv/SKILL.md
    ℹ️ 无需翻译
-[1173/1461] 正在处理: ./skills/research/research-paper-writing/references/experiment-patterns.md
+[1173/1468] 正在处理: ./skills/research/arxiv/scripts/search_arxiv.py
    ℹ️ 无需翻译
-[1174/1461] 正在处理: ./skills/research/research-paper-writing/references/writing-guide.md
+[1174/1468] 正在处理: ./skills/research/research-paper-writing/SKILL.md
    ℹ️ 无需翻译
-[1175/1461] 正在处理: ./skills/research/research-paper-writing/references/checklists.md
+[1175/1468] 正在处理: ./skills/research/research-paper-writing/templates/README.md
    ℹ️ 无需翻译
-[1176/1461] 正在处理: ./skills/research/research-paper-writing/references/human-evaluation.md
+[1176/1468] 正在处理: ./skills/research/research-paper-writing/templates/acl/README.md
    ℹ️ 无需翻译
-[1177/1461] 正在处理: ./skills/research/research-paper-writing/references/paper-types.md
+[1177/1468] 正在处理: ./skills/research/research-paper-writing/templates/acl/formatting.md
    ℹ️ 无需翻译
-[1178/1461] 正在处理: ./skills/research/research-paper-writing/references/reviewer-guidelines.md
+[1178/1468] 正在处理: ./skills/research/research-paper-writing/templates/colm2025/README.md
    ℹ️ 无需翻译
-[1179/1461] 正在处理: ./skills/research/research-paper-writing/references/sources.md
+[1179/1468] 正在处理: ./skills/research/research-paper-writing/templates/aaai2026/README.md
    ℹ️ 无需翻译
-[1180/1461] 正在处理: ./skills/research/research-paper-writing/references/citation-workflow.md
+[1180/1468] 正在处理: ./skills/research/research-paper-writing/references/experiment-patterns.md
    ℹ️ 无需翻译
-[1181/1461] 正在处理: ./skills/research/research-paper-writing/references/autoreason-methodology.md
+[1181/1468] 正在处理: ./skills/research/research-paper-writing/references/writing-guide.md
    ℹ️ 无需翻译
-[1182/1461] 正在处理: ./skills/note-taking/DESCRIPTION.md
+[1182/1468] 正在处理: ./skills/research/research-paper-writing/references/checklists.md
    ℹ️ 无需翻译
-[1183/1461] 正在处理: ./skills/note-taking/obsidian/SKILL.md
+[1183/1468] 正在处理: ./skills/research/research-paper-writing/references/human-evaluation.md
    ℹ️ 无需翻译
-[1184/1461] 正在处理: ./skills/diagramming/DESCRIPTION.md
+[1184/1468] 正在处理: ./skills/research/research-paper-writing/references/paper-types.md
    ℹ️ 无需翻译
-[1185/1461] 正在处理: ./skills/github/DESCRIPTION.md
+[1185/1468] 正在处理: ./skills/research/research-paper-writing/references/reviewer-guidelines.md
    ℹ️ 无需翻译
-[1186/1461] 正在处理: ./skills/github/codebase-inspection/SKILL.md
+[1186/1468] 正在处理: ./skills/research/research-paper-writing/references/sources.md
    ℹ️ 无需翻译
-[1187/1461] 正在处理: ./skills/github/github-issues/SKILL.md
+[1187/1468] 正在处理: ./skills/research/research-paper-writing/references/citation-workflow.md
    ℹ️ 无需翻译
-[1188/1461] 正在处理: ./skills/github/github-issues/templates/bug-report.md
+[1188/1468] 正在处理: ./skills/research/research-paper-writing/references/autoreason-methodology.md
    ℹ️ 无需翻译
-[1189/1461] 正在处理: ./skills/github/github-issues/templates/feature-request.md
+[1189/1468] 正在处理: ./skills/note-taking/DESCRIPTION.md
    ℹ️ 无需翻译
-[1190/1461] 正在处理: ./skills/github/github-repo-management/SKILL.md
+[1190/1468] 正在处理: ./skills/note-taking/obsidian/SKILL.md
    ℹ️ 无需翻译
-[1191/1461] 正在处理: ./skills/github/github-repo-management/references/github-api-cheatsheet.md
+[1191/1468] 正在处理: ./skills/diagramming/DESCRIPTION.md
    ℹ️ 无需翻译
-[1192/1461] 正在处理: ./skills/github/github-pr-workflow/SKILL.md
+[1192/1468] 正在处理: ./skills/github/DESCRIPTION.md
    ℹ️ 无需翻译
-[1193/1461] 正在处理: ./skills/github/github-pr-workflow/templates/pr-body-bugfix.md
+[1193/1468] 正在处理: ./skills/github/codebase-inspection/SKILL.md
    ℹ️ 无需翻译
-[1194/1461] 正在处理: ./skills/github/github-pr-workflow/templates/pr-body-feature.md
+[1194/1468] 正在处理: ./skills/github/github-issues/SKILL.md
    ℹ️ 无需翻译
-[1195/1461] 正在处理: ./skills/github/github-pr-workflow/references/conventional-commits.md
+[1195/1468] 正在处理: ./skills/github/github-issues/templates/bug-report.md
    ℹ️ 无需翻译
-[1196/1461] 正在处理: ./skills/github/github-pr-workflow/references/ci-troubleshooting.md
+[1196/1468] 正在处理: ./skills/github/github-issues/templates/feature-request.md
    ℹ️ 无需翻译
-[1197/1461] 正在处理: ./skills/github/github-auth/SKILL.md
+[1197/1468] 正在处理: ./skills/github/github-repo-management/SKILL.md
    ℹ️ 无需翻译
-[1198/1461] 正在处理: ./skills/github/github-code-review/SKILL.md
+[1198/1468] 正在处理: ./skills/github/github-repo-management/references/github-api-cheatsheet.md
    ℹ️ 无需翻译
-[1199/1461] 正在处理: ./skills/github/github-code-review/references/review-output-template.md
+[1199/1468] 正在处理: ./skills/github/github-pr-workflow/SKILL.md
    ℹ️ 无需翻译
-[1200/1461] 正在处理: ./skills/mlops/DESCRIPTION.md
+[1200/1468] 正在处理: ./skills/github/github-pr-workflow/templates/pr-body-bugfix.md
    ℹ️ 无需翻译
-[1201/1461] 正在处理: ./skills/mlops/huggingface-hub/SKILL.md
+[1201/1468] 正在处理: ./skills/github/github-pr-workflow/templates/pr-body-feature.md
    ℹ️ 无需翻译
-[1202/1461] 正在处理: ./skills/mlops/vector-databases/DESCRIPTION.md
+[1202/1468] 正在处理: ./skills/github/github-pr-workflow/references/conventional-commits.md
    ℹ️ 无需翻译
-[1203/1461] 正在处理: ./skills/mlops/research/DESCRIPTION.md
+[1203/1468] 正在处理: ./skills/github/github-pr-workflow/references/ci-troubleshooting.md
    ℹ️ 无需翻译
-[1204/1461] 正在处理: ./skills/mlops/research/dspy/SKILL.md
+[1204/1468] 正在处理: ./skills/github/github-auth/SKILL.md
    ℹ️ 无需翻译
-[1205/1461] 正在处理: ./skills/mlops/research/dspy/references/optimizers.md
+[1205/1468] 正在处理: ./skills/github/github-code-review/SKILL.md
    ℹ️ 无需翻译
-[1206/1461] 正在处理: ./skills/mlops/research/dspy/references/examples.md
+[1206/1468] 正在处理: ./skills/github/github-code-review/references/review-output-template.md
    ℹ️ 无需翻译
-[1207/1461] 正在处理: ./skills/mlops/research/dspy/references/modules.md
+[1207/1468] 正在处理: ./skills/mlops/DESCRIPTION.md
    ℹ️ 无需翻译
-[1208/1461] 正在处理: ./skills/mlops/inference/DESCRIPTION.md
+[1208/1468] 正在处理: ./skills/mlops/huggingface-hub/SKILL.md
    ℹ️ 无需翻译
-[1209/1461] 正在处理: ./skills/mlops/inference/gguf/SKILL.md
+[1209/1468] 正在处理: ./skills/mlops/vector-databases/DESCRIPTION.md
    ℹ️ 无需翻译
-[1210/1461] 正在处理: ./skills/mlops/inference/gguf/references/advanced-usage.md
+[1210/1468] 正在处理: ./skills/mlops/research/DESCRIPTION.md
    ℹ️ 无需翻译
-[1211/1461] 正在处理: ./skills/mlops/inference/gguf/references/troubleshooting.md
+[1211/1468] 正在处理: ./skills/mlops/research/dspy/SKILL.md
    ℹ️ 无需翻译
-[1212/1461] 正在处理: ./skills/mlops/inference/guidance/SKILL.md
+[1212/1468] 正在处理: ./skills/mlops/research/dspy/references/optimizers.md
    ℹ️ 无需翻译
-[1213/1461] 正在处理: ./skills/mlops/inference/guidance/references/constraints.md
+[1213/1468] 正在处理: ./skills/mlops/research/dspy/references/examples.md
    ℹ️ 无需翻译
-[1214/1461] 正在处理: ./skills/mlops/inference/guidance/references/backends.md
+[1214/1468] 正在处理: ./skills/mlops/research/dspy/references/modules.md
    ℹ️ 无需翻译
-[1215/1461] 正在处理: ./skills/mlops/inference/guidance/references/examples.md
+[1215/1468] 正在处理: ./skills/mlops/inference/DESCRIPTION.md
    ℹ️ 无需翻译
-[1216/1461] 正在处理: ./skills/mlops/inference/vllm/SKILL.md
+[1216/1468] 正在处理: ./skills/mlops/inference/gguf/SKILL.md
    ℹ️ 无需翻译
-[1217/1461] 正在处理: ./skills/mlops/inference/vllm/references/optimization.md
+[1217/1468] 正在处理: ./skills/mlops/inference/gguf/references/advanced-usage.md
    ℹ️ 无需翻译
-[1218/1461] 正在处理: ./skills/mlops/inference/vllm/references/server-deployment.md
+[1218/1468] 正在处理: ./skills/mlops/inference/gguf/references/troubleshooting.md
    ℹ️ 无需翻译
-[1219/1461] 正在处理: ./skills/mlops/inference/vllm/references/troubleshooting.md
+[1219/1468] 正在处理: ./skills/mlops/inference/guidance/SKILL.md
    ℹ️ 无需翻译
-[1220/1461] 正在处理: ./skills/mlops/inference/vllm/references/quantization.md
+[1220/1468] 正在处理: ./skills/mlops/inference/guidance/references/constraints.md
    ℹ️ 无需翻译
-[1221/1461] 正在处理: ./skills/mlops/inference/obliteratus/SKILL.md
+[1221/1468] 正在处理: ./skills/mlops/inference/guidance/references/backends.md
    ℹ️ 无需翻译
-[1222/1461] 正在处理: ./skills/mlops/inference/obliteratus/templates/abliteration-config.yaml
+[1222/1468] 正在处理: ./skills/mlops/inference/guidance/references/examples.md
    ℹ️ 无需翻译
-[1223/1461] 正在处理: ./skills/mlops/inference/obliteratus/templates/batch-abliteration.yaml
+[1223/1468] 正在处理: ./skills/mlops/inference/vllm/SKILL.md
    ℹ️ 无需翻译
-[1224/1461] 正在处理: ./skills/mlops/inference/obliteratus/templates/analysis-study.yaml
+[1224/1468] 正在处理: ./skills/mlops/inference/vllm/references/optimization.md
    ℹ️ 无需翻译
-[1225/1461] 正在处理: ./skills/mlops/inference/obliteratus/references/analysis-modules.md
+[1225/1468] 正在处理: ./skills/mlops/inference/vllm/references/server-deployment.md
    ℹ️ 无需翻译
-[1226/1461] 正在处理: ./skills/mlops/inference/obliteratus/references/methods-guide.md
+[1226/1468] 正在处理: ./skills/mlops/inference/vllm/references/troubleshooting.md
    ℹ️ 无需翻译
-[1227/1461] 正在处理: ./skills/mlops/inference/llama-cpp/SKILL.md
+[1227/1468] 正在处理: ./skills/mlops/inference/vllm/references/quantization.md
    ℹ️ 无需翻译
-[1228/1461] 正在处理: ./skills/mlops/inference/llama-cpp/references/optimization.md
+[1228/1468] 正在处理: ./skills/mlops/inference/obliteratus/SKILL.md
    ℹ️ 无需翻译
-[1229/1461] 正在处理: ./skills/mlops/inference/llama-cpp/references/quantization.md
+[1229/1468] 正在处理: ./skills/mlops/inference/obliteratus/templates/abliteration-config.yaml
    ℹ️ 无需翻译
-[1230/1461] 正在处理: ./skills/mlops/inference/llama-cpp/references/server.md
+[1230/1468] 正在处理: ./skills/mlops/inference/obliteratus/templates/batch-abliteration.yaml
    ℹ️ 无需翻译
-[1231/1461] 正在处理: ./skills/mlops/inference/outlines/SKILL.md
+[1231/1468] 正在处理: ./skills/mlops/inference/obliteratus/templates/analysis-study.yaml
    ℹ️ 无需翻译
-[1232/1461] 正在处理: ./skills/mlops/inference/outlines/references/backends.md
+[1232/1468] 正在处理: ./skills/mlops/inference/obliteratus/references/analysis-modules.md
    ℹ️ 无需翻译
-[1233/1461] 正在处理: ./skills/mlops/inference/outlines/references/examples.md
+[1233/1468] 正在处理: ./skills/mlops/inference/obliteratus/references/methods-guide.md
    ℹ️ 无需翻译
-[1234/1461] 正在处理: ./skills/mlops/inference/outlines/references/json_generation.md
+[1234/1468] 正在处理: ./skills/mlops/inference/llama-cpp/SKILL.md
    ℹ️ 无需翻译
-[1235/1461] 正在处理: ./skills/mlops/evaluation/DESCRIPTION.md
+[1235/1468] 正在处理: ./skills/mlops/inference/llama-cpp/references/optimization.md
    ℹ️ 无需翻译
-[1236/1461] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/SKILL.md
+[1236/1468] 正在处理: ./skills/mlops/inference/llama-cpp/references/quantization.md
    ℹ️ 无需翻译
-[1237/1461] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/custom-tasks.md
+[1237/1468] 正在处理: ./skills/mlops/inference/llama-cpp/references/server.md
    ℹ️ 无需翻译
-[1238/1461] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/api-evaluation.md
+[1238/1468] 正在处理: ./skills/mlops/inference/outlines/SKILL.md
    ℹ️ 无需翻译
-[1239/1461] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/distributed-eval.md
+[1239/1468] 正在处理: ./skills/mlops/inference/outlines/references/backends.md
    ℹ️ 无需翻译
-[1240/1461] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/benchmark-guide.md
+[1240/1468] 正在处理: ./skills/mlops/inference/outlines/references/examples.md
    ℹ️ 无需翻译
-[1241/1461] 正在处理: ./skills/mlops/evaluation/weights-and-biases/SKILL.md
+[1241/1468] 正在处理: ./skills/mlops/inference/outlines/references/json_generation.md
    ℹ️ 无需翻译
-[1242/1461] 正在处理: ./skills/mlops/evaluation/weights-and-biases/references/integrations.md
+[1242/1468] 正在处理: ./skills/mlops/evaluation/DESCRIPTION.md
    ℹ️ 无需翻译
-[1243/1461] 正在处理: ./skills/mlops/evaluation/weights-and-biases/references/artifacts.md
+[1243/1468] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/SKILL.md
    ℹ️ 无需翻译
-[1244/1461] 正在处理: ./skills/mlops/evaluation/weights-and-biases/references/sweeps.md
+[1244/1468] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/custom-tasks.md
    ℹ️ 无需翻译
-[1245/1461] 正在处理: ./skills/mlops/training/DESCRIPTION.md
+[1245/1468] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/api-evaluation.md
    ℹ️ 无需翻译
-[1246/1461] 正在处理: ./skills/mlops/training/unsloth/SKILL.md
+[1246/1468] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/distributed-eval.md
    ℹ️ 无需翻译
-[1247/1461] 正在处理: ./skills/mlops/training/unsloth/references/llms.md
+[1247/1468] 正在处理: ./skills/mlops/evaluation/lm-evaluation-harness/references/benchmark-guide.md
    ℹ️ 无需翻译
-[1248/1461] 正在处理: ./skills/mlops/training/unsloth/references/index.md
+[1248/1468] 正在处理: ./skills/mlops/evaluation/weights-and-biases/SKILL.md
    ℹ️ 无需翻译
-[1249/1461] 正在处理: ./skills/mlops/training/unsloth/references/llms-full.md
+[1249/1468] 正在处理: ./skills/mlops/evaluation/weights-and-biases/references/integrations.md
    ℹ️ 无需翻译
-[1250/1461] 正在处理: ./skills/mlops/training/unsloth/references/llms-txt.md
+[1250/1468] 正在处理: ./skills/mlops/evaluation/weights-and-biases/references/artifacts.md
    ℹ️ 无需翻译
-[1251/1461] 正在处理: ./skills/mlops/training/pytorch-fsdp/SKILL.md
+[1251/1468] 正在处理: ./skills/mlops/evaluation/weights-and-biases/references/sweeps.md
    ℹ️ 无需翻译
-[1252/1461] 正在处理: ./skills/mlops/training/pytorch-fsdp/references/index.md
+[1252/1468] 正在处理: ./skills/mlops/training/DESCRIPTION.md
    ℹ️ 无需翻译
-[1253/1461] 正在处理: ./skills/mlops/training/pytorch-fsdp/references/other.md
+[1253/1468] 正在处理: ./skills/mlops/training/unsloth/SKILL.md
    ℹ️ 无需翻译
-[1254/1461] 正在处理: ./skills/mlops/training/axolotl/SKILL.md
+[1254/1468] 正在处理: ./skills/mlops/training/unsloth/references/llms.md
    ℹ️ 无需翻译
-[1255/1461] 正在处理: ./skills/mlops/training/axolotl/references/dataset-formats.md
+[1255/1468] 正在处理: ./skills/mlops/training/unsloth/references/index.md
    ℹ️ 无需翻译
-[1256/1461] 正在处理: ./skills/mlops/training/axolotl/references/index.md
+[1256/1468] 正在处理: ./skills/mlops/training/unsloth/references/llms-full.md
    ℹ️ 无需翻译
-[1257/1461] 正在处理: ./skills/mlops/training/axolotl/references/api.md
+[1257/1468] 正在处理: ./skills/mlops/training/unsloth/references/llms-txt.md
    ℹ️ 无需翻译
-[1258/1461] 正在处理: ./skills/mlops/training/axolotl/references/other.md
+[1258/1468] 正在处理: ./skills/mlops/training/pytorch-fsdp/SKILL.md
    ℹ️ 无需翻译
-[1259/1461] 正在处理: ./skills/mlops/training/peft/SKILL.md
+[1259/1468] 正在处理: ./skills/mlops/training/pytorch-fsdp/references/index.md
    ℹ️ 无需翻译
-[1260/1461] 正在处理: ./skills/mlops/training/peft/references/advanced-usage.md
+[1260/1468] 正在处理: ./skills/mlops/training/pytorch-fsdp/references/other.md
    ℹ️ 无需翻译
-[1261/1461] 正在处理: ./skills/mlops/training/peft/references/troubleshooting.md
+[1261/1468] 正在处理: ./skills/mlops/training/axolotl/SKILL.md
    ℹ️ 无需翻译
-[1262/1461] 正在处理: ./skills/mlops/training/grpo-rl-training/README.md
+[1262/1468] 正在处理: ./skills/mlops/training/axolotl/references/dataset-formats.md
    ℹ️ 无需翻译
-[1263/1461] 正在处理: ./skills/mlops/training/grpo-rl-training/SKILL.md
+[1263/1468] 正在处理: ./skills/mlops/training/axolotl/references/index.md
    ℹ️ 无需翻译
-[1264/1461] 正在处理: ./skills/mlops/training/grpo-rl-training/templates/basic_grpo_training.py
+[1264/1468] 正在处理: ./skills/mlops/training/axolotl/references/api.md
    ℹ️ 无需翻译
-[1265/1461] 正在处理: ./skills/mlops/training/trl-fine-tuning/SKILL.md
+[1265/1468] 正在处理: ./skills/mlops/training/axolotl/references/other.md
    ℹ️ 无需翻译
-[1266/1461] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/dpo-variants.md
+[1266/1468] 正在处理: ./skills/mlops/training/peft/SKILL.md
    ℹ️ 无需翻译
-[1267/1461] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/online-rl.md
+[1267/1468] 正在处理: ./skills/mlops/training/peft/references/advanced-usage.md
    ℹ️ 无需翻译
-[1268/1461] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/sft-training.md
+[1268/1468] 正在处理: ./skills/mlops/training/peft/references/troubleshooting.md
    ℹ️ 无需翻译
-[1269/1461] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/reward-modeling.md
+[1269/1468] 正在处理: ./skills/mlops/training/grpo-rl-training/README.md
    ℹ️ 无需翻译
-[1270/1461] 正在处理: ./skills/mlops/models/DESCRIPTION.md
+[1270/1468] 正在处理: ./skills/mlops/training/grpo-rl-training/SKILL.md
    ℹ️ 无需翻译
-[1271/1461] 正在处理: ./skills/mlops/models/segment-anything/SKILL.md
+[1271/1468] 正在处理: ./skills/mlops/training/grpo-rl-training/templates/basic_grpo_training.py
    ℹ️ 无需翻译
-[1272/1461] 正在处理: ./skills/mlops/models/segment-anything/references/advanced-usage.md
+[1272/1468] 正在处理: ./skills/mlops/training/trl-fine-tuning/SKILL.md
    ℹ️ 无需翻译
-[1273/1461] 正在处理: ./skills/mlops/models/segment-anything/references/troubleshooting.md
+[1273/1468] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/dpo-variants.md
    ℹ️ 无需翻译
-[1274/1461] 正在处理: ./skills/mlops/models/clip/SKILL.md
+[1274/1468] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/online-rl.md
    ℹ️ 无需翻译
-[1275/1461] 正在处理: ./skills/mlops/models/clip/references/applications.md
+[1275/1468] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/sft-training.md
    ℹ️ 无需翻译
-[1276/1461] 正在处理: ./skills/mlops/models/whisper/SKILL.md
+[1276/1468] 正在处理: ./skills/mlops/training/trl-fine-tuning/references/reward-modeling.md
    ℹ️ 无需翻译
-[1277/1461] 正在处理: ./skills/mlops/models/whisper/references/languages.md
+[1277/1468] 正在处理: ./skills/mlops/models/DESCRIPTION.md
    ℹ️ 无需翻译
-[1278/1461] 正在处理: ./skills/mlops/models/audiocraft/SKILL.md
+[1278/1468] 正在处理: ./skills/mlops/models/segment-anything/SKILL.md
    ℹ️ 无需翻译
-[1279/1461] 正在处理: ./skills/mlops/models/audiocraft/references/advanced-usage.md
+[1279/1468] 正在处理: ./skills/mlops/models/segment-anything/references/advanced-usage.md
    ℹ️ 无需翻译
-[1280/1461] 正在处理: ./skills/mlops/models/audiocraft/references/troubleshooting.md
+[1280/1468] 正在处理: ./skills/mlops/models/segment-anything/references/troubleshooting.md
    ℹ️ 无需翻译
-[1281/1461] 正在处理: ./skills/mlops/models/stable-diffusion/SKILL.md
+[1281/1468] 正在处理: ./skills/mlops/models/clip/SKILL.md
    ℹ️ 无需翻译
-[1282/1461] 正在处理: ./skills/mlops/models/stable-diffusion/references/advanced-usage.md
+[1282/1468] 正在处理: ./skills/mlops/models/clip/references/applications.md
    ℹ️ 无需翻译
-[1283/1461] 正在处理: ./skills/mlops/models/stable-diffusion/references/troubleshooting.md
+[1283/1468] 正在处理: ./skills/mlops/models/whisper/SKILL.md
    ℹ️ 无需翻译
-[1284/1461] 正在处理: ./skills/mlops/cloud/DESCRIPTION.md
+[1284/1468] 正在处理: ./skills/mlops/models/whisper/references/languages.md
    ℹ️ 无需翻译
-[1285/1461] 正在处理: ./skills/mlops/cloud/modal/SKILL.md
+[1285/1468] 正在处理: ./skills/mlops/models/audiocraft/SKILL.md
    ℹ️ 无需翻译
-[1286/1461] 正在处理: ./skills/mlops/cloud/modal/references/advanced-usage.md
+[1286/1468] 正在处理: ./skills/mlops/models/audiocraft/references/advanced-usage.md
    ℹ️ 无需翻译
-[1287/1461] 正在处理: ./skills/mlops/cloud/modal/references/troubleshooting.md
+[1287/1468] 正在处理: ./skills/mlops/models/audiocraft/references/troubleshooting.md
    ℹ️ 无需翻译
-[1288/1461] 正在处理: ./skills/apple/DESCRIPTION.md
+[1288/1468] 正在处理: ./skills/mlops/models/stable-diffusion/SKILL.md
    ℹ️ 无需翻译
-[1289/1461] 正在处理: ./skills/apple/findmy/SKILL.md
+[1289/1468] 正在处理: ./skills/mlops/models/stable-diffusion/references/advanced-usage.md
    ℹ️ 无需翻译
-[1290/1461] 正在处理: ./skills/apple/imessage/SKILL.md
+[1290/1468] 正在处理: ./skills/mlops/models/stable-diffusion/references/troubleshooting.md
    ℹ️ 无需翻译
-[1291/1461] 正在处理: ./skills/apple/apple-reminders/SKILL.md
+[1291/1468] 正在处理: ./skills/mlops/cloud/DESCRIPTION.md
    ℹ️ 无需翻译
-[1292/1461] 正在处理: ./skills/apple/apple-notes/SKILL.md
+[1292/1468] 正在处理: ./skills/mlops/cloud/modal/SKILL.md
    ℹ️ 无需翻译
-[1293/1461] 正在处理: ./skills/domain/DESCRIPTION.md
+[1293/1468] 正在处理: ./skills/mlops/cloud/modal/references/advanced-usage.md
    ℹ️ 无需翻译
-[1294/1461] 正在处理: ./skills/creative/DESCRIPTION.md
+[1294/1468] 正在处理: ./skills/mlops/cloud/modal/references/troubleshooting.md
    ℹ️ 无需翻译
-[1295/1461] 正在处理: ./skills/creative/excalidraw/SKILL.md
+[1295/1468] 正在处理: ./skills/apple/DESCRIPTION.md
    ℹ️ 无需翻译
-[1296/1461] 正在处理: ./skills/creative/excalidraw/scripts/upload.py
+[1296/1468] 正在处理: ./skills/apple/findmy/SKILL.md
    ℹ️ 无需翻译
-[1297/1461] 正在处理: ./skills/creative/excalidraw/references/dark-mode.md
+[1297/1468] 正在处理: ./skills/apple/imessage/SKILL.md
    ℹ️ 无需翻译
-[1298/1461] 正在处理: ./skills/creative/excalidraw/references/colors.md
+[1298/1468] 正在处理: ./skills/apple/apple-reminders/SKILL.md
    ℹ️ 无需翻译
-[1299/1461] 正在处理: ./skills/creative/excalidraw/references/examples.md
+[1299/1468] 正在处理: ./skills/apple/apple-notes/SKILL.md
    ℹ️ 无需翻译
-[1300/1461] 正在处理: ./skills/creative/manim-video/README.md
+[1300/1468] 正在处理: ./skills/domain/DESCRIPTION.md
    ℹ️ 无需翻译
-[1301/1461] 正在处理: ./skills/creative/manim-video/SKILL.md
+[1301/1468] 正在处理: ./skills/creative/DESCRIPTION.md
    ℹ️ 无需翻译
-[1302/1461] 正在处理: ./skills/creative/manim-video/references/production-quality.md
+[1302/1468] 正在处理: ./skills/creative/excalidraw/SKILL.md
    ℹ️ 无需翻译
-[1303/1461] 正在处理: ./skills/creative/manim-video/references/mobjects.md
+[1303/1468] 正在处理: ./skills/creative/excalidraw/scripts/upload.py
    ℹ️ 无需翻译
-[1304/1461] 正在处理: ./skills/creative/manim-video/references/visual-design.md
+[1304/1468] 正在处理: ./skills/creative/excalidraw/references/dark-mode.md
    ℹ️ 无需翻译
-[1305/1461] 正在处理: ./skills/creative/manim-video/references/updaters-and-trackers.md
+[1305/1468] 正在处理: ./skills/creative/excalidraw/references/colors.md
    ℹ️ 无需翻译
-[1306/1461] 正在处理: ./skills/creative/manim-video/references/troubleshooting.md
+[1306/1468] 正在处理: ./skills/creative/excalidraw/references/examples.md
    ℹ️ 无需翻译
-[1307/1461] 正在处理: ./skills/creative/manim-video/references/animation-design-thinking.md
+[1307/1468] 正在处理: ./skills/creative/manim-video/README.md
    ℹ️ 无需翻译
-[1308/1461] 正在处理: ./skills/creative/manim-video/references/equations.md
+[1308/1468] 正在处理: ./skills/creative/manim-video/SKILL.md
    ℹ️ 无需翻译
-[1309/1461] 正在处理: ./skills/creative/manim-video/references/paper-explainer.md
+[1309/1468] 正在处理: ./skills/creative/manim-video/references/production-quality.md
    ℹ️ 无需翻译
-[1310/1461] 正在处理: ./skills/creative/manim-video/references/animations.md
+[1310/1468] 正在处理: ./skills/creative/manim-video/references/mobjects.md
    ℹ️ 无需翻译
-[1311/1461] 正在处理: ./skills/creative/manim-video/references/decorations.md
+[1311/1468] 正在处理: ./skills/creative/manim-video/references/visual-design.md
    ℹ️ 无需翻译
-[1312/1461] 正在处理: ./skills/creative/manim-video/references/scene-planning.md
+[1312/1468] 正在处理: ./skills/creative/manim-video/references/updaters-and-trackers.md
    ℹ️ 无需翻译
-[1313/1461] 正在处理: ./skills/creative/manim-video/references/camera-and-3d.md
+[1313/1468] 正在处理: ./skills/creative/manim-video/references/troubleshooting.md
    ℹ️ 无需翻译
-[1314/1461] 正在处理: ./skills/creative/manim-video/references/graphs-and-data.md
+[1314/1468] 正在处理: ./skills/creative/manim-video/references/animation-design-thinking.md
    ℹ️ 无需翻译
-[1315/1461] 正在处理: ./skills/creative/manim-video/references/rendering.md
+[1315/1468] 正在处理: ./skills/creative/manim-video/references/equations.md
    ℹ️ 无需翻译
-[1316/1461] 正在处理: ./skills/creative/creative-ideation/SKILL.md
+[1316/1468] 正在处理: ./skills/creative/manim-video/references/paper-explainer.md
    ℹ️ 无需翻译
-[1317/1461] 正在处理: ./skills/creative/creative-ideation/references/full-prompt-library.md
+[1317/1468] 正在处理: ./skills/creative/manim-video/references/animations.md
    ℹ️ 无需翻译
-[1318/1461] 正在处理: ./skills/creative/ascii-video/README.md
+[1318/1468] 正在处理: ./skills/creative/manim-video/references/decorations.md
    ℹ️ 无需翻译
-[1319/1461] 正在处理: ./skills/creative/ascii-video/SKILL.md
+[1319/1468] 正在处理: ./skills/creative/manim-video/references/scene-planning.md
    ℹ️ 无需翻译
-[1320/1461] 正在处理: ./skills/creative/ascii-video/references/optimization.md
+[1320/1468] 正在处理: ./skills/creative/manim-video/references/camera-and-3d.md
    ℹ️ 无需翻译
-[1321/1461] 正在处理: ./skills/creative/ascii-video/references/shaders.md
+[1321/1468] 正在处理: ./skills/creative/manim-video/references/graphs-and-data.md
    ℹ️ 无需翻译
-[1322/1461] 正在处理: ./skills/creative/ascii-video/references/effects.md
+[1322/1468] 正在处理: ./skills/creative/manim-video/references/rendering.md
    ℹ️ 无需翻译
-[1323/1461] 正在处理: ./skills/creative/ascii-video/references/troubleshooting.md
+[1323/1468] 正在处理: ./skills/creative/creative-ideation/SKILL.md
    ℹ️ 无需翻译
-[1324/1461] 正在处理: ./skills/creative/ascii-video/references/architecture.md
+[1324/1468] 正在处理: ./skills/creative/creative-ideation/references/full-prompt-library.md
    ℹ️ 无需翻译
-[1325/1461] 正在处理: ./skills/creative/ascii-video/references/composition.md
+[1325/1468] 正在处理: ./skills/creative/ascii-video/README.md
    ℹ️ 无需翻译
-[1326/1461] 正在处理: ./skills/creative/ascii-video/references/scenes.md
+[1326/1468] 正在处理: ./skills/creative/ascii-video/SKILL.md
    ℹ️ 无需翻译
-[1327/1461] 正在处理: ./skills/creative/ascii-video/references/inputs.md
+[1327/1468] 正在处理: ./skills/creative/ascii-video/references/optimization.md
    ℹ️ 无需翻译
-[1328/1461] 正在处理: ./skills/creative/ascii-art/SKILL.md
+[1328/1468] 正在处理: ./skills/creative/ascii-video/references/shaders.md
    ℹ️ 无需翻译
-[1329/1461] 正在处理: ./skills/creative/songwriting-and-ai-music/SKILL.md
+[1329/1468] 正在处理: ./skills/creative/ascii-video/references/effects.md
    ℹ️ 无需翻译
-[1330/1461] 正在处理: ./skills/creative/p5js/README.md
+[1330/1468] 正在处理: ./skills/creative/ascii-video/references/troubleshooting.md
    ℹ️ 无需翻译
-[1331/1461] 正在处理: ./skills/creative/p5js/SKILL.md
+[1331/1468] 正在处理: ./skills/creative/ascii-video/references/architecture.md
    ℹ️ 无需翻译
-[1332/1461] 正在处理: ./skills/creative/p5js/references/interaction.md
+[1332/1468] 正在处理: ./skills/creative/ascii-video/references/composition.md
    ℹ️ 无需翻译
-[1333/1461] 正在处理: ./skills/creative/p5js/references/core-api.md
+[1333/1468] 正在处理: ./skills/creative/ascii-video/references/scenes.md
    ℹ️ 无需翻译
-[1334/1461] 正在处理: ./skills/creative/p5js/references/export-pipeline.md
+[1334/1468] 正在处理: ./skills/creative/ascii-video/references/inputs.md
    ℹ️ 无需翻译
-[1335/1461] 正在处理: ./skills/creative/p5js/references/shapes-and-geometry.md
+[1335/1468] 正在处理: ./skills/creative/ascii-art/SKILL.md
    ℹ️ 无需翻译
-[1336/1461] 正在处理: ./skills/creative/p5js/references/troubleshooting.md
+[1336/1468] 正在处理: ./skills/creative/songwriting-and-ai-music/SKILL.md
    ℹ️ 无需翻译
-[1337/1461] 正在处理: ./skills/creative/p5js/references/webgl-and-3d.md
+[1337/1468] 正在处理: ./skills/creative/p5js/README.md
    ℹ️ 无需翻译
-[1338/1461] 正在处理: ./skills/creative/p5js/references/visual-effects.md
+[1338/1468] 正在处理: ./skills/creative/p5js/SKILL.md
    ℹ️ 无需翻译
-[1339/1461] 正在处理: ./skills/creative/p5js/references/typography.md
+[1339/1468] 正在处理: ./skills/creative/p5js/references/interaction.md
    ℹ️ 无需翻译
-[1340/1461] 正在处理: ./skills/creative/p5js/references/color-systems.md
+[1340/1468] 正在处理: ./skills/creative/p5js/references/core-api.md
    ℹ️ 无需翻译
-[1341/1461] 正在处理: ./skills/creative/p5js/references/animation.md
+[1341/1468] 正在处理: ./skills/creative/p5js/references/export-pipeline.md
    ℹ️ 无需翻译
-[1342/1461] 正在处理: ./skills/creative/popular-web-designs/SKILL.md
+[1342/1468] 正在处理: ./skills/creative/p5js/references/shapes-and-geometry.md
    ℹ️ 无需翻译
-[1343/1461] 正在处理: ./skills/creative/popular-web-designs/templates/clickhouse.md
+[1343/1468] 正在处理: ./skills/creative/p5js/references/troubleshooting.md
    ℹ️ 无需翻译
-[1344/1461] 正在处理: ./skills/creative/popular-web-designs/templates/figma.md
+[1344/1468] 正在处理: ./skills/creative/p5js/references/webgl-and-3d.md
    ℹ️ 无需翻译
-[1345/1461] 正在处理: ./skills/creative/popular-web-designs/templates/hashicorp.md
+[1345/1468] 正在处理: ./skills/creative/p5js/references/visual-effects.md
    ℹ️ 无需翻译
-[1346/1461] 正在处理: ./skills/creative/popular-web-designs/templates/airtable.md
+[1346/1468] 正在处理: ./skills/creative/p5js/references/typography.md
    ℹ️ 无需翻译
-[1347/1461] 正在处理: ./skills/creative/popular-web-designs/templates/webflow.md
+[1347/1468] 正在处理: ./skills/creative/p5js/references/color-systems.md
    ℹ️ 无需翻译
-[1348/1461] 正在处理: ./skills/creative/popular-web-designs/templates/clay.md
+[1348/1468] 正在处理: ./skills/creative/p5js/references/animation.md
    ℹ️ 无需翻译
-[1349/1461] 正在处理: ./skills/creative/popular-web-designs/templates/claude.md
+[1349/1468] 正在处理: ./skills/creative/popular-web-designs/SKILL.md
    ℹ️ 无需翻译
-[1350/1461] 正在处理: ./skills/creative/popular-web-designs/templates/sanity.md
+[1350/1468] 正在处理: ./skills/creative/popular-web-designs/templates/clickhouse.md
    ℹ️ 无需翻译
-[1351/1461] 正在处理: ./skills/creative/popular-web-designs/templates/posthog.md
+[1351/1468] 正在处理: ./skills/creative/popular-web-designs/templates/figma.md
    ℹ️ 无需翻译
-[1352/1461] 正在处理: ./skills/creative/popular-web-designs/templates/supabase.md
+[1352/1468] 正在处理: ./skills/creative/popular-web-designs/templates/hashicorp.md
    ℹ️ 无需翻译
-[1353/1461] 正在处理: ./skills/creative/popular-web-designs/templates/nvidia.md
+[1353/1468] 正在处理: ./skills/creative/popular-web-designs/templates/airtable.md
    ℹ️ 无需翻译
-[1354/1461] 正在处理: ./skills/creative/popular-web-designs/templates/composio.md
+[1354/1468] 正在处理: ./skills/creative/popular-web-designs/templates/webflow.md
    ℹ️ 无需翻译
-[1355/1461] 正在处理: ./skills/creative/popular-web-designs/templates/superhuman.md
+[1355/1468] 正在处理: ./skills/creative/popular-web-designs/templates/clay.md
    ℹ️ 无需翻译
-[1356/1461] 正在处理: ./skills/creative/popular-web-designs/templates/resend.md
+[1356/1468] 正在处理: ./skills/creative/popular-web-designs/templates/claude.md
    ℹ️ 无需翻译
-[1357/1461] 正在处理: ./skills/creative/popular-web-designs/templates/voltagent.md
+[1357/1468] 正在处理: ./skills/creative/popular-web-designs/templates/sanity.md
    ℹ️ 无需翻译
-[1358/1461] 正在处理: ./skills/creative/popular-web-designs/templates/together.ai.md
+[1358/1468] 正在处理: ./skills/creative/popular-web-designs/templates/posthog.md
    ℹ️ 无需翻译
-[1359/1461] 正在处理: ./skills/creative/popular-web-designs/templates/pinterest.md
+[1359/1468] 正在处理: ./skills/creative/popular-web-designs/templates/supabase.md
    ℹ️ 无需翻译
-[1360/1461] 正在处理: ./skills/creative/popular-web-designs/templates/opencode.ai.md
+[1360/1468] 正在处理: ./skills/creative/popular-web-designs/templates/nvidia.md
    ℹ️ 无需翻译
-[1361/1461] 正在处理: ./skills/creative/popular-web-designs/templates/spotify.md
+[1361/1468] 正在处理: ./skills/creative/popular-web-designs/templates/composio.md
    ℹ️ 无需翻译
-[1362/1461] 正在处理: ./skills/creative/popular-web-designs/templates/framer.md
+[1362/1468] 正在处理: ./skills/creative/popular-web-designs/templates/superhuman.md
    ℹ️ 无需翻译
-[1363/1461] 正在处理: ./skills/creative/popular-web-designs/templates/raycast.md
+[1363/1468] 正在处理: ./skills/creative/popular-web-designs/templates/resend.md
    ℹ️ 无需翻译
-[1364/1461] 正在处理: ./skills/creative/popular-web-designs/templates/intercom.md
+[1364/1468] 正在处理: ./skills/creative/popular-web-designs/templates/voltagent.md
    ℹ️ 无需翻译
-[1365/1461] 正在处理: ./skills/creative/popular-web-designs/templates/wise.md
+[1365/1468] 正在处理: ./skills/creative/popular-web-designs/templates/together.ai.md
    ℹ️ 无需翻译
-[1366/1461] 正在处理: ./skills/creative/popular-web-designs/templates/replicate.md
+[1366/1468] 正在处理: ./skills/creative/popular-web-designs/templates/pinterest.md
    ℹ️ 无需翻译
-[1367/1461] 正在处理: ./skills/creative/popular-web-designs/templates/miro.md
+[1367/1468] 正在处理: ./skills/creative/popular-web-designs/templates/opencode.ai.md
    ℹ️ 无需翻译
-[1368/1461] 正在处理: ./skills/creative/popular-web-designs/templates/spacex.md
+[1368/1468] 正在处理: ./skills/creative/popular-web-designs/templates/spotify.md
    ℹ️ 无需翻译
-[1369/1461] 正在处理: ./skills/creative/popular-web-designs/templates/lovable.md
+[1369/1468] 正在处理: ./skills/creative/popular-web-designs/templates/framer.md
    ℹ️ 无需翻译
-[1370/1461] 正在处理: ./skills/creative/popular-web-designs/templates/cal.md
+[1370/1468] 正在处理: ./skills/creative/popular-web-designs/templates/raycast.md
    ℹ️ 无需翻译
-[1371/1461] 正在处理: ./skills/creative/popular-web-designs/templates/uber.md
+[1371/1468] 正在处理: ./skills/creative/popular-web-designs/templates/intercom.md
    ℹ️ 无需翻译
-[1372/1461] 正在处理: ./skills/creative/popular-web-designs/templates/sentry.md
+[1372/1468] 正在处理: ./skills/creative/popular-web-designs/templates/wise.md
    ℹ️ 无需翻译
-[1373/1461] 正在处理: ./skills/creative/popular-web-designs/templates/linear.app.md
+[1373/1468] 正在处理: ./skills/creative/popular-web-designs/templates/replicate.md
    ℹ️ 无需翻译
-[1374/1461] 正在处理: ./skills/creative/popular-web-designs/templates/stripe.md
+[1374/1468] 正在处理: ./skills/creative/popular-web-designs/templates/miro.md
    ℹ️ 无需翻译
-[1375/1461] 正在处理: ./skills/creative/popular-web-designs/templates/coinbase.md
+[1375/1468] 正在处理: ./skills/creative/popular-web-designs/templates/spacex.md
    ℹ️ 无需翻译
-[1376/1461] 正在处理: ./skills/creative/popular-web-designs/templates/mongodb.md
+[1376/1468] 正在处理: ./skills/creative/popular-web-designs/templates/lovable.md
    ℹ️ 无需翻译
-[1377/1461] 正在处理: ./skills/creative/popular-web-designs/templates/kraken.md
+[1377/1468] 正在处理: ./skills/creative/popular-web-designs/templates/cal.md
    ℹ️ 无需翻译
-[1378/1461] 正在处理: ./skills/creative/popular-web-designs/templates/mistral.ai.md
+[1378/1468] 正在处理: ./skills/creative/popular-web-designs/templates/uber.md
    ℹ️ 无需翻译
-[1379/1461] 正在处理: ./skills/creative/popular-web-designs/templates/cohere.md
+[1379/1468] 正在处理: ./skills/creative/popular-web-designs/templates/sentry.md
    ℹ️ 无需翻译
-[1380/1461] 正在处理: ./skills/creative/popular-web-designs/templates/ibm.md
+[1380/1468] 正在处理: ./skills/creative/popular-web-designs/templates/linear.app.md
    ℹ️ 无需翻译
-[1381/1461] 正在处理: ./skills/creative/popular-web-designs/templates/warp.md
+[1381/1468] 正在处理: ./skills/creative/popular-web-designs/templates/stripe.md
    ℹ️ 无需翻译
-[1382/1461] 正在处理: ./skills/creative/popular-web-designs/templates/bmw.md
+[1382/1468] 正在处理: ./skills/creative/popular-web-designs/templates/coinbase.md
    ℹ️ 无需翻译
-[1383/1461] 正在处理: ./skills/creative/popular-web-designs/templates/zapier.md
+[1383/1468] 正在处理: ./skills/creative/popular-web-designs/templates/mongodb.md
    ℹ️ 无需翻译
-[1384/1461] 正在处理: ./skills/creative/popular-web-designs/templates/notion.md
+[1384/1468] 正在处理: ./skills/creative/popular-web-designs/templates/kraken.md
    ℹ️ 无需翻译
-[1385/1461] 正在处理: ./skills/creative/popular-web-designs/templates/x.ai.md
+[1385/1468] 正在处理: ./skills/creative/popular-web-designs/templates/mistral.ai.md
    ℹ️ 无需翻译
-[1386/1461] 正在处理: ./skills/creative/popular-web-designs/templates/cursor.md
+[1386/1468] 正在处理: ./skills/creative/popular-web-designs/templates/cohere.md
    ℹ️ 无需翻译
-[1387/1461] 正在处理: ./skills/creative/popular-web-designs/templates/airbnb.md
+[1387/1468] 正在处理: ./skills/creative/popular-web-designs/templates/ibm.md
    ℹ️ 无需翻译
-[1388/1461] 正在处理: ./skills/creative/popular-web-designs/templates/mintlify.md
+[1388/1468] 正在处理: ./skills/creative/popular-web-designs/templates/warp.md
    ℹ️ 无需翻译
-[1389/1461] 正在处理: ./skills/creative/popular-web-designs/templates/ollama.md
+[1389/1468] 正在处理: ./skills/creative/popular-web-designs/templates/bmw.md
    ℹ️ 无需翻译
-[1390/1461] 正在处理: ./skills/creative/popular-web-designs/templates/vercel.md
+[1390/1468] 正在处理: ./skills/creative/popular-web-designs/templates/zapier.md
    ℹ️ 无需翻译
-[1391/1461] 正在处理: ./skills/creative/popular-web-designs/templates/runwayml.md
+[1391/1468] 正在处理: ./skills/creative/popular-web-designs/templates/notion.md
    ℹ️ 无需翻译
-[1392/1461] 正在处理: ./skills/creative/popular-web-designs/templates/minimax.md
+[1392/1468] 正在处理: ./skills/creative/popular-web-designs/templates/x.ai.md
    ℹ️ 无需翻译
-[1393/1461] 正在处理: ./skills/creative/popular-web-designs/templates/revolut.md
+[1393/1468] 正在处理: ./skills/creative/popular-web-designs/templates/cursor.md
    ℹ️ 无需翻译
-[1394/1461] 正在处理: ./skills/creative/popular-web-designs/templates/expo.md
+[1394/1468] 正在处理: ./skills/creative/popular-web-designs/templates/airbnb.md
    ℹ️ 无需翻译
-[1395/1461] 正在处理: ./skills/creative/popular-web-designs/templates/elevenlabs.md
+[1395/1468] 正在处理: ./skills/creative/popular-web-designs/templates/mintlify.md
    ℹ️ 无需翻译
-[1396/1461] 正在处理: ./skills/creative/popular-web-designs/templates/apple.md
+[1396/1468] 正在处理: ./skills/creative/popular-web-designs/templates/ollama.md
    ℹ️ 无需翻译
-[1397/1461] 正在处理: ./skills/social-media/DESCRIPTION.md
+[1397/1468] 正在处理: ./skills/creative/popular-web-designs/templates/vercel.md
    ℹ️ 无需翻译
-[1398/1461] 正在处理: ./skills/social-media/xitter/SKILL.md
+[1398/1468] 正在处理: ./skills/creative/popular-web-designs/templates/runwayml.md
    ℹ️ 无需翻译
-[1399/1461] 正在处理: ./skills/gifs/DESCRIPTION.md
+[1399/1468] 正在处理: ./skills/creative/popular-web-designs/templates/minimax.md
    ℹ️ 无需翻译
-[1400/1461] 正在处理: ./skills/email/DESCRIPTION.md
+[1400/1468] 正在处理: ./skills/creative/popular-web-designs/templates/revolut.md
    ℹ️ 无需翻译
-[1401/1461] 正在处理: ./skills/email/himalaya/SKILL.md
+[1401/1468] 正在处理: ./skills/creative/popular-web-designs/templates/expo.md
    ℹ️ 无需翻译
-[1402/1461] 正在处理: ./skills/email/himalaya/references/message-composition.md
+[1402/1468] 正在处理: ./skills/creative/popular-web-designs/templates/elevenlabs.md
    ℹ️ 无需翻译
-[1403/1461] 正在处理: ./skills/email/himalaya/references/configuration.md
+[1403/1468] 正在处理: ./skills/creative/popular-web-designs/templates/apple.md
    ℹ️ 无需翻译
-[1404/1461] 正在处理: ./skills/dogfood/SKILL.md
+[1404/1468] 正在处理: ./skills/social-media/DESCRIPTION.md
    ℹ️ 无需翻译
-[1405/1461] 正在处理: ./skills/dogfood/templates/dogfood-report-template.md
+[1405/1468] 正在处理: ./skills/social-media/xitter/SKILL.md
    ℹ️ 无需翻译
-[1406/1461] 正在处理: ./skills/dogfood/references/issue-taxonomy.md
+[1406/1468] 正在处理: ./skills/gifs/DESCRIPTION.md
    ℹ️ 无需翻译
-[1407/1461] 正在处理: ./skills/leisure/find-nearby/SKILL.md
+[1407/1468] 正在处理: ./skills/email/DESCRIPTION.md
    ℹ️ 无需翻译
-[1408/1461] 正在处理: ./skills/leisure/find-nearby/scripts/find_nearby.py
+[1408/1468] 正在处理: ./skills/email/himalaya/SKILL.md
    ℹ️ 无需翻译
-[1409/1461] 正在处理: ./skills/productivity/DESCRIPTION.md
+[1409/1468] 正在处理: ./skills/email/himalaya/references/message-composition.md
    ℹ️ 无需翻译
-[1410/1461] 正在处理: ./skills/productivity/notion/SKILL.md
+[1410/1468] 正在处理: ./skills/email/himalaya/references/configuration.md
    ℹ️ 无需翻译
-[1411/1461] 正在处理: ./skills/productivity/notion/references/block-types.md
+[1411/1468] 正在处理: ./skills/dogfood/SKILL.md
    ℹ️ 无需翻译
-[1412/1461] 正在处理: ./skills/productivity/linear/SKILL.md
+[1412/1468] 正在处理: ./skills/dogfood/templates/dogfood-report-template.md
    ℹ️ 无需翻译
-[1413/1461] 正在处理: ./skills/productivity/ocr-and-documents/SKILL.md
+[1413/1468] 正在处理: ./skills/dogfood/references/issue-taxonomy.md
    ℹ️ 无需翻译
-[1414/1461] 正在处理: ./skills/productivity/ocr-and-documents/DESCRIPTION.md
+[1414/1468] 正在处理: ./skills/leisure/find-nearby/SKILL.md
    ℹ️ 无需翻译
-[1415/1461] 正在处理: ./skills/productivity/ocr-and-documents/scripts/extract_marker.py
+[1415/1468] 正在处理: ./skills/leisure/find-nearby/scripts/find_nearby.py
    ℹ️ 无需翻译
-[1416/1461] 正在处理: ./skills/productivity/ocr-and-documents/scripts/extract_pymupdf.py
+[1416/1468] 正在处理: ./skills/productivity/DESCRIPTION.md
    ℹ️ 无需翻译
-[1417/1461] 正在处理: ./skills/productivity/google-workspace/SKILL.md
+[1417/1468] 正在处理: ./skills/productivity/notion/SKILL.md
    ℹ️ 无需翻译
-[1418/1461] 正在处理: ./skills/productivity/google-workspace/scripts/gws_bridge.py
+[1418/1468] 正在处理: ./skills/productivity/notion/references/block-types.md
    ℹ️ 无需翻译
-[1419/1461] 正在处理: ./skills/productivity/google-workspace/scripts/setup.py
+[1419/1468] 正在处理: ./skills/productivity/linear/SKILL.md
    ℹ️ 无需翻译
-[1420/1461] 正在处理: ./skills/productivity/google-workspace/scripts/google_api.py
+[1420/1468] 正在处理: ./skills/productivity/ocr-and-documents/SKILL.md
    ℹ️ 无需翻译
-[1421/1461] 正在处理: ./skills/productivity/google-workspace/references/gmail-search-syntax.md
+[1421/1468] 正在处理: ./skills/productivity/ocr-and-documents/DESCRIPTION.md
    ℹ️ 无需翻译
-[1422/1461] 正在处理: ./skills/productivity/nano-pdf/SKILL.md
+[1422/1468] 正在处理: ./skills/productivity/ocr-and-documents/scripts/extract_marker.py
    ℹ️ 无需翻译
-[1423/1461] 正在处理: ./skills/productivity/powerpoint/pptxgenjs.md
+[1423/1468] 正在处理: ./skills/productivity/ocr-and-documents/scripts/extract_pymupdf.py
    ℹ️ 无需翻译
-[1424/1461] 正在处理: ./skills/productivity/powerpoint/SKILL.md
+[1424/1468] 正在处理: ./skills/productivity/google-workspace/SKILL.md
    ℹ️ 无需翻译
-[1425/1461] 正在处理: ./skills/productivity/powerpoint/editing.md
+[1425/1468] 正在处理: ./skills/productivity/google-workspace/scripts/gws_bridge.py
    ℹ️ 无需翻译
-[1426/1461] 正在处理: ./skills/productivity/powerpoint/scripts/add_slide.py
+[1426/1468] 正在处理: ./skills/productivity/google-workspace/scripts/setup.py
    ℹ️ 无需翻译
-[1427/1461] 正在处理: ./skills/productivity/powerpoint/scripts/clean.py
+[1427/1468] 正在处理: ./skills/productivity/google-workspace/scripts/google_api.py
    ℹ️ 无需翻译
-[1428/1461] 正在处理: ./skills/productivity/powerpoint/scripts/__init__.py
+[1428/1468] 正在处理: ./skills/productivity/google-workspace/references/gmail-search-syntax.md
    ℹ️ 无需翻译
-[1429/1461] 正在处理: ./skills/productivity/powerpoint/scripts/office/pack.py
+[1429/1468] 正在处理: ./skills/productivity/nano-pdf/SKILL.md
    ℹ️ 无需翻译
-[1430/1461] 正在处理: ./skills/productivity/powerpoint/scripts/office/helpers/merge_runs.py
+[1430/1468] 正在处理: ./skills/productivity/powerpoint/pptxgenjs.md
    ℹ️ 无需翻译
-[1431/1461] 正在处理: ./skills/productivity/powerpoint/scripts/office/helpers/simplify_redlines.py
+[1431/1468] 正在处理: ./skills/productivity/powerpoint/SKILL.md
    ℹ️ 无需翻译
-[1432/1461] 正在处理: ./skills/productivity/powerpoint/scripts/office/helpers/__init__.py
+[1432/1468] 正在处理: ./skills/productivity/powerpoint/editing.md
    ℹ️ 无需翻译
-[1433/1461] 正在处理: ./skills/software-development/subagent-driven-development/SKILL.md
+[1433/1468] 正在处理: ./skills/productivity/powerpoint/scripts/add_slide.py
    ℹ️ 无需翻译
-[1434/1461] 正在处理: ./skills/software-development/test-driven-development/SKILL.md
+[1434/1468] 正在处理: ./skills/productivity/powerpoint/scripts/clean.py
    ℹ️ 无需翻译
-[1435/1461] 正在处理: ./skills/software-development/systematic-debugging/SKILL.md
+[1435/1468] 正在处理: ./skills/productivity/powerpoint/scripts/__init__.py
    ℹ️ 无需翻译
-[1436/1461] 正在处理: ./skills/software-development/requesting-code-review/SKILL.md
+[1436/1468] 正在处理: ./skills/productivity/powerpoint/scripts/office/pack.py
    ℹ️ 无需翻译
-[1437/1461] 正在处理: ./skills/software-development/plan/SKILL.md
+[1437/1468] 正在处理: ./skills/productivity/powerpoint/scripts/office/helpers/merge_runs.py
    ℹ️ 无需翻译
-[1438/1461] 正在处理: ./skills/software-development/writing-plans/SKILL.md
+[1438/1468] 正在处理: ./skills/productivity/powerpoint/scripts/office/helpers/simplify_redlines.py
    ℹ️ 无需翻译
-[1439/1461] 正在处理: ./skills/gaming/DESCRIPTION.md
+[1439/1468] 正在处理: ./skills/productivity/powerpoint/scripts/office/helpers/__init__.py
    ℹ️ 无需翻译
-[1440/1461] 正在处理: ./skills/gaming/minecraft-modpack-server/SKILL.md
+[1440/1468] 正在处理: ./skills/software-development/subagent-driven-development/SKILL.md
    ℹ️ 无需翻译
-[1441/1461] 正在处理: ./skills/gaming/pokemon-player/SKILL.md
+[1441/1468] 正在处理: ./skills/software-development/test-driven-development/SKILL.md
    ℹ️ 无需翻译
-[1442/1461] 正在处理: ./skills/data-science/DESCRIPTION.md
+[1442/1468] 正在处理: ./skills/software-development/systematic-debugging/SKILL.md
    ℹ️ 无需翻译
-[1443/1461] 正在处理: ./skills/data-science/jupyter-live-kernel/SKILL.md
+[1443/1468] 正在处理: ./skills/software-development/requesting-code-review/SKILL.md
    ℹ️ 无需翻译
-[1444/1461] 正在处理: ./skills/index-cache/claude_marketplace_anthropics_skills.json
+[1444/1468] 正在处理: ./skills/software-development/plan/SKILL.md
    ℹ️ 无需翻译
-[1445/1461] 正在处理: ./skills/index-cache/openai_skills_skills_.json
+[1445/1468] 正在处理: ./skills/software-development/writing-plans/SKILL.md
    ℹ️ 无需翻译
-[1446/1461] 正在处理: ./skills/index-cache/lobehub_index.json
+[1446/1468] 正在处理: ./skills/gaming/DESCRIPTION.md
    ℹ️ 无需翻译
-[1447/1461] 正在处理: ./skills/index-cache/anthropics_skills_skills_.json
+[1447/1468] 正在处理: ./skills/gaming/minecraft-modpack-server/SKILL.md
    ℹ️ 无需翻译
-[1448/1461] 正在处理: ./skills/inference-sh/DESCRIPTION.md
+[1448/1468] 正在处理: ./skills/gaming/pokemon-player/SKILL.md
    ℹ️ 无需翻译
-[1449/1461] 正在处理: ./skills/devops/webhook-subscriptions/SKILL.md
+[1449/1468] 正在处理: ./skills/data-science/DESCRIPTION.md
    ℹ️ 无需翻译
-[1450/1461] 正在处理: ./skills/media/DESCRIPTION.md
+[1450/1468] 正在处理: ./skills/data-science/jupyter-live-kernel/SKILL.md
    ℹ️ 无需翻译
-[1451/1461] 正在处理: ./skills/media/heartmula/SKILL.md
+[1451/1468] 正在处理: ./skills/index-cache/claude_marketplace_anthropics_skills.json
    ℹ️ 无需翻译
-[1452/1461] 正在处理: ./skills/media/youtube-content/SKILL.md
+[1452/1468] 正在处理: ./skills/index-cache/openai_skills_skills_.json
    ℹ️ 无需翻译
-[1453/1461] 正在处理: ./skills/media/youtube-content/scripts/fetch_transcript.py
+[1453/1468] 正在处理: ./skills/index-cache/lobehub_index.json
    ℹ️ 无需翻译
-[1454/1461] 正在处理: ./skills/media/youtube-content/references/output-formats.md
+[1454/1468] 正在处理: ./skills/index-cache/anthropics_skills_skills_.json
    ℹ️ 无需翻译
-[1455/1461] 正在处理: ./skills/media/gif-search/SKILL.md
+[1455/1468] 正在处理: ./skills/inference-sh/DESCRIPTION.md
    ℹ️ 无需翻译
-[1456/1461] 正在处理: ./skills/media/songsee/SKILL.md
+[1456/1468] 正在处理: ./skills/devops/webhook-subscriptions/SKILL.md
    ℹ️ 无需翻译
-[1457/1461] 正在处理: ./skills/autonomous-ai-agents/DESCRIPTION.md
+[1457/1468] 正在处理: ./skills/media/DESCRIPTION.md
    ℹ️ 无需翻译
-[1458/1461] 正在处理: ./skills/autonomous-ai-agents/claude-code/SKILL.md
+[1458/1468] 正在处理: ./skills/media/heartmula/SKILL.md
    ℹ️ 无需翻译
-[1459/1461] 正在处理: ./skills/autonomous-ai-agents/hermes-agent/SKILL.md
+[1459/1468] 正在处理: ./skills/media/youtube-content/SKILL.md
    ℹ️ 无需翻译
-[1460/1461] 正在处理: ./skills/autonomous-ai-agents/opencode/SKILL.md
+[1460/1468] 正在处理: ./skills/media/youtube-content/scripts/fetch_transcript.py
    ℹ️ 无需翻译
-[1461/1461] 正在处理: ./skills/autonomous-ai-agents/codex/SKILL.md
+[1461/1468] 正在处理: ./skills/media/youtube-content/references/output-formats.md
+   ℹ️ 无需翻译
+[1462/1468] 正在处理: ./skills/media/gif-search/SKILL.md
+   ℹ️ 无需翻译
+[1463/1468] 正在处理: ./skills/media/songsee/SKILL.md
+   ℹ️ 无需翻译
+[1464/1468] 正在处理: ./skills/autonomous-ai-agents/DESCRIPTION.md
+   ℹ️ 无需翻译
+[1465/1468] 正在处理: ./skills/autonomous-ai-agents/claude-code/SKILL.md
+   ℹ️ 无需翻译
+[1466/1468] 正在处理: ./skills/autonomous-ai-agents/hermes-agent/SKILL.md
+   ℹ️ 无需翻译
+[1467/1468] 正在处理: ./skills/autonomous-ai-agents/opencode/SKILL.md
+   ℹ️ 无需翻译
+[1468/1468] 正在处理: ./skills/autonomous-ai-agents/codex/SKILL.md
    ℹ️ 无需翻译
 
 ============================================================
