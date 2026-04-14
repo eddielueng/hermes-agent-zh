@@ -1,0 +1,4 @@
+# Workflow Trigger Test
+
+This file is used to trigger the Auto Translation Sync workflow.
+You can safely delete this file after testing.
