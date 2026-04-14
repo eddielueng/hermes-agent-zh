@@ -22,6 +22,15 @@
 
 name: 🔄 Auto Translation Sync
 
+# 解决 Node.js 20 弃用警告
+permissions:
+  contents: write
+  pull-requests: write
+
+# 强制使用 Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   # 手动触发（推荐）
   workflow_dispatch:
@@ -113,20 +122,45 @@ jobs:
         id: fetch_upstream
         run: |
           echo "🔄 正在从 ${UPSTREAM_REPO} 获取最新代码..."
-          git fetch upstream ${UPSTREAM_BRANCH}
+          
+          # 添加上游远程仓库（如果不存在）
+          if ! git remote get-url upstream &>/dev/null; then
+            git remote add upstream https://github.com/${UPSTREAM_REPO}.git
+            echo "✅ 已添加上游远程仓库"
+          fi
+          
+          # 尝试获取上游代码
+          set +e  # 临时禁用 exit on error
+          git fetch upstream ${UPSTREAM_BRANCH} 2>&1 || {
+            echo "⚠️ 无法从上游获取代码，可能是首次运行或网络问题"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "error=fetch_failed" >> $GITHUB_OUTPUT
+            exit 0
+          }
+          set -e  # 重新启用
           
           # 检查是否有新的提交
           LOCAL=$(git rev-parse HEAD)
-          REMOTE=$(git rev-parse upstream/${UPSTREAM_BRANCH})
+          REMOTE=$(git rev-parse upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "")
           
-          if [ "$LOCAL" = "$REMOTE" ]; then
-            echo "ℹ️ 已经是最新版本，无需同步"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+          if [ -z "$REMOTE" ] || [ "$LOCAL" = "$REMOTE" ]; then
+            echo "ℹ️ 已经是最新版本或首次运行"
+            
+            # 首次运行时也尝试翻译本地文件
+            if [ -z "$REMOTE" ]; then
+              echo "📝 首次运行：将扫描并翻译当前所有文件"
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+              echo "commits_ahead=0" >> $GITHUB_OUTPUT
+              echo "upstream_commit=initial" >> $GITHUB_OUTPUT
+              echo "first_run=true" >> $GITHUB_OUTPUT
+            else
+              echo "has_changes=false" >> $GITHUB_OUTPUT
+            fi
             exit 0
           fi
           
           # 计算新的提交数量
-          COMMITS_AHEAD=$(git rev-list --count HEAD..upstream/${UPSTREAM_BRANCH})
+          COMMITS_AHEAD=$(git rev-list --count HEAD..upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "0")
           echo "📊 发现 ${COMMITS_AHEAD} 个新提交"
           
           echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -187,33 +221,68 @@ jobs:
         run: |
           echo "🌐 开始执行自动汉化..."
           echo "模式: $([ '$DRY_RUN' = 'true' ] && echo '预览' || echo '正式')"
+          echo "工作目录: $(pwd)"
+          echo "Python 版本: $(python --version)"
           
-          # 运行翻译脚本
+          # 显示文件列表
+          echo ""
+          echo "📋 当前目录结构:"
+          ls -la hermes_cli/ tools/ gateway/ 2>/dev/null | head -20
+          echo ""
+          
+          # 运行翻译脚本（带错误处理）
           DRY_RUN_FLAG=""
           if [ "$DRY_RUN" = "true" ]; then
             DRY_RUN_FLAG="--dry-run"
           fi
+          
+          set +e  # 临时禁用 exit on error，让我们能捕获错误
           
           python auto_translate.py \
             --rules translation_rules.yaml \
             --upstream ${UPSTREAM_REPO} \
             --branch ${UPSTREAM_BRANCH} \
             --output translation_report.md \
-            ${DRY_RUN_FLAG}
+            ${DRY_RUN_FLAG} 2>&1 | tee translation_output.log
           
-          # 统计变更
-          CHANGED_FILES=$(git diff --name-only | wc -l)
-          TRANSLATIONS=$(git diff --stat | tail -1 | awk '{print $4}' || echo "0")
+          TRANSLATE_EXIT_CODE=$?
           
-          echo "changed_files=${CHANGED_FILES}" >> $GITHUB_OUTPUT
-          echo "translations=${TRANSLATIONS}" >> $GITHUB_OUTPUT
+          set -e  # 重新启用
           
-          echo ""
-          echo "=========================================="
-          echo "✅ 翻译完成！"
-          echo "   变更文件数: ${CHANGED_FILES}"
-          echo "   翻译条目数: ${TRANSLATIONS}"
-          echo "=========================================="
+          # 检查脚本是否成功
+          if [ $TRANSLATE_EXIT_CODE -ne 0 ]; then
+            echo ""
+            echo "⚠️ 翻译脚本返回错误码: ${TRANSLATE_EXIT_CODE}"
+            echo "查看上方日志了解详情"
+            
+            # 输出调试信息
+            echo ""
+            echo "🔍 调试信息:"
+            echo "   - auto_translate.py 是否存在: $(test -f auto_translate.py && echo '是' || echo '否')"
+            echo "   - translation_rules.yaml 是否存在: $(test -f translation_rules.yaml && echo '是' || echo '否')"
+            echo "   - Python pyyaml 模块: $(python -c 'import yaml; print("已安装")' 2>&1 || echo '未安装')"
+            
+            # 即使失败也继续（可能只是部分翻译失败）
+            echo "changed_files=0" >> $GITHUB_OUTPUT
+            echo "translations=0" >> $GITHUB_OUTPUT
+            echo "error=translate_failed" >> $GITHUB_OUTPUT
+            
+            # 不要退出，让后续步骤继续
+          else
+            # 统计变更
+            CHANGED_FILES=$(git diff --name-only 2>/dev/null | wc -l)
+            TRANSLATIONS=$(git diff --stat 2>/dev/null | tail -1 | awk '{print $4}' || echo "0")
+            
+            echo "changed_files=${CHANGED_FILES}" >> $GITHUB_OUTPUT
+            echo "translations=${TRANSLATIONS}" >> $GITHUB_OUTPUT
+            
+            echo ""
+            echo "=========================================="
+            echo "✅ 翻译完成！"
+            echo "   变更文件数: ${CHANGED_FILES}"
+            echo "   翻译条目数: ${TRANSLATIONS}"
+            echo "=========================================="
+          fi
 
       # ----------------------------------------
       # Step 8: 提交更改
