@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry run (preview only, no changes)'
+        description: 'Dry run (preview only)'
         required: false
         default: false
         type: boolean
@@ -22,6 +22,7 @@ concurrency:
 
 env:
   UPSTREAM_REPO: "nousresearch/hermes-agent"
+  UPSTREAM_BRANCH: "main"
   PYTHON_VERSION: "3.11"
 
 jobs:
@@ -31,6 +32,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - uses: actions/checkout@v4
@@ -43,45 +46,94 @@ jobs:
           git config --global user.name "Hermes Bot"
           git config --global user.email "bot@hermes-zh.com"
 
+      - name: Fetch upstream
+        id: fetch_upstream
+        run: |
+          echo "=== Adding upstream remote ==="
+          git remote add upstream https://github.com/${UPSTREAM_REPO}.git 2>/dev/null || true
+          
+          echo "=== Fetching upstream ${UPSTREAM_BRANCH} ==="
+          set +e
+          git fetch upstream ${UPSTREAM_BRANCH} 2>&1
+          FETCH_RESULT=$?
+          set -e
+          
+          if [ $FETCH_RESULT -ne 0 ]; then
+            echo "⚠️ Failed to fetch upstream"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          LOCAL=$(git rev-parse HEAD)
+          REMOTE=$(git rev-parse upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "")
+          
+          echo "Local:  ${LOCAL}"
+          echo "Remote: ${REMOTE}"
+          
+          if [ "$LOCAL" = "$REMOTE" ]; then
+            echo "Already up to date"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          COMMITS_AHEAD=$(git rev-list --count HEAD..upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "0")
+          echo "Found ${COMMITS_AHEAD} new commits from upstream"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "commits_ahead=${COMMITS_AHEAD}" >> $GITHUB_OUTPUT
+          echo "upstream_commit=${REMOTE}" >> $GITHUB_OUTPUT
+
+      - name: Merge upstream changes
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
+        run: |
+          echo "=== Merging upstream/${UPSTREAM_BRANCH} ==="
+          BRANCH_NAME="auto-sync-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "${BRANCH_NAME}"
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+          
+          git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream ${UPSTREAM_BRANCH}" || {
+            echo "Merge had conflicts or warnings, continuing..."
+          }
+          echo "Merge complete"
+
       - name: Setup Python
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install dependencies
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: pip install pyyaml
 
       - name: Run translation
         id: translate
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
-          echo "=== Translation Mode: ${{ github.event.inputs.dry_run || 'false' }} ==="
-          mkdir -p output
-          
+          echo "=== Translation Mode ==="
           DRY_FLAG=""
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_FLAG="--dry-run"
-            echo "[DRY RUN] Preview mode - no files will be modified"
+            echo "[DRY RUN] Preview mode"
           else
-            echo "[LIVE] Production mode - files will be translated and committed"
+            echo "[LIVE] Production mode"
           fi
           
+          mkdir -p output
           python auto_translate.py \
             --rules translation_rules.yaml \
             --output output/report.md \
-            ${DRY_FLAG} 2>&1 | tee output/log.txt
+            ${DRY_FLAG} 2>&1 | tee output/log.txt || true
           
-          echo ""
-          echo "=== Checking for changes ==="
           CHANGED=$(git diff --name-only 2>/dev/null | wc -l)
           echo "changed_files=${CHANGED}" >> $GITHUB_OUTPUT
           
           if [ $CHANGED -gt 0 ]; then
             echo ""
-            echo "=== Changed Files ==="
+            echo "=== Files to be translated ==="
             git diff --name-only
             echo ""
-            echo "=== Diff Summary ==="
-            git diff --stat
+            echo "=== Diff stat ==="
+            git diff --stat | tail -5
           fi
 
       - name: Commit and push
@@ -91,12 +143,28 @@ jobs:
         run: |
           echo "=== Committing translations ==="
           git add -A
-          git commit -m "Auto translation update $(date '+%Y-%m-%d %H:%M')" || echo "No changes to commit"
-          git push origin main || echo "Push failed (may already be up to date)"
+          COMMITS="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+          FILES="${{ steps.translate.outputs.changed_files }}"
+          git commit -m "Auto sync & translate: ${COMMITS} upstream commits, ${FILES} files translated" || echo "No changes to commit"
+          git push origin "${branch_name}" || echo "Push failed"
           echo "Done!"
 
+      - name: Create PR
+        if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "=== Creating Pull Request ==="
+          COMMITS="${{ steps.fetch_upstream.outputs.commits_ahead }}"
+          gh pr create \
+            --title "Auto sync & translate (${COMMITS} upstream commits)" \
+            --body "Automated sync from upstream and Chinese translation" \
+            --label "automated" \
+            --label "translation" \
+            --base main || echo "PR may already exist"
+
       - name: Upload report
-        if: always()
+        if: always() && steps.fetch_upstream.outputs.has_changes == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: translation-report-${{ github.run_id }}
@@ -111,5 +179,10 @@ jobs:
     if: always()
     steps:
       - run: |
-          echo "## Workflow Summary" >> $GITHUB_STEP_SUMMARY
-          echo "| Status | ${{ needs.sync-and-translate.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "## Auto Translation Sync Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Item | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | \`${{ needs.sync-and-translate.result }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Upstream Commits | \`${{ needs.sync-and-translate.steps.fetch_upstream.outputs.commits_ahead || '0' }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Translated Files | \`${{ needs.sync-and-translate.steps.translate.outputs.changed_files || '0' }}\` |" >> $GITHUB_STEP_SUMMARY
