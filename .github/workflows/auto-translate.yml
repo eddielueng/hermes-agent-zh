@@ -22,15 +22,6 @@
 
 name: 🔄 Auto Translation Sync
 
-# 解决 Node.js 20 弃用警告
-permissions:
-  contents: write
-  pull-requests: write
-
-# 强制使用 Node.js 24
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 on:
   # 手动触发（推荐）
   workflow_dispatch:
@@ -59,9 +50,10 @@ on:
   schedule:
     - cron: '0 2 * * *'
 
-  # 可选：监听上游 release（需要配置 webhook）
-  # repository_dispatch:
-  #   types: [upstream-release]
+# 解决 Node.js 20 弃用警告
+permissions:
+  contents: write
+  pull-requests: write
 
 # 并发控制：同一时间只允许一个实例运行
 concurrency:
@@ -88,6 +80,10 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+
+    # 强制使用 Node.js 24（解决弃用警告）
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       # ----------------------------------------
