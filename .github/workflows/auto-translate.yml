@@ -226,59 +226,80 @@ jobs:
           ls -la hermes_cli/ tools/ gateway/ 2>/dev/null | head -20
           echo ""
           
-          # 运行翻译脚本（带错误处理）
+          # 运行翻译脚本（带完整错误处理）
           DRY_RUN_FLAG=""
           if [ "$DRY_RUN" = "true" ]; then
             DRY_RUN_FLAG="--dry-run"
           fi
           
-          set +e  # 临时禁用 exit on error，让我们能捕获错误
+          # 创建输出目录（确保报告能生成）
+          mkdir -p output
+          
+          # 运行翻译脚本
+          set +e  # 禁用 exit on error
           
           python auto_translate.py \
             --rules translation_rules.yaml \
             --upstream ${UPSTREAM_REPO} \
             --branch ${UPSTREAM_BRANCH} \
-            --output translation_report.md \
-            ${DRY_RUN_FLAG} 2>&1 | tee translation_output.log
+            --output output/translation_report.md \
+            ${DRY_RUN_FLAG} 2>&1 | tee output/translation_output.log
           
           TRANSLATE_EXIT_CODE=$?
           
           set -e  # 重新启用
           
-          # 检查脚本是否成功
-          if [ $TRANSLATE_EXIT_CODE -ne 0 ]; then
-            echo ""
-            echo "⚠️ 翻译脚本返回错误码: ${TRANSLATE_EXIT_CODE}"
-            echo "查看上方日志了解详情"
-            
-            # 输出调试信息
-            echo ""
-            echo "🔍 调试信息:"
-            echo "   - auto_translate.py 是否存在: $(test -f auto_translate.py && echo '是' || echo '否')"
-            echo "   - translation_rules.yaml 是否存在: $(test -f translation_rules.yaml && echo '是' || echo '否')"
-            echo "   - Python pyyaml 模块: $(python -c 'import yaml; print("已安装")' 2>&1 || echo '未安装')"
-            
-            # 即使失败也继续（可能只是部分翻译失败）
-            echo "changed_files=0" >> $GITHUB_OUTPUT
-            echo "translations=0" >> $GITHUB_OUTPUT
-            echo "error=translate_failed" >> $GITHUB_OUTPUT
-            
-            # 不要退出，让后续步骤继续
-          else
-            # 统计变更
-            CHANGED_FILES=$(git diff --name-only 2>/dev/null | wc -l)
+          echo ""
+          echo "=========================================="
+          echo "📊 翻译脚本执行结果"
+          echo "=========================================="
+          echo "退出码: ${TRANSLATE_EXIT_CODE}"
+          
+          # 检查是否有实际文件变更（即使脚本报错）
+          CHANGED_FILES=$(git diff --name-only 2>/dev/null | wc -l)
+          echo "检测到变更文件数: ${CHANGED_FILES}"
+          
+          # 统计翻译数量
+          if [ $CHANGED_FILES -gt 0 ]; then
             TRANSLATIONS=$(git diff --stat 2>/dev/null | tail -1 | awk '{print $4}' || echo "0")
+            echo "翻译条目数: ~${TRANSLATIONS}"
             
             echo "changed_files=${CHANGED_FILES}" >> $GITHUB_OUTPUT
             echo "translations=${TRANSLATIONS}" >> $GITHUB_OUTPUT
+            echo "status=success" >> $GITHUB_OUTPUT
             
             echo ""
-            echo "=========================================="
-            echo "✅ 翻译完成！"
-            echo "   变更文件数: ${CHANGED_FILES}"
-            echo "   翻译条目数: ${TRANSLATIONS}"
-            echo "=========================================="
+            echo "✅ 翻译完成！发现 ${CHANGED_FILES} 个文件有变更"
+            
+          else
+            if [ $TRANSLATE_EXIT_CODE -ne 0 ]; then
+              echo ""
+              echo "⚠️ 翻译脚本执行失败（退出码: ${TRANSLATE_EXIT_CODE}）"
+              echo "查看上方日志了解详情"
+              
+              # 输出调试信息
+              echo ""
+              echo "🔍 调试信息:"
+              echo "   - auto_translate.py 存在: $(test -f auto_translate.py && echo '是' || echo '否')"
+              echo "   - translation_rules.yaml 存在: $(test -f translation_rules.yaml && echo '是' || echo '否')"
+              echo "   - Python pyyaml: $(python -c 'import yaml; print("已安装")' 2>&1 || echo '未安装')"
+              echo "   - 脚本输出日志:"
+              tail -20 output/translation_output.log 2>/dev/null || echo "无日志"
+              
+              echo "changed_files=0" >> $GITHUB_OUTPUT
+              echo "translations=0" >> $GITHUB_OUTPUT
+              echo "error=translate_failed" >> $GITHUB_OUTPUT
+            else
+              echo ""
+              echo "ℹ️ 无需翻译（没有检测到可翻译的内容）"
+              
+              echo "changed_files=0" >> $GITHUB_OUTPUT
+              echo "translations=0" >> $GITHUB_OUTPUT
+              echo "status=no_changes" >> $GITHUB_OUTPUT
+            fi
           fi
+          
+          echo "=========================================="
 
       # ----------------------------------------
       # Step 8: 提交更改
@@ -375,8 +396,9 @@ jobs:
         with:
           name: translation-report-${{ github.run_id }}
           path: |
-            translation_report.md
+            output/
           retention-days: 30
+          if-no-files-found: ignore  # 即使没有文件也不报错
 
       # ----------------------------------------
       # Step 11: 发送通知（可选）

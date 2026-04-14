@@ -577,14 +577,24 @@ def main():
     if args.upstream:
         success = translator.sync_from_upstream(args.upstream, args.branch)
         if not success:
-            print("\n❌ 同步失败，退出")
-            sys.exit(1)
-        
+            print("\n⚠️ 同步失败，但将继续翻译当前文件...")
+
         # 获取变更的文件
         changed_files = translator.get_changed_files()
-        
+
         if not changed_files:
-            print("\nℹ️ 没有检测到新的变更")
+            print("\nℹ️ 没有检测到新的变更，将扫描所有文件进行翻译")
+            # 即使没有变更也扫描所有文件
+            all_py_files = []
+            for root, dirs, files in os.walk('.'):
+                dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__', '.git', 'venv', '.venv']]
+                for file in files:
+                    if translator.should_translate_file(os.path.join(root, file)):
+                        all_py_files.append(os.path.join(root, file))
+
+            if all_py_files:
+                print(f"\n📋 找到 {len(all_py_files)} 个可翻译文件")
+                translator.translate_files(all_py_files)
             return
         
         print(f"\n📋 检测到 {len(changed_files)} 个变更文件:")
