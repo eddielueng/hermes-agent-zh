@@ -1,0 +1,489 @@
+# =============================================
+# Hermes Agent 中文版 - 翻译规则配置
+# =============================================
+# 
+# 说明：此文件定义自动化汉化的所有规则
+# 当官方仓库更新时，auto_translate.py 会根据这些规则自动翻译
+#
+# 使用方法：
+#   python auto_translate.py --rules translation_rules.yaml --upstream nousresearch/hermes-agent
+#
+# =============================================
+
+# =============================================
+# 🎯 第一部分：全局设置
+# =============================================
+
+global:
+  # 是否启用自动翻译
+  enabled: true
+  
+  # 日志级别: DEBUG, INFO, WARNING, ERROR
+  log_level: INFO
+  
+  # 备份原始文件（安全措施）
+  backup_original: true
+  
+  # 翻译模式:
+  #   strict - 只翻译明确匹配的模式（推荐）
+  #   aggressive - 尝试翻译更多文本（可能有误译）
+  mode: strict
+  
+  # 需要处理的文件类型
+  file_patterns:
+    - "*.py"
+    - "*.md"
+    - "*.yaml"
+    - "*.yml"
+    - "*.json"
+
+# =============================================
+# 🔧 第二部分：通用翻译映射表
+# =============================================
+# 这些规则适用于所有文件
+
+common_mappings:
+  # 错误和状态消息
+  "Error:": "错误："
+  "Warning:": "警告："
+  "Success:": "成功："
+  "Failed:": "失败："
+  "Cancelled.": "已取消。"
+  "completed": "完成"
+  "failed": "失败"
+  "success": "成功"
+  
+  # 常用动词短语
+  "Starting ": "正在启动 "
+  "Stopping ": "正在停止 "
+  "Connecting to": "连接到"
+  "Disconnected from": "已断开连接"
+  "Loading ": "正在加载 "
+  "Saving ": "正在保存 "
+  "Created ": "已创建 "
+  "Deleted ": "已删除 "
+  "Updated ": "已更新 "
+  "Installed ": "已安装 "
+  "Removed ": "已移除 "
+  
+  # 用户交互提示
+  "Enter ": "输入 "
+  "Select ": "选择 "
+  "Choose ": "选择 "
+  "Press ": "按 "
+  "Type ": "输入 "
+  "Confirm": "确认"
+  "Cancel": "取消"
+  "Skip": "跳过"
+  "Retry": "重试"
+  "Continue": "继续"
+  "Back": "返回"
+  "Exit": "退出"
+  "Quit": "退出"
+  
+  # 时间相关
+  "just now": "刚刚"
+  " ago": "前"
+  "yesterday": "昨天"
+  "minutes ago": "分钟前"
+  "hours ago": "小时前"
+  "days ago": "天前"
+  
+  # 布尔值显示
+  "(current)": "（当前）"
+  "(default)": "（默认）"
+  "(recommended)": "（推荐）"
+  "enabled": "已启用"
+  "disabled": "已禁用"
+  "active": "活跃"
+  "inactive": "非活跃"
+  
+  # 文件操作
+  "not found": "未找到"
+  "does not exist": "不存在"
+  "already exists": "已存在"
+  "permission denied": "权限被拒绝"
+  "access denied": "访问被拒绝"
+
+# =============================================
+# 📝 第三部分：按文件分类的翻译规则
+# =============================================
+
+file_specific_rules:
+
+  # ----------------------------------------
+  # hermes_cli/commands.py - 命令定义
+  # ----------------------------------------
+  "hermes_cli/commands.py":
+    # 命令分类标签
+    "Session": "会话"
+    "Configuration": "配置"
+    "Tools & Skills": "工具与技能"
+    "Info": "信息"
+    "Exit": "退出"
+    
+    # 命令描述关键词
+    "Start a new session": "开始新会话"
+    "Clear screen": "清屏"
+    "Show conversation history": "显示对话历史"
+    "Show current configuration": "显示当前配置"
+    "Switch model for this session": "切换本次会话的模型"
+    "Manage tools": "管理工具"
+    "Search, install": "搜索、安装"
+    "Show available commands": "显示可用命令"
+    "Exit the CLI": "退出 CLI"
+    
+    # 参数提示
+    "[name]": "[名称]"
+    "[model]": "[模型]"
+    "[path]": "[路径]"
+    "[subcommand]": "[子命令]"
+    
+    # 别名说明
+    "aliases=": "别名="
+    "cli_only=True": "仅CLI可用"
+    "gateway_only=True": "仅网关可用"
+
+  # ----------------------------------------
+  # hermes_cli/main.py - 主界面
+  # ----------------------------------------
+  "hermes_cli/main.py":
+    # 错误消息
+    "requires an interactive terminal": "需要交互式终端"
+    "Cannot be run through a pipe": "无法通过管道运行"
+    "Run it directly in your terminal instead": "请直接在终端中运行"
+    "not found on PATH": "在 PATH 中未找到"
+    "Cannot route to container": "无法路由到容器"
+    "No previous CLI session found": "未找到可继续的之前 CLI 会话"
+    "No session found matching": "未找到匹配的会话"
+    "Use 'hermes sessions list'": "请使用 'hermes sessions list'"
+    "Invalid selection": "无效选择"
+    "Please enter": "请输入"
+    "Please enter a number": "请输入一个数字"
+    "No change": "未做更改"
+    "Setup cancelled": "设置已取消"
+    "Login cancelled or failed": "登录已取消或失败"
+    "Login failed": "登录失败"
+    "Session expired": "会话已过期"
+    "Re-authenticating": "重新认证"
+    "Could not verify credentials": "无法验证凭据"
+    "Default model set to": "默认模型已设置为"
+    "No free models currently available": "当前没有可用的免费模型"
+    "Upgrade at": "升级地址"
+    "to access paid models": "以访问付费模型"
+    "Showing": "显示"
+    "curated models — use": "精选模型 — 使用"
+    "Enter custom model name": "输入自定义模型名称"
+    "Custom OpenAI-compatible endpoint": "自定义 OpenAI 兼容端点"
+    "API base URL": "API 基础 URL"
+    "API key": "API 密钥"
+    "optional": "可选"
+    "Model name": "模型名称"
+    "Context length in tokens": "上下文长度（令牌数）"
+    "leave blank for auto-detect": "留空自动检测"
+    "Invalid URL": "无效的 URL"
+    "must start with http:// or https://": "必须以 http:// 或 https:// 开头"
+    "Verified endpoint via": "已通过验证端点"
+    "model(s) visible": "个模型可见"
+    "Warning: could not verify this endpoint": "警告：无法验证此端点"
+    "Hermes will still save it": "Hermes 仍将保存它"
+    "Detected model": "检测到模型"
+    "Use this model?": "使用此模型?"
+    "Available models": "可用模型"
+    "Select model": "选择模型"
+    "Endpoint saved": "端点已保存"
+    "Use `/model` in chat": "在聊天中使用 /model"
+    "Remove custom provider": "删除自定义提供商"
+    "No custom providers configured": "未配置自定义服务商"
+    "Select provider to remove": "选择要删除的服务商"
+    "Removed from custom providers": "已从自定义服务商中删除"
+    "Fetching available models": "正在获取可用模型"
+    "Could not fetch models from endpoint": "无法从端点获取模型"
+    "Enter model name manually": "手动输入模型名称"
+    "No model specified": "未指定模型"
+    "Select reasoning effort": "选择推理强度"
+    "Choice [1-": "选择 [1-"
+    "default: keep current": "默认: 保持当前"
+    "Reasoning disabled": "推理已禁用"
+    "Reasoning effort set to": "推理强度已设置为"
+    "Not logged into": "未登录"
+    "No API key configured": "未配置 API 密钥"
+    "Get one at": "获取地址"
+    "API key (or Enter to cancel)": "API 密钥（或按 Enter 取消）"
+    "You can run 'hermes setup' at any time": "您可以随时运行 'hermes setup'"
+
+  # ----------------------------------------
+  # hermes_cli/setup.py - 设置向导
+  # ----------------------------------------
+  "hermes_cli/setup.py":
+    "Print a section header": "打印章节标题"
+    "Print guidance for headless/non-interactive setup": "打印无头/非交互式设置指导"
+    "The interactive wizard cannot be used here": "此处无法使用交互式向导"
+    "Configure Hermes using environment variables": "使用环境变量配置 Hermes"
+    "Run 'hermes setup' in an interactive terminal": "在交互式终端中运行 'hermes setup'"
+    "Prompt for a choice from a list with arrow key navigation": "使用箭头键导航从列表中提示选择"
+    "Escape keeps the current default": "Escape 保持当前默认值"
+    "Ctrl+C exits the wizard": "Ctrl+C 退出向导"
+    "Enter for default": "回车确认默认值"
+    "Skipped (keeping current)": "已跳过（保持当前）"
+
+  # ----------------------------------------
+  # hermes_cli/status.py - 状态显示
+  # ----------------------------------------
+  "hermes_cli/status.py":
+    "Redact an API key for display": "脱敏显示 API 密钥"
+    "Format ISO timestamps for status output": "格式化时间戳用于状态输出"
+    "Return the configured default model": "返回配置的默认模型"
+    "Return the provider label": "返回提供商标签"
+    "Show status of all Hermes Agent components": "显示所有 Hermes Agent 组件的状态"
+    "Hermes Agent Status": "Hermes Agent 状态"
+    "Environment": "环境"
+    "Project:": "项目:"
+    "Python:": "Python:"
+    ".env file:": ".env 文件:"
+    "exists": "存在"
+    "not found": "未找到"
+    "Model:": "模型:"
+    "Provider:": "提供商:"
+    "API Keys": "API 密钥"
+    "Auth Providers": "认证提供商"
+    "logged in": "已登录"
+    "not logged in": "未登录"
+
+  # ----------------------------------------
+  # hermes_cli/doctor.py - 诊断工具
+  # ----------------------------------------
+  "hermes_cli/doctor.py":
+    "Run diagnostic checks": "运行诊断检查"
+    "Warn when a systemd user gateway service will stop after logout": "当 systemd 用户网关服务在注销后停止时发出警告"
+    "Systemd linger enabled": "Systemd linger 已启用"
+    "gateway service survives logout": "网关服务在注销后继续运行"
+    "Systemd linger disabled": "Systemd linger 未启用"
+    "gateway may stop after logout": "网关可能在注销后停止"
+    "Enable linger for the gateway user service": "为网关用户服务启用 linger"
+    "Could not verify systemd linger": "无法验证 systemd linger"
+    "Python Environment": "Python 环境"
+    "Recommended": "推荐"
+    "Virtual environment active": "虚拟环境已激活"
+    "Not in virtual environment": "未在虚拟环境中"
+    "Required Packages": "必需的包"
+    "Hermes Doctor": "Hermes 诊断工具"
+
+  # ----------------------------------------
+  # hermes_cli/auth.py - 认证流程
+  # ----------------------------------------
+  "hermes_cli/auth.py":
+    "Enter model name:": "输入模型名称:"
+    "Please enter 1-": "请输入 1-"
+    "Please enter a number": "请输入一个数字"
+    "Existing Codex credentials found": "找到现有的 Codex 凭据"
+    "Use existing credentials?:": "使用现有凭据?"
+    "Login successful!": "登录成功!"
+    "Config updated:": "配置已更新:"
+    "Auth state:": "认证状态:"
+    "Existing Codex credentials are expired": "现有的 Codex 凭据已过期"
+    "Starting fresh login...": "开始重新登录..."
+    "Found existing Codex CLI credentials": "找到现有的 Codex CLI 凭据"
+    "Hermes will create its own session": "Hermes 将创建自己的会话"
+    "Import these credentials?": "导入这些凭据?"
+    "a separate login is recommended": "建议单独登录"
+    "Credentials imported": "凭据已导入"
+    "Note: if Codex CLI refreshes its token": "注意: 如果 Codex CLI 刷新了它的令牌"
+    "Hermes will keep working independently": "Hermes 将独立工作"
+    "Signing in to OpenAI Codex...": "正在登录 OpenAI Codex..."
+    "creates its own session — won't affect": "创建自己的会话 — 不会影响"
+    "To continue, follow these steps:": "请按照以下步骤操作:"
+    "Open this URL in your browser:": "在浏览器中打开此 URL:"
+    "Enter this code:": "输入此代码:"
+    "Waiting for sign-in...": "正在等待登录..."
+    "press Ctrl+C to cancel": "按 Ctrl+C 取消"
+    "Opened browser for verification": "已打开浏览器进行验证"
+    "Could not open browser automatically": "无法自动打开浏览器"
+    "use the URL above": "请使用上面的 URL"
+    "Waiting for approval": "正在等待批准"
+    "polling every": "每"
+    "s)...)": "秒)轮询)..."
+    "Starting Hermes login via": "正在通过启动 Hermes 登录"
+    "Portal:": "门户:"
+    "TLS verification: disabled": "TLS 验证: 已禁用"
+    "TLS verification: custom CA bundle": "TLS 验证: 自定义 CA 证书包"
+    "Your Nous Portal account does not have an active subscription": "你的 Nous Portal 账户没有活跃的订阅"
+    "Subscribe here:": "订阅地址:"
+    "After subscribing, run `hermes model` again": "订阅后，再次运行 `hermes model` 完成设置"
+    "No runtime API key available": "没有可用的运行时 API 密钥"
+    "Login succeeded, but could not fetch available models": "登录成功，但无法获取可用模型"
+    "Unknown provider": "未知的服务商"
+    "Logged out of": "已登出"
+    "Hermes will use OpenRouter for inference": "Hermes 将使用 OpenRouter 进行推理"
+
+  # ----------------------------------------
+  # gateway/platforms/whatsapp.py - WhatsApp 网关
+  # ----------------------------------------
+  "gateway/platforms/whatsapp.py":
+    "Kill any process listening on the given TCP port": "终止监听指定 TCP 端口的任何进程"
+    "Installing WhatsApp bridge dependencies": "正在安装 WhatsApp 桥接依赖"
+    "npm install failed": "npm 安装失败"
+    "Dependencies installed": "依赖已安装"
+    "Failed to install dependencies": "依赖安装失败"
+    "Using existing bridge": "使用现有桥接"
+    "Bridge found but not connected": "找到桥接但未连接"
+    "restarting": "正在重启"
+    "Bridge process died": "桥接进程终止"
+    "Check log:": "请查看日志:"
+    "Bridge ready": "桥接就绪"
+    "status: connected": "状态: 已连接"
+    "Bridge HTTP ready": "桥接 HTTP 就绪"
+    "waiting for WhatsApp connection": "等待 WhatsApp 连接"
+    "Bridge process died during connection": "桥接进程在连接过程中终止"
+    "Bridge process exited unexpectedly": "桥接进程意外退出"
+    "Error stopping bridge": "停止桥接时出错"
+    "Disconnecting": "正在断开连接"
+    "external bridge left running": "外部桥接保持运行"
+    "Disconnected": "已断开连接"
+
+  # ----------------------------------------
+  # tools/*.py - 工具系统
+  # ----------------------------------------
+  "tools/*.py":
+    "No auxiliary model available": "没有可用的辅助模型"
+    "Set OPENROUTER_API_KEY": "设置 OPENROUTER_API_KEY"
+    "configure Nous Portal": "配置 Nous Portal"
+    "set OPENAI_BASE_URL + OPENAI_API_KEY": "设置 OPENAI_BASE_URL + OPENAI_API_KEY"
+    "Without an auxiliary model": "如果没有辅助模型"
+    "LLM content processing will be disabled": "LLM 内容处理将被禁用"
+    "No auxiliary vision model available": "没有可用的辅助视觉模型"
+    "Configure a supported multimodal backend": "配置支持的多模态后端"
+    "Terminal Tool Module": "终端工具模块"
+    "Current Configuration:": "当前配置:"
+    "Environment type:": "环境类型:"
+    "Docker image:": "Docker 镜像:"
+    "Modal image:": "Modal 镜像:"
+    "Syncing bundled skills": "正在同步捆绑的技能"
+    "new": "新增"
+    "updated": "已更新"
+    "unchanged": "未更改"
+    "Failed to copy": "复制失败"
+    "user-modified, skipping": "用户已修改，跳过"
+    "Failed to update": "更新失败"
+    "Skill directory does not exist yet": "技能目录尚不存在"
+    "It will be created on first install": "将在首次安装时创建"
+    "Skill not found": "技能未找到"
+    "Use skills_list to see all available skills": "使用 skills_list 查看所有可用技能"
+    "Failed to read skill": "读取技能失败"
+    "Skill is not supported on this platform": "技能在此平台上不受支持"
+    "Skill is disabled": "技能已被禁用"
+    "Path traversal": "路径遍历"
+    "is not allowed": "不允许"
+    "Use a relative path within the skill directory": "请使用技能目录内的相对路径"
+    "File not found in skill": "在技能中未找到文件"
+    "Use one of the available file paths listed above": "请使用上面列出的可用文件路径之一"
+    "Secure secret entry is not available": "安全密钥输入不可用"
+    "Load this skill in the local CLI": "在本地 CLI 中加载此技能"
+    "add the key to ~/.hermes/.env manually": "手动将密钥添加到 ~/.hermes/.env"
+    "Setup needed before using this skill": "使用此技能前需要设置"
+    "missing": "缺少"
+    "required prerequisites": "必需的前置条件"
+
+# =============================================
+# 🚫 第四部分：排除列表（不翻译的内容）
+# =============================================
+
+exclusions:
+  # 不翻译代码中的技术标识符
+  - pattern: "^import |^from |^class |^def |^async def "
+    reason: "Python 代码结构关键字"
+    
+  # 不翻译变量名和函数名
+  - pattern: "\\b(True|False|None|self|cls|args|kwargs|config|logger)\\b"
+    reason: "Python 内置标识符"
+    
+  # 不翻译 API 路径和 URL
+  - pattern: "https?://[\\w\\./-]+"
+    reason: "URL 地址"
+    
+  # 不翻译环境变量名
+  - pattern: "\\b[A-Z_]{2,}\\b"
+    when: "in_string_literal"
+    reason: "环境变量名"
+    
+  # 不翻译命令名称本身
+  - pattern: "^/[a-z-]+"
+    reason: "斜杠命令"
+    
+  # 不翻译版本号和数字
+  - pattern: "\\bv?\\d+\\.\\d+(\\.\\d+)?(-[a-z]+)?\\b"
+    reason: "版本号"
+    
+  # 不翻译日志格式字符串（调试信息）
+  - pattern: "logger\\.(debug|info|warning|error)\\("
+    reason: "日志调用"
+
+# =============================================
+# ⚙️ 第五部分：高级选项
+# =============================================
+
+advanced:
+  # 并行处理线程数
+  workers: 4
+  
+  # 最大文件大小限制（MB）
+  max_file_size: 10
+  
+  # 单次提交的最大文件数量
+  max_files_per_commit: 50
+  
+  # 是否自动创建 PR（false 则直接推送到 main）
+  create_pr: true
+  
+  # PR 标题模板
+  pr_title_template: "🔄 自动汉化同步 - {date} ({commit_count} commits)"
+  
+  # PR 描述模板
+  pr_body_template: |
+    ## 🔄 自动汉化同步
+    
+    **同步时间**: {date}
+    **上游 commit**: `{upstream_commit}`
+    **修改文件数**: {files_changed}
+    
+    ### ✅ 本次汉化内容
+    
+    {changes_summary}
+    
+    ---
+    
+    🤖 *此 PR 由 auto_translate.py 自动生成*
+  
+  # Commit message 模板
+  commit_message_template: |
+    🔄 自动汉化: 同步上游 {upstream_commit_short}
+    
+    自动翻译新增/修改的用户可见文本
+    - 新增文件: {new_files}
+    - 修改文件: {modified_files}
+    - 翻译条目: {translation_count}
+
+# =============================================
+# 📊 第六部分：通知配置（可选）
+# =============================================
+
+notifications:
+  # 完成后是否发送通知
+  enabled: false
+  
+  # 通知方式: email, slack, webhook
+  type: webhook
+  
+  # Webhook URL
+  webhook_url: ""
+  
+  # Slack 配置
+  slack_channel: ""
+  slack_webhook: ""
+  
+  # Email 配置
+  smtp_server: ""
+  smtp_port: 587
+  smtp_user: ""
+  smtp_password: ""
+  recipients: []
