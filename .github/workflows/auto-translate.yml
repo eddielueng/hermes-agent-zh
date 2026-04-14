@@ -3,23 +3,10 @@ name: Auto Translation Sync
 on:
   workflow_dispatch:
     inputs:
-      upstream_branch:
-        description: 'Branch to sync'
-        required: false
-        default: 'main'
-        type: choice
-        options:
-          - main
-          - dev
       dry_run:
-        description: 'Dry run mode'
+        description: 'Dry run (preview only, no changes)'
         required: false
         default: false
-        type: boolean
-      create_pr:
-        description: 'Create PR'
-        required: false
-        default: true
         type: boolean
 
   schedule:
@@ -67,25 +54,55 @@ jobs:
       - name: Run translation
         id: translate
         run: |
+          echo "=== Translation Mode: ${{ github.event.inputs.dry_run || 'false' }} ==="
           mkdir -p output
+          
+          DRY_FLAG=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            DRY_FLAG="--dry-run"
+            echo "[DRY RUN] Preview mode - no files will be modified"
+          else
+            echo "[LIVE] Production mode - files will be translated and committed"
+          fi
+          
           python auto_translate.py \
             --rules translation_rules.yaml \
             --output output/report.md \
-            --dry-run 2>&1 | tee output/log.txt || true
+            ${DRY_FLAG} 2>&1 | tee output/log.txt
           
+          echo ""
+          echo "=== Checking for changes ==="
           CHANGED=$(git diff --name-only 2>/dev/null | wc -l)
           echo "changed_files=${CHANGED}" >> $GITHUB_OUTPUT
-          echo "Translation check complete. Files changed: ${CHANGED}"
+          
+          if [ $CHANGED -gt 0 ]; then
+            echo ""
+            echo "=== Changed Files ==="
+            git diff --name-only
+            echo ""
+            echo "=== Diff Summary ==="
+            git diff --stat
+          fi
 
       - name: Commit and push
-        if: steps.translate.outputs.changed_files != '0'
+        if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          echo "=== Committing translations ==="
           git add -A
-          git commit -m "Auto translation update $(date '+%Y-%m-%d %H:%M')" || true
-          git push origin main || true
-          echo "Push complete"
+          git commit -m "Auto translation update $(date '+%Y-%m-%d %H:%M')" || echo "No changes to commit"
+          git push origin main || echo "Push failed (may already be up to date)"
+          echo "Done!"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: translation-report-${{ github.run_id }}
+          path: output/
+          retention-days: 7
+          if-no-files-found: ignore
 
   summary:
     name: Summary
