@@ -298,7 +298,7 @@ class WhatsAppAdapter(BasePlatformAdapter):
         # Auto-install npm dependencies if node_modules doesn't exist
         bridge_dir = bridge_path.parent
         if not (bridge_dir / "node_modules").exists():
-            print(f"[{self.name}] Installing WhatsApp bridge dependencies...")
+            print(f"[{self.name}] 正在安装 WhatsApp 桥接依赖...")
             try:
                 install_result = subprocess.run(
                     ["npm", "install", "--silent"],
@@ -308,11 +308,11 @@ class WhatsAppAdapter(BasePlatformAdapter):
                     timeout=60,
                 )
                 if install_result.returncode != 0:
-                    print(f"[{self.name}] npm install failed: {install_result.stderr}")
+                    print(f"[{self.name}] npm 安装失败: {install_result.stderr}")
                     return False
-                print(f"[{self.name}] Dependencies installed")
+                print(f"[{self.name}] 依赖已安装")
             except Exception as e:
-                print(f"[{self.name}] Failed to install dependencies: {e}")
+                print(f"[{self.name}] 依赖安装失败: {e}")
                 return False
         
         try:
@@ -332,14 +332,14 @@ class WhatsAppAdapter(BasePlatformAdapter):
                             data = await resp.json()
                             bridge_status = data.get("status", "unknown")
                             if bridge_status == "connected":
-                                print(f"[{self.name}] Using existing bridge (status: {bridge_status})")
+                                print(f"[{self.name}] 使用现有桥接（状态: {bridge_status}）")
                                 self._mark_connected()
                                 self._bridge_process = None  # Not managed by us
                                 self._http_session = aiohttp.ClientSession()
                                 self._poll_task = asyncio.create_task(self._poll_messages())
                                 return True
                             else:
-                                print(f"[{self.name}] Bridge found but not connected (status: {bridge_status}), restarting")
+                                print(f"[{self.name}] 找到桥接但未连接（状态: {bridge_status}），正在重启")
             except Exception:
                 pass  # Bridge not running, start a new one
             
@@ -385,8 +385,8 @@ class WhatsAppAdapter(BasePlatformAdapter):
             for attempt in range(15):
                 await asyncio.sleep(1)
                 if self._bridge_process.poll() is not None:
-                    print(f"[{self.name}] Bridge process died (exit code {self._bridge_process.returncode})")
-                    print(f"[{self.name}] Check log: {self._bridge_log}")
+                    print(f"[{self.name}] 桥接进程已终止（退出码 {self._bridge_process.returncode}）")
+                    print(f"[{self.name}] 请查看日志: {self._bridge_log}")
                     self._close_bridge_log()
                     return False
                 try:
@@ -399,26 +399,26 @@ class WhatsAppAdapter(BasePlatformAdapter):
                                 http_ready = True
                                 data = await resp.json()
                                 if data.get("status") == "connected":
-                                    print(f"[{self.name}] Bridge ready (status: connected)")
+                                    print(f"[{self.name}] 桥接就绪（状态: 已连接）")
                                     break
                 except Exception:
                     continue
 
             if not http_ready:
-                print(f"[{self.name}] Bridge HTTP server did not start in 15s")
-                print(f"[{self.name}] Check log: {self._bridge_log}")
+                print(f"[{self.name}] 桥接 HTTP 服务器在 15 秒内未启动")
+                print(f"[{self.name}] 请查看日志: {self._bridge_log}")
                 self._close_bridge_log()
                 return False
             
             # Phase 2: HTTP is up but WhatsApp may still be connecting.
             # Give it more time to authenticate with saved credentials.
             if data.get("status") != "connected":
-                print(f"[{self.name}] Bridge HTTP ready, waiting for WhatsApp connection...")
+                print(f"[{self.name}] 桥接 HTTP 就绪，等待 WhatsApp 连接...")
                 for attempt in range(15):
                     await asyncio.sleep(1)
                     if self._bridge_process.poll() is not None:
-                        print(f"[{self.name}] Bridge process died during connection")
-                        print(f"[{self.name}] Check log: {self._bridge_log}")
+                        print(f"[{self.name}] 桥接进程在连接过程中终止")
+                        print(f"[{self.name}] 请查看日志: {self._bridge_log}")
                         self._close_bridge_log()
                         return False
                     try:
@@ -430,27 +430,27 @@ class WhatsAppAdapter(BasePlatformAdapter):
                                 if resp.status == 200:
                                     data = await resp.json()
                                     if data.get("status") == "connected":
-                                        print(f"[{self.name}] Bridge ready (status: connected)")
+                                        print(f"[{self.name}] 桥接就绪（状态: 已连接）")
                                         break
                     except Exception:
                         continue
                 else:
                     # Still not connected — warn but proceed (bridge may
                     # auto-reconnect later, e.g. after a code 515 restart).
-                    print(f"[{self.name}] ⚠ WhatsApp not connected after 30s")
-                    print(f"[{self.name}]   Bridge log: {self._bridge_log}")
-                    print(f"[{self.name}]   If session expired, re-pair: hermes whatsapp")
-            
+                    print(f"[{self.name}] ⚠ WhatsApp 在 30 秒后仍未连接")
+                    print(f"[{self.name}]   桥接日志: {self._bridge_log}")
+                    print(f"[{self.name}]   如果会话已过期，请重新配对: hermes whatsapp")
+
             # Create a persistent HTTP session for all bridge communication
             self._http_session = aiohttp.ClientSession()
 
             # Start message polling task
             self._poll_task = asyncio.create_task(self._poll_messages())
-            
+
             self._mark_connected()
-            print(f"[{self.name}] Bridge started on port {self._bridge_port}")
+            print(f"[{self.name}] 桥接已在端口 {self._bridge_port} 上启动")
             return True
-            
+
         except Exception as e:
             self._release_platform_lock()
             logger.error("[%s] Failed to start bridge: %s", self.name, e, exc_info=True)
@@ -475,7 +475,7 @@ class WhatsAppAdapter(BasePlatformAdapter):
         if returncode is None:
             return None
 
-        message = f"WhatsApp bridge process exited unexpectedly (code {returncode})."
+        message = f"WhatsApp 桥接进程意外退出（代码 {returncode}）。"
         if not self.has_fatal_error:
             logger.error("[%s] %s", self.name, message)
             self._set_fatal_error("whatsapp_bridge_exited", message, retryable=True)
@@ -506,10 +506,10 @@ class WhatsAppAdapter(BasePlatformAdapter):
                     except (ProcessLookupError, PermissionError):
                         self._bridge_process.kill()
             except Exception as e:
-                print(f"[{self.name}] Error stopping bridge: {e}")
+                print(f"[{self.name}] 停止桥接时出错: {e}")
         else:
             # Bridge was not started by us, don't kill it
-            print(f"[{self.name}] Disconnecting (external bridge left running)")
+            print(f"[{self.name}] 正在断开连接（外部桥接保持运行）")
 
         # Cancel the poll task explicitly
         if self._poll_task and not self._poll_task.done():

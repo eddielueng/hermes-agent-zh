@@ -83,39 +83,39 @@ from hermes_constants import is_termux as _is_termux
 
 
 def show_status(args):
-    """Show status of all Hermes Agent components."""
+    """显示所有 Hermes Agent 组件的状态。"""
     show_all = getattr(args, 'all', False)
     deep = getattr(args, 'deep', False)
-    
+
     print()
     print(color("┌─────────────────────────────────────────────────────────┐", Colors.CYAN))
-    print(color("│                 ⚕ Hermes Agent Status                  │", Colors.CYAN))
+    print(color("│                 ⚕ Hermes Agent 状态                  │", Colors.CYAN))
     print(color("└─────────────────────────────────────────────────────────┘", Colors.CYAN))
-    
+
     # =========================================================================
     # Environment
     # =========================================================================
     print()
-    print(color("◆ Environment", Colors.CYAN, Colors.BOLD))
-    print(f"  Project:      {PROJECT_ROOT}")
+    print(color("◆ 环境", Colors.CYAN, Colors.BOLD))
+    print(f"  项目:        {PROJECT_ROOT}")
     print(f"  Python:       {sys.version.split()[0]}")
-    
+
     env_path = get_env_path()
-    print(f"  .env file:    {check_mark(env_path.exists())} {'exists' if env_path.exists() else 'not found'}")
+    print(f"  .env 文件:    {check_mark(env_path.exists())} {'存在' if env_path.exists() else '未找到'}")
 
     try:
         config = load_config()
     except Exception:
         config = {}
 
-    print(f"  Model:        {_configured_model_label(config)}")
-    print(f"  Provider:     {_effective_provider_label()}")
+    print(f"  模型:         {_configured_model_label(config)}")
+    print(f"  提供商:       {_effective_provider_label()}")
     
     # =========================================================================
     # API Keys
     # =========================================================================
     print()
-    print(color("◆ API Keys", Colors.CYAN, Colors.BOLD))
+    print(color("◆ API 密钥", Colors.CYAN, Colors.BOLD))
     
     keys = {
         "OpenRouter": "OPENROUTER_API_KEY",
@@ -150,7 +150,7 @@ def show_status(args):
     # Auth Providers (OAuth)
     # =========================================================================
     print()
-    print(color("◆ Auth Providers", Colors.CYAN, Colors.BOLD))
+    print(color("◆ 认证提供商", Colors.CYAN, Colors.BOLD))
 
     try:
         from hermes_cli.auth import get_nous_auth_status, get_codex_auth_status, get_qwen_auth_status
@@ -187,24 +187,24 @@ def show_status(args):
         print(f"    Auth file:  {codex_auth_file}")
     codex_last_refresh = _format_iso_timestamp(codex_status.get("last_refresh"))
     if codex_status.get("last_refresh"):
-        print(f"    Refreshed:  {codex_last_refresh}")
+        print(f"    刷新时间:  {codex_last_refresh}")
     if codex_status.get("error") and not codex_logged_in:
-        print(f"    Error:      {codex_status.get('error')}")
+        print(f"    错误:      {codex_status.get('error')}")
 
     qwen_logged_in = bool(qwen_status.get("logged_in"))
     print(
         f"  {'Qwen OAuth':<12}  {check_mark(qwen_logged_in)} "
-        f"{'logged in' if qwen_logged_in else 'not logged in (run: qwen auth qwen-oauth)'}"
+        f"{'已登录' if qwen_logged_in else '未登录（运行: qwen auth qwen-oauth）'}"
     )
     qwen_auth_file = qwen_status.get("auth_file")
     if qwen_auth_file:
-        print(f"    Auth file:  {qwen_auth_file}")
+        print(f"    认证文件:  {qwen_auth_file}")
     qwen_exp = qwen_status.get("expires_at_ms")
     if qwen_exp:
         from datetime import datetime, timezone
-        print(f"    Access exp: {datetime.fromtimestamp(int(qwen_exp) / 1000, tz=timezone.utc).isoformat()}")
+        print(f"    访问过期: {datetime.fromtimestamp(int(qwen_exp) / 1000, tz=timezone.utc).isoformat()}")
     if qwen_status.get("error") and not qwen_logged_in:
-        print(f"    Error:      {qwen_status.get('error')}")
+        print(f"    错误:      {qwen_status.get('error')}")
 
     # =========================================================================
     # Nous Subscription Features

@@ -218,7 +218,7 @@ def sync_skills(quiet: bool = False) -> dict:
                         print(f"  + {skill_name}")
             except (OSError, IOError) as e:
                 if not quiet:
-                    print(f"  ! Failed to copy {skill_name}: {e}")
+                    print(f"  ! 复制 {skill_name} 失败: {e}")
                 # Do NOT add to manifest — next sync should retry
 
         elif dest.exists():
@@ -241,7 +241,7 @@ def sync_skills(quiet: bool = False) -> dict:
                 # User modified this skill — don't overwrite their changes
                 user_modified.append(skill_name)
                 if not quiet:
-                    print(f"  ~ {skill_name} (user-modified, skipping)")
+                    print(f"  ~ {skill_name} (用户已修改，跳过)")
                 continue
 
             # User copy matches origin — check if bundled has a newer version
@@ -255,7 +255,7 @@ def sync_skills(quiet: bool = False) -> dict:
                         manifest[skill_name] = bundled_hash
                         updated.append(skill_name)
                         if not quiet:
-                            print(f"  ↑ {skill_name} (updated)")
+                            print(f"  ↑ {skill_name} (已更新)")
                         # Remove backup after successful copy
                         shutil.rmtree(backup, ignore_errors=True)
                     except (OSError, IOError):
@@ -265,7 +265,7 @@ def sync_skills(quiet: bool = False) -> dict:
                         raise
                 except (OSError, IOError) as e:
                     if not quiet:
-                        print(f"  ! Failed to update {skill_name}: {e}")
+                        print(f"  ! 更新 {skill_name} 失败: {e}")
             else:
                 skipped += 1  # bundled unchanged, user unchanged
 
@@ -302,12 +302,12 @@ def sync_skills(quiet: bool = False) -> dict:
 
 
 if __name__ == "__main__":
-    print("Syncing bundled skills into ~/.hermes/skills/ ...")
+    print("正在将捆绑的技能同步到 ~/.hermes/skills/ ...")
     result = sync_skills(quiet=False)
     parts = [
-        f"{len(result['copied'])} new",
-        f"{len(result['updated'])} updated",
-        f"{result['skipped']} unchanged",
+        f"{len(result['copied'])} 个新增",
+        f"{len(result['updated'])} 个更新",
+        f"{result['skipped']} 个未更改",
     ]
     if result["user_modified"]:
         parts.append(f"{len(result['user_modified'])} user-modified (kept)")

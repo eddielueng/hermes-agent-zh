@@ -51,17 +51,17 @@ from pathlib import Path
 from typing import Optional
 
 def _require_tty(command_name: str) -> None:
-    """Exit with a clear error if stdin is not a terminal.
+    """如果 stdin 不是终端，则退出并显示明确的错误。
 
-    Interactive TUI commands (hermes tools, hermes setup, hermes model) use
-    curses or input() prompts that spin at 100% CPU when stdin is a pipe.
-    This guard prevents accidental non-interactive invocation.
+    交互式 TUI 命令（hermes tools、hermes setup、hermes model）使用
+    curses 或 input() 提示，当 stdin 是管道时会以 100% CPU 空转。
+    此保护措施防止意外的非交互式调用。
     """
     if not sys.stdin.isatty():
         print(
-            f"Error: 'hermes {command_name}' requires an interactive terminal.\n"
-            f"It cannot be run through a pipe or non-interactive subprocess.\n"
-            f"Run it directly in your terminal instead.",
+            f"错误：'hermes {command_name}' 需要交互式终端。\n"
+            f"无法通过管道或非交互式子进程运行。\n"
+            f"请直接在终端中运行。",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -116,11 +116,11 @@ def _apply_profile_override() -> None:
             from hermes_cli.profiles import resolve_profile_env
             hermes_home = resolve_profile_env(profile_name)
         except (ValueError, FileNotFoundError) as exc:
-            print(f"Error: {exc}", file=sys.stderr)
+            print(f"错误：{exc}", file=sys.stderr)
             sys.exit(1)
         except Exception as exc:
-            # A bug in profiles.py must NEVER prevent hermes from starting
-            print(f"Warning: profile override failed ({exc}), using default", file=sys.stderr)
+            # profiles.py 中的 bug 绝不能阻止 hermes 启动
+            print(f"警告：配置文件覆盖失败（{exc}），使用默认值", file=sys.stderr)
             return
         os.environ["HERMES_HOME"] = hermes_home
         # Strip the flag from argv so argparse doesn't choke
@@ -174,20 +174,20 @@ logger = logging.getLogger(__name__)
 
 
 def _relative_time(ts) -> str:
-    """Format a timestamp as relative time (e.g., '2h ago', 'yesterday')."""
+    """将时间戳格式化为相对时间（例如：'2小时前', '昨天'）。"""
     if not ts:
         return "?"
     delta = _time.time() - ts
     if delta < 60:
-        return "just now"
+        return "刚刚"
     if delta < 3600:
-        return f"{int(delta / 60)}m ago"
+        return f"{int(delta / 60)}分钟前"
     if delta < 86400:
-        return f"{int(delta / 3600)}h ago"
+        return f"{int(delta / 3600)}小时前"
     if delta < 172800:
-        return "yesterday"
+        return "昨天"
     if delta < 604800:
-        return f"{int(delta / 86400)}d ago"
+        return f"{int(delta / 86400)}天前"
     return datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
 
 
@@ -499,7 +499,7 @@ def _session_browse_picker(sessions: list) -> Optional[str]:
         pass
 
     # Fallback: numbered list (Windows without curses, etc.)
-    print("\n  Browse sessions  (enter number to resume, q to cancel)\n")
+    print("\n  浏览会话  （输入编号恢复，q 取消）\n")
     for i, s in enumerate(sessions):
         title = (s.get("title") or "").strip()
         preview = (s.get("preview") or "").strip()
@@ -512,15 +512,15 @@ def _session_browse_picker(sessions: list) -> Optional[str]:
 
     while True:
         try:
-            val = input(f"\n  Select [1-{len(sessions)}]: ").strip()
+            val = input(f"\n  选择 [1-{len(sessions)}]: ").strip()
             if not val or val.lower() in ("q", "quit", "exit"):
                 return None
             idx = int(val) - 1
             if 0 <= idx < len(sessions):
                 return sessions[idx]["id"]
-            print(f"  Invalid selection. Enter 1-{len(sessions)} or q to cancel.")
+            print(f"  无效选择。请输入 1-{len(sessions)} 或 q 取消。")
         except ValueError:
-            print("  Invalid input. Enter a number or q to cancel.")
+            print("  无效输入。请输入数字或 q 取消。")
         except (KeyboardInterrupt, EOFError):
             print()
             return None
@@ -579,7 +579,7 @@ def _exec_in_container(container_info: dict, cli_args: list):
 
     runtime = shutil.which(backend)
     if not runtime:
-        print(f"Error: {backend} not found on PATH. Cannot route to container.",
+        print(f"错误：在 PATH 中未找到 {backend}。无法路由到容器。",
               file=sys.stderr)
         sys.exit(1)
 
@@ -684,8 +684,8 @@ def cmd_chat(args):
             if resolved:
                 args.resume = resolved
             else:
-                print(f"No session found matching '{continue_val}'.")
-                print("Use 'hermes sessions list' to see available sessions.")
+                print(f"未找到匹配 '{continue_val}' 的会话。")
+                print("请使用 'hermes sessions list' 查看可用会话。")
                 sys.exit(1)
         else:
             # -c with no argument — continue the most recent session
@@ -693,7 +693,7 @@ def cmd_chat(args):
             if last_id:
                 args.resume = last_id
             else:
-                print("No previous CLI session found to continue.")
+                print("未找到可继续的之前 CLI 会话。")
                 sys.exit(1)
 
     # Resolve --resume by title if it's not a direct session ID
@@ -729,7 +729,7 @@ def cmd_chat(args):
             cmd_setup(args)
             return
         print()
-        print("You can run 'hermes setup' at any time to configure.")
+        print("您可以随时运行 'hermes setup' 进行配置。")
         sys.exit(1)
 
     # Start update check in background (runs while other init happens)
@@ -797,50 +797,50 @@ def cmd_whatsapp(args):
     from hermes_cli.config import get_env_value, save_env_value
 
     print()
-    print("⚕ WhatsApp Setup")
+    print("⚕ WhatsApp 设置")
     print("=" * 50)
 
     # ── Step 1: Choose mode ──────────────────────────────────────────────
     current_mode = get_env_value("WHATSAPP_MODE") or ""
     if not current_mode:
         print()
-        print("How will you use WhatsApp with Hermes?")
+        print("您将如何使用 WhatsApp 与 Hermes 交互？")
         print()
-        print("  1. Separate bot number (recommended)")
-        print("     People message the bot's number directly — cleanest experience.")
-        print("     Requires a second phone number with WhatsApp installed on a device.")
+        print("  1. 独立的机器人号码（推荐）")
+        print("     人们直接向机器人号码发送消息 — 最干净的体验。")
+        print("     需要一个安装了 WhatsApp 的第二手机号。")
         print()
-        print("  2. Personal number (self-chat)")
-        print("     You message yourself to talk to the agent.")
-        print("     Quick to set up, but the UX is less intuitive.")
+        print("  2. 个人号码（自聊）")
+        print("     您给自己发消息来与代理对话。")
+        print("     设置快速，但用户体验不够直观。")
         print()
         try:
-            choice = input("  Choose [1/2]: ").strip()
+            choice = input("  选择 [1/2]: ").strip()
         except (EOFError, KeyboardInterrupt):
-            print("\nSetup cancelled.")
+            print("\n设置已取消。")
             return
 
         if choice == "1":
             save_env_value("WHATSAPP_MODE", "bot")
             wa_mode = "bot"
-            print("  ✓ Mode: separate bot number")
+            print("  ✓ 模式：独立的机器人号码")
             print()
             print("  ┌─────────────────────────────────────────────────┐")
-            print("  │  Getting a second number for the bot:           │")
+            print("  │  获取机器人的第二号码：                         │")
             print("  │                                                 │")
-            print("  │  Easiest: Install WhatsApp Business (free app)  │")
-            print("  │  on your phone with a second number:            │")
-            print("  │    • Dual-SIM: use your 2nd SIM slot            │")
-            print("  │    • Google Voice: free US number (voice.google) │")
-            print("  │    • Prepaid SIM: $3-10, verify once            │")
+            print("  │  最简单：在手机上安装 WhatsApp Business（免费应用）│")
+            print("  │  并使用第二号码：                                │")
+            print("  │    • 双卡手机：使用第2个 SIM 卡槽              │")
+            print("  │    • Google Voice：免费美国号码 (voice.google)   │")
+            print("  │    • 预付费 SIM 卡：$3-10，验证一次             │")
             print("  │                                                 │")
-            print("  │  WhatsApp Business runs alongside your personal │")
-            print("  │  WhatsApp — no second phone needed.             │")
+            print("  │  WhatsApp Business 与您的个人 WhatsApp          │")
+            print("  │  并行运行 — 不需要第二部手机。                   │")
             print("  └─────────────────────────────────────────────────┘")
         else:
             save_env_value("WHATSAPP_MODE", "self-chat")
             wa_mode = "self-chat"
-            print("  ✓ Mode: personal number (self-chat)")
+            print("  ✓ 模式：个人号码（自聊）")
     else:
         wa_mode = current_mode
         mode_label = "separate bot number" if wa_mode == "bot" else "personal number (self-chat)"
@@ -1024,7 +1024,7 @@ def select_provider_and_model(args=None):
         active = resolve_provider(effective_provider)
     except AuthError as exc:
         warning = format_auth_error(exc)
-        print(f"Warning: {warning} Falling back to auto provider detection.")
+        print(f"警告：{warning} 回退到自动提供商检测。")
         try:
             active = resolve_provider("auto")
         except AuthError:
@@ -1196,22 +1196,22 @@ def _prompt_provider_choice(choices, *, default=0):
         pass
 
     # Fallback: numbered list
-    print("Select provider:")
+    print("选择提供商：")
     for i, c in enumerate(choices, 1):
         marker = "→" if i - 1 == default else " "
         print(f"  {marker} {i}. {c}")
     print()
     while True:
         try:
-            val = input(f"Choice [1-{len(choices)}] ({default + 1}): ").strip()
+            val = input(f"选择 [1-{len(choices)}] ({default + 1}): ").strip()
             if not val:
                 return default
             idx = int(val) - 1
             if 0 <= idx < len(choices):
                 return idx
-            print(f"Please enter 1-{len(choices)}")
+            print(f"请输入 1-{len(choices)}")
         except ValueError:
-            print("Please enter a number")
+            print("请输入一个数字")
         except (KeyboardInterrupt, EOFError):
             print()
             return None
@@ -1224,20 +1224,20 @@ def _model_flow_openrouter(config, current_model=""):
 
     api_key = get_env_value("OPENROUTER_API_KEY")
     if not api_key:
-        print("No OpenRouter API key configured.")
-        print("Get one at: https://openrouter.ai/keys")
+        print("未配置 OpenRouter API 密钥。")
+        print("获取地址: https://openrouter.ai/keys")
         print()
         try:
             import getpass
-            key = getpass.getpass("OpenRouter API key (or Enter to cancel): ").strip()
+            key = getpass.getpass("OpenRouter API 密钥（或按 Enter 取消）: ").strip()
         except (KeyboardInterrupt, EOFError):
             print()
             return
         if not key:
-            print("Cancelled.")
+            print("已取消。")
             return
         save_env_value("OPENROUTER_API_KEY", key)
-        print("API key saved.")
+        print("API 密钥已保存。")
         print()
 
     from hermes_cli.models import model_ids, get_pricing_for_provider
@@ -1284,7 +1284,7 @@ def _model_flow_nous(config, current_model="", args=None):
 
     state = get_provider_auth_state("nous")
     if not state or not state.get("access_token"):
-        print("Not logged into Nous Portal. Starting login...")
+        print("未登录 Nous Portal。开始登录...")
         print()
         try:
             mock_args = argparse.Namespace(
@@ -1302,10 +1302,10 @@ def _model_flow_nous(config, current_model="", args=None):
             for line in get_nous_subscription_explainer_lines():
                 print(line)
         except SystemExit:
-            print("Login cancelled or failed.")
+            print("登录已取消或失败。")
             return
         except Exception as exc:
-            print(f"Login failed: {exc}")
+            print(f"登录失败: {exc}")
             return
         # login_nous already handles model selection + config update
         return
@@ -1319,7 +1319,7 @@ def _model_flow_nous(config, current_model="", args=None):
     )
     model_ids = _PROVIDER_MODELS.get("nous", [])
     if not model_ids:
-        print("No curated models available for Nous Portal.")
+        print("Nous Portal 没有可用的精选模型。")
         return
 
     # Verify credentials are still valid (catches expired sessions early)
@@ -1329,8 +1329,8 @@ def _model_flow_nous(config, current_model="", args=None):
         relogin = isinstance(exc, AuthError) and exc.relogin_required
         msg = format_auth_error(exc) if isinstance(exc, AuthError) else str(exc)
         if relogin:
-            print(f"Session expired: {msg}")
-            print("Re-authenticating with Nous Portal...\n")
+            print(f"会话已过期: {msg}")
+            print("正在重新认证 Nous Portal...\n")
             try:
                 mock_args = argparse.Namespace(
                     portal_url=None, inference_url=None, client_id=None,
@@ -1339,9 +1339,9 @@ def _model_flow_nous(config, current_model="", args=None):
                 )
                 _login_nous(mock_args, PROVIDER_REGISTRY["nous"])
             except Exception as login_exc:
-                print(f"Re-login failed: {login_exc}")
+                print(f"重新登录失败: {login_exc}")
             return
-        print(f"Could not verify credentials: {msg}")
+        print(f"无法验证凭据: {msg}")
         return
 
     # Fetch live pricing (non-blocking — returns empty dict on failure)
@@ -1372,14 +1372,14 @@ def _model_flow_nous(config, current_model="", args=None):
         pass
 
     if free_tier and not model_ids:
-        print("No free models currently available.")
+        print("当前没有可用的免费模型。")
         if unavailable_models:
             from hermes_cli.auth import DEFAULT_NOUS_PORTAL_URL
             _url = (_nous_portal_url or DEFAULT_NOUS_PORTAL_URL).rstrip("/")
-            print(f"Upgrade at {_url} to access paid models.")
+            print(f"请升级到 {_url} 以访问付费模型。")
         return
 
-    print(f"Showing {len(model_ids)} curated models — use \"Enter custom model name\" for others.")
+    print(f"显示 {len(model_ids)} 个精选模型 — 使用 \"输入自定义模型名称\" 选择其他模型。")
 
     selected = _prompt_model_selection(
         model_ids, current_model=current_model, pricing=pricing,
@@ -1410,13 +1410,13 @@ def _model_flow_nous(config, current_model="", args=None):
             save_env_value("OPENAI_API_KEY", "")
         changed_defaults = apply_nous_provider_defaults(config)
         save_config(config)
-        print(f"Default model set to: {selected} (via Nous Portal)")
+        print(f"默认模型已设置为: {selected} (通过 Nous Portal)")
         if "tts" in changed_defaults:
-            print("TTS provider set to: OpenAI TTS via your Nous subscription")
+            print("TTS 提供商已设置为: 通过您的 Nous 订阅使用 OpenAI TTS")
         else:
             current_tts = str(config.get("tts", {}).get("provider") or "edge")
             if current_tts.lower() not in {"", "edge"}:
-                print(f"Keeping your existing TTS provider: {current_tts}")
+                print(f"保留您现有的 TTS 提供商: {current_tts}")
         print()
         for line in get_nous_subscription_explainer_lines():
             print(line)
@@ -1436,16 +1436,16 @@ def _model_flow_openai_codex(config, current_model=""):
 
     status = get_codex_auth_status()
     if not status.get("logged_in"):
-        print("Not logged into OpenAI Codex. Starting login...")
+        print("未登录 OpenAI Codex。开始登录...")
         print()
         try:
             mock_args = argparse.Namespace()
             _login_openai_codex(mock_args, PROVIDER_REGISTRY["openai-codex"])
         except SystemExit:
-            print("Login cancelled or failed.")
+            print("登录已取消或失败。")
             return
         except Exception as exc:
-            print(f"Login failed: {exc}")
+            print(f"登录失败: {exc}")
             return
 
     _codex_token = None
@@ -1471,9 +1471,9 @@ def _model_flow_openai_codex(config, current_model=""):
     if selected:
         _save_model_choice(selected)
         _update_config_for_provider("openai-codex", DEFAULT_CODEX_BASE_URL)
-        print(f"Default model set to: {selected} (via OpenAI Codex)")
+        print(f"默认模型已设置为: {selected} (通过 OpenAI Codex)")
     else:
-        print("No change.")
+        print("未做更改。")
 
 
 
@@ -1497,13 +1497,13 @@ def _model_flow_qwen_oauth(_config, current_model=""):
 
     status = get_qwen_auth_status()
     if not status.get("logged_in"):
-        print("Not logged into Qwen CLI OAuth.")
-        print("Run: qwen auth qwen-oauth")
+        print("未登录 Qwen CLI OAuth。")
+        print("运行: qwen auth qwen-oauth")
         auth_file = status.get("auth_file")
         if auth_file:
-            print(f"Expected credentials file: {auth_file}")
+            print(f"预期的凭据文件: {auth_file}")
         if status.get("error"):
-            print(f"Error: {status.get('error')}")
+            print(f"错误: {status.get('error')}")
         return
 
     # Try live model discovery, fall back to curated list.
@@ -1521,9 +1521,9 @@ def _model_flow_qwen_oauth(_config, current_model=""):
     if selected:
         _save_model_choice(selected)
         _update_config_for_provider("qwen-oauth", DEFAULT_QWEN_BASE_URL)
-        print(f"Default model set to: {selected} (via Qwen OAuth)")
+        print(f"默认模型已设置为: {selected} (通过 Qwen OAuth)")
     else:
-        print("No change.")
+        print("未做更改。")
 
 
 
@@ -1539,29 +1539,29 @@ def _model_flow_custom(config):
     current_url = get_env_value("OPENAI_BASE_URL") or ""
     current_key = get_env_value("OPENAI_API_KEY") or ""
 
-    print("Custom OpenAI-compatible endpoint configuration:")
+    print("自定义 OpenAI 兼容端点配置：")
     if current_url:
-        print(f"  Current URL: {current_url}")
+        print(f"  当前 URL: {current_url}")
     if current_key:
-        print(f"  Current key: {current_key[:8]}...")
+        print(f"  当前密钥: {current_key[:8]}...")
     print()
 
     try:
-        base_url = input(f"API base URL [{current_url or 'e.g. https://api.example.com/v1'}]: ").strip()
+        base_url = input(f"API 基础 URL [{current_url or '例如 https://api.example.com/v1'}]: ").strip()
         import getpass
-        api_key = getpass.getpass(f"API key [{current_key[:8] + '...' if current_key else 'optional'}]: ").strip()
+        api_key = getpass.getpass(f"API 密钥 [{current_key[:8] + '...' if current_key else '可选'}]: ").strip()
     except (KeyboardInterrupt, EOFError):
-        print("\nCancelled.")
+        print("\n已取消。")
         return
 
     if not base_url and not current_url:
-        print("No URL provided. Cancelled.")
+        print("未提供 URL。已取消。")
         return
 
     # Validate URL format
     effective_url = base_url or current_url
     if not effective_url.startswith(("http://", "https://")):
-        print(f"Invalid URL: {effective_url} (must start with http:// or https://)")
+        print(f"无效的 URL: {effective_url} (必须以 http:// 或 https:// 开头)")
         return
 
     effective_key = api_key or current_key
@@ -1571,55 +1571,55 @@ def _model_flow_custom(config):
     probe = probe_api_models(effective_key, effective_url)
     if probe.get("used_fallback") and probe.get("resolved_base_url"):
         print(
-            f"Warning: endpoint verification worked at {probe['resolved_base_url']}/models, "
-            f"not the exact URL you entered. Saving the working base URL instead."
+            f"警告：端点验证在 {probe['resolved_base_url']}/models 成功，"
+            f"不是您输入的确切 URL。将保存可工作的基础 URL。"
         )
         effective_url = probe["resolved_base_url"]
         if base_url:
             base_url = effective_url
     elif probe.get("models") is not None:
         print(
-            f"Verified endpoint via {probe.get('probed_url')} "
-            f"({len(probe.get('models') or [])} model(s) visible)"
+            f"已通过 {probe.get('probed_url')} 验证端点 "
+            f"(可见 {len(probe.get('models') or [])} 个模型)"
         )
     else:
         print(
-            f"Warning: could not verify this endpoint via {probe.get('probed_url')}. "
-            f"Hermes will still save it."
+            f"警告：无法通过 {probe.get('probed_url')} 验证此端点。"
+            f"Hermes 仍将保存它。"
         )
         if probe.get("suggested_base_url"):
             suggested = probe["suggested_base_url"]
             if suggested.endswith("/v1"):
-                print(f"  If this server expects /v1 in the path, try base URL: {suggested}")
+                print(f"  如果此服务器期望路径中包含 /v1，请尝试基础 URL: {suggested}")
             else:
-                print(f"  If /v1 should not be in the base URL, try: {suggested}")
+                print(f"  如果 /v1 不应包含在基础 URL 中，请尝试: {suggested}")
 
     # Select model — use probe results when available, fall back to manual input
     model_name = ""
     detected_models = probe.get("models") or []
     try:
         if len(detected_models) == 1:
-            print(f"  Detected model: {detected_models[0]}")
-            confirm = input("  Use this model? [Y/n]: ").strip().lower()
+            print(f"  检测到模型: {detected_models[0]}")
+            confirm = input("  使用此模型? [Y/n]: ").strip().lower()
             if confirm in ("", "y", "yes"):
                 model_name = detected_models[0]
             else:
-                model_name = input("Model name (e.g. gpt-4, llama-3-70b): ").strip()
+                model_name = input("模型名称 (例如 gpt-4, llama-3-70b): ").strip()
         elif len(detected_models) > 1:
-            print("  Available models:")
+            print("  可用模型:")
             for i, m in enumerate(detected_models, 1):
                 print(f"    {i}. {m}")
-            pick = input(f"  Select model [1-{len(detected_models)}] or type name: ").strip()
+            pick = input(f"  选择模型 [1-{len(detected_models)}] 或输入名称: ").strip()
             if pick.isdigit() and 1 <= int(pick) <= len(detected_models):
                 model_name = detected_models[int(pick) - 1]
             elif pick:
                 model_name = pick
         else:
-            model_name = input("Model name (e.g. gpt-4, llama-3-70b): ").strip()
+            model_name = input("模型名称 (例如 gpt-4, llama-3-70b): ").strip()
 
-        context_length_str = input("Context length in tokens [leave blank for auto-detect]: ").strip()
+        context_length_str = input("上下文长度（令牌数）[留空自动检测]: ").strip()
     except (KeyboardInterrupt, EOFError):
-        print("\nCancelled.")
+        print("\n已取消。")
         return
 
     context_length = None
@@ -1629,7 +1629,7 @@ def _model_flow_custom(config):
             if context_length <= 0:
                 context_length = None
         except ValueError:
-            print(f"Invalid context length: {context_length_str} — will auto-detect.")
+            print(f"无效的上下文长度: {context_length_str} — 将自动检测。")
             context_length = None
 
     if model_name:
@@ -1655,7 +1655,7 @@ def _model_flow_custom(config):
         # the stale values from its own config dict (#4172).
         config["model"] = dict(model)
 
-        print(f"Default model set to: {model_name} (via {effective_url})")
+        print(f"默认模型已设置为: {model_name} (通过 {effective_url})")
     else:
         if base_url or api_key:
             deactivate_provider()
@@ -1670,7 +1670,7 @@ def _model_flow_custom(config):
             _caller_model["api_key"] = effective_key
         _caller_model.pop("api_mode", None)
         config["model"] = _caller_model
-        print("Endpoint saved. Use `/model` in chat or `hermes model` to set a model.")
+        print("端点已保存。在聊天中使用 `/model` 或运行 `hermes model` 来设置模型。")
 
     # Auto-save to custom_providers so it appears in the menu next time
     _save_custom_provider(effective_url, effective_key, model_name or "", context_length=context_length)
@@ -1745,21 +1745,21 @@ def _remove_custom_provider(config):
     cfg = load_config()
     providers = cfg.get("custom_providers") or []
     if not isinstance(providers, list) or not providers:
-        print("No custom providers configured.")
+        print("未配置自定义提供商。")
         return
 
-    print("Remove a custom provider:\n")
+    print("删除自定义提供商：\n")
 
     choices = []
     for entry in providers:
         if isinstance(entry, dict):
-            name = entry.get("name", "unnamed")
+            name = entry.get("name", "未命名")
             url = entry.get("base_url", "")
             short_url = url.replace("https://", "").replace("http://", "").rstrip("/")
             choices.append(f"{name} ({short_url})")
         else:
             choices.append(str(entry))
-    choices.append("Cancel")
+    choices.append("取消")
 
     try:
         from simple_term_menu import TerminalMenu
@@ -1768,7 +1768,7 @@ def _remove_custom_provider(config):
             menu_cursor="-> ", menu_cursor_style=("fg_red", "bold"),
             menu_highlight_style=("fg_red",),
             cycle_cursor=True, clear_screen=False,
-            title="Select provider to remove:",
+            title="选择要删除的提供商：",
         )
         idx = menu.show()
         from hermes_cli.curses_ui import flush_stdin
@@ -1779,20 +1779,20 @@ def _remove_custom_provider(config):
             print(f"  {i}. {c}")
         print()
         try:
-            val = input(f"Choice [1-{len(choices)}]: ").strip()
+            val = input(f"选择 [1-{len(choices)}]: ").strip()
             idx = int(val) - 1 if val else None
         except (ValueError, KeyboardInterrupt, EOFError):
             idx = None
 
     if idx is None or idx >= len(providers):
-        print("No change.")
+        print("未做更改。")
         return
 
     removed = providers.pop(idx)
     cfg["custom_providers"] = providers
     save_config(cfg)
-    removed_name = removed.get("name", "unnamed") if isinstance(removed, dict) else str(removed)
-    print(f"✅ Removed \"{removed_name}\" from custom providers.")
+    removed_name = removed.get("name", "未命名") if isinstance(removed, dict) else str(removed)
+    print(f"✅ 已从自定义提供商中删除 \"{removed_name}\"。")
 
 
 def _model_flow_named_custom(config, provider_info):
@@ -1813,13 +1813,13 @@ def _model_flow_named_custom(config, provider_info):
     saved_model = provider_info.get("model", "")
     provider_key = (provider_info.get("provider_key") or "").strip()
 
-    print(f"  Provider: {name}")
+    print(f"  提供商: {name}")
     print(f"  URL:      {base_url}")
     if saved_model:
-        print(f"  Current:  {saved_model}")
+        print(f"  当前:  {saved_model}")
     print()
 
-    print("Fetching available models...")
+    print("正在获取可用模型...")
     models = fetch_api_models(api_key, base_url, timeout=8.0)
 
     if models:
@@ -1827,63 +1827,63 @@ def _model_flow_named_custom(config, provider_info):
         if saved_model and saved_model in models:
             default_idx = models.index(saved_model)
 
-        print(f"Found {len(models)} model(s):\n")
+        print(f"找到 {len(models)} 个模型：\n")
         try:
             from simple_term_menu import TerminalMenu
             menu_items = [
-                f"  {m} (current)" if m == saved_model else f"  {m}"
+                f"  {m} (当前)" if m == saved_model else f"  {m}"
                 for m in models
-            ] + ["  Cancel"]
+            ] + ["  取消"]
             menu = TerminalMenu(
                 menu_items, cursor_index=default_idx,
                 menu_cursor="-> ", menu_cursor_style=("fg_green", "bold"),
                 menu_highlight_style=("fg_green",),
                 cycle_cursor=True, clear_screen=False,
-                title=f"Select model from {name}:",
+                title=f"从 {name} 选择模型：",
             )
             idx = menu.show()
             from hermes_cli.curses_ui import flush_stdin
             flush_stdin()
             print()
             if idx is None or idx >= len(models):
-                print("Cancelled.")
+                print("已取消。")
                 return
             model_name = models[idx]
         except (ImportError, NotImplementedError, OSError, subprocess.SubprocessError):
             for i, m in enumerate(models, 1):
-                suffix = " (current)" if m == saved_model else ""
+                suffix = " (当前)" if m == saved_model else ""
                 print(f"  {i}. {m}{suffix}")
-            print(f"  {len(models) + 1}. Cancel")
+            print(f"  {len(models) + 1}. 取消")
             print()
             try:
-                val = input(f"Choice [1-{len(models) + 1}]: ").strip()
+                val = input(f"选择 [1-{len(models) + 1}]: ").strip()
                 if not val:
-                    print("Cancelled.")
+                    print("已取消。")
                     return
                 idx = int(val) - 1
                 if idx < 0 or idx >= len(models):
-                    print("Cancelled.")
+                    print("已取消。")
                     return
                 model_name = models[idx]
             except (ValueError, KeyboardInterrupt, EOFError):
-                print("\nCancelled.")
+                print("\n已取消。")
                 return
     elif saved_model:
-        print("Could not fetch models from endpoint.")
+        print("无法从端点获取模型。")
         try:
-            model_name = input(f"Model name [{saved_model}]: ").strip() or saved_model
+            model_name = input(f"模型名称 [{saved_model}]: ").strip() or saved_model
         except (KeyboardInterrupt, EOFError):
-            print("\nCancelled.")
+            print("\n已取消。")
             return
     else:
-        print("Could not fetch models from endpoint. Enter model name manually.")
+        print("无法从端点获取模型。请手动输入模型名称。")
         try:
-            model_name = input("Model name: ").strip()
+            model_name = input("模型名称: ").strip()
         except (KeyboardInterrupt, EOFError):
-            print("\nCancelled.")
+            print("\n已取消。")
             return
         if not model_name:
-            print("No model specified. Cancelled.")
+            print("未指定模型。已取消。")
             return
 
     # Activate and save the model to the custom_providers entry
@@ -2009,7 +2009,7 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
     except (ImportError, NotImplementedError, OSError, subprocess.SubprocessError):
         pass
 
-    print("Select reasoning effort:")
+    print("选择推理强度：")
     for i, effort in enumerate(ordered, 1):
         print(f"  {i}. {_label(effort)}")
     n = len(ordered)
@@ -2019,7 +2019,7 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
 
     while True:
         try:
-            choice = input(f"Choice [1-{n + 2}] (default: keep current): ").strip()
+            choice = input(f"选择 [1-{n + 2}] (默认: 保持当前): ").strip()
             if not choice:
                 return None
             idx = int(choice)
@@ -2029,9 +2029,9 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
                 return "none"
             if idx == n + 2:
                 return None
-            print(f"Please enter 1-{n + 2}")
+            print(f"请输入 1-{n + 2}")
         except ValueError:
-            print("Please enter a number")
+            print("请输入一个数字")
         except (KeyboardInterrupt, EOFError):
             return None
 
@@ -2198,14 +2198,14 @@ def _model_flow_copilot(config, current_model=""):
         save_config(cfg)
         deactivate_provider()
 
-        print(f"Default model set to: {selected} (via {pconfig.name})")
+        print(f"默认模型已设置为: {selected} (通过 {pconfig.name})")
         if reasoning_efforts:
             if selected_effort == "none":
-                print("Reasoning disabled for this model.")
+                print("此模型已禁用推理。")
             elif selected_effort:
-                print(f"Reasoning effort set to: {selected_effort}")
+                print(f"推理强度已设置为: {selected_effort}")
     else:
-        print("No change.")
+        print("未做更改。")
 
 
 def _model_flow_copilot_acp(config, current_model=""):

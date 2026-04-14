@@ -389,7 +389,7 @@ def _gateway_setup_hint() -> str:
 
         return GATEWAY_SECRET_CAPTURE_UNSUPPORTED_MESSAGE
     except Exception:
-        return "Secure secret entry is not available. Load this skill in the local CLI to be prompted, or add the key to ~/.hermes/.env manually."
+        return "安全密钥输入不可用。请在本地 CLI 中加载此技能以进行提示，或手动将密钥添加到 ~/.hermes/.env。"
 
 
 def _build_setup_note(
@@ -398,8 +398,8 @@ def _build_setup_note(
     setup_help: str | None = None,
 ) -> str | None:
     if readiness_status == SkillReadinessStatus.SETUP_NEEDED:
-        missing_str = ", ".join(missing) if missing else "required prerequisites"
-        note = f"Setup needed before using this skill: missing {missing_str}."
+        missing_str = ", ".join(missing) if missing else "必需的前置条件"
+        note = f"使用此技能前需要设置: 缺少 {missing_str}。"
         if setup_help:
             return f"{note} {setup_help}"
         return note
@@ -718,7 +718,7 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
             return json.dumps(
                 {
                     "success": False,
-                    "error": "Skills directory does not exist yet. It will be created on first install.",
+                    "error": "技能目录尚不存在。将在首次安装时创建。",
                 },
                 ensure_ascii=False,
             )
@@ -764,9 +764,9 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
             return json.dumps(
                 {
                     "success": False,
-                    "error": f"Skill '{name}' not found.",
+                    "error": f"技能 '{name}' 未找到。",
                     "available_skills": available,
-                    "hint": "Use skills_list to see all available skills",
+                    "hint": "使用 skills_list 查看所有可用技能",
                 },
                 ensure_ascii=False,
             )
@@ -778,7 +778,7 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
             return json.dumps(
                 {
                     "success": False,
-                    "error": f"Failed to read skill '{name}': {e}",
+                    "error": f"读取技能 '{name}' 失败: {e}",
                 },
                 ensure_ascii=False,
             )
@@ -833,7 +833,7 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
             return json.dumps(
                 {
                     "success": False,
-                    "error": f"Skill '{name}' is not supported on this platform.",
+                    "error": f"技能 '{name}' 在此平台上不受支持。",
                     "readiness_status": SkillReadinessStatus.UNSUPPORTED.value,
                 },
                 ensure_ascii=False,
@@ -846,8 +846,8 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
                 {
                     "success": False,
                     "error": (
-                        f"Skill '{resolved_name}' is disabled. "
-                        "Enable it with `hermes skills` or inspect the files directly on disk."
+                        f"技能 '{resolved_name}' 已被禁用。"
+                        "请使用 `hermes skills` 启用它，或直接在磁盘上检查文件。"
                     ),
                 },
                 ensure_ascii=False,
@@ -862,8 +862,8 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
                 return json.dumps(
                     {
                         "success": False,
-                        "error": "Path traversal ('..') is not allowed.",
-                        "hint": "Use a relative path within the skill directory",
+                        "error": "不允许路径遍历（'..'）。",
+                        "hint": "请使用技能目录内的相对路径",
                     },
                     ensure_ascii=False,
                 )
@@ -920,9 +920,9 @@ def skill_view(name: str, file_path: str = None, task_id: str = None) -> str:
                 return json.dumps(
                     {
                         "success": False,
-                        "error": f"File '{file_path}' not found in skill '{name}'.",
+                        "error": f"在技能 '{name}' 中未找到文件 '{file_path}'。",
                         "available_files": available_files,
-                        "hint": "Use one of the available file paths listed above",
+                        "hint": "请使用上面列出的可用文件路径之一",
                     },
                     ensure_ascii=False,
                 )
@@ -1169,37 +1169,37 @@ if __name__ == "__main__":
     result = json.loads(skills_list())
     if result["success"]:
         print(
-            f"Found {result['count']} skills in {len(result.get('categories', []))} categories"
+            f"在 {len(result.get('categories', []))} 个分类中找到 {result['count']} 个技能"
         )
-        print(f"Categories: {result.get('categories', [])}")
-        print("\nFirst 10 skills:")
+        print(f"分类: {result.get('categories', [])}")
+        print("\n前 10 个技能：")
         for skill in result["skills"][:10]:
             cat = f"[{skill['category']}] " if skill.get("category") else ""
             print(f"  • {cat}{skill['name']}: {skill['description'][:60]}...")
     else:
-        print(f"Error: {result['error']}")
+        print(f"错误: {result['error']}")
 
     # Test viewing a skill
-    print("\n📖 Viewing skill 'axolotl':")
+    print("\n📖 查看技能 'axolotl':")
     result = json.loads(skill_view("axolotl"))
     if result["success"]:
-        print(f"Name: {result['name']}")
-        print(f"Description: {result.get('description', 'N/A')[:100]}...")
-        print(f"Content length: {len(result['content'])} chars")
+        print(f"名称: {result['name']}")
+        print(f"描述: {result.get('description', 'N/A')[:100]}...")
+        print(f"内容长度: {len(result['content'])} 字符")
         if result.get("linked_files"):
-            print(f"Linked files: {result['linked_files']}")
+            print(f"关联文件: {result['linked_files']}")
     else:
-        print(f"Error: {result['error']}")
+        print(f"错误: {result['error']}")
 
     # Test viewing a reference file
-    print("\n📄 Viewing reference file 'axolotl/references/dataset-formats.md':")
+    print("\n📄 查看参考文件 'axolotl/references/dataset-formats.md':")
     result = json.loads(skill_view("axolotl", "references/dataset-formats.md"))
     if result["success"]:
-        print(f"File: {result['file']}")
-        print(f"Content length: {len(result['content'])} chars")
-        print(f"Preview: {result['content'][:150]}...")
+        print(f"文件: {result['file']}")
+        print(f"内容长度: {len(result['content'])} 字符")
+        print(f"预览: {result['content'][:150]}...")
     else:
-        print(f"Error: {result['error']}")
+        print(f"错误: {result['error']}")
 
 
 # ---------------------------------------------------------------------------

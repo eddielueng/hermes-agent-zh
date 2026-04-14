@@ -100,6 +100,14 @@ class ProviderConfig:
 
 
 PROVIDER_REGISTRY: Dict[str, ProviderConfig] = {
+    "xidao": ProviderConfig(
+        id="xidao",
+        name="XiDao Api",
+        auth_type="api_key",
+        inference_base_url="https://api.xidao.online/v1",
+        api_key_env_vars=("XIDAO_API_KEY",),
+        base_url_env_var="XIDAO_BASE_URL",
+    ),
     "nous": ProviderConfig(
         id="nous",
         name="Nous Portal",
@@ -2765,13 +2773,13 @@ def _prompt_model_selection(
             if 1 <= idx <= n:
                 return ordered[idx - 1]
             elif idx == n + 1:
-                custom = input("Enter model name: ").strip()
+                custom = input("输入模型名称: ").strip()
                 return custom if custom else None
             elif idx == n + 2:
                 return None
-            print(f"Please enter 1-{n + 2}")
+            print(f"请输入 1-{n + 2}")
         except ValueError:
-            print("Please enter a number")
+            print("请输入一个数字")
         except (KeyboardInterrupt, EOFError):
             return None
 
@@ -2813,29 +2821,29 @@ def _login_openai_codex(args, pconfig: ProviderConfig) -> None:
         # the user "Login successful!".
         _resolved_key = existing.get("api_key", "")
         if isinstance(_resolved_key, str) and _resolved_key and not _codex_access_token_is_expiring(_resolved_key, 60):
-            print("Existing Codex credentials found in Hermes auth store.")
+            print("在 Hermes 认证存储中找到现有的 Codex 凭据。")
             try:
-                reuse = input("Use existing credentials? [Y/n]: ").strip().lower()
+                reuse = input("使用现有凭据? [Y/n]: ").strip().lower()
             except (EOFError, KeyboardInterrupt):
                 reuse = "y"
             if reuse in ("", "y", "yes"):
                 config_path = _update_config_for_provider("openai-codex", existing.get("base_url", DEFAULT_CODEX_BASE_URL))
                 print()
-                print("Login successful!")
-                print(f"  Config updated: {config_path} (model.provider=openai-codex)")
+                print("登录成功!")
+                print(f"  配置已更新: {config_path} (model.provider=openai-codex)")
                 return
         else:
-            print("Existing Codex credentials are expired. Starting fresh login...")
+            print("现有的 Codex 凭据已过期。开始重新登录...")
     except AuthError:
         pass
 
     # Check for existing Codex CLI tokens we can import
     cli_tokens = _import_codex_cli_tokens()
     if cli_tokens:
-        print("Found existing Codex CLI credentials at ~/.codex/auth.json")
-        print("Hermes will create its own session to avoid conflicts with Codex CLI / VS Code.")
+        print("在 ~/.codex/auth.json 找到现有的 Codex CLI 凭据")
+        print("Hermes 将创建自己的会话以避免与 Codex CLI / VS Code 冲突。")
         try:
-            do_import = input("Import these credentials? (a separate login is recommended) [y/N]: ").strip().lower()
+            do_import = input("导入这些凭据? (建议单独登录) [y/N]: ").strip().lower()
         except (EOFError, KeyboardInterrupt):
             do_import = "n"
         if do_import in ("y", "yes"):
@@ -2843,15 +2851,15 @@ def _login_openai_codex(args, pconfig: ProviderConfig) -> None:
             base_url = os.getenv("HERMES_CODEX_BASE_URL", "").strip().rstrip("/") or DEFAULT_CODEX_BASE_URL
             config_path = _update_config_for_provider("openai-codex", base_url)
             print()
-            print("Credentials imported. Note: if Codex CLI refreshes its token,")
-            print("Hermes will keep working independently with its own session.")
-            print(f"  Config updated: {config_path} (model.provider=openai-codex)")
+            print("凭据已导入。注意: 如果 Codex CLI 刷新了它的令牌，")
+            print("Hermes 将使用自己的会话独立工作。")
+            print(f"  配置已更新: {config_path} (model.provider=openai-codex)")
             return
 
     # Run a fresh device code flow — Hermes gets its own OAuth session
     print()
-    print("Signing in to OpenAI Codex...")
-    print("(Hermes creates its own session — won't affect Codex CLI or VS Code)")
+    print("正在登录 OpenAI Codex...")
+    print("(Hermes 创建自己的会话 — 不会影响 Codex CLI 或 VS Code)")
     print()
 
     creds = _codex_device_code_login()
@@ -2860,10 +2868,10 @@ def _login_openai_codex(args, pconfig: ProviderConfig) -> None:
     _save_codex_tokens(creds["tokens"], creds.get("last_refresh"))
     config_path = _update_config_for_provider("openai-codex", creds.get("base_url", DEFAULT_CODEX_BASE_URL))
     print()
-    print("Login successful!")
+    print("登录成功!")
     from hermes_constants import display_hermes_home as _dhh
-    print(f"  Auth state: {_dhh()}/auth.json")
-    print(f"  Config updated: {config_path} (model.provider=openai-codex)")
+    print(f"  认证状态: {_dhh()}/auth.json")
+    print(f"  配置已更新: {config_path} (model.provider=openai-codex)")
 
 
 def _codex_device_code_login() -> Dict[str, Any]:
@@ -2905,12 +2913,12 @@ def _codex_device_code_login() -> Dict[str, Any]:
         )
 
     # Step 2: Show user the code
-    print("To continue, follow these steps:\n")
-    print("  1. Open this URL in your browser:")
+    print("请按照以下步骤操作:\n")
+    print("  1. 在浏览器中打开此 URL:")
     print(f"     \033[94m{issuer}/codex/device\033[0m\n")
-    print("  2. Enter this code:")
+    print("  2. 输入此代码:")
     print(f"     \033[94m{user_code}\033[0m\n")
-    print("Waiting for sign-in... (press Ctrl+C to cancel)")
+    print("正在等待登录... (按 Ctrl+C 取消)")
 
     # Step 3: Poll for authorization code
     max_wait = 15 * 60  # 15 minutes
@@ -3044,12 +3052,12 @@ def _nous_device_code_login(
     if _is_remote_session():
         open_browser = False
 
-    print(f"Starting Hermes login via {pconfig.name}...")
-    print(f"Portal: {portal_base_url}")
+    print(f"正在通过 {pconfig.name} 启动 Hermes 登录...")
+    print(f"门户: {portal_base_url}")
     if insecure:
-        print("TLS verification: disabled (--insecure)")
+        print("TLS 验证: 已禁用 (--insecure)")
     elif ca_bundle:
-        print(f"TLS verification: custom CA bundle ({ca_bundle})")
+        print(f"TLS 验证: 自定义 CA 证书包 ({ca_bundle})")
 
     with httpx.Client(timeout=timeout, headers={"Accept": "application/json"}, verify=verify) as client:
         device_data = _request_device_code(
@@ -3065,19 +3073,19 @@ def _nous_device_code_login(
         interval = int(device_data["interval"])
 
         print()
-        print("To continue:")
-        print(f"  1. Open: {verification_url}")
-        print(f"  2. If prompted, enter code: {user_code}")
+        print("请继续:")
+        print(f"  1. 打开: {verification_url}")
+        print(f"  2. 如果提示，输入代码: {user_code}")
 
         if open_browser:
             opened = webbrowser.open(verification_url)
             if opened:
-                print("  (Opened browser for verification)")
+                print("  (已打开浏览器进行验证)")
             else:
-                print("  Could not open browser automatically — use the URL above.")
+                print("  无法自动打开浏览器 — 请使用上面的 URL。")
 
         effective_interval = max(1, min(interval, DEVICE_AUTH_POLL_INTERVAL_CAP_SECONDS))
-        print(f"Waiting for approval (polling every {effective_interval}s)...")
+        print(f"正在等待批准 (每 {effective_interval}s 轮询)...")
 
         token_data = _poll_for_token(
             client=client,
@@ -3134,10 +3142,10 @@ def _nous_device_code_login(
                 "portal_base_url", DEFAULT_NOUS_PORTAL_URL
             ).rstrip("/")
             print()
-            print("Your Nous Portal account does not have an active subscription.")
-            print(f"  Subscribe here: {portal_url}/billing")
+            print("你的 Nous Portal 账户没有活跃的订阅。")
+            print(f"  订阅地址: {portal_url}/billing")
             print()
-            print("After subscribing, run `hermes model` again to finish setup.")
+            print("订阅后，再次运行 `hermes model` 完成设置。")
             raise SystemExit(1)
         raise
 
@@ -3173,8 +3181,8 @@ def _login_nous(args, pconfig: ProviderConfig) -> None:
             saved_to = _save_auth_store(auth_store)
 
         print()
-        print("Login successful!")
-        print(f"  Auth state: {saved_to}")
+        print("登录成功!")
+        print(f"  认证状态: {saved_to}")
 
         # Resolve model BEFORE writing provider to config.yaml so we never
         # leave the config in a half-updated state (provider=nous but model

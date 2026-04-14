@@ -701,8 +701,8 @@ if __name__ == "__main__":
     api_available = check_vision_requirements()
     
     if not api_available:
-        print("❌ No auxiliary vision model available")
-        print("Configure a supported multimodal backend (OpenRouter, Nous, Codex, Anthropic, or a custom OpenAI-compatible endpoint).")
+        print("❌ 没有可用的辅助视觉模型")
+        print("请配置支持的多模态后端（OpenRouter、Nous、Codex、Anthropic 或自定义 OpenAI 兼容端点）。")
         exit(1)
     else:
         print("✅ Vision model available")

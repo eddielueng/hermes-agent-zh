@@ -90,7 +90,7 @@ def curses_checklist(
                     stdscr.addnstr(0, 0, title, max_x - 1, hattr)
                     stdscr.addnstr(
                         1, 0,
-                        "  ↑↓ navigate  SPACE toggle  ENTER confirm  ESC cancel",
+                        "  ↑↓ 导航  SPACE 切换  ENTER 确认  ESC 取消",
                         max_x - 1, curses.A_DIM,
                     )
                 except curses.error:

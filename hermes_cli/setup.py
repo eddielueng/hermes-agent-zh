@@ -111,6 +111,7 @@ _DEFAULT_PROVIDER_MODELS = {
         "Qwen/Qwen3-Coder-480B-A35B-Instruct", "deepseek-ai/DeepSeek-R1-0528",
         "deepseek-ai/DeepSeek-V3.2", "moonshotai/Kimi-K2.5",
     ],
+    "xidao": ["claude-opus-4-6", "claude-sonnet-4-6", "gpt-5.4", "glm-5.1", "glm-5", "qwen3.6-plus"],
 }
 
 
@@ -149,7 +150,7 @@ from hermes_cli.colors import Colors, color
 
 
 def print_header(title: str):
-    """Print a section header."""
+    """打印章节标题。"""
     print()
     print(color(f"◆ {title}", Colors.CYAN, Colors.BOLD))
 
@@ -174,21 +175,21 @@ def is_interactive_stdin() -> bool:
 
 
 def print_noninteractive_setup_guidance(reason: str | None = None) -> None:
-    """Print guidance for headless/non-interactive setup flows."""
+    """打印无头/非交互式设置流程的指导信息。"""
     print()
-    print(color("⚕ Hermes Setup — Non-interactive mode", Colors.CYAN, Colors.BOLD))
+    print(color("⚕ Hermes 设置 — 非交互模式", Colors.CYAN, Colors.BOLD))
     print()
     if reason:
         print_info(reason)
-    print_info("The interactive wizard cannot be used here.")
+    print_info("此处无法使用交互式向导。")
     print()
-    print_info("Configure Hermes using environment variables or config commands:")
+    print_info("使用环境变量或配置命令来配置 Hermes：")
     print_info("  hermes config set model.provider custom")
     print_info("  hermes config set model.base_url http://localhost:8080/v1")
     print_info("  hermes config set model.default your-model-name")
     print()
-    print_info("Or set OPENROUTER_API_KEY / OPENAI_API_KEY in your environment.")
-    print_info("Run 'hermes setup' in an interactive terminal to use the full wizard.")
+    print_info("或在您的环境中设置 OPENROUTER_API_KEY / OPENAI_API_KEY。")
+    print_info("在交互式终端中运行 'hermes setup' 以使用完整向导。")
     print()
 
 
@@ -221,15 +222,15 @@ def _curses_prompt_choice(question: str, choices: list, default: int = 0) -> int
 
 
 def prompt_choice(question: str, choices: list, default: int = 0) -> int:
-    """Prompt for a choice from a list with arrow key navigation.
+    """使用箭头键导航从列表中提示选择。
 
-    Escape keeps the current default (skips the question).
-    Ctrl+C exits the wizard.
+    Escape 保持当前默认值（跳过问题）。
+    Ctrl+C 退出向导。
     """
     idx = _curses_prompt_choice(question, choices, default)
     if idx >= 0:
         if idx == default:
-            print_info("  Skipped (keeping current)")
+            print_info("  已跳过（保持当前值）")
             print()
             return default
         print()
@@ -243,7 +244,7 @@ def prompt_choice(question: str, choices: list, default: int = 0) -> int:
         else:
             print(f"  {marker} {choice}")
 
-    print_info(f"  Enter for default ({default + 1})  Ctrl+C to exit")
+    print_info(f"  回车确认默认值 ({default + 1})  Ctrl+C 退出")
 
     while True:
         try:

@@ -1634,14 +1634,14 @@ def check_terminal_requirements() -> bool:
 
 if __name__ == "__main__":
     # Simple test when run directly
-    print("Terminal Tool Module")
+    print("终端工具模块")
     print("=" * 50)
-    
+
     config = _get_env_config()
-    print("\nCurrent Configuration:")
-    print(f"  Environment type: {config['env_type']}")
-    print(f"  Docker image: {config['docker_image']}")
-    print(f"  Modal image: {config['modal_image']}")
+    print("\n当前配置：")
+    print(f"  环境类型: {config['env_type']}")
+    print(f"  Docker 镜像: {config['docker_image']}")
+    print(f"  Modal 镜像: {config['modal_image']}")
     print(f"  Working directory: {config['cwd']}")
     print(f"  Default timeout: {config['timeout']}s")
     print(f"  Lifetime: {config['lifetime_seconds']}s")

@@ -135,7 +135,7 @@ def _check_gateway_service_linger(issues: list[str]) -> None:
             is_linux,
         )
     except Exception as e:
-        check_warn("Gateway service linger", f"(could not import gateway helpers: {e})")
+        check_warn("网关服务 linger", f"（无法导入网关辅助模块: {e}）")
         return
 
     if not is_linux():
@@ -146,66 +146,66 @@ def _check_gateway_service_linger(issues: list[str]) -> None:
         return
 
     print()
-    print(color("◆ Gateway Service", Colors.CYAN, Colors.BOLD))
+    print(color("◆ 网关服务", Colors.CYAN, Colors.BOLD))
 
     linger_enabled, linger_detail = get_systemd_linger_status()
     if linger_enabled is True:
-        check_ok("Systemd linger enabled", "(gateway service survives logout)")
+        check_ok("Systemd linger 已启用", "（网关服务在注销后继续运行）")
     elif linger_enabled is False:
-        check_warn("Systemd linger disabled", "(gateway may stop after logout)")
-        check_info("Run: sudo loginctl enable-linger $USER")
-        issues.append("Enable linger for the gateway user service: sudo loginctl enable-linger $USER")
+        check_warn("Systemd linger 未启用", "（网关可能在注销后停止）")
+        check_info("运行: sudo loginctl enable-linger $USER")
+        issues.append("为网关用户服务启用 linger: sudo loginctl enable-linger $USER")
     else:
-        check_warn("Could not verify systemd linger", f"({linger_detail})")
+        check_warn("无法验证 systemd linger", f"（{linger_detail}）")
 
 
 def run_doctor(args):
-    """Run diagnostic checks."""
+    """运行诊断检查。"""
     should_fix = getattr(args, 'fix', False)
 
     # Doctor runs from the interactive CLI, so CLI-gated tool availability
     # checks (like cronjob management) should see the same context as `hermes`.
     os.environ.setdefault("HERMES_INTERACTIVE", "1")
-    
+
     issues = []
     manual_issues = []  # issues that can't be auto-fixed
     fixed_count = 0
-    
+
     print()
     print(color("┌─────────────────────────────────────────────────────────┐", Colors.CYAN))
-    print(color("│                 🩺 Hermes Doctor                        │", Colors.CYAN))
+    print(color("│                 🩺 Hermes 诊断工具                      │", Colors.CYAN))
     print(color("└─────────────────────────────────────────────────────────┘", Colors.CYAN))
-    
+
     # =========================================================================
     # Check: Python version
     # =========================================================================
     print()
-    print(color("◆ Python Environment", Colors.CYAN, Colors.BOLD))
-    
+    print(color("◆ Python 环境", Colors.CYAN, Colors.BOLD))
+
     py_version = sys.version_info
     if py_version >= (3, 11):
         check_ok(f"Python {py_version.major}.{py_version.minor}.{py_version.micro}")
     elif py_version >= (3, 10):
         check_ok(f"Python {py_version.major}.{py_version.minor}.{py_version.micro}")
-        check_warn("Python 3.11+ recommended for RL Training tools (tinker requires >= 3.11)")
+        check_warn("Python 3.11+ 推荐用于 RL 训练工具（tinker 需要 >= 3.11）")
     elif py_version >= (3, 8):
-        check_warn(f"Python {py_version.major}.{py_version.minor}.{py_version.micro}", "(3.10+ recommended)")
+        check_warn(f"Python {py_version.major}.{py_version.minor}.{py_version.micro}", "（推荐 3.10+）")
     else:
-        check_fail(f"Python {py_version.major}.{py_version.minor}.{py_version.micro}", "(3.10+ required)")
-        issues.append("Upgrade Python to 3.10+")
-    
+        check_fail(f"Python {py_version.major}.{py_version.minor}.{py_version.micro}", "（需要 3.10+）")
+        issues.append("升级 Python 到 3.10+")
+
     # Check if in virtual environment
     in_venv = sys.prefix != sys.base_prefix
     if in_venv:
-        check_ok("Virtual environment active")
+        check_ok("虚拟环境已激活")
     else:
-        check_warn("Not in virtual environment", "(recommended)")
-    
+        check_warn("未在虚拟环境中", "（推荐）")
+
     # =========================================================================
     # Check: Required packages
     # =========================================================================
     print()
-    print(color("◆ Required Packages", Colors.CYAN, Colors.BOLD))
+    print(color("◆ 必需的包", Colors.CYAN, Colors.BOLD))
     
     required_packages = [
         ("openai", "OpenAI SDK"),

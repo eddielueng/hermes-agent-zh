@@ -1975,9 +1975,9 @@ if __name__ == "__main__":
         )
 
     if not nous_available:
-        print("❌ No auxiliary model available for LLM content processing")
-        print("Set OPENROUTER_API_KEY, configure Nous Portal, or set OPENAI_BASE_URL + OPENAI_API_KEY")
-        print("⚠️  Without an auxiliary model, LLM content processing will be disabled")
+        print("❌ 没有可用于 LLM 内容处理的辅助模型")
+        print("请设置 OPENROUTER_API_KEY、配置 Nous Portal，或设置 OPENAI_BASE_URL + OPENAI_API_KEY")
+        print("⚠️  如果没有辅助模型，LLM 内容处理将被禁用")
     else:
         print(f"✅ Auxiliary model available: {default_summarizer_model}")
 
