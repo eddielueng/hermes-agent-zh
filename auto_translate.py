@@ -88,16 +88,24 @@ class AutoTranslator:
         """加载翻译规则配置"""
         if not self.rules_file.exists():
             print(f"❌ 规则文件不存在: {self.rules_file}")
-            sys.exit(1)
-        
-        with open(self.rules_file, 'r', encoding='utf-8') as f:
-            self.rules = yaml.safe_load(f)
-        
+            print("⚠️ 将使用默认规则（空规则集）")
+            self.rules = {'global': {'enabled': True, 'file_patterns': ['*.py', '*.md', '*.yaml', '*.yml']}, 'common_mappings': {}, 'exclusions': [], 'file_specific_rules': {}}
+            return
+
+        try:
+            with open(self.rules_file, 'r', encoding='utf-8') as f:
+                self.rules = yaml.safe_load(f)
+        except Exception as e:
+            print(f"❌ 规则文件读取失败: {e}")
+            print("⚠️ 将使用默认规则")
+            self.rules = {'global': {'enabled': True, 'file_patterns': ['*.py', '*.md', '*.yaml', '*.yml']}, 'common_mappings': {}, 'exclusions': [], 'file_specific_rules': {}}
+            return
+
         global_settings = self.rules.get('global', {})
         if not global_settings.get('enabled', True):
             print("⚠️ 自动翻译已禁用 (enabled: false)")
-            sys.exit(0)
-        
+            return
+
         print(f"✅ 已加载规则文件: {self.rules_file}")
         print(f"   模式: {'预览模式' if self.dry_run else '实际翻译'}")
     
@@ -623,15 +631,15 @@ def main():
         # 默认：翻译当前目录所有相关文件
         all_py_files = []
         for root, dirs, files in os.walk('.'):
-            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__', '.git']]
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__', '.git', 'venv', '.venv']]
             for file in files:
                 if translator.should_translate_file(os.path.join(root, file)):
                     all_py_files.append(os.path.join(root, file))
-        
+
         if not all_py_files:
-            print("❌ 未找到可翻译的文件")
-            sys.exit(1)
-        
+            print("ℹ️ 未找到可翻译的文件")
+            return
+
         translator.translate_files(all_py_files)
     
     # 生成报告
