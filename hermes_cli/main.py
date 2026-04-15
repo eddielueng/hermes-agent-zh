@@ -1174,9 +1174,10 @@ def _clear_stale_openai_base_url():
     stale_url = get_env_value("OPENAI_BASE_URL")
     if stale_url:
         save_env_value("OPENAI_BASE_URL", "")
-        print(f"已清除 .env 中过时的 OPENAI_BASE_URL（原值: {stale_url[:40]}...")
-              if len(stale_url) > 40
-              else f"Cleared stale OPENAI_BASE_URL from .env (was: {stale_url})")
+        if len(stale_url) > 40:
+            print(f"已清除 .env 中过时的 OPENAI_BASE_URL（原值: {stale_url[:40]}...")
+        else:
+            print(f"已清除 .env 中过时的 OPENAI_BASE_URL（原值: {stale_url}）")
 
 
 def _prompt_provider_choice(choices, *, default=0):
