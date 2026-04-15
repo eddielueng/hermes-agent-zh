@@ -623,7 +623,7 @@ def get_toolset_info(name: str) -> Dict[str, Any]:
 
 
 if __name__ == "__main__":
-    print("Toolsets System Demo")
+    print("工具集系统演示")
     print("=" * 60)
     
     print("\nAvailable Toolsets:")

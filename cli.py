@@ -3533,7 +3533,7 @@ class HermesCLI:
         if _remainder:
             _cprint(f"  {_DIM}Now type your prompt (or use --image in single-query mode): {_remainder}{_RST}")
         elif _is_termux_environment():
-            _cprint(f"  {_DIM}Tip: type your next message, or run hermes chat -q --image {_termux_example_image_path(image_path.name)} \"What do you see?\"{_RST}")
+            _cprint(f"  {_DIM}提示: 输入您的下一条消息，或运行 hermes chat -q --image {_termux_example_image_path(image_path.name)} \"您看到了什么？\"{_RST}")
 
     def _preprocess_images_with_vision(self, text: str, images: list, *, announce: bool = True) -> str:
         """Analyze attached images via the vision tool and return enriched text.
@@ -5073,14 +5073,14 @@ class HermesCLI:
                 return
 
             print()
-            print("Scheduled Jobs:")
+            print("定时任务:")
             print("-" * 80)
             for job in jobs:
                 print(f"  ID: {job['job_id']}")
-                print(f"  Name: {job['name']}")
-                print(f"  State: {job.get('state', '?')}")
-                print(f"  Schedule: {job['schedule']} ({job.get('repeat', '?')})")
-                print(f"  Next run: {job.get('next_run_at', 'N/A')}")
+                print(f"  名称: {job['name']}")
+                print(f"  状态: {job.get('state', '?')}")
+                print(f"  计划: {job['schedule']} ({job.get('repeat', '?')})")
+                print(f"  下次运行: {job.get('next_run_at', 'N/A')}")
                 if job.get("skills"):
                     print(f"  Skills: {', '.join(job['skills'])}")
                 print(f"  Prompt: {job.get('prompt_preview', '')}")
@@ -5478,21 +5478,21 @@ class HermesCLI:
                 mgr = get_plugin_manager()
                 plugins = mgr.list_plugins()
                 if not plugins:
-                    print("No plugins installed.")
-                    print(f"Drop plugin directories into {display_hermes_home()}/plugins/ to get started.")
+                    print("未安装任何插件。")
+                    print(f"将插件目录放入 {display_hermes_home()}/plugins/ 即可开始使用。")
                 else:
-                    print(f"Plugins ({len(plugins)}):")
+                    print(f"插件 ({len(plugins)}):")
                     for p in plugins:
                         status = "✓" if p["enabled"] else "✗"
                         version = f" v{p['version']}" if p["version"] else ""
-                        tools = f"{p['tools']} tools" if p["tools"] else ""
-                        hooks = f"{p['hooks']} hooks" if p["hooks"] else ""
+                        tools = f"{p['tools']} 个工具" if p["tools"] else ""
+                        hooks = f"{p['hooks']} 个钩子" if p["hooks"] else ""
                         parts = [x for x in [tools, hooks] if x]
                         detail = f" ({', '.join(parts)})" if parts else ""
                         error = f" — {p['error']}" if p["error"] else ""
                         print(f"  {status} {p['name']}{version}{detail}{error}")
             except Exception as e:
-                print(f"Plugin system error: {e}")
+                print(f"插件系统错误: {e}")
         elif canonical == "rollback":
             self._handle_rollback_command(cmd_original)
         elif canonical == "snapshot":
@@ -6079,7 +6079,7 @@ class HermesCLI:
                     )
             else:
                 print()
-                print("Browser is not connected to live Chrome (already using default mode)")
+                print("浏览器未连接到实时 Chrome（已在使用默认模式）")
                 print()
 
         elif sub == "status":
@@ -6132,7 +6132,7 @@ class HermesCLI:
         try:
             from hermes_cli.skin_engine import list_skins, set_active_skin, get_active_skin_name
         except ImportError:
-            print("Skin engine not available.")
+            print("皮肤引擎不可用。")
             return
 
         parts = cmd.strip().split(maxsplit=1)
@@ -7051,8 +7051,8 @@ class HermesCLI:
             else:
                 self._enable_voice_mode()
         else:
-            _cprint(f"Unknown voice subcommand: {subcommand}")
-            _cprint("Usage: /voice [on|off|tts|status]")
+            _cprint(f"未知的语音子命令: {subcommand}")
+            _cprint("用法: /voice [on|off|tts|status]")
 
     def _enable_voice_mode(self):
         """Enable voice mode after checking requirements."""
@@ -7936,7 +7936,7 @@ class HermesCLI:
             return response
             
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"错误: {e}")
             return None
         finally:
             # Ensure streaming TTS resources are cleaned up even on error.
@@ -7978,16 +7978,16 @@ class HermesCLI:
                 except Exception:
                     pass
 
-            print("Resume this session with:")
+            print("恢复此会话:")
             print(f"  hermes --resume {self.session_id}")
             if session_title:
                 print(f"  hermes -c \"{session_title}\"")
             print()
-            print(f"Session:        {self.session_id}")
+            print(f"会话:        {self.session_id}")
             if session_title:
-                print(f"Title:          {session_title}")
-            print(f"Duration:       {duration_str}")
-            print(f"Messages:       {msg_count} ({user_msgs} user, {tool_calls} tool calls)")
+                print(f"标题:          {session_title}")
+            print(f"时长:       {duration_str}")
+            print(f"消息数:       {msg_count} ({user_msgs} 条用户消息, {tool_calls} 次工具调用)")
         else:
             try:
                 from hermes_cli.skin_engine import get_active_goodbye
@@ -9644,7 +9644,7 @@ class HermesCLI:
                             pass  # Non-fatal — don't break the main loop
 
                 except Exception as e:
-                    print(f"Error: {e}")
+                    print(f"错误: {e}")
         
         # Start processing thread
         process_thread = threading.Thread(target=process_loop, daemon=True)
@@ -9854,7 +9854,7 @@ def main(
     if gateway:
         import asyncio
         from gateway.run import start_gateway
-        print("Starting Hermes Gateway (messaging platforms)...")
+        print("正在启动 Hermes 网关（消息平台）...")
         asyncio.run(start_gateway())
         return
 

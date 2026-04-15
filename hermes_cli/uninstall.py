@@ -197,27 +197,27 @@ def run_uninstall(args):
     print()
     
     # Ask for confirmation
-    print(color("Uninstall Options:", Colors.YELLOW, Colors.BOLD))
+    print(color("卸载选项:", Colors.YELLOW, Colors.BOLD))
     print()
-    print("  1) " + color("Keep data", Colors.GREEN) + " - Remove code only, keep configs/sessions/logs")
-    print("     (Recommended - you can reinstall later with your settings intact)")
+    print("  1) " + color("保留数据", Colors.GREEN) + " - 仅删除代码，保留配置/会话/日志")
+    print("     （推荐 - 您可以稍后重新安装并保留现有设置）")
     print()
-    print("  2) " + color("Full uninstall", Colors.RED) + " - Remove everything including all data")
-    print("     (Warning: This deletes all configs, sessions, and logs permanently)")
+    print("  2) " + color("完全卸载", Colors.RED) + " - 删除所有内容，包括所有数据")
+    print("     （警告：这将永久删除所有配置、会话和日志）")
     print()
-    print("  3) " + color("Cancel", Colors.CYAN) + " - Don't uninstall")
+    print("  3) " + color("取消", Colors.CYAN) + " - 不卸载")
     print()
-    
+
     try:
-        choice = input(color("Select option [1/2/3]: ", Colors.BOLD)).strip()
+        choice = input(color("选择选项 [1/2/3]: ", Colors.BOLD)).strip()
     except (KeyboardInterrupt, EOFError):
         print()
-        print("Cancelled.")
+        print("已取消。")
         return
     
     if choice == "3" or choice.lower() in ("c", "cancel", "q", "quit", "n", "no"):
         print()
-        print("Uninstall cancelled.")
+        print("卸载已取消。")
         return
     
     full_uninstall = (choice == "2")
@@ -235,12 +235,12 @@ def run_uninstall(args):
         confirm = input(f"Type '{color('yes', Colors.YELLOW)}' to confirm: ").strip().lower()
     except (KeyboardInterrupt, EOFError):
         print()
-        print("Cancelled.")
+        print("已取消。")
         return
-    
+
     if confirm != "yes":
         print()
-        print("Uninstall cancelled.")
+        print("卸载已取消。")
         return
     
     print()

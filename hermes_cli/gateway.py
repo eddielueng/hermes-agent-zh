@@ -286,7 +286,7 @@ def kill_gateway_processes(force: bool = False, exclude_pids: set | None = None,
             print(f"⚠ Permission denied to kill PID {pid}")
     
         except OSError as exc:
-            print(f"Failed to kill PID {pid}: {exc}")
+            print(f"终止 PID {pid} 失败: {exc}")
     return killed
 
 
@@ -1058,7 +1058,7 @@ def systemd_install(force: bool = False, system: bool = False, run_as_user: str 
         return
 
     unit_path.parent.mkdir(parents=True, exist_ok=True)
-    print(f"Installing {_service_scope_label(system)} systemd service to: {unit_path}")
+    print(f"正在安装 {_service_scope_label(system)} systemd 服务到: {unit_path}")
     unit_path.write_text(generate_systemd_unit(system=system, run_as_user=run_as_user), encoding="utf-8")
 
     _run_systemctl(["daemon-reload"], system=system, check=True, timeout=30)
@@ -1076,7 +1076,7 @@ def systemd_install(force: bool = False, system: bool = False, run_as_user: str 
     if system:
         configured_user = _read_systemd_user_from_unit(unit_path)
         if configured_user:
-            print(f"Configured to run as: {configured_user}")
+            print(f"配置为运行用户: {configured_user}")
     else:
         _ensure_linger_enabled()
 
@@ -1354,7 +1354,7 @@ def launchd_install(force: bool = False):
         return
     
     plist_path.parent.mkdir(parents=True, exist_ok=True)
-    print(f"Installing launchd service to: {plist_path}")
+    print(f"正在安装 launchd 服务到: {plist_path}")
     plist_path.write_text(generate_launchd_plist())
     
     subprocess.run(["launchctl", "bootstrap", _launchd_domain(), str(plist_path)], check=True, timeout=30)
@@ -2852,21 +2852,21 @@ def gateway_command(args):
         elif is_macos():
             launchd_uninstall()
         elif is_container():
-            print("Service uninstall is not applicable inside a Docker container.")
+            print("Docker 容器内不适用服务卸载。")
             print("To stop the gateway, stop or remove the container:")
             print()
             print("  docker stop <container>")
             print("  docker rm <container>")
             sys.exit(0)
         else:
-            print("Not supported on this platform.")
+            print("此平台不支持。")
             sys.exit(1)
 
     elif subcmd == "start":
         system = getattr(args, 'system', False)
         if is_termux():
-            print("Gateway service start is not supported on Termux because there is no system service manager.")
-            print("Run manually: hermes gateway")
+            print("Termux 不支持启动网关服务，因为没有系统服务管理器。")
+            print("请手动运行: hermes gateway")
             sys.exit(1)
         if supports_systemd_services():
             systemd_start(system=system)
@@ -2883,16 +2883,16 @@ def gateway_command(args):
             print("To enable systemd: add systemd=true to /etc/wsl.conf and run 'wsl --shutdown' from PowerShell.")
             sys.exit(1)
         elif is_container():
-            print("Service start is not applicable inside a Docker container.")
+            print("Docker 容器内不适用服务启动。")
             print("The gateway runs as the container's main process.")
             print()
-            print("  docker start <container>     # start a stopped container")
-            print("  docker restart <container>   # restart a running container")
+            print("  docker start <container>     # 启动已停止的容器")
+            print("  docker restart <container>   # 重启运行中的容器")
             print()
-            print("Or run the gateway directly: hermes gateway run")
+            print("或直接运行网关: hermes gateway run")
             sys.exit(0)
         else:
-            print("Not supported on this platform.")
+            print("此平台不支持。")
             sys.exit(1)
 
     elif subcmd == "stop":
