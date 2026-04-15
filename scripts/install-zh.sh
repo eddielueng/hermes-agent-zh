@@ -152,6 +152,28 @@ main() {
         exit 1
     fi
 
+    # 自动安装 python3-venv（创建虚拟环境必需）
+    echo ""
+    print_info "检查 Python 虚拟环境支持..."
+    if ! python3 -m venv --help &>/dev/null 2>&1; then
+        print_warning "需要安装 python3-venv 包..."
+        if [ "$PLATFORM" = "linux" ]; then
+            if check_command apt-get; then
+                apt-get update -qq && apt-get install -y -qq python3-venv && \
+                print_success "python3-venv 已安装" || \
+                { print_error "自动安装失败，请手动运行: sudo apt install python3-venv"; exit 1; }
+            elif check_command yum; then
+                yum install -y python3-virtualenv && \
+                print_success "python3-virtualenv 已安装" || \
+                { print_error "自动安装失败，请手动运行: sudo yum install python3-virtualenv"; exit 1; }
+            fi
+        elif [ "$PLATFORM" = "macos" ]; then
+            print_info "macOS 通常已内置 venv 支持。如果出错请: brew install python@3.11"
+        fi
+    else
+        print_success "虚拟环境支持就绪"
+    fi
+
     # 检查 curl 或 wget
     if check_command curl; then
         DOWNLOAD_CMD="curl -sL"
@@ -250,7 +272,26 @@ main() {
         print_info "创建 Python 虚拟环境..."
         
         if [ ! -d "venv" ]; then
-            python3 -m venv venv
+            # 尝试创建虚拟环境，如果失败则尝试安装依赖后重试
+            if ! python3 -m venv venv 2>/dev/null; then
+                print_warning "虚拟环境创建失败，正在尝试安装依赖..."
+                
+                # 尝试安装 python3-venv
+                if check_command apt-get; then
+                    apt-get update -qq && apt-get install -y -qq python3-venv python3-pip 2>/dev/null || true
+                elif check_command yum; then
+                    yum install -y python3-virtualenv python3-pip 2>/dev/null || true
+                fi
+                
+                # 重试创建虚拟环境
+                if ! python3 -m venv venv; then
+                    print_error "无法创建虚拟环境！"
+                    print_info "请手动运行以下命令安装依赖："
+                    print_info "  Ubuntu/Debian: sudo apt install python3-venv python3-pip"
+                    print_info "  CentOS/RHEL:   sudo yum install python3-virtualenv python3-pip"
+                    exit 1
+                fi
+            fi
         fi
         
         source venv/bin/activate
