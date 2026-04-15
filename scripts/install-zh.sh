@@ -363,9 +363,9 @@ main() {
     
     # 创建目录
     create_directories
-    
-    # 检查仓库
-    check_repository
+
+    # 克隆或验证中文版仓库（支持 curl | bash 模式）
+    clone_repository
     
     # 创建虚拟环境
     create_venv
