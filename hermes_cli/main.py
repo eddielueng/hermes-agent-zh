@@ -1089,7 +1089,7 @@ def select_provider_and_model(args=None):
     default_idx = 0
     for key, label in all_providers:
         if active and key == active:
-            ordered.append((key, f"{label}  ← currently active"))
+            ordered.append((key, f"{label}  ← 当前激活"))
             default_idx = len(ordered) - 1
         else:
             ordered.append((key, label))
@@ -1104,7 +1104,7 @@ def select_provider_and_model(args=None):
         [label for _, label in ordered], default=default_idx,
     )
     if provider_idx is None or ordered[provider_idx][0] == "cancel":
-        print("No change.")
+        print("未更改。")
         return
 
     selected_provider = ordered[provider_idx][0]
@@ -1128,8 +1128,8 @@ def select_provider_and_model(args=None):
         provider_info = _named_custom_provider_map(load_config()).get(selected_provider)
         if provider_info is None:
             print(
-                "Warning: the selected saved custom provider is no longer available. "
-                "It may have been removed from config.yaml. No change."
+                "警告：所选的已保存自定义提供商不再可用。"
+                "它可能已从 config.yaml 中移除。未更改。"
             )
             return
         _model_flow_named_custom(config, provider_info)
@@ -1139,7 +1139,7 @@ def select_provider_and_model(args=None):
         _model_flow_anthropic(config, current_model)
     elif selected_provider == "kimi-coding":
         _model_flow_kimi(config, current_model)
-    elif selected_provider in ("gemini", "deepseek", "xai", "zai", "kimi-coding-cn", "minimax", "minimax-cn", "kilocode", "opencode-zen", "opencode-go", "ai-gateway", "alibaba", "huggingface", "xiaomi", "arcee"):
+    elif selected_provider in ("xidao", "gemini", "deepseek", "xai", "zai", "kimi-coding-cn", "minimax", "minimax-cn", "kilocode", "opencode-zen", "opencode-go", "ai-gateway", "alibaba", "huggingface", "xiaomi", "arcee"):
         _model_flow_api_key_provider(config, selected_provider, current_model)
 
     # ── Post-switch cleanup: clear stale OPENAI_BASE_URL ──────────────
@@ -1262,9 +1262,9 @@ def _model_flow_openrouter(config, current_model=""):
         model["api_mode"] = "chat_completions"
         save_config(cfg)
         deactivate_provider()
-        print(f"Default model set to: {selected} (via OpenRouter)")
+        print(f"默认模型已设置为: {selected} (通过 OpenRouter)")
     else:
-        print("No change.")
+        print("未更改。")
 
 
 def _model_flow_nous(config, current_model="", args=None):
@@ -1421,7 +1421,7 @@ def _model_flow_nous(config, current_model="", args=None):
         for line in get_nous_subscription_explainer_lines():
             print(line)
     else:
-        print("No change.")
+        print("未更改。")
 
 
 def _model_flow_openai_codex(config, current_model=""):
@@ -2300,7 +2300,7 @@ def _model_flow_copilot_acp(config, current_model=""):
             selected = None
 
     if not selected:
-        print("No change.")
+        print("未更改。")
         return
 
     selected = normalize_copilot_model_id(
@@ -2420,9 +2420,9 @@ def _model_flow_kimi(config, current_model=""):
         deactivate_provider()
 
         endpoint_label = "Kimi Coding" if is_coding_plan else "Moonshot"
-        print(f"Default model set to: {selected} (via {endpoint_label})")
+        print(f"默认模型已设置为: {selected} (通过 {endpoint_label})")
     else:
-        print("No change.")
+        print("未更改。")
 
 
 def _model_flow_api_key_provider(config, provider_id, current_model=""):
@@ -2549,9 +2549,9 @@ def _model_flow_api_key_provider(config, provider_id, current_model=""):
         save_config(cfg)
         deactivate_provider()
 
-        print(f"Default model set to: {selected} (via {pconfig.name})")
+        print(f"默认模型已设置为: {selected} (通过 {pconfig.name})")
     else:
-        print("No change.")
+        print("未更改。")
 
 
 def _run_anthropic_oauth_flow(save_env_value):
@@ -2757,9 +2757,9 @@ def _model_flow_anthropic(config, current_model=""):
         save_config(cfg)
         deactivate_provider()
 
-        print(f"Default model set to: {selected} (via Anthropic)")
+        print(f"默认模型已设置为: {selected} (通过 Anthropic)")
     else:
-        print("No change.")
+        print("未更改。")
 
 
 def cmd_login(args):
