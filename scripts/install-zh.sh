@@ -29,6 +29,7 @@ HERMES_HOME="$HOME/.hermes"
 INSTALL_DIR="${HERMES_INSTALL_DIR:-$HERMES_HOME/hermes-agent}"
 PYTHON_MIN_VERSION="3.10"
 PYTHON_RECOMMENDED="3.11"
+REPO_URL="https://github.com/eddielueng/hermes-agent-zh.git"
 
 # 选项
 USE_VENV=true
