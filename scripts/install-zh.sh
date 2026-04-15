@@ -146,22 +146,88 @@ main() {
         PYTHON_VERSION_FULL=$(python --version 2>&1 | awk '{print $2}')
         print_success "Python 已找到: $PYTHON_VERSION_FULL"
     else
-        print_error "未找到 Python！请先安装 Python 3.10+"
-        print_info "Ubuntu/Debian: sudo apt install python3 python3-venv"
-        print_info "CentOS/RHEL:   sudo yum install python3"
+        print_error "未找到 Python！请先安装 Python 3.11+"
+        print_info "Ubuntu/Debian: sudo apt install python3.11 python3.11-venv"
+        print_info "CentOS/RHEL:   sudo yum install python3.11"
         exit 1
+    fi
+
+    # 检查 Python 版本（需要 >= 3.11）
+    echo ""
+    print_info "检查 Python 版本兼容性..."
+    PYTHON_MAJOR=$(echo "$PYTHON_VERSION_FULL" | cut -d. -f1)
+    PYTHON_MINOR=$(echo "$PYTHON_VERSION_FULL" | cut -d. -f2)
+    
+    if [ "$PYTHON_MAJOR" -lt 3 ] || { [ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 11 ]; }; then
+        print_warning "⚠ Python 版本过低 ($PYTHON_VERSION_FULL)，Hermes Agent 需要 Python 3.11+"
+        print_info "正在尝试升级到 Python 3.11..."
+        
+        if [ "$PLATFORM" = "linux" ]; then
+            if check_command apt-get; then
+                # Ubuntu/Debian: 使用 deadsnakes PPA 或直接安装
+                if ! apt-get install -y -qq python3.11 python3.11-venv python3.11-dev 2>/dev/null; then
+                    # 尝试添加 deadsnakes PPA
+                    add-apt-repository -y ppa:deadsnakes/ppa &>/dev/null || true
+                    apt-get update -qq && \
+                    apt-get install -y -qq python3.11 python3.11-venv python3.11-dev 2>/dev/null || true
+                fi
+                
+                # 验证安装成功
+                if command -v python3.11 &> /dev/null; then
+                    PYTHON_CMD="python3.11"
+                    print_success "✓ Python 3.11 已安装: $(python3.11 --version)"
+                else
+                    print_error "✗ 自动升级失败！请手动安装 Python 3.11："
+                    echo ""
+                    echo "  方法一（推荐）- 使用 deadsnakes PPA："
+                    echo "    sudo add-apt-repository ppa:deadsnakes/ppa"
+                    echo "    sudo apt update"
+                    echo "    sudo apt install python3.11 python3.11-venv python3.11-dev"
+                    echo ""
+                    echo "  方法二 - 使用 pyenv："
+                    echo "    curl https://pyenv.run | bash"
+                    echo "    ~/.pyenv/bin/pyenv install 3.11.9"
+                    echo "    ~/.pyenv/shims/python3.11 --version"
+                    echo ""
+                    echo "  安装后重新运行此脚本即可。"
+                    exit 1
+                fi
+            elif check_command yum; then
+                # CentOS/RHEL/Rocky
+                yum install -y python3.11 python3.11-pip 2>/dev/null || \
+                dnf install -y python3.11 python3.11-pip 2>/dev/null || {
+                    print_error "✗ 自动升级失败！请手动运行:"
+                    echo "  sudo yum install python3.11 python3.11-pip"
+                    echo "  或使用 dnf: sudo dnf install python3.11"
+                    exit 1
+                }
+                PYTHON_CMD="python3.11"
+            else
+                print_error "无法自动升级 Python！请手动安装 Python 3.11+ 后重试。"
+                exit 1
+            fi
+        elif [ "$PLATFORM" = "macos" ]; then
+            print_info "macOS 用户请使用 Homebrew 安装:"
+            echo "  brew install python@3.11"
+            exit 1
+        fi
+    else
+        PYTHON_CMD="python3"
+        print_success "✓ Python 版本符合要求 (>= 3.11)"
     fi
 
     # 自动安装 python3-venv（创建虚拟环境必需）
     echo ""
     print_info "检查 Python 虚拟环境支持..."
-    if ! python3 -m venv --help &>/dev/null 2>&1; then
-        print_warning "需要安装 python3-venv 包..."
+    if ! $PYTHON_CMD -m venv --help &>/dev/null 2>&1; then
+        print_warning "需要安装 python${PYTHON_MINOR}-venv 包..."
         if [ "$PLATFORM" = "linux" ]; then
             if check_command apt-get; then
-                apt-get update -qq && apt-get install -y -qq python3-venv && \
-                print_success "python3-venv 已安装" || \
-                { print_error "自动安装失败，请手动运行: sudo apt install python3-venv"; exit 1; }
+                VENV_PKG="python${PYTHON_MINOR}-venv"
+                [ "$PYTHON_MINOR" = "11" ] && VENV_PKG="python3.11-venv"
+                apt-get update -qq && apt-get install -y -qq "$VENV_PKG" && \
+                print_success "$VENV_PKG 已安装" || \
+                { print_error "自动安装失败，请手动运行: sudo apt install $VENV_PKG"; exit 1; }
             elif check_command yum; then
                 yum install -y python3-virtualenv && \
                 print_success "python3-virtualenv 已安装" || \
@@ -273,18 +339,20 @@ main() {
         
         if [ ! -d "venv" ]; then
             # 尝试创建虚拟环境，如果失败则尝试安装依赖后重试
-            if ! python3 -m venv venv 2>/dev/null; then
+            if ! $PYTHON_CMD -m venv venv 2>/dev/null; then
                 print_warning "虚拟环境创建失败，正在尝试安装依赖..."
                 
-                # 尝试安装 python3-venv
+                # 尝试安装 python3-venv（使用正确的版本）
                 if check_command apt-get; then
-                    apt-get update -qq && apt-get install -y -qq python3-venv python3-pip 2>/dev/null || true
+                    VENV_PKG="python3.11-venv"
+                    [ "$PYTHON_CMD" = "python3" ] && VENV_PKG="python3-venv"
+                    apt-get update -qq && apt-get install -y -qq "$VENV_PKG" python3-pip 2>/dev/null || true
                 elif check_command yum; then
                     yum install -y python3-virtualenv python3-pip 2>/dev/null || true
                 fi
                 
                 # 重试创建虚拟环境
-                if ! python3 -m venv venv; then
+                if ! $PYTHON_CMD -m venv venv; then
                     print_error "无法创建虚拟环境！"
                     print_info "请手动运行以下命令安装依赖："
                     print_info "  Ubuntu/Debian: sudo apt install python3-venv python3-pip"
