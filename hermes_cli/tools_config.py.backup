@@ -47,6 +47,26 @@ from hermes_cli.cli_output import (  # noqa: E402 — late import block
 # Each entry: (toolset_name, label, description)
 # These map to keys in toolsets.py TOOLSETS dict.
 CONFIGURABLE_TOOLSETS = [
+<<<<<<< HEAD
+    ("web",             "🔍 网络搜索与抓取",    "web_search, web_extract"),
+    ("browser",         "🌐 浏览器自动化",       "navigate, click, type, scroll"),
+    ("terminal",        "💻 终端与进程",          "terminal, process"),
+    ("file",            "📁 文件操作",           "read, write, patch, search"),
+    ("code_execution",  "⚡ 代码执行",            "execute_code"),
+    ("vision",          "👁️  视觉/图像分析",      "vision_analyze"),
+    ("image_gen",       "🎨 图像生成",            "image_generate"),
+    ("moa",             "🧠 混合代理",           "mixture_of_agents"),
+    ("tts",             "🔊 文本转语音",          "text_to_speech"),
+    ("skills",          "📚 技能",               "list, view, manage"),
+    ("todo",            "📋 任务规划",            "todo"),
+    ("memory",          "💾 记忆",               "跨会话持久化记忆"),
+    ("session_search",  "🔎 会话搜索",            "搜索历史对话"),
+    ("clarify",         "❓ 澄清问题",            "clarify"),
+    ("delegation",      "👥 任务委派",            "delegate_task"),
+    ("cronjob",         "⏰ 定时任务",            "创建/列表/更新/暂停/恢复/运行，可附加技能"),
+    ("rl",              "🧪 强化学习训练",        "Tinker-Atropos 训练工具"),
+    ("homeassistant",    "🏠 智能家居",           "智能家居设备控制"),
+=======
     ("web",             "🔍 Web Search & Scraping",    "web_search, web_extract"),
     ("browser",         "🌐 Browser Automation",       "navigate, click, type, scroll"),
     ("terminal",        "💻 Terminal & Processes",      "terminal, process"),
@@ -63,8 +83,10 @@ CONFIGURABLE_TOOLSETS = [
     ("clarify",         "❓ Clarifying Questions",      "clarify"),
     ("delegation",      "👥 Task Delegation",           "delegate_task"),
     ("cronjob",         "⏰ Cron Jobs",                 "create/list/update/pause/resume/run, with optional attached skills"),
+    ("messaging",       "📨 Cross-Platform Messaging",  "send_message"),
     ("rl",              "🧪 RL Training",               "Tinker-Atropos training tools"),
     ("homeassistant",    "🏠 Home Assistant",           "smart home device control"),
+>>>>>>> upstream/main
 ]
 
 # Toolsets that are OFF by default for new installs.
@@ -116,12 +138,18 @@ PLATFORMS = {
 
 TOOL_CATEGORIES = {
     "tts": {
-        "name": "Text-to-Speech",
+        "name": "文本转语音",
         "icon": "🔊",
         "providers": [
             {
+<<<<<<< HEAD
+                "name": "Nous 订阅",
+                "tag": "托管的 OpenAI TTS，费用计入您的订阅",
+=======
                 "name": "Nous Subscription",
+                "badge": "subscription",
                 "tag": "Managed OpenAI TTS billed to your subscription",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "tts_provider": "openai",
                 "requires_nous_auth": True,
@@ -129,46 +157,73 @@ TOOL_CATEGORIES = {
                 "override_env_vars": ["VOICE_TOOLS_OPENAI_KEY", "OPENAI_API_KEY"],
             },
             {
+<<<<<<< HEAD
+                "name": "微软 Edge TTS",
+                "tag": "免费 - 无需 API 密钥",
+=======
                 "name": "Microsoft Edge TTS",
-                "tag": "Free - no API key needed",
+                "badge": "★ recommended · free",
+                "tag": "Good quality, no API key needed",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "tts_provider": "edge",
             },
             {
                 "name": "OpenAI TTS",
-                "tag": "Premium - high quality voices",
+<<<<<<< HEAD
+                "tag": "高级 - 高质量语音",
+=======
+                "badge": "paid",
+                "tag": "High quality voices",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "VOICE_TOOLS_OPENAI_KEY", "prompt": "OpenAI API key", "url": "https://platform.openai.com/api-keys"},
+                    {"key": "VOICE_TOOLS_OPENAI_KEY", "prompt": "OpenAI API 密钥", "url": "https://platform.openai.com/api-keys"},
                 ],
                 "tts_provider": "openai",
             },
             {
                 "name": "ElevenLabs",
-                "tag": "Premium - most natural voices",
+<<<<<<< HEAD
+                "tag": "高级 - 最自然的声音",
+=======
+                "badge": "paid",
+                "tag": "Most natural voices",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "ELEVENLABS_API_KEY", "prompt": "ElevenLabs API key", "url": "https://elevenlabs.io/app/settings/api-keys"},
+                    {"key": "ELEVENLABS_API_KEY", "prompt": "ElevenLabs API 密钥", "url": "https://elevenlabs.io/app/settings/api-keys"},
                 ],
                 "tts_provider": "elevenlabs",
             },
             {
                 "name": "Mistral (Voxtral TTS)",
-                "tag": "Multilingual, native Opus, needs MISTRAL_API_KEY",
+<<<<<<< HEAD
+                "tag": "多语言，原生 Opus，需要 MISTRAL_API_KEY",
+=======
+                "badge": "paid",
+                "tag": "Multilingual, native Opus",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "MISTRAL_API_KEY", "prompt": "Mistral API key", "url": "https://console.mistral.ai/"},
+                    {"key": "MISTRAL_API_KEY", "prompt": "Mistral API 密钥", "url": "https://console.mistral.ai/"},
                 ],
                 "tts_provider": "mistral",
             },
         ],
     },
     "web": {
-        "name": "Web Search & Extract",
-        "setup_title": "Select Search Provider",
-        "setup_note": "A free DuckDuckGo search skill is also included — skip this if you don't need a premium provider.",
+        "name": "网络搜索与提取",
+        "setup_title": "选择搜索引擎",
+        "setup_note": "还包含免费的 DuckDuckGo 搜索技能 — 如果不需要高级搜索引擎可以跳过此步骤。",
         "icon": "🔍",
         "providers": [
             {
+<<<<<<< HEAD
+                "name": "Nous 订阅",
+                "tag": "托管的 Firecrawl，费用计入您的订阅",
+=======
                 "name": "Nous Subscription",
+                "badge": "subscription",
                 "tag": "Managed Firecrawl billed to your subscription",
+>>>>>>> upstream/main
                 "web_backend": "firecrawl",
                 "env_vars": [],
                 "requires_nous_auth": True,
@@ -176,54 +231,87 @@ TOOL_CATEGORIES = {
                 "override_env_vars": ["FIRECRAWL_API_KEY", "FIRECRAWL_API_URL"],
             },
             {
+<<<<<<< HEAD
+                "name": "Firecrawl 云服务",
+                "tag": "托管服务 - 搜索、提取和爬取",
+=======
                 "name": "Firecrawl Cloud",
-                "tag": "Hosted service - search, extract, and crawl",
+                "badge": "★ recommended",
+                "tag": "Full-featured search, extract, and crawl",
+>>>>>>> upstream/main
                 "web_backend": "firecrawl",
                 "env_vars": [
-                    {"key": "FIRECRAWL_API_KEY", "prompt": "Firecrawl API key", "url": "https://firecrawl.dev"},
+                    {"key": "FIRECRAWL_API_KEY", "prompt": "Firecrawl API 密钥", "url": "https://firecrawl.dev"},
                 ],
             },
             {
                 "name": "Exa",
-                "tag": "AI-native search and contents",
+<<<<<<< HEAD
+                "tag": "AI 原生搜索和内容获取",
+=======
+                "badge": "paid",
+                "tag": "Neural search with semantic understanding",
+>>>>>>> upstream/main
                 "web_backend": "exa",
                 "env_vars": [
-                    {"key": "EXA_API_KEY", "prompt": "Exa API key", "url": "https://exa.ai"},
+                    {"key": "EXA_API_KEY", "prompt": "Exa API 密钥", "url": "https://exa.ai"},
                 ],
             },
             {
                 "name": "Parallel",
-                "tag": "AI-native search and extract",
+<<<<<<< HEAD
+                "tag": "AI 原生搜索和提取",
+=======
+                "badge": "paid",
+                "tag": "AI-powered search and extract",
+>>>>>>> upstream/main
                 "web_backend": "parallel",
                 "env_vars": [
-                    {"key": "PARALLEL_API_KEY", "prompt": "Parallel API key", "url": "https://parallel.ai"},
+                    {"key": "PARALLEL_API_KEY", "prompt": "Parallel API 密钥", "url": "https://parallel.ai"},
                 ],
             },
             {
                 "name": "Tavily",
-                "tag": "AI-native search, extract, and crawl",
+<<<<<<< HEAD
+                "tag": "AI 搜索、提取和爬取",
+=======
+                "badge": "free tier",
+                "tag": "Search, extract, and crawl — 1000 free searches/mo",
+>>>>>>> upstream/main
                 "web_backend": "tavily",
                 "env_vars": [
-                    {"key": "TAVILY_API_KEY", "prompt": "Tavily API key", "url": "https://app.tavily.com/home"},
+                    {"key": "TAVILY_API_KEY", "prompt": "Tavily API 密钥", "url": "https://app.tavily.com/home"},
                 ],
             },
             {
+<<<<<<< HEAD
+                "name": "Firecrawl 自托管",
+                "tag": "免费 - 运行您自己的实例",
+=======
                 "name": "Firecrawl Self-Hosted",
-                "tag": "Free - run your own instance",
+                "badge": "free · self-hosted",
+                "tag": "Run your own Firecrawl instance (Docker)",
+>>>>>>> upstream/main
                 "web_backend": "firecrawl",
                 "env_vars": [
-                    {"key": "FIRECRAWL_API_URL", "prompt": "Your Firecrawl instance URL (e.g., http://localhost:3002)"},
+                    {"key": "FIRECRAWL_API_URL", "prompt": "您的 Firecrawl 实例地址（例如 http://localhost:3002）"},
                 ],
             },
         ],
     },
     "image_gen": {
-        "name": "Image Generation",
+        "name": "图像生成",
         "icon": "🎨",
         "providers": [
             {
+<<<<<<< HEAD
+                "name": "Nous 订阅",
+                "tag": "托管的 FAL 图像生成，费用计入您的订阅",
+=======
                 "name": "Nous Subscription",
+                "badge": "subscription",
                 "tag": "Managed FAL image generation billed to your subscription",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "requires_nous_auth": True,
                 "managed_nous_feature": "image_gen",
@@ -231,20 +319,31 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "FAL.ai",
+<<<<<<< HEAD
+                "tag": "FLUX 2 Pro，支持自动放大",
+=======
+                "badge": "paid",
                 "tag": "FLUX 2 Pro with auto-upscaling",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "FAL_KEY", "prompt": "FAL API key", "url": "https://fal.ai/dashboard/keys"},
+                    {"key": "FAL_KEY", "prompt": "FAL API 密钥", "url": "https://fal.ai/dashboard/keys"},
                 ],
             },
         ],
     },
     "browser": {
-        "name": "Browser Automation",
+        "name": "浏览器自动化",
         "icon": "🌐",
         "providers": [
             {
+<<<<<<< HEAD
+                "name": "Nous 订阅 (Browser Use 云服务)",
+                "tag": "托管的 Browser Use，费用计入您的订阅",
+=======
                 "name": "Nous Subscription (Browser Use cloud)",
+                "badge": "subscription",
                 "tag": "Managed Browser Use billed to your subscription",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "browser_provider": "browser-use",
                 "requires_nous_auth": True,
@@ -253,45 +352,71 @@ TOOL_CATEGORIES = {
                 "post_setup": "agent_browser",
             },
             {
+<<<<<<< HEAD
+                "name": "本地浏览器",
+                "tag": "免费的无头 Chromium（无需 API 密钥）",
+=======
                 "name": "Local Browser",
-                "tag": "Free headless Chromium (no API key needed)",
+                "badge": "★ recommended · free",
+                "tag": "Headless Chromium, no API key needed",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "browser_provider": "local",
                 "post_setup": "agent_browser",
             },
             {
                 "name": "Browserbase",
-                "tag": "Cloud browser with stealth & proxies",
+<<<<<<< HEAD
+                "tag": "云浏览器，支持隐身和代理",
+=======
+                "badge": "paid",
+                "tag": "Cloud browser with stealth and proxies",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "BROWSERBASE_API_KEY", "prompt": "Browserbase API key", "url": "https://browserbase.com"},
-                    {"key": "BROWSERBASE_PROJECT_ID", "prompt": "Browserbase project ID"},
+                    {"key": "BROWSERBASE_API_KEY", "prompt": "Browserbase API 密钥", "url": "https://browserbase.com"},
+                    {"key": "BROWSERBASE_PROJECT_ID", "prompt": "Browserbase 项目 ID"},
                 ],
                 "browser_provider": "browserbase",
                 "post_setup": "agent_browser",
             },
             {
                 "name": "Browser Use",
+<<<<<<< HEAD
+                "tag": "云浏览器，支持远程执行",
+=======
+                "badge": "paid",
                 "tag": "Cloud browser with remote execution",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "BROWSER_USE_API_KEY", "prompt": "Browser Use API key", "url": "https://browser-use.com"},
+                    {"key": "BROWSER_USE_API_KEY", "prompt": "Browser Use API 密钥", "url": "https://browser-use.com"},
                 ],
                 "browser_provider": "browser-use",
                 "post_setup": "agent_browser",
             },
             {
                 "name": "Firecrawl",
+<<<<<<< HEAD
+                "tag": "云浏览器，支持远程执行",
+=======
+                "badge": "paid",
                 "tag": "Cloud browser with remote execution",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "FIRECRAWL_API_KEY", "prompt": "Firecrawl API key", "url": "https://firecrawl.dev"},
+                    {"key": "FIRECRAWL_API_KEY", "prompt": "Firecrawl API 密钥", "url": "https://firecrawl.dev"},
                 ],
                 "browser_provider": "firecrawl",
                 "post_setup": "agent_browser",
             },
             {
                 "name": "Camofox",
-                "tag": "Local anti-detection browser (Firefox/Camoufox)",
+<<<<<<< HEAD
+                "tag": "本地反检测浏览器（Firefox/Camoufox）",
+=======
+                "badge": "free · local",
+                "tag": "Anti-detection browser (Firefox/Camoufox)",
+>>>>>>> upstream/main
                 "env_vars": [
-                    {"key": "CAMOFOX_URL", "prompt": "Camofox server URL", "default": "http://localhost:9377",
+                    {"key": "CAMOFOX_URL", "prompt": "Camofox 服务器地址", "default": "http://localhost:9377",
                      "url": "https://github.com/jo-inc/camofox-browser"},
                 ],
                 "browser_provider": "camofox",
@@ -300,30 +425,30 @@ TOOL_CATEGORIES = {
         ],
     },
     "homeassistant": {
-        "name": "Smart Home",
+        "name": "智能家居",
         "icon": "🏠",
         "providers": [
             {
                 "name": "Home Assistant",
-                "tag": "REST API integration",
+                "tag": "REST API 集成",
                 "env_vars": [
-                    {"key": "HASS_TOKEN", "prompt": "Home Assistant Long-Lived Access Token"},
-                    {"key": "HASS_URL", "prompt": "Home Assistant URL", "default": "http://homeassistant.local:8123"},
+                    {"key": "HASS_TOKEN", "prompt": "Home Assistant 长期访问令牌"},
+                    {"key": "HASS_URL", "prompt": "Home Assistant 地址", "default": "http://homeassistant.local:8123"},
                 ],
             },
         ],
     },
     "rl": {
-        "name": "RL Training",
+        "name": "强化学习训练",
         "icon": "🧪",
         "requires_python": (3, 11),
         "providers": [
             {
                 "name": "Tinker / Atropos",
-                "tag": "RL training platform",
+                "tag": "RL 训练平台",
                 "env_vars": [
-                    {"key": "TINKER_API_KEY", "prompt": "Tinker API key", "url": "https://tinker-console.thinkingmachines.ai/keys"},
-                    {"key": "WANDB_API_KEY", "prompt": "WandB API key", "url": "https://wandb.ai/authorize"},
+                    {"key": "TINKER_API_KEY", "prompt": "Tinker API 密钥", "url": "https://tinker-console.thinkingmachines.ai/keys"},
+                    {"key": "WANDB_API_KEY", "prompt": "WandB API 密钥", "url": "https://wandb.ai/authorize"},
                 ],
                 "post_setup": "rl_training",
             },
@@ -347,40 +472,47 @@ def _run_post_setup(post_setup_key: str):
     if post_setup_key in ("agent_browser", "browserbase"):
         node_modules = PROJECT_ROOT / "node_modules" / "agent-browser"
         if not node_modules.exists() and shutil.which("npm"):
-            _print_info("    Installing Node.js dependencies for browser tools...")
+            _print_info("    正在安装浏览器工具的 Node.js 依赖...")
             import subprocess
             result = subprocess.run(
                 ["npm", "install", "--silent"],
                 capture_output=True, text=True, cwd=str(PROJECT_ROOT)
             )
             if result.returncode == 0:
-                _print_success("    Node.js dependencies installed")
+                _print_success("    Node.js 依赖安装完成")
             else:
                 from hermes_constants import display_hermes_home
-                _print_warning(f"    npm install failed - run manually: cd {display_hermes_home()}/hermes-agent && npm install")
+                _print_warning(f"    npm 安装失败 - 请手动运行: cd {display_hermes_home()}/hermes-agent && npm install")
         elif not node_modules.exists():
-            _print_warning("    Node.js not found - browser tools require: npm install (in hermes-agent directory)")
+            _print_warning("    未找到 Node.js - 浏览器工具需要: npm install (在 hermes-agent 目录下)")
 
     elif post_setup_key == "camofox":
-        camofox_dir = PROJECT_ROOT / "node_modules" / "@askjo" / "camoufox-browser"
+        camofox_dir = PROJECT_ROOT / "node_modules" / "@askjo" / "camofox-browser"
         if not camofox_dir.exists() and shutil.which("npm"):
-            _print_info("    Installing Camofox browser server...")
+            _print_info("    正在安装 Camofox 浏览器服务器...")
             import subprocess
             result = subprocess.run(
                 ["npm", "install", "--silent"],
                 capture_output=True, text=True, cwd=str(PROJECT_ROOT)
             )
             if result.returncode == 0:
-                _print_success("    Camofox installed")
+                _print_success("    Camofox 安装完成")
             else:
-                _print_warning("    npm install failed - run manually: npm install")
+                _print_warning("    npm 安装失败 - 请手动运行: npm install")
         if camofox_dir.exists():
-            _print_info("    Start the Camofox server:")
+<<<<<<< HEAD
+            _print_info("    启动 Camofox 服务器:")
             _print_info("      npx @askjo/camoufox-browser")
+            _print_info("    首次运行会下载 Camoufox 引擎（约300MB）")
+            _print_info("    或使用 Docker: docker run -p 9377:9377 -e CAMOFOX_PORT=9377 jo-inc/camofox-browser")
+=======
+            _print_info("    Start the Camofox server:")
+            _print_info("      npx @askjo/camofox-browser")
             _print_info("    First run downloads the Camoufox engine (~300MB)")
             _print_info("    Or use Docker: docker run -p 9377:9377 -e CAMOFOX_PORT=9377 jo-inc/camofox-browser")
+>>>>>>> upstream/main
         elif not shutil.which("npm"):
-            _print_warning("    Node.js not found. Install Camofox via Docker:")
+            _print_warning("    未找到 Node.js。请通过 Docker 安装 Camofox:")
             _print_info("      docker run -p 9377:9377 -e CAMOFOX_PORT=9377 jo-inc/camofox-browser")
 
     elif post_setup_key == "rl_training":
@@ -389,7 +521,7 @@ def _run_post_setup(post_setup_key: str):
         except ImportError:
             tinker_dir = PROJECT_ROOT / "tinker-atropos"
             if tinker_dir.exists() and (tinker_dir / "pyproject.toml").exists():
-                _print_info("    Installing tinker-atropos submodule...")
+                _print_info("    正在安装 tinker-atropos 子模块...")
                 import subprocess
                 uv_bin = shutil.which("uv")
                 if uv_bin:
@@ -403,12 +535,12 @@ def _run_post_setup(post_setup_key: str):
                         capture_output=True, text=True
                     )
                 if result.returncode == 0:
-                    _print_success("    tinker-atropos installed")
+                    _print_success("    tinker-atropos 安装完成")
                 else:
-                    _print_warning("    tinker-atropos install failed - run manually:")
+                    _print_warning("    tinker-atropos 安装失败 - 请手动运行:")
                     _print_info('      uv pip install -e "./tinker-atropos"')
             else:
-                _print_warning("    tinker-atropos submodule not found - run:")
+                _print_warning("    未找到 tinker-atropos 子模块 - 请运行:")
                 _print_info("      git submodule update --init --recursive")
                 _print_info('      uv pip install -e "./tinker-atropos"')
 
@@ -715,7 +847,7 @@ def _prompt_toolset_checklist(platform_label: str, enabled: Set[str]) -> Set[str
     for ts_key, ts_label, ts_desc in effective:
         suffix = ""
         if not _toolset_has_keys(ts_key) and (TOOL_CATEGORIES.get(ts_key) or TOOLSET_ENV_REQUIREMENTS.get(ts_key)):
-            suffix = "  [no API key]"
+            suffix = "  [未配置 API 密钥]"
         labels.append(f"{ts_label}  ({ts_desc}){suffix}")
 
     pre_selected = {
@@ -735,11 +867,11 @@ def _prompt_toolset_checklist(platform_label: str, enabled: Set[str]) -> Set[str
                 all_tools.update(resolve_toolset(ts_keys[idx]))
             total = sum(tool_tokens.get(name, 0) for name in all_tools)
             if total >= 1000:
-                return f"Est. tool context: ~{total / 1000:.1f}k tokens"
-            return f"Est. tool context: ~{total} tokens"
+                return f"预估工具上下文: ~{total / 1000:.1f}k tokens"
+        return f"预估工具上下文: ~{total} tokens"
 
     chosen = curses_checklist(
-        f"Tools for {platform_label}",
+        f"{platform_label} 的工具",
         labels,
         pre_selected,
         cancel_returns=pre_selected,
@@ -810,8 +942,8 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
         req = cat["requires_python"]
         if sys.version_info < req:
             print()
-            _print_error(f"  {name} requires Python {req[0]}.{req[1]}+ (current: {sys.version_info.major}.{sys.version_info.minor})")
-            _print_info("  Upgrade Python and reinstall to enable this tool.")
+            _print_error(f"  {name} 需要 Python {req[0]}.{req[1]}+（当前版本: {sys.version_info.major}.{sys.version_info.minor})")
+            _print_info("  请升级 Python 并重新安装以启用此工具。")
             return
 
     if len(providers) == 1:
@@ -828,8 +960,8 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
     else:
         # Multiple providers - let user choose
         print()
-        # Use custom title if provided (e.g. "Select Search Provider")
-        title = cat.get("setup_title", "Choose a provider")
+        # Use custom title if provided (e.g. "选择搜索引擎")
+        title = cat.get("setup_title", "选择提供商")
         print(color(f"  --- {icon} {name} - {title} ---", Colors.CYAN))
         if cat.get("setup_note"):
             _print_info(f"  {cat['setup_note']}")
@@ -838,20 +970,26 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
         # Plain text labels only (no ANSI codes in menu items)
         provider_choices = []
         for p in providers:
-            tag = f" ({p['tag']})" if p.get("tag") else ""
+            badge = f" [{p['badge']}]" if p.get("badge") else ""
+            tag = f" — {p['tag']}" if p.get("tag") else ""
             configured = ""
             env_vars = p.get("env_vars", [])
             if not env_vars or all(get_env_value(v["key"]) for v in env_vars):
                 if _is_provider_active(p, config):
-                    configured = " [active]"
+                    configured = " [已激活]"
                 elif not env_vars:
                     configured = ""
                 else:
-                    configured = " [configured]"
+<<<<<<< HEAD
+                    configured = " [已配置]"
             provider_choices.append(f"{p['name']}{tag}{configured}")
+=======
+                    configured = " [configured]"
+            provider_choices.append(f"{p['name']}{badge}{tag}{configured}")
+>>>>>>> upstream/main
 
         # Add skip option
-        provider_choices.append("Skip — keep defaults / configure later")
+        provider_choices.append("跳过 — 保持默认 / 稍后配置")
 
         # Detect current provider as default
         default_idx = _detect_active_provider_index(providers, config)
@@ -860,7 +998,7 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
 
         # Skip selected
         if provider_idx >= len(providers):
-            _print_info(f"  Skipped {name}")
+            _print_info(f"  已跳过 {name}")
             return
 
         _configure_provider(providers[provider_idx], config)
@@ -920,7 +1058,7 @@ def _configure_provider(provider: dict, config: dict):
     if provider.get("requires_nous_auth"):
         features = get_nous_subscription_features(config)
         if not features.nous_auth_present:
-            _print_warning("  Nous Subscription is only available after logging into Nous Portal.")
+            _print_warning("  Nous 订阅仅在登录 Nous Portal 后可用。")
             return
 
     # Set TTS provider in config if applicable
@@ -932,26 +1070,26 @@ def _configure_provider(provider: dict, config: dict):
         bp = provider["browser_provider"]
         if bp == "local":
             config.setdefault("browser", {})["cloud_provider"] = "local"
-            _print_success("  Browser set to local mode")
+            _print_success("  浏览器已设置为本地模式")
         elif bp:
             config.setdefault("browser", {})["cloud_provider"] = bp
-            _print_success(f"  Browser cloud provider set to: {bp}")
+            _print_success(f"  浏览器云提供商设置为: {bp}")
 
     # Set web search backend in config if applicable
     if provider.get("web_backend"):
         config.setdefault("web", {})["backend"] = provider["web_backend"]
-        _print_success(f"  Web backend set to: {provider['web_backend']}")
+        _print_success(f"  网络后端设置为: {provider['web_backend']}")
 
     if not env_vars:
         if provider.get("post_setup"):
             _run_post_setup(provider["post_setup"])
-        _print_success(f"  {provider['name']} - no configuration needed!")
+        _print_success(f"  {provider['name']} - 无需配置！")
         if managed_feature:
-            _print_info("  Requests for this tool will be billed to your Nous subscription.")
+            _print_info("  此工具的请求将计入您的 Nous 订阅。")
             override_envs = provider.get("override_env_vars", [])
             if any(get_env_value(env_var) for env_var in override_envs):
                 _print_warning(
-                    "  Direct credentials are still configured and may take precedence until you remove them from ~/.hermes/.env."
+                    "  直接配置的凭据仍然存在，可能会优先生效，直到您从 ~/.hermes/.env 中移除它们。"
                 )
         return
 
@@ -960,13 +1098,13 @@ def _configure_provider(provider: dict, config: dict):
     for var in env_vars:
         existing = get_env_value(var["key"])
         if existing:
-            _print_success(f"  {var['key']}: already configured")
+            _print_success(f"  {var['key']}: 已配置")
             # Don't ask to update - this is a new enable flow.
             # Reconfigure is handled separately.
         else:
             url = var.get("url", "")
             if url:
-                _print_info(f"  Get yours at: {url}")
+                _print_info(f"  获取地址: {url}")
 
             default_val = var.get("default", "")
             if default_val:
@@ -976,9 +1114,9 @@ def _configure_provider(provider: dict, config: dict):
 
             if value:
                 save_env_value(var["key"], value)
-                _print_success("    Saved")
+                _print_success("    已保存")
             else:
-                _print_warning("    Skipped")
+                _print_warning("    已跳过")
                 all_configured = False
 
     # Run post-setup hooks if needed
@@ -986,7 +1124,7 @@ def _configure_provider(provider: dict, config: dict):
         _run_post_setup(provider["post_setup"])
 
     if all_configured:
-        _print_success(f"  {provider['name']} configured!")
+        _print_success(f"  {provider['name']} 配置完成！")
 
 
 def _configure_simple_requirements(ts_key: str):
@@ -995,24 +1133,24 @@ def _configure_simple_requirements(ts_key: str):
         if _toolset_has_keys("vision"):
             return
         print()
-        print(color("  Vision / Image Analysis requires a multimodal backend:", Colors.YELLOW))
+        print(color("  视觉/图像分析需要多模态后端:", Colors.YELLOW))
         choices = [
-            "OpenRouter — uses Gemini",
-            "OpenAI-compatible endpoint — base URL, API key, and vision model",
-            "Skip",
+            "OpenAI — 使用 Gemini",
+            "OpenAI 兼容端点 — 基础 URL、API 密钥和视觉模型",
+            "跳过",
         ]
-        idx = _prompt_choice("  Configure vision backend", choices, 2)
+        idx = _prompt_choice("  配置视觉后端", choices, 2)
         if idx == 0:
-            _print_info("  Get key at: https://openrouter.ai/keys")
+            _print_info("  获取密钥地址: https://openrouter.ai/keys")
             value = _prompt("    OPENROUTER_API_KEY", password=True)
             if value and value.strip():
                 save_env_value("OPENROUTER_API_KEY", value.strip())
-                _print_success("    Saved")
+                _print_success("    已保存")
             else:
-                _print_warning("    Skipped")
+                _print_warning("    已跳过")
         elif idx == 1:
-            base_url = _prompt("    OPENAI_BASE_URL (blank for OpenAI)").strip() or "https://api.openai.com/v1"
-            key_label = "    OPENAI_API_KEY" if "api.openai.com" in base_url.lower() else "    API key"
+            base_url = _prompt("    OPENAI_BASE_URL（留空使用 OpenAI）").strip() or "https://api.openai.com/v1"
+            key_label = "    OPENAI_API_KEY" if "api.openai.com" in base_url.lower() else "    API 密钥"
             api_key = _prompt(key_label, password=True)
             if api_key and api_key.strip():
                 save_env_value("OPENAI_API_KEY", api_key.strip())
@@ -1024,9 +1162,9 @@ def _configure_simple_requirements(ts_key: str):
                 save_config(_cfg)
                 if "api.openai.com" in base_url.lower():
                     save_env_value("AUXILIARY_VISION_MODEL", "gpt-4o-mini")
-                _print_success("    Saved")
+                _print_success("    已保存")
             else:
-                _print_warning("    Skipped")
+                _print_warning("    已跳过")
         return
 
     requirements = TOOLSET_ENV_REQUIREMENTS.get(ts_key, [])
@@ -1039,17 +1177,17 @@ def _configure_simple_requirements(ts_key: str):
 
     ts_label = next((l for k, l, _ in _get_effective_configurable_toolsets() if k == ts_key), ts_key)
     print()
-    print(color(f"  {ts_label} requires configuration:", Colors.YELLOW))
+    print(color(f"  {ts_label} 需要配置:", Colors.YELLOW))
 
     for var, url in missing:
         if url:
-            _print_info(f"  Get key at: {url}")
+            _print_info(f"  获取密钥地址: {url}")
         value = _prompt(f"    {var}", password=True)
         if value and value.strip():
             save_env_value(var, value.strip())
-            _print_success("    Saved")
+            _print_success("    已保存")
         else:
-            _print_warning("    Skipped")
+            _print_warning("    已跳过")
 
 
 def _reconfigure_tool(config: dict):
@@ -1064,13 +1202,13 @@ def _reconfigure_tool(config: dict):
                 configurable.append((ts_key, ts_label))
 
     if not configurable:
-        _print_info("No configured tools to reconfigure.")
+        _print_info("没有可重新配置的工具。")
         return
 
     choices = [label for _, label in configurable]
-    choices.append("Cancel")
+    choices.append("取消")
 
-    idx = _prompt_choice("  Which tool would you like to reconfigure?", choices, len(choices) - 1)
+    idx = _prompt_choice("  您想重新配置哪个工具？", choices, len(choices) - 1)
 
     if idx >= len(configurable):
         return  # Cancel
@@ -1099,12 +1237,13 @@ def _configure_tool_category_for_reconfig(ts_key: str, cat: dict, config: dict):
         _reconfigure_provider(provider, config)
     else:
         print()
-        print(color(f"  --- {icon} {name} - Choose a provider ---", Colors.CYAN))
+        print(color(f"  --- {icon} {name} - 选择提供商 ---", Colors.CYAN))
         print()
 
         provider_choices = []
         for p in providers:
-            tag = f" ({p['tag']})" if p.get("tag") else ""
+            badge = f" [{p['badge']}]" if p.get("badge") else ""
+            tag = f" — {p['tag']}" if p.get("tag") else ""
             configured = ""
             env_vars = p.get("env_vars", [])
             if not env_vars or all(get_env_value(v["key"]) for v in env_vars):
@@ -1114,7 +1253,7 @@ def _configure_tool_category_for_reconfig(ts_key: str, cat: dict, config: dict):
                     configured = ""
                 else:
                     configured = " [configured]"
-            provider_choices.append(f"{p['name']}{tag}{configured}")
+            provider_choices.append(f"{p['name']}{badge}{tag}{configured}")
 
         default_idx = _detect_active_provider_index(providers, config)
 
@@ -1130,54 +1269,54 @@ def _reconfigure_provider(provider: dict, config: dict):
     if provider.get("requires_nous_auth"):
         features = get_nous_subscription_features(config)
         if not features.nous_auth_present:
-            _print_warning("  Nous Subscription is only available after logging into Nous Portal.")
+            _print_warning("  Nous 订阅仅在登录 Nous Portal 后可用。")
             return
 
     if provider.get("tts_provider"):
         config.setdefault("tts", {})["provider"] = provider["tts_provider"]
-        _print_success(f"  TTS provider set to: {provider['tts_provider']}")
+        _print_success(f"  TTS 提供商设置为: {provider['tts_provider']}")
 
     if "browser_provider" in provider:
         bp = provider["browser_provider"]
         if bp == "local":
             config.setdefault("browser", {})["cloud_provider"] = "local"
-            _print_success("  Browser set to local mode")
+            _print_success("  浏览器已设置为本地模式")
         elif bp:
             config.setdefault("browser", {})["cloud_provider"] = bp
-            _print_success(f"  Browser cloud provider set to: {bp}")
+            _print_success(f"  浏览器云提供商设置为: {bp}")
 
     # Set web search backend in config if applicable
     if provider.get("web_backend"):
         config.setdefault("web", {})["backend"] = provider["web_backend"]
-        _print_success(f"  Web backend set to: {provider['web_backend']}")
+        _print_success(f"  网络后端设置为: {provider['web_backend']}")
 
     if not env_vars:
         if provider.get("post_setup"):
             _run_post_setup(provider["post_setup"])
-        _print_success(f"  {provider['name']} - no configuration needed!")
+        _print_success(f"  {provider['name']} - 无需配置！")
         if managed_feature:
-            _print_info("  Requests for this tool will be billed to your Nous subscription.")
+            _print_info("  此工具的请求将计入您的 Nous 订阅。")
             override_envs = provider.get("override_env_vars", [])
             if any(get_env_value(env_var) for env_var in override_envs):
                 _print_warning(
-                    "  Direct credentials are still configured and may take precedence until you remove them from ~/.hermes/.env."
+                    "  直接配置的凭据仍然存在，可能会优先生效，直到您从 ~/.hermes/.env 中移除它们。"
                 )
         return
 
     for var in env_vars:
         existing = get_env_value(var["key"])
         if existing:
-            _print_info(f"  {var['key']}: configured ({existing[:8]}...)")
+            _print_info(f"  {var['key']}: 已配置（{existing[:8]}...）")
         url = var.get("url", "")
         if url:
-            _print_info(f"  Get yours at: {url}")
+            _print_info(f"  获取地址: {url}")
         default_val = var.get("default", "")
-        value = _prompt(f"    {var.get('prompt', var['key'])} (Enter to keep current)", password=not default_val)
+        value = _prompt(f"    {var.get('prompt', var['key'])} (回车保持当前值)", password=not default_val)
         if value and value.strip():
             save_env_value(var["key"], value.strip())
-            _print_success("    Updated")
+            _print_success("    已更新")
         else:
-            _print_info("    Kept current")
+            _print_info("    保持当前值")
 
 
 def _reconfigure_simple_requirements(ts_key: str):
@@ -1193,15 +1332,15 @@ def _reconfigure_simple_requirements(ts_key: str):
     for var, url in requirements:
         existing = get_env_value(var)
         if existing:
-            _print_info(f"  {var}: configured ({existing[:8]}...)")
+            _print_info(f"  {var}: 已配置（{existing[:8]}...）")
         if url:
-            _print_info(f"  Get key at: {url}")
-        value = _prompt(f"    {var} (Enter to keep current)", password=True)
+            _print_info(f"  获取密钥地址: {url}")
+        value = _prompt(f"    {var} (回车保持当前值)", password=True)
         if value and value.strip():
             save_env_value(var, value.strip())
-            _print_success("    Updated")
+            _print_success("    已更新")
         else:
-            _print_info("    Kept current")
+            _print_info("    保持当前值")
 
 
 # ─── Main Entry Point ─────────────────────────────────────────────────────────
@@ -1226,7 +1365,7 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
     # Non-interactive summary mode for CLI usage
     if getattr(args, "summary", False):
         total = len(_get_effective_configurable_toolsets())
-        print(color("⚕ Tool Summary", Colors.CYAN, Colors.BOLD))
+        print(color("⚕ 工具概览", Colors.CYAN, Colors.BOLD))
         print()
         summary = _platform_toolset_summary(config, enabled_platforms)
         for pkey in enabled_platforms:
@@ -1242,10 +1381,10 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
                 print(color("    (none enabled)", Colors.DIM))
         print()
         return
-    print(color("⚕ Hermes Tool Configuration", Colors.CYAN, Colors.BOLD))
-    print(color("  Enable or disable tools per platform.", Colors.DIM))
-    print(color("  Tools that need API keys will be configured when enabled.", Colors.DIM))
-    print(color("  Guide: https://hermes-agent.nousresearch.com/docs/user-guide/features/tools", Colors.DIM))
+    print(color("⚕ Hermes 工具配置", Colors.CYAN, Colors.BOLD))
+    print(color("  按平台启用或禁用工具。", Colors.DIM))
+    print(color("  需要 API 密钥的工具将在启用时进行配置。", Colors.DIM))
+    print(color("  使用指南: https://hermes-agent.nousresearch.com/docs/user-guide/features/tools", Colors.DIM))
     print()
 
     # ── First-time install: linear flow, no platform menu ──
@@ -1278,7 +1417,7 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
             if managed_nous_tools_enabled():
                 for ts_key in sorted(auto_configured):
                     label = next((l for k, l, _ in CONFIGURABLE_TOOLSETS if k == ts_key), ts_key)
-                    print(color(f"  ✓ {label}: using your Nous subscription defaults", Colors.GREEN))
+                    print(color(f"  ✓ {label}: 使用您的 Nous 订阅默认设置", Colors.GREEN))
 
             # Walk through ALL selected tools that have provider options or
             # need API keys.  This ensures browser (Local vs Browserbase),
@@ -1292,11 +1431,11 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
 
             if to_configure:
                 print()
-                print(color(f"  Configuring {len(to_configure)} tool(s):", Colors.YELLOW))
+                print(color(f"  正在配置 {len(to_configure)} 个工具:", Colors.YELLOW))
                 for ts_key in to_configure:
                     label = next((l for k, l, _ in _get_effective_configurable_toolsets() if k == ts_key), ts_key)
                     print(color(f"    • {label}", Colors.DIM))
-                print(color("  You can skip any tool you don't need right now.", Colors.DIM))
+                print(color("  您可以跳过暂时不需要的工具。", Colors.DIM))
                 print()
                 for ts_key in to_configure:
                     _configure_toolset(ts_key, config)
@@ -1317,12 +1456,12 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
         current = _get_platform_tools(config, pkey, include_default_mcp_servers=False)
         count = len(current)
         total = len(_get_effective_configurable_toolsets())
-        platform_choices.append(f"Configure {pinfo['label']}  ({count}/{total} enabled)")
+        platform_choices.append(f"配置 {pinfo['label']}  ({count}/{total} 已启用)")
         platform_keys.append(pkey)
 
     if len(platform_keys) > 1:
-        platform_choices.append("Configure all platforms (global)")
-    platform_choices.append("Reconfigure an existing tool's provider or API key")
+        platform_choices.append("配置所有平台（全局）")
+    platform_choices.append("重新配置现有工具的提供商或 API 密钥")
 
     # Show MCP option if any MCP servers are configured
     _has_mcp = bool(config.get("mcp_servers"))
@@ -1338,7 +1477,7 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
     _done_idx = _reconfig_idx + (2 if _has_mcp else 1)
 
     while True:
-        idx = _prompt_choice("Select an option:", platform_choices, default=0)
+        idx = _prompt_choice("选择一个选项:", platform_choices, default=0)
 
         # "Done" selected
         if idx == _done_idx:
@@ -1425,21 +1564,21 @@ def tools_command(args=None, first_install: bool = False, config: dict = None):
 
             _save_platform_tools(config, pkey, new_enabled)
             save_config(config)
-            print(color(f"  ✓ Saved {pinfo['label']} configuration", Colors.GREEN))
+            print(color(f"  ✓ 已保存 {pinfo['label']} 配置", Colors.GREEN))
         else:
-            print(color(f"  No changes to {pinfo['label']}", Colors.DIM))
+            print(color(f"  {pinfo['label']} 无更改", Colors.DIM))
 
         print()
 
         # Update the choice label with new count
         new_count = len(_get_platform_tools(config, pkey, include_default_mcp_servers=False))
         total = len(_get_effective_configurable_toolsets())
-        platform_choices[idx] = f"Configure {pinfo['label']}  ({new_count}/{total} enabled)"
+        platform_choices[idx] = f"配置 {pinfo['label']}  ({new_count}/{total} 已启用)"
 
     print()
     from hermes_constants import display_hermes_home
-    print(color(f"  Tool configuration saved to {display_hermes_home()}/config.yaml", Colors.DIM))
-    print(color("  Changes take effect on next 'hermes' or gateway restart.", Colors.DIM))
+    print(color(f"  工具配置已保存到 {display_hermes_home()}/config.yaml", Colors.DIM))
+    print(color("  更改将在下次启动 'hermes' 或网关重启后生效。", Colors.DIM))
     print()
 
 
@@ -1470,36 +1609,36 @@ def _configure_mcp_tools_interactive(config: dict):
         return
 
     print()
-    print(color("  Discovering tools from MCP servers...", Colors.YELLOW))
-    print(color(f"  Connecting to {len(enabled_names)} server(s): {', '.join(enabled_names)}", Colors.DIM))
+    print(color("  正在从 MCP 服务器发现工具...", Colors.YELLOW))
+    print(color(f"  正在连接到 {len(enabled_names)} 个服务器: {', '.join(enabled_names)}", Colors.DIM))
 
     try:
         from tools.mcp_tool import probe_mcp_server_tools
         server_tools = probe_mcp_server_tools()
     except Exception as exc:
-        _print_error(f"Failed to probe MCP servers: {exc}")
+        _print_error(f"探测 MCP 服务器失败: {exc}")
         return
 
     if not server_tools:
-        _print_warning("Could not discover tools from any MCP server.")
-        _print_info("Check that server commands/URLs are correct and dependencies are installed.")
+        _print_warning("未能从任何 MCP 服务器发现工具。")
+        _print_info("请检查服务器命令/地址是否正确以及依赖是否已安装。")
         return
 
     # Report discovery results
     failed = [n for n in enabled_names if n not in server_tools]
     if failed:
         for name in failed:
-            _print_warning(f"  Could not connect to '{name}'")
+            _print_warning(f"  无法连接到 '{name}'")
 
     total_tools = sum(len(tools) for tools in server_tools.values())
-    print(color(f"  Found {total_tools} tool(s) across {len(server_tools)} server(s)", Colors.GREEN))
+    print(color(f"  在 {len(server_tools)} 个服务器上发现 {total_tools} 个工具", Colors.GREEN))
     print()
 
     any_changes = False
 
     for server_name, tools in server_tools.items():
         if not tools:
-            _print_info(f"  {server_name}: no tools found")
+            _print_info(f"  {server_name}: 未发现任何工具")
             continue
 
         srv_cfg = mcp_servers.get(server_name, {})
@@ -1569,9 +1708,9 @@ def _configure_mcp_tools_interactive(config: dict):
     if any_changes:
         save_config(config)
         print()
-        print(color("  ✓ MCP tool configuration saved", Colors.GREEN))
+        print(color("  ✓ MCP 工具配置已保存", Colors.GREEN))
     else:
-        print(color("  No changes to MCP tools", Colors.DIM))
+        print(color("  MCP 工具无更改", Colors.DIM))
 
 
 # ─── Non-interactive disable/enable ──────────────────────────────────────────
@@ -1617,37 +1756,37 @@ def _print_tools_list(enabled_toolsets: set, mcp_servers: dict, platform: str = 
     effective = _get_effective_configurable_toolsets()
     builtin_keys = {ts_key for ts_key, _, _ in CONFIGURABLE_TOOLSETS}
 
-    print(f"Built-in toolsets ({platform}):")
+    print(f"内置工具集 ({platform}):")
     for ts_key, label, _ in effective:
         if ts_key not in builtin_keys:
             continue
-        status = (color("✓ enabled", Colors.GREEN) if ts_key in enabled_toolsets
-                  else color("✗ disabled", Colors.RED))
+        status = (color("✓ 已启用", Colors.GREEN) if ts_key in enabled_toolsets
+                  else color("✗ 已禁用", Colors.RED))
         print(f"  {status}  {ts_key}  {color(label, Colors.DIM)}")
 
     # Plugin toolsets
     plugin_entries = [(k, l) for k, l, _ in effective if k not in builtin_keys]
     if plugin_entries:
         print()
-        print(f"Plugin toolsets ({platform}):")
+        print(f"插件工具集 ({platform}):")
         for ts_key, label in plugin_entries:
-            status = (color("✓ enabled", Colors.GREEN) if ts_key in enabled_toolsets
-                      else color("✗ disabled", Colors.RED))
+            status = (color("✓ 已启用", Colors.GREEN) if ts_key in enabled_toolsets
+                      else color("✗ 已禁用", Colors.RED))
             print(f"  {status}  {ts_key}  {color(label, Colors.DIM)}")
 
     if mcp_servers:
         print()
-        print("MCP servers:")
+        print("MCP 服务器:")
         for srv_name, srv_cfg in mcp_servers.items():
             tools_cfg = srv_cfg.get("tools") or {}
             exclude = tools_cfg.get("exclude") or []
             include = tools_cfg.get("include") or []
             if include:
-                _print_info(f"{srv_name}  [include only: {', '.join(include)}]")
+                _print_info(f"{srv_name}  [仅包含: {', '.join(include)}]")
             elif exclude:
-                _print_info(f"{srv_name}  [excluded: {color(', '.join(exclude), Colors.YELLOW)}]")
+                _print_info(f"{srv_name}  [已排除: {color(', '.join(exclude), Colors.YELLOW)}]")
             else:
-                _print_info(f"{srv_name}  {color('all tools enabled', Colors.DIM)}")
+                _print_info(f"{srv_name}  {color('所有工具已启用', Colors.DIM)}")
 
 
 def tools_disable_enable_command(args):
@@ -1661,7 +1800,7 @@ def tools_disable_enable_command(args):
     config = load_config()
 
     if platform not in PLATFORMS:
-        _print_error(f"Unknown platform '{platform}'. Valid: {', '.join(PLATFORMS)}")
+        _print_error(f"未知平台 '{platform}'。有效值: {', '.join(PLATFORMS)}")
         return
 
     if action == "list":
@@ -1696,5 +1835,5 @@ def tools_disable_enable_command(args):
         if t not in unknown_toolsets and (":" not in t or t.split(":")[0] not in failed_servers)
     ]
     if successful:
-        verb = "Disabled" if action == "disable" else "Enabled"
+        verb = "已禁用" if action == "disable" else "已启用"
         _print_success(f"{verb}: {', '.join(successful)}")

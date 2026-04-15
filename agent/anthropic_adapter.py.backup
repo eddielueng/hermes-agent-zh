@@ -652,11 +652,11 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
     auth_url = f"https://claude.ai/oauth/authorize?{urlencode(params)}"
 
     print()
-    print("Authorize Hermes with your Claude Pro/Max subscription.")
+    print("使用您的 Claude Pro/Max 订阅授权 Hermes。")
     print()
-    print("╭─ Claude Pro/Max Authorization ────────────────────╮")
+    print("╭─ Claude Pro/Max 授权 ────────────────────╮")
     print("│                                                   │")
-    print("│  Open this link in your browser:                  │")
+    print("│  在浏览器中打开此链接:                          │")
     print("╰───────────────────────────────────────────────────╯")
     print()
     print(f"  {auth_url}")
@@ -664,20 +664,20 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
 
     try:
         webbrowser.open(auth_url)
-        print("  (Browser opened automatically)")
+        print("  （浏览器已自动打开）")
     except Exception:
         pass
 
     print()
-    print("After authorizing, you'll see a code. Paste it below.")
+    print("授权后，您会看到一个代码。请在下方粘贴该代码。")
     print()
     try:
-        auth_code = input("Authorization code: ").strip()
+        auth_code = input("授权代码: ").strip()
     except (KeyboardInterrupt, EOFError):
         return None
 
     if not auth_code:
-        print("No code entered.")
+        print("未输入代码。")
         return None
 
     splits = auth_code.split("#")
@@ -709,7 +709,7 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
         with urllib.request.urlopen(req, timeout=15) as resp:
             result = json.loads(resp.read().decode())
     except Exception as e:
-        print(f"Token exchange failed: {e}")
+        print(f"令牌交换失败: {e}")
         return None
 
     access_token = result.get("access_token", "")
@@ -717,7 +717,7 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
     expires_in = result.get("expires_in", 3600)
 
     if not access_token:
-        print("No access token in response.")
+        print("响应中未包含访问令牌。")
         return None
 
     expires_at_ms = int(time.time() * 1000) + (expires_in * 1000)
