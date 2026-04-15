@@ -587,8 +587,8 @@ if __name__ == "__main__":
         import fal_client
         print("✅ fal_client library available")
     except ImportError:
-        print("❌ fal_client library not found")
-        print("Please install: pip install fal-client")
+        print("❌ 未找到 fal_client 库")
+        print("请安装: pip install fal-client")
         exit(1)
     
     print("🛠️ Image generation tools ready for use!")
