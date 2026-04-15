@@ -70,6 +70,17 @@ def _codex_curated_models() -> list[str]:
 
 
 _PROVIDER_MODELS: dict[str, list[str]] = {
+    "xidao": [
+        "claude-opus-4-6",
+        "claude-sonnet-4-6",
+        "gpt-5.4",
+        "glm-5.1",
+        "glm-5",
+        "qwen3.6-plus",
+        "deepseek-chat",
+        "gpt-4o",
+        "claude-opus-4-5",
+    ],
     "nous": [
         "xiaomi/mimo-v2-pro",
         "anthropic/claude-opus-4.6",
@@ -510,6 +521,7 @@ class ProviderEntry(NamedTuple):
 
 
 CANONICAL_PROVIDERS: list[ProviderEntry] = [
+    ProviderEntry("xidao",          "XiDao Api",                "XiDao Api ⭐ (Claude、GPT、GLM、Qwen等主流模型 — 首选推荐)"),
     ProviderEntry("nous",           "Nous Portal",              "Nous Portal (Nous Research subscription)"),
     ProviderEntry("openrouter",     "OpenRouter",               "OpenRouter (100+ models, pay-per-use)"),
     ProviderEntry("anthropic",      "Anthropic",                "Anthropic (Claude models — API key or Claude Code)"),
