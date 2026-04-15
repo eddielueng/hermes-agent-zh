@@ -1053,8 +1053,8 @@ def systemd_install(force: bool = False, system: bool = False, run_as_user: str 
             _run_systemctl(["enable", get_service_name()], system=system, check=True, timeout=30)
             print(f"✓ {_service_scope_label(system).capitalize()} service definition updated")
             return
-        print(f"Service already installed at: {unit_path}")
-        print("Use --force to reinstall")
+        print(f"服务已安装在: {unit_path}")
+        print("使用 --force 重新安装")
         return
 
     unit_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1349,8 +1349,8 @@ def launchd_install(force: bool = False):
             refresh_launchd_plist_if_needed()
             print("✓ Service definition updated")
             return
-        print(f"Service already installed at: {plist_path}")
-        print("Use --force to reinstall")
+        print(f"服务已安装在: {plist_path}")
+        print("使用 --force 重新安装")
         return
     
     plist_path.parent.mkdir(parents=True, exist_ok=True)
@@ -2803,39 +2803,39 @@ def gateway_command(args):
         system = getattr(args, 'system', False)
         run_as_user = getattr(args, 'run_as_user', None)
         if is_termux():
-            print("Gateway service installation is not supported on Termux.")
-            print("Run manually: hermes gateway")
+            print("Termux 不支持网关服务安装。")
+            print("请手动运行: hermes gateway")
             sys.exit(1)
         if supports_systemd_services():
             if is_wsl():
-                print_warning("WSL detected — systemd services may not survive WSL restarts.")
-                print_info("  Consider running in foreground instead: hermes gateway run")
-                print_info("  Or use tmux/screen for persistence: tmux new -s hermes 'hermes gateway run'")
+                print_warning("检测到 WSL — systemd 服务可能无法在 WSL 重启后保留。")
+                print_info("  建议改为在前台运行: hermes gateway run")
+                print_info("  或使用 tmux/screen 保持持久化: tmux new -s hermes 'hermes gateway run'")
                 print()
             systemd_install(force=force, system=system, run_as_user=run_as_user)
         elif is_macos():
             launchd_install(force)
         elif is_wsl():
-            print("WSL detected but systemd is not running.")
-            print("Either enable systemd (add systemd=true to /etc/wsl.conf and restart WSL)")
-            print("or run the gateway in foreground mode:")
+            print("检测到 WSL 但 systemd 未运行。")
+            print("请启用 systemd（在 /etc/wsl.conf 中添加 systemd=true 并重启 WSL）")
+            print("或以前台模式运行网关:")
             print()
-            print("  hermes gateway run                              # direct foreground")
-            print("  tmux new -s hermes 'hermes gateway run'         # persistent via tmux")
-            print("  nohup hermes gateway run > ~/.hermes/logs/gateway.log 2>&1 &  # background")
+            print("  hermes gateway run                              # 直接前台运行")
+            print("  tmux new -s hermes 'hermes gateway run'         # 通过 tmux 持久化")
+            print("  nohup hermes gateway run > ~/.hermes/logs/gateway.log 2>&1 &  # 后台运行")
             sys.exit(1)
         elif is_container():
-            print("Service installation is not needed inside a Docker container.")
-            print("The container runtime is your service manager — use Docker restart policies instead:")
+            print("Docker 容器内不需要安装服务。")
+            print("容器运行时就是您的服务管理器 — 请改用 Docker 重启策略:")
             print()
-            print("  docker run --restart unless-stopped ...   # auto-restart on crash/reboot")
-            print("  docker restart <container>                # manual restart")
+            print("  docker run --restart unless-stopped ...   # 崩溃/重启时自动重启")
+            print("  docker restart <container>                # 手动重启")
             print()
-            print("To run the gateway: hermes gateway run")
+            print("运行网关: hermes gateway run")
             sys.exit(0)
         else:
-            print("Service installation not supported on this platform.")
-            print("Run manually: hermes gateway run")
+            print("此平台不支持服务安装。")
+            print("请手动运行: hermes gateway run")
             sys.exit(1)
     
     elif subcmd == "uninstall":
@@ -2844,8 +2844,8 @@ def gateway_command(args):
             return
         system = getattr(args, 'system', False)
         if is_termux():
-            print("Gateway service uninstall is not supported on Termux because there is no managed service to remove.")
-            print("Stop manual runs with: hermes gateway stop")
+            print("Termux 不支持网关服务卸载，因为没有可管理的服务需要移除。")
+            print("停止手动运行的进程: hermes gateway stop")
             sys.exit(1)
         if supports_systemd_services():
             systemd_uninstall(system=system)

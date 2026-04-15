@@ -2164,8 +2164,8 @@ def _model_flow_copilot(config, current_model=""):
     else:
         model_list = _PROVIDER_MODELS.get(provider_id, [])
         if model_list:
-            print("  ⚠ Could not auto-detect models from GitHub Copilot — showing defaults.")
-            print('    Use "Enter custom model name" if you do not see your model.')
+            print("  ⚠ 无法从 GitHub Copilot 自动检测模型 — 显示默认列表。")
+            print('    如果没有看到您的模型，请使用"输入自定义模型名称"。')
 
     if model_list:
         selected = _prompt_model_selection(model_list, current_model=normalized_current_model)
@@ -2286,8 +2286,8 @@ def _model_flow_copilot_acp(config, current_model=""):
     else:
         model_list = _PROVIDER_MODELS.get("copilot", [])
         if model_list:
-            print("  ⚠ Could not auto-detect models from GitHub Copilot — showing defaults.")
-            print('    Use "Enter custom model name" if you do not see your model.')
+            print("  ⚠ 无法从 GitHub Copilot 自动检测模型 — 显示默认列表。")
+            print('    如果没有看到您的模型，请使用"输入自定义模型名称"。')
 
     if model_list:
         selected = _prompt_model_selection(

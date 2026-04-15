@@ -440,7 +440,7 @@ def build_welcome_banner(console: Console, model: str, cwd: str,
         right_lines.append(f"[dim {dim}]{toolset}:[/] {tools_str}")
 
     if remaining_toolsets > 0:
-        right_lines.append(f"[dim {dim}](and {remaining_toolsets} more toolsets...)[/]")
+        right_lines.append(f"[dim {dim}](还有 {remaining_toolsets} 个工具集...)[/]")
 
     # MCP Servers section (only if configured)
     try:
@@ -451,17 +451,17 @@ def build_welcome_banner(console: Console, model: str, cwd: str,
 
     if mcp_status:
         right_lines.append("")
-        right_lines.append(f"[bold {accent}]MCP Servers[/]")
+        right_lines.append(f"[bold {accent}]MCP 服务器[/]")
         for srv in mcp_status:
             if srv["connected"]:
                 right_lines.append(
                     f"[dim {dim}]{srv['name']}[/] [{text}]({srv['transport']})[/] "
-                    f"[dim {dim}]—[/] [{text}]{srv['tools']} tool(s)[/]"
+                    f"[dim {dim}]—[/] [{text}]{srv['tools']} 个工具[/]"
                 )
             else:
                 right_lines.append(
                     f"[red]{srv['name']}[/] [dim]({srv['transport']})[/] "
-                    f"[red]— failed[/]"
+                    f"[red]— 连接失败[/]"
                 )
 
     right_lines.append("")
@@ -481,14 +481,14 @@ def build_welcome_banner(console: Console, model: str, cwd: str,
                 skills_str = skills_str[:47] + "..."
             right_lines.append(f"[dim {dim}]{category}:[/] [{text}]{skills_str}[/]")
     else:
-        right_lines.append(f"[dim {dim}]No skills installed[/]")
+        right_lines.append(f"[dim {dim}]未安装任何技能[/]")
 
     right_lines.append("")
     mcp_connected = sum(1 for s in mcp_status if s["connected"]) if mcp_status else 0
-    summary_parts = [f"{len(tools)} tools", f"{total_skills} skills"]
+    summary_parts = [f"{len(tools)} 个工具", f"{total_skills} 个技能"]
     if mcp_connected:
-        summary_parts.append(f"{mcp_connected} MCP servers")
-    summary_parts.append("/help for commands")
+        summary_parts.append(f"{mcp_connected} 个 MCP 服务器")
+    summary_parts.append("输入 /help 查看命令")
     # Show active profile name when not 'default'
     try:
         from hermes_cli.profiles import get_active_profile_name
@@ -505,10 +505,10 @@ def build_welcome_banner(console: Console, model: str, cwd: str,
         behind = get_update_result(timeout=0.5)
         if behind and behind > 0:
             from hermes_cli.config import recommended_update_command
-            commits_word = "commit" if behind == 1 else "commits"
+            commits_word = "个提交" if behind == 1 else "个提交"
             right_lines.append(
-                f"[bold yellow]⚠ {behind} {commits_word} behind[/]"
-                f"[dim yellow] — run [bold]{recommended_update_command()}[/bold] to update[/]"
+                f"[bold yellow]⚠ 落后 {behind} {commits_word}[/]"
+                f"[dim yellow] — 运行 [bold]{recommended_update_command()}[/bold] 进行更新[/]"
             )
     except Exception:
         pass  # Never break the banner over an update check
