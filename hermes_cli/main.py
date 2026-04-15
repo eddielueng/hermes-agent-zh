@@ -1617,15 +1617,11 @@ def _model_flow_custom(config):
         else:
             model_name = input("模型名称 (例如 gpt-4, llama-3-70b): ").strip()
 
-<<<<<<< HEAD
         context_length_str = input("上下文长度（令牌数）[留空自动检测]: ").strip()
-=======
-        context_length_str = input("Context length in tokens [leave blank for auto-detect]: ").strip()
 
         # Prompt for a display name — shown in the provider menu on future runs
         default_name = _auto_provider_name(effective_url)
-        display_name = input(f"Display name [{default_name}]: ").strip() or default_name
->>>>>>> upstream/main
+        display_name = input(f"显示名称 [{default_name}]: ").strip() or default_name
     except (KeyboardInterrupt, EOFError):
         print("\n已取消。")
         return
