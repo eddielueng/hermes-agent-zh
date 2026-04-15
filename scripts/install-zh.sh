@@ -245,14 +245,19 @@ create_venv() {
     print_step "创建 Python 虚拟环境..."
     
     if [ -d "venv" ]; then
-        print_warning "发现已有的虚拟环境，是否删除并重新创建？(y/N)"
-        read -r response
-        if [[ "$response" =~ ^[Yy]$ ]]; then
-            rm -rf venv
-            print_info "旧虚拟环境已删除"
+        # 检测是否为非交互模式
+        if [ ! -t 0 ]; then
+            print_info "发现已有的虚拟环境，非交互模式下保留现有环境"
         else
-            print_info "保留现有虚拟环境"
-            return
+            print_warning "发现已有的虚拟环境，是否删除并重新创建？(y/N)"
+            read -r response
+            if [[ "$response" =~ ^[Yy]$ ]]; then
+                rm -rf venv
+                print_info "旧虚拟环境已删除"
+            else
+                print_info "保留现有虚拟环境"
+                return
+            fi
         fi
     fi
     
@@ -354,18 +359,32 @@ show_completion() {
     
     # 如果用户选择运行设置向导
     if [ "$RUN_SETUP" = true ]; then
-        echo -e "${YELLOW}是否现在启动设置向导？(Y/n)${NC}"
-        read -r start_setup
-        if [[ ! "$start_setup" =~ ^[Nn]$ ]]; then
+        # 检测是否为非交互模式（curl | bash）
+        if [ ! -t 0 ]; then
             echo ""
-            echo -e "${BOLD}正在启动 Hermes Agent...${NC}"
+            echo -e "${BOLD}🚀 检测到非交互模式，自动启动 Hermes Agent...${NC}"
             echo ""
             
             if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
                 source venv/bin/activate
             fi
             
-            hermes setup
+            # 直接启动 hermes（进入交互模式）
+            exec hermes
+        else
+            echo -e "${YELLOW}是否现在启动设置向导？(Y/n)${NC}"
+            read -r start_setup
+            if [[ ! "$start_setup" =~ ^[Nn]$ ]]; then
+                echo ""
+                echo -e "${BOLD}正在启动 Hermes Agent...${NC}"
+                echo ""
+                
+                if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
+                    source venv/bin/activate
+                fi
+                
+                hermes setup
+            fi
         fi
     fi
 }
