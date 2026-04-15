@@ -300,7 +300,7 @@ def _session_browse_picker(sessions: list) -> Optional[str]:
     bug in tmux/iTerm when arrow keys are used.
     """
     if not sessions:
-        print("No sessions found.")
+        print("未找到会话。")
         return None
 
     # Try curses-based picker first
@@ -708,7 +708,7 @@ def cmd_chat(args):
     # First-run guard: check if any provider is configured before launching
     if not _has_any_provider_configured():
         print()
-        print("It looks like Hermes isn't configured yet -- no API keys or providers found.")
+        print("Hermes 似乎还未配置 — 未找到 API 密钥或提供商。")
         print()
         print("  Run:  hermes setup")
         print()
@@ -722,7 +722,7 @@ def cmd_chat(args):
             sys.exit(1)
 
         try:
-            reply = input("Run setup now? [Y/n] ").strip().lower()
+            reply = input("现在运行设置？[Y/n] ").strip().lower()
         except (EOFError, KeyboardInterrupt):
             reply = "n"
         if reply in ("", "y", "yes"):
@@ -779,7 +779,7 @@ def cmd_chat(args):
     try:
         cli_main(**kwargs)
     except ValueError as e:
-        print(f"Error: {e}")
+        print(f"错误: {e}")
         sys.exit(1)
 
 
@@ -1174,7 +1174,7 @@ def _clear_stale_openai_base_url():
     stale_url = get_env_value("OPENAI_BASE_URL")
     if stale_url:
         save_env_value("OPENAI_BASE_URL", "")
-        print(f"Cleared stale OPENAI_BASE_URL from .env (was: {stale_url[:40]}...)"
+        print(f"已清除 .env 中过时的 OPENAI_BASE_URL（原值: {stale_url[:40]}...")
               if len(stale_url) > 40
               else f"Cleared stale OPENAI_BASE_URL from .env (was: {stale_url})")
 
@@ -1359,7 +1359,7 @@ def _model_flow_nous(config, current_model="", args=None):
         model_ids, unavailable_models = partition_nous_models_by_tier(model_ids, pricing, free_tier=True)
 
     if not model_ids and not unavailable_models:
-        print("No models available for Nous Portal after filtering.")
+        print("Nous Portal 筛选后没有可用模型。")
         return
 
     # Resolve portal URL for upgrade links (may differ on staging)
@@ -2077,7 +2077,7 @@ def _model_flow_copilot(config, current_model=""):
     source = creds.get("source", "")
 
     if not api_key:
-        print("No GitHub token configured for GitHub Copilot.")
+        print("未配置 GitHub Copilot 的 GitHub 令牌。")
         print()
         print("  Supported token types:")
         print("    → OAuth token (gho_*)          via `copilot login` or device code flow")
@@ -2170,7 +2170,7 @@ def _model_flow_copilot(config, current_model=""):
         selected = _prompt_model_selection(model_list, current_model=normalized_current_model)
     else:
         try:
-            selected = input("Model name: ").strip()
+            selected = input("模型名称: ").strip()
         except (KeyboardInterrupt, EOFError):
             selected = None
 
@@ -2295,7 +2295,7 @@ def _model_flow_copilot_acp(config, current_model=""):
         )
     else:
         try:
-            selected = input("Model name: ").strip()
+            selected = input("模型名称: ").strip()
         except (KeyboardInterrupt, EOFError):
             selected = None
 
@@ -2400,7 +2400,7 @@ def _model_flow_kimi(config, current_model=""):
         selected = _prompt_model_selection(model_list, current_model=current_model)
     else:
         try:
-            selected = input("Enter model name: ").strip()
+            selected = input("输入模型名称: ").strip()
         except (KeyboardInterrupt, EOFError):
             selected = None
 
@@ -2446,22 +2446,22 @@ def _model_flow_api_key_provider(config, provider_id, current_model=""):
             break
 
     if not existing_key:
-        print(f"No {pconfig.name} API key configured.")
+        print(f"未配置 {pconfig.name} API 密钥。")
         if key_env:
             try:
                 import getpass
-                new_key = getpass.getpass(f"{key_env} (or Enter to cancel): ").strip()
+                new_key = getpass.getpass(f"{key_env} (或按 Enter 取消): ").strip()
             except (KeyboardInterrupt, EOFError):
                 print()
                 return
             if not new_key:
-                print("Cancelled.")
+                print("已取消。")
                 return
             save_env_value(key_env, new_key)
-            print("API key saved.")
+            print("API 密钥已保存。")
             print()
     else:
-        print(f"  {pconfig.name} API key: {existing_key[:8]}... ✓")
+        print(f"  {pconfig.name} API 密钥: {existing_key[:8]}... ✓")
         print()
 
     # Optional base URL override
@@ -2471,13 +2471,13 @@ def _model_flow_api_key_provider(config, provider_id, current_model=""):
     effective_base = current_base or pconfig.inference_base_url
 
     try:
-        override = input(f"Base URL [{effective_base}]: ").strip()
+        override = input(f"基础 URL [{effective_base}]: ").strip()
     except (KeyboardInterrupt, EOFError):
         print()
         override = ""
     if override and base_url_env:
         if not override.startswith(("http://", "https://")):
-            print("  Invalid URL — must start with http:// or https://. Keeping current value.")
+            print("  无效的 URL — 必须以 http:// 或 https:// 开头。保持当前值。")
         else:
             save_env_value(base_url_env, override)
             effective_base = override
@@ -2498,21 +2498,21 @@ def _model_flow_api_key_provider(config, provider_id, current_model=""):
 
     if mdev_models:
         model_list = mdev_models
-        print(f"  Found {len(model_list)} model(s) from models.dev registry")
+        print(f"  从 models.dev 注册表找到 {len(model_list)} 个模型")
     elif curated and len(curated) >= 8:
         # Curated list is substantial — use it directly, skip live probe
         model_list = curated
-        print(f"  Showing {len(model_list)} curated models — use \"Enter custom model name\" for others.")
+        print(f"  显示 {len(model_list)} 个精选模型 — 使用\"输入自定义模型名称\"选择其他模型。")
     else:
         api_key_for_probe = existing_key or (get_env_value(key_env) if key_env else "")
         live_models = fetch_api_models(api_key_for_probe, effective_base)
         if live_models and len(live_models) >= len(curated):
             model_list = live_models
-            print(f"  Found {len(model_list)} model(s) from {pconfig.name} API")
+            print(f"  从 {pconfig.name} API 找到 {len(model_list)} 个模型")
         else:
             model_list = curated
             if model_list:
-                print(f"  Showing {len(model_list)} curated models — use \"Enter custom model name\" for others.")
+                print(f"  显示 {len(model_list)} 个精选模型 — 使用\"输入自定义模型名称\"选择其他模型。")
         # else: no defaults either, will fall through to raw input
 
     if provider_id in {"opencode-zen", "opencode-go"}:
@@ -2524,7 +2524,7 @@ def _model_flow_api_key_provider(config, provider_id, current_model=""):
         selected = _prompt_model_selection(model_list, current_model=current_model)
     else:
         try:
-            selected = input("Model name: ").strip()
+            selected = input("模型名称: ").strip()
         except (KeyboardInterrupt, EOFError):
             selected = None
 
@@ -2736,7 +2736,7 @@ def _model_flow_anthropic(config, current_model=""):
         selected = _prompt_model_selection(model_list, current_model=current_model)
     else:
         try:
-            selected = input("Model name (e.g., claude-sonnet-4-20250514): ").strip()
+            selected = input("模型名称（例如: claude-sonnet-4-20250514）: ").strip()
         except (KeyboardInterrupt, EOFError):
             selected = None
 
@@ -2841,7 +2841,7 @@ def cmd_import(args):
 def cmd_version(args):
     """Show version."""
     print(f"Hermes Agent v{__version__} ({__release_date__})")
-    print(f"Project: {PROJECT_ROOT}")
+    print(f"项目: {PROJECT_ROOT}")
     
     # Show Python version
     print(f"Python: {sys.version.split()[0]}")
@@ -2851,7 +2851,7 @@ def cmd_version(args):
         import openai
         print(f"OpenAI SDK: {openai.__version__}")
     except ImportError:
-        print("OpenAI SDK: Not installed")
+        print("OpenAI SDK: 未安装")
 
     # Show update status (synchronous — acceptable since user asked for version info)
     try:
@@ -2859,13 +2859,13 @@ def cmd_version(args):
         from hermes_cli.config import recommended_update_command
         behind = check_for_updates()
         if behind and behind > 0:
-            commits_word = "commit" if behind == 1 else "commits"
+            commits_word = "个提交" if behind == 1 else "个提交"
             print(
-                f"Update available: {behind} {commits_word} behind — "
-                f"run '{recommended_update_command()}'"
+                f"有可用更新: 落后 {behind} {commits_word} — "
+                f"运行 '{recommended_update_command()}'"
             )
         elif behind == 0:
-            print("Up to date")
+            print("已是最新版本")
     except Exception:
         pass
 
@@ -2972,8 +2972,8 @@ def _build_web_ui(web_dir: Path, *, fatal: bool = False) -> bool:
     npm = shutil.which("npm")
     if not npm:
         if fatal:
-            print("Web UI frontend not built and npm is not available.")
-            print("Install Node.js, then run:  cd web && npm install && npm run build")
+            print("Web UI 前端未构建且 npm 不可用。")
+            print("安装 Node.js，然后运行: cd web && npm install && npm run build")
         return not fatal
     print("→ Building web UI...")
     r1 = subprocess.run([npm, "install", "--silent"], cwd=web_dir, capture_output=True)
@@ -3194,18 +3194,18 @@ def _restore_stashed_changes(
 ) -> bool:
     if prompt_user:
         print()
-        print("⚠ Local changes were stashed before updating.")
-        print("  Restoring them may reapply local customizations onto the updated codebase.")
-        print("  Review the result afterward if Hermes behaves unexpectedly.")
-        print("Restore local changes now? [Y/n]")
+        print("⚠ 更新前本地更改已暂存。")
+        print("  恢复它们可能会将本地自定义重新应用到更新后的代码库上。")
+        print("  如果 Hermes 行为异常，请检查结果。")
+        print("现在恢复本地更改？[Y/n]")
         if input_fn is not None:
             response = input_fn("Restore local changes now? [Y/n]", "y")
         else:
             response = input().strip().lower()
         if response not in ("", "y", "yes"):
-            print("Skipped restoring local changes.")
-            print("Your changes are still preserved in git stash.")
-            print(f"Restore manually with: git stash apply {stash_ref}")
+            print("跳过恢复本地更改。")
+            print("您的更改仍保存在 git stash 中。")
+            print(f"手动恢复: git stash apply {stash_ref}")
             return False
 
     print("→ Restoring local changes...")
@@ -3250,8 +3250,8 @@ def _restore_stashed_changes(
             cwd=cwd,
             capture_output=True,
         )
-        print("Working tree reset to clean state.")
-        print(f"Restore your changes later with: git stash apply {stash_ref}")
+        print("工作树已重置为干净状态。")
+        print(f"稍后恢复您的更改: git stash apply {stash_ref}")
         # Don't sys.exit — the code update itself succeeded, only the stash
         # restore had conflicts.  Let cmd_update continue with pip install,
         # skill sync, and gateway restart.
@@ -3427,7 +3427,7 @@ def _sync_with_upstream_if_needed(git_cmd: list[str], cwd: Path) -> None:
         print("  This means you may miss updates from NousResearch/hermes-agent.")
         print()
         try:
-            response = input("Add official repo as 'upstream' remote? [Y/n]: ").strip().lower()
+            response = input("将官方仓库添加为 'upstream' 远程源？[Y/n]: ").strip().lower()
         except (EOFError, KeyboardInterrupt):
             print()
             response = "n"
@@ -3945,7 +3945,7 @@ def cmd_update(args):
                 response = "n"
             else:
                 try:
-                    response = input("Would you like to configure them now? [Y/n]: ").strip().lower()
+                    response = input("您想现在配置它们吗？[Y/n]: ").strip().lower()
                 except EOFError:
                     response = "n"
             
@@ -3962,7 +3962,7 @@ def cmd_update(args):
                     print("  ℹ API keys require manual entry: hermes config migrate")
             else:
                 print()
-                print("Skipped. Run 'hermes config migrate' later to configure.")
+                print("已跳过。稍后运行 'hermes config migrate' 进行配置。")
         else:
             print("  ✓ Configuration is up to date")
         
@@ -4094,8 +4094,8 @@ def cmd_update(args):
             logger.debug("Gateway restart during update failed: %s", e)
         
         print()
-        print("Tip: You can now select a provider and model:")
-        print("  hermes model              # Select provider and model")
+        print("提示: 您现在可以选择提供商和模型:")
+        print("  hermes model              # 选择提供商和模型")
         
     except subprocess.CalledProcessError as e:
         if sys.platform == "win32":
@@ -4163,16 +4163,16 @@ def cmd_profile(args):
         # Bare `hermes profile` — show current profile status
         profile_name = get_active_profile_name()
         dhh = display_hermes_home()
-        print(f"\nActive profile: {profile_name}")
-        print(f"Path:           {dhh}")
+        print(f"\n当前配置: {profile_name}")
+        print(f"路径:           {dhh}")
 
         profiles = list_profiles()
         for p in profiles:
             if p.name == profile_name or (profile_name == "default" and p.is_default):
                 if p.model:
-                    print(f"Model:          {p.model}" + (f" ({p.provider})" if p.provider else ""))
-                print(f"Gateway:        {'running' if p.gateway_running else 'stopped'}")
-                print(f"Skills:         {p.skill_count} installed")
+                    print(f"模型:          {p.model}" + (f" ({p.provider})" if p.provider else ""))
+                print(f"网关:        {'运行中' if p.gateway_running else '已停止'}")
+                print(f"技能:         {p.skill_count} 个已安装")
                 if p.alias_path:
                     print(f"Alias:          {p.name} → hermes -p {p.name}")
                 break
@@ -4184,11 +4184,11 @@ def cmd_profile(args):
         active = get_active_profile_name()
 
         if not profiles:
-            print("No profiles found.")
+            print("未找到配置。")
             return
 
         # Header
-        print(f"\n {'Profile':<16} {'Model':<28} {'Gateway':<12} {'Alias'}")
+        print(f"\n {'配置':<16} {'模型':<28} {'网关':<12} {'别名'}")
         print(f" {'─' * 15}    {'─' * 27}    {'─' * 11}    {'─' * 12}")
 
         for p in profiles:
@@ -4207,11 +4207,11 @@ def cmd_profile(args):
         try:
             set_active_profile(name)
             if name == "default":
-                print(f"Switched to: default (~/.hermes)")
+                print(f"已切换到: default (~/.hermes)")
             else:
-                print(f"Switched to: {name}")
+                print(f"已切换到: {name}")
         except (ValueError, FileNotFoundError) as e:
-            print(f"Error: {e}")
+            print(f"错误: {e}")
             sys.exit(1)
 
     elif action == "create":
@@ -4235,16 +4235,16 @@ def cmd_profile(args):
             if clone or clone_all:
                 source_label = getattr(args, "clone_from", None) or get_active_profile_name()
                 if clone_all:
-                    print(f"Full copy from {source_label}.")
+                    print(f"从 {source_label} 完整复制。")
                 else:
-                    print(f"Cloned config, .env, SOUL.md from {source_label}.")
+                    print(f"已从 {source_label} 克隆配置、.env、SOUL.md。")
 
             # Auto-clone Honcho config for the new profile (only with --clone/--clone-all)
             if clone or clone_all:
                 try:
                     from plugins.memory.honcho.cli import clone_honcho_for_profile
                     if clone_honcho_for_profile(name):
-                        print(f"Honcho config cloned (peer: {name})")
+                        print(f"Honcho 配置已克隆（来源: {name}）")
                 except Exception:
                     pass  # Honcho plugin not installed or not configured
 
@@ -4267,10 +4267,10 @@ def cmd_profile(args):
                 else:
                     wrapper_path = create_wrapper_script(name)
                     if wrapper_path:
-                        print(f"Wrapper created: {wrapper_path}")
+                        print(f"包装脚本已创建: {wrapper_path}")
                         if not _is_wrapper_dir_in_path():
-                            print(f"\n⚠ {_get_wrapper_dir()} is not in your PATH.")
-                            print(f'  Add to your shell config (~/.bashrc or ~/.zshrc):')
+                            print(f"\n⚠ {_get_wrapper_dir()} 不在您的 PATH 中。")
+                            print(f'  添加到您的 shell 配置（~/.bashrc 或 ~/.zshrc）:')
                             print(f'    export PATH="$HOME/.local/bin:$PATH"')
 
             # Profile dir for display
@@ -4294,7 +4294,7 @@ def cmd_profile(args):
             print()
 
         except (ValueError, FileExistsError, FileNotFoundError) as e:
-            print(f"Error: {e}")
+            print(f"错误: {e}")
             sys.exit(1)
 
     elif action == "delete":
@@ -4310,7 +4310,7 @@ def cmd_profile(args):
         name = args.profile_name
         from hermes_cli.profiles import get_profile_dir, profile_exists, _read_config_model, _check_gateway_running, _count_skills
         if not profile_exists(name):
-            print(f"Error: Profile '{name}' does not exist.")
+            print(f"错误: 配置 '{name}' 不存在。")
             sys.exit(1)
         profile_dir = get_profile_dir(name)
         model, provider = _read_config_model(profile_dir)
@@ -4318,14 +4318,14 @@ def cmd_profile(args):
         skills = _count_skills(profile_dir)
         wrapper = _get_wrapper_dir() / name
 
-        print(f"\nProfile: {name}")
-        print(f"Path:    {profile_dir}")
+        print(f"\n配置: {name}")
+        print(f"路径:    {profile_dir}")
         if model:
-            print(f"Model:   {model}" + (f" ({provider})" if provider else ""))
-        print(f"Gateway: {'running' if gw else 'stopped'}")
-        print(f"Skills:  {skills}")
-        print(f".env:    {'exists' if (profile_dir / '.env').exists() else 'not configured'}")
-        print(f"SOUL.md: {'exists' if (profile_dir / 'SOUL.md').exists() else 'not configured'}")
+            print(f"模型:   {model}" + (f" ({provider})" if provider else ""))
+        print(f"网关: {'运行中' if gw else '已停止'}")
+        print(f"技能:  {skills}")
+        print(f".env:    {'已存在' if (profile_dir / '.env').exists() else '未配置'}")
+        print(f"SOUL.md: {'已存在' if (profile_dir / 'SOUL.md').exists() else '未配置'}")
         if wrapper.exists():
             print(f"Alias:   {wrapper}")
         print()
