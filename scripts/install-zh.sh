@@ -359,33 +359,37 @@ show_completion() {
     
     # 如果用户选择运行设置向导
     if [ "$RUN_SETUP" = true ]; then
-        # 检测是否为非交互模式（curl | bash）
-        if [ ! -t 0 ]; then
+        echo ""
+        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${BOLD}🎯 下一步：启动 Hermes Agent 中文版${NC}"
+        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo ""
+        
+        if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
+            echo -e "${GREEN}方式一（推荐）:${NC}"
             echo ""
-            echo -e "${BOLD}🚀 检测到非交互模式，自动启动 Hermes Agent...${NC}"
+            echo "  cd $(pwd)"
+            echo "  source venv/bin/activate"
+            echo "  herms"
+            echo ""
+            echo -e "${GREEN}或一行命令启动：${NC}"
+            echo ""
+            echo "  cd $(pwd) && source venv/bin/activate && herms"
             echo ""
             
-            if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
-                source venv/bin/activate
+            # 检测是否为非交互模式（curl | bash）
+            if [ ! -t 0 ]; then
+                echo -e "${YELLOW}提示: 检测到非交互模式（curl | bash），请复制上面的命令到终端执行${NC}"
+                echo ""
             fi
-            
-            # 直接启动 hermes（进入交互模式）
-            exec hermes
         else
-            echo -e "${YELLOW}是否现在启动设置向导？(Y/n)${NC}"
-            read -r start_setup
-            if [[ ! "$start_setup" =~ ^[Nn]$ ]]; then
-                echo ""
-                echo -e "${BOLD}正在启动 Hermes Agent...${NC}"
-                echo ""
-                
-                if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
-                    source venv/bin/activate
-                fi
-                
-                hermes setup
-            fi
+            echo -e "${GREEN}直接运行：${NC}"
+            echo ""
+            echo "  herms"
+            echo ""
         fi
+        
+        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     fi
 }
 
