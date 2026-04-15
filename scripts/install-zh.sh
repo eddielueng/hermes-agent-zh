@@ -256,17 +256,20 @@ main() {
         source venv/bin/activate
         print_success "虚拟环境已激活: $(which python)"
         
+        # 使用 python -m pip（更可靠）
+        PIP_CMD="python -m pip"
+        
         # 升级 pip
-        pip install --upgrade pip --quiet 2>/dev/null || true
+        $PIP_CMD install --upgrade pip --quiet 2>/dev/null || true
         
         # 安装 Hermes
         echo ""
         print_info "正在安装 Hermes Agent 及依赖..."
         
         if [ -f "pyproject.toml" ]; then
-            pip install -e . --quiet 2>/dev/null || pip install .
+            $PIP_CMD install -e . --quiet 2>/dev/null || $PIP_CMD install .
         elif [ -f "setup.py" ]; then
-            pip install -e . --quiet 2>/dev/null || pip install .
+            $PIP_CMD install -e . --quiet 2>/dev/null || $PIP_CMD install .
         else
             print_error "未找到安装配置文件"
             exit 1
