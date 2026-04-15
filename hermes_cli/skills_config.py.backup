@@ -67,14 +67,14 @@ def _get_categories(skills: List[dict]) -> List[str]:
 
 def _select_platform() -> Optional[str]:
     """Ask user which platform to configure, or global."""
-    options = [("global", "All platforms (global default)")] + list(PLATFORMS.items())
+    options = [("global", "所有平台（全局默认）")] + list(PLATFORMS.items())
     print()
-    print(color("  Configure skills for:", Colors.BOLD))
+    print(color("  配置技能平台:", Colors.BOLD))
     for i, (key, label) in enumerate(options, 1):
         print(f"  {i}. {label}")
     print()
     try:
-        raw = input(color("  Select [1]: ", Colors.YELLOW)).strip()
+        raw = input(color("  选择 [1]: ", Colors.YELLOW)).strip()
     except (KeyboardInterrupt, EOFError):
         return None
     if not raw:
@@ -101,12 +101,12 @@ def _toggle_by_category(skills: List[dict], disabled: Set[str]) -> Set[str]:
     pre_selected = set()
     for i, cat in enumerate(categories):
         cat_skills = [s["name"] for s in skills if (s["category"] or "uncategorized") == cat]
-        cat_labels.append(f"{cat} ({len(cat_skills)} skills)")
+        cat_labels.append(f"{cat} ({len(cat_skills)} 个技能)")
         if not all(s in disabled for s in cat_skills):
             pre_selected.add(i)
 
     chosen = curses_checklist(
-        "Categories — toggle entire categories",
+        "分类 — 切换整个分类",
         cat_labels, pre_selected, cancel_returns=pre_selected,
     )
 
@@ -130,22 +130,22 @@ def skills_command(args=None):
     skills = _list_all_skills()
 
     if not skills:
-        print(color("  No skills installed.", Colors.DIM))
+        print(color("  未安装任何技能.", Colors.DIM))
         return
 
     # Step 1: Select platform
     platform = _select_platform()
-    platform_label = PLATFORMS.get(platform, "All platforms") if platform else "All platforms"
+    platform_label = PLATFORMS.get(platform, "所有平台") if platform else "所有平台"
 
     # Step 2: Select mode — individual or by category
     print()
-    print(color(f"  Configure for: {platform_label}", Colors.DIM))
+    print(color(f"  配置目标: {platform_label}", Colors.DIM))
     print()
-    print("  1. Toggle individual skills")
-    print("  2. Toggle by category")
+    print("  1. 切换单个技能")
+    print("  2. 按分类切换")
     print()
     try:
-        mode = input(color("  Select [1]: ", Colors.YELLOW)).strip() or "1"
+        mode = input(color("  选择 [1]: ", Colors.YELLOW)).strip() or "1"
     except (KeyboardInterrupt, EOFError):
         return
 
@@ -162,16 +162,16 @@ def skills_command(args=None):
         # "selected" = enabled (not disabled) — matches the [✓] convention
         pre_selected = {i for i, s in enumerate(skills) if s["name"] not in disabled}
         chosen = curses_checklist(
-            f"Skills for {platform_label}",
+            f"{platform_label} 的技能",
             labels, pre_selected, cancel_returns=pre_selected,
         )
         # Anything NOT chosen is disabled
         new_disabled = {skills[i]["name"] for i in range(len(skills)) if i not in chosen}
 
     if new_disabled == disabled:
-        print(color("  No changes.", Colors.DIM))
+        print(color("  无更改.", Colors.DIM))
         return
 
     save_disabled_skills(config, new_disabled, platform)
     enabled_count = len(skills) - len(new_disabled)
-    print(color(f"✓ Saved: {enabled_count} enabled, {len(new_disabled)} disabled ({platform_label}).", Colors.GREEN))
+    print(color(f"✓ 已保存: {enabled_count} 个已启用, {len(new_disabled)} 个已禁用 ({platform_label}).", Colors.GREEN))

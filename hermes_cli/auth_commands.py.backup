@@ -312,7 +312,7 @@ def auth_remove_command(args) -> None:
     removed = pool.remove_index(index)
     if removed is None:
         raise SystemExit(f'No credential matching "{target}" for provider {provider}.')
-    print(f"Removed {provider} credential #{index} ({removed.label})")
+    print(f"已移除 {provider} 凭据 #{index} ({removed.label})")
 
     # If this was an env-seeded credential, also clear the env var from .env
     # so it doesn't get re-seeded on the next load_pool() call.
@@ -321,50 +321,34 @@ def auth_remove_command(args) -> None:
         if env_var:
             from hermes_cli.config import remove_env_value
             cleared = remove_env_value(env_var)
-            if cleared:
-                print(f"Cleared {env_var} from .env")
-
-    # If this was a singleton-seeded credential (OAuth device_code, hermes_pkce),
-    # clear the underlying auth store / credential file so it doesn't get
-    # re-seeded on the next load_pool() call.
-    elif removed.source == "device_code" and provider in ("openai-codex", "nous"):
-        from hermes_cli.auth import (
-            _load_auth_store, _save_auth_store, _auth_store_lock,
-        )
-        with _auth_store_lock():
-            auth_store = _load_auth_store()
-            providers_dict = auth_store.get("providers")
-            if isinstance(providers_dict, dict) and provider in providers_dict:
-                del providers_dict[provider]
-                _save_auth_store(auth_store)
-                print(f"Cleared {provider} OAuth tokens from auth store")
+                print(f"已从认证存储清除 {provider} OAuth 令牌")
 
     elif removed.source == "hermes_pkce" and provider == "anthropic":
         from hermes_constants import get_hermes_home
         oauth_file = get_hermes_home() / ".anthropic_oauth.json"
         if oauth_file.exists():
             oauth_file.unlink()
-            print("Cleared Hermes Anthropic OAuth credentials")
+            print("已清除 Hermes Anthropic OAuth 凭据")
 
     elif removed.source == "claude_code" and provider == "anthropic":
         from hermes_cli.auth import suppress_credential_source
         suppress_credential_source(provider, "claude_code")
-        print("Suppressed claude_code credential — it will not be re-seeded.")
-        print("Note: Claude Code credentials still live in ~/.claude/.credentials.json")
-        print("Run `hermes auth add anthropic` to re-enable if needed.")
+        print("已禁用 claude_code 凭据 — 将不会重新注入。")
+        print("注意: Claude Code 凭据仍然保存在 ~/.claude/.credentials.json")
+        print("如需重新启用，请运行 `hermes auth add anthropic`。")
 
 
 def auth_reset_command(args) -> None:
     provider = _normalize_provider(getattr(args, "provider", ""))
     pool = load_pool(provider)
     count = pool.reset_statuses()
-    print(f"Reset status on {count} {provider} credentials")
+    print(f"已重置 {count} 个 {provider} 凭据的状态")
 
 
 def _interactive_auth() -> None:
     """Interactive credential pool management when `hermes auth` is called bare."""
     # Show current pool status first
-    print("Credential Pool Status")
+    print("凭据池状态")
     print("=" * 50)
 
     auth_list_command(SimpleNamespace(provider=None))
@@ -457,7 +441,7 @@ def _interactive_remove() -> None:
     provider = _pick_provider("Provider to remove credential from")
     pool = load_pool(provider)
     if not pool.has_credentials():
-        print(f"No credentials for {provider}.")
+        print(f"{provider} 没有凭据。")
         return
 
     # Show entries with indices
@@ -520,7 +504,7 @@ def _interactive_strategy() -> None:
     pool_strategies[provider] = strategy
     cfg["credential_pool_strategies"] = pool_strategies
     save_config(cfg)
-    print(f"Set {provider} strategy to: {strategy}")
+    print(f"已设置 {provider} 策略为: {strategy}")
 
 
 def auth_command(args) -> None:
