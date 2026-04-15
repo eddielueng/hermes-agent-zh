@@ -9,11 +9,9 @@
 
 ---
 
-<<<<<<< HEAD
 ## ✨ 项目简介
-=======
+
 Use any model you want — [Nous Portal](https://portal.nousresearch.com), [OpenRouter](https://openrouter.ai) (200+ models), [Xiaomi MiMo](https://platform.xiaomimimo.com), [z.ai/GLM](https://z.ai), [Kimi/Moonshot](https://platform.moonshot.ai), [MiniMax](https://www.minimax.io), [Hugging Face](https://huggingface.co), OpenAI, or your own endpoint. Switch with `hermes model` — no code changes, no lock-in.
->>>>>>> upstream/main
 
 **Hermes Agent 中文版** 是对 [NousResearch/hermes-agent](https://github.com/nousresearch/hermes-agent) 官方项目的 **完整中文化版本**。
 
@@ -50,18 +48,51 @@ Use any model you want — [Nous Portal](https://portal.nousresearch.com), [Open
 - Python 3.10+ 
 - Windows / macOS / Linux / WSL2 / Android (Termux)
 
-### 一键安装
+### 🎯 一键安装（推荐使用中文版专用脚本）
+
+> ⚠️ **重要提示**：请务必使用 `install-zh.sh` 中文版专用安装脚本，**不要使用官方的 `install.sh`**（会覆盖为英文版）
+
+#### 方式一：使用中文版专用安装脚本 ⭐ 推荐
 
 ```bash
 # 克隆本仓库
-git clone https://github.com/你的用户名/hermes-agent-zh.git
+git clone https://github.com/eddielueng/hermes-agent-zh.git
 cd hermes-agent-zh
 
-# 运行安装脚本
-curl -fsSL https://raw.githubusercontent.com/nousresearch/hermes-agent/main/scripts/install.sh | bash
+# 运行中文版专用安装脚本（关键！）
+bash scripts/install-zh.sh
 
-# 重新加载 shell
-source ~/.bashrc  # 或 source ~/.zshrc
+# 或者通过 curl 直接运行：
+# curl -fsSL https://raw.githubusercontent.com/eddielueng/hermes-agent-zh/main/scripts/install-zh.sh | bash
+```
+
+#### 方式二：手动安装（完全可控）
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/eddielueng/hermes-agent-zh.git
+cd hermes-agent-zh
+
+# 2. 创建虚拟环境
+python3 -m venv venv
+
+# 3. 激活虚拟环境
+source venv/bin/activate   # Linux/macOS
+# 或 venv\Scripts\activate  # Windows
+
+# 4. 升级 pip 并安装依赖
+pip install --upgrade pip
+pip install -e ".[dev]"
+
+# 5. 启动 Hermes Agent 中文版
+hermes
+```
+
+#### ❌ 错误方式（会导致安装英文版）
+
+```bash
+# 不要这样！这会覆盖为英文原版
+curl -fsSL https://raw.githubusercontent.com/nousresearch/hermes-agent/main/scripts/install.sh | bash
 ```
 
 ### 配置 API 密钥
