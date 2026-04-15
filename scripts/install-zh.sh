@@ -187,24 +187,50 @@ create_directories() {
     fi
 }
 
-# 检测是否在正确的仓库中
-check_repository() {
-    print_step "检查代码仓库..."
-    
-    if [ ! -f "pyproject.toml" ]; then
-        print_error "未在 Hermes Agent 项目根目录中运行此脚本！"
-        print_info "请确保当前目录包含 pyproject.toml 文件"
-        exit 1
+# 克隆中文版仓库（支持 curl | bash 模式）
+clone_repository() {
+    print_step "获取 Hermes Agent 中文版代码..."
+
+    # 如果已经在正确的目录中（本地运行模式）
+    if [ -f "pyproject.toml" ] && (grep -q "Hermes Agent 中文版" README.md 2>/dev/null || grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null); then
+        print_success "✨ 已在中文版仓库中，跳过克隆"
+        return 0
     fi
-    
-    # 检查是否是中文版（简单检测）
-    if grep -q "Hermes Agent 中文版" README.md 2>/dev/null || \
-       grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null; then
-        print_success "✨ 检测到中文版代码！"
-        return 0
+
+    # curl | bash 模式：当前目录不是项目目录，需要克隆
+    if [ ! -f "$INSTALL_DIR/pyproject.toml" ] || [ ! -d "$INSTALL_DIR/hermes_cli" ]; then
+        print_info "正在从 GitHub 克隆中文版仓库..."
+
+        # 删除旧的不完整安装
+        rm -rf "$INSTALL_DIR" 2>/dev/null || true
+
+        # 克隆中文版仓库
+        git clone "$REPO_URL" "$INSTALL_DIR"
+
+        if [ $? -eq 0 ]; then
+            cd "$INSTALL_DIR"
+            print_success "✨ 中文版代码下载完成！"
+
+            # 验证是否为中文版
+            if grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null; then
+                print_success "✅ 确认为中文版！"
+            else
+                print_warning "⚠️  未检测到中文版标记，但继续安装..."
+            fi
+        else
+            print_error "克隆失败！请检查网络连接或手动下载："
+            echo "  git clone https://github.com/eddielueng/hermes-agent-zh.git ~/.hermes/hermes-agent"
+            exit 1
+        fi
     else
-        print_warning "⚠️  未明确检测到中文版标记，但继续安装..."
-        return 0
+        # 目录存在且有效
+        cd "$INSTALL_DIR"
+
+        if grep -q "Hermes Agent 中文版" README.md 2>/dev/null || grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null; then
+            print_success "✨ 检测到已有的中文版安装！"
+        else
+            print_warning "⚠️  检测到现有安装，但可能不是中文版"
+        fi
     fi
 }
 
