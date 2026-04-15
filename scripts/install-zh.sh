@@ -1,18 +1,20 @@
 #!/bin/bash
 # ============================================================================
-# Hermes Agent 中文版安装脚本
+# Hermes Agent 中文版 - 一键安装脚本
 # ============================================================================
-# 基于 NousResearch/hermes-agent 官方安装脚本修改
-# 从 eddielueng/hermes-agent-zh 仓库安装完整中文化版本
+# 专用安装脚本，确保安装的是完整中文化的版本
+# 不会覆盖为官方英文版
 #
 # 用法：
-#   curl -fsSL https://raw.githubusercontent.com/eddielueng/hermes-agent-zh/main/scripts/install.sh | bash
+#   bash install-zh.sh
+#   或
+#   curl -fsSL https://raw.githubusercontent.com/eddielueng/hermes-agent-zh/main/scripts/install-zh.sh | bash
 #
 # ============================================================================
 
 set -e
 
-# 颜色
+# 颜色定义
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -23,24 +25,14 @@ NC='\033[0m' # 无颜色
 BOLD='\033[1m'
 
 # 配置
-REPO_URL_HTTPS="https://github.com/eddielueng/hermes-agent-zh.git"
-REPO_URL_ZIP="https://github.com/eddielueng/hermes-agent-zh/archive/refs/heads/main.zip"
 HERMES_HOME="$HOME/.hermes"
 INSTALL_DIR="${HERMES_INSTALL_DIR:-$HERMES_HOME/hermes-agent}"
-PYTHON_VERSION="3.11"
-NODE_VERSION="22"
+PYTHON_MIN_VERSION="3.10"
+PYTHON_RECOMMENDED="3.11"
 
 # 选项
 USE_VENV=true
 RUN_SETUP=true
-BRANCH="main"
-
-# 检测非交互模式（如 curl | bash）
-if [ -t 0 ]; then
-    IS_INTERACTIVE=true
-else
-    IS_INTERACTIVE=false
-fi
 
 # 解析参数
 while [[ $# -gt 0 ]]; do
@@ -53,25 +45,20 @@ while [[ $# -gt 0 ]]; do
             RUN_SETUP=false
             shift
             ;;
-        --branch)
-            BRANCH="$2"
-            shift 2
-            ;;
         --dir)
             INSTALL_DIR="$2"
             shift 2
             ;;
         -h|--help)
-            echo "Hermes Agent 中文版安装程序"
+            echo "Hermes Agent 中文版 - 一键安装脚本"
             echo ""
-            echo "用法: install.sh [选项]"
+            echo "用法: $0 [选项]"
             echo ""
             echo "选项:"
             echo "  --no-venv      不创建虚拟环境"
             echo "  --skip-setup   跳过交互式设置向导"
-            echo "  --branch NAME  Git 分支 (默认: main)"
             echo "  --dir PATH     安装目录 (默认: ~/.hermes/hermes-agent)"
-            echo "  -h, --help     显示帮助"
+            echo "  -h, --help     显示帮助信息"
             exit 0
             ;;
         *)
@@ -88,370 +75,306 @@ done
 print_banner() {
     echo ""
     echo -e "${MAGENTA}${BOLD}"
-    echo "┌─────────────────────────────────────────────────────────┐"
-    echo "│             ⚕ Hermes Agent 安装程序                   │"
-    echo "├─────────────────────────────────────────────────────────┤"
-    echo "│  🎌 Hermes Agent 中文版 — 基于NousResearch项目          │"
-    echo "│     完整中文化界面 · 内置XiDao Api支持               │"
-    echo "└─────────────────────────────────────────────────────────┘"
+    echo "╔══════════════════════════════════════════════════════════╗"
+    echo "║                                                      ║"
+    echo "║          🎌 Hermes Agent 中文版 安装器               ║"
+    echo "║                                                      ║"
+    echo "║      完整中文化的 AI 代理系统 - 基于 NousResearch    ║"
+    echo "║                                                      ║"
+    echo "╚══════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
 
+print_step() {
+    echo ""
+    echo -e "${BLUE}▶ $1${NC}"
+}
+
 print_success() {
-    echo -e "${GREEN}✓ $1${NC}"
-}
-
-print_error() {
-    echo -e "${RED}✗ $1${NC}"
-}
-
-print_info() {
-    echo -e "${CYAN}→ $1${NC}"
+    echo -e "${GREEN}✅ $1${NC}"
 }
 
 print_warning() {
-    echo -e "${YELLOW}⚠ $1${NC}"
+    echo -e "${YELLOW}⚠️  $1${NC}"
 }
 
-check_command() {
-    if command -v "$1" &> /dev/null; then
+print_error() {
+    echo -e "${RED}❌ $1${NC}"
+}
+
+print_info() {
+    echo -e "${CYAN}ℹ️  $1${NC}"
+}
+
+# 检测操作系统
+detect_os() {
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        OS="Linux"
+        if [ -f /etc/os-release ]; then
+            . /etc/os-release
+            DISTRO=$NAME
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        OS="macOS"
+    elif [[ "$OSTYPE" == "linux-android"* ]]; then
+        OS="Termux"
+    else
+        OS="Unknown"
+    fi
+}
+
+# 检查 Python 版本
+check_python() {
+    if command -v python3 &> /dev/null; then
+        PYTHON_CMD="python3"
+    elif command -v python &> /dev/null; then
+        PYTHON_CMD="python"
+    else
+        print_error "未找到 Python！请先安装 Python $PYTHON_MIN_VERSION 或更高版本"
+        exit 1
+    fi
+    
+    PYTHON_VERSION=$($PYTHON_CMD --version 2>&1 | awk '{print $2}')
+    print_info "检测到 Python 版本: $PYTHON_VERSION"
+    
+    # 提取主版本号和次版本号
+    PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
+    PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
+    
+    if [ "$PYTHON_MAJOR" -lt 3 ] || { [ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 10 ]; }; then
+        print_error "Python 版本过低 ($PYTHON_VERSION)，需要 $PYTHON_MIN_VERSION 或更高版本"
+        
+        if [[ "$OS" == "Linux" ]] && [[ "$DISTRO" == *"Ubuntu"* || "$DISTRO" == *"Debian"* ]]; then
+            print_info "建议运行以下命令升级 Python:"
+            echo "  sudo apt update"
+            echo "  sudo apt install -y python3.11 python3.11-venv python3-pip"
+        fi
+        
+        exit 1
+    fi
+    
+    if [ "$PYTHON_MINOR" -lt 11 ]; then
+        print_warning "建议使用 Python 3.11+ 以获得最佳体验 (当前: $PYTHON_VERSION)"
+    fi
+    
+    print_success "Python 版本检查通过: $PYTHON_VERSION"
+}
+
+# 检查 git
+check_git() {
+    if ! command -v git &> /dev/null; then
+        print_error "未找到 Git！请先安装 Git"
+        if [[ "$OS" == "Linux" ]]; then
+            print_info "Ubuntu/Debian: sudo apt install git"
+            print_info "CentOS/RHEL: sudo yum install git"
+        elif [[ "$OS" == "macOS" ]]; then
+            print_info "运行: xcode-select --install"
+        fi
+        exit 1
+    fi
+    print_success "Git 已安装: $(git --version)"
+}
+
+# 创建目录结构
+create_directories() {
+    print_step "创建安装目录..."
+    
+    if [ ! -d "$HERMES_HOME" ]; then
+        mkdir -p "$HERMES_HOME"
+        print_success "配置目录已创建: $HERMES_HOME"
+    else
+        print_info "配置目录已存在: $HERMES_HOME"
+    fi
+}
+
+# 检测是否在正确的仓库中
+check_repository() {
+    print_step "检查代码仓库..."
+    
+    if [ ! -f "pyproject.toml" ]; then
+        print_error "未在 Hermes Agent 项目根目录中运行此脚本！"
+        print_info "请确保当前目录包含 pyproject.toml 文件"
+        exit 1
+    fi
+    
+    # 检查是否是中文版（简单检测）
+    if grep -q "Hermes Agent 中文版" README.md 2>/dev/null || \
+       grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null; then
+        print_success "✨ 检测到中文版代码！"
         return 0
     else
-        return 1
+        print_warning "⚠️  未明确检测到中文版标记，但继续安装..."
+        return 0
+    fi
+}
+
+# 创建虚拟环境
+create_venv() {
+    if [ "$USE_VENV" = false ]; then
+        print_info "跳过虚拟环境创建 (--no-venv)"
+        return
+    fi
+    
+    print_step "创建 Python 虚拟环境..."
+    
+    if [ -d "venv" ]; then
+        print_warning "发现已有的虚拟环境，是否删除并重新创建？(y/N)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            rm -rf venv
+            print_info "旧虚拟环境已删除"
+        else
+            print_info "保留现有虚拟环境"
+            return
+        fi
+    fi
+    
+    $PYTHON_CMD -m venv venv
+    
+    if [ $? -eq 0 ]; then
+        print_success "虚拟环境创建成功"
+    else
+        print_error "虚拟环境创建失败"
+        exit 1
+    fi
+}
+
+# 激活虚拟环境并安装依赖
+install_dependencies() {
+    print_step "激活虚拟环境..."
+    
+    if [ -d "venv" ]; then
+        source venv/bin/activate
+        print_success "虚拟环境已激活"
+    else
+        print_warning "未找到虚拟环境，使用系统 Python"
+    fi
+    
+    print_step "升级 pip..."
+    pip install --upgrade pip -q
+    print_success "pip 已升级到最新版本"
+    
+    print_step "安装依赖包（这可能需要几分钟）..."
+    print_info "正在安装 Hermes Agent 及其所有依赖..."
+    
+    # 使用可编辑模式安装，这样修改源码后无需重新安装
+    pip install -e ".[dev]"
+    
+    if [ $? -eq 0 ]; then
+        print_success "✨ 所有依赖包安装完成！"
+    else
+        print_error "依赖包安装失败！"
+        print_info "可能的原因:"
+        echo "  1. 网络连接问题"
+        echo "  2. Python 版本不兼容"
+        echo "  3. 系统缺少必要的编译工具"
+        echo ""
+        print_info "尝试手动安装以查看详细错误:"
+        echo "  pip install -e \".[dev]\""
+        exit 1
+    fi
+}
+
+# 显示安装完成信息
+show_completion() {
+    echo ""
+    echo -e "${GREEN}${BOLD}╔══════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}${BOLD}║                                                          ║${NC}"
+    echo -e "${GREEN}${BOLD}║          � Hermes Agent 中文版 安装完成！              ║${NC}"
+    echo -e "${GREEN}${BOLD}║                                                          ║${NC}"
+    echo -e "${GREEN}${BOLD}╚══════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${BOLD}🚀 启动方式:${NC}"
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    
+    if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
+        echo -e "  ${GREEN}方式一（推荐）:${NC}"
+        echo "    cd $(pwd)"
+        echo "    source venv/bin/activate"
+        echo "    hermes"
+        echo ""
+        echo -e "  ${GREEN}方式二（一行命令）:${NC}"
+        echo "    cd $(pwd) && source venv/bin/activate && hermes"
+    else
+        echo -e "  ${GREEN}直接运行:${NC}"
+        echo "    hermes"
+    fi
+    
+    echo ""
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${BOLD}📋 首次使用建议:${NC}"
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    echo "  1. 启动后输入 ${YELLOW}/help${NC} 查看所有命令"
+    echo "  2. 输入 ${YELLOW}/model${NC} 选择 XiDao Api 作为服务商"
+    echo "  3. 输入 ${YELLOW}/tools${NC} 配置可用工具"
+    echo "  4. 输入 ${YELLOW}/skills${NC} 管理技能插件"
+    echo "  5. 输入 ${YELLOW}/skin${NC} 更换界面主题"
+    echo ""
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${BOLD}⭐ 特色功能:${NC}"
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+    echo "  ✅ 完全中文化界面"
+    echo "  ✅ 内置 XiDao Api 服务商（首选推荐）"
+    echo "  ✅ 支持 23+ 主流 API 服务商"
+    echo "  ✅ 完整保留原版所有功能"
+    echo "  ✅ 支持网关服务（Telegram/Discord等）"
+    echo ""
+    
+    # 如果用户选择运行设置向导
+    if [ "$RUN_SETUP" = true ]; then
+        echo -e "${YELLOW}是否现在启动设置向导？(Y/n)${NC}"
+        read -r start_setup
+        if [[ ! "$start_setup" =~ ^[Nn]$ ]]; then
+            echo ""
+            echo -e "${BOLD}正在启动 Hermes Agent...${NC}"
+            echo ""
+            
+            if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
+                source venv/bin/activate
+            fi
+            
+            hermes setup
+        fi
     fi
 }
 
 # ============================================================================
-# 主安装流程
+# 主流程
 # ============================================================================
 
 main() {
     print_banner
-
-    # 检测操作系统
-    OS="$(uname -s)"
-    case "$OS" in
-        Linux*)  PLATFORM="linux";;
-        Darwin*) PLATFORM="macos";;
-        *)       PLATFORM="unknown";;
-    esac
-
-    print_success "检测到: $(uname -m) ($PLATFORM)"
-
-    # 检查 Python
-    if check_command python3; then
-        PYTHON_VERSION_FULL=$(python3 --version 2>&1 | awk '{print $2}')
-        print_success "Python 已找到: $PYTHON_VERSION_FULL"
-    elif check_command python; then
-        PYTHON_VERSION_FULL=$(python --version 2>&1 | awk '{print $2}')
-        print_success "Python 已找到: $PYTHON_VERSION_FULL"
-    else
-        print_error "未找到 Python！请先安装 Python 3.11+"
-        print_info "Ubuntu/Debian: sudo apt install python3.11 python3.11-venv"
-        print_info "CentOS/RHEL:   sudo yum install python3.11"
-        exit 1
-    fi
-
-    # 检查 Python 版本（需要 >= 3.11）
-    echo ""
-    print_info "检查 Python 版本兼容性..."
-    PYTHON_MAJOR=$(echo "$PYTHON_VERSION_FULL" | cut -d. -f1)
-    PYTHON_MINOR=$(echo "$PYTHON_VERSION_FULL" | cut -d. -f2)
     
-    if [ "$PYTHON_MAJOR" -lt 3 ] || { [ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 11 ]; }; then
-        print_warning "⚠ Python 版本过低 ($PYTHON_VERSION_FULL)，Hermes Agent 需要 Python 3.11+"
-        print_info "正在尝试升级到 Python 3.11..."
-        
-        if [ "$PLATFORM" = "linux" ]; then
-            if check_command apt-get; then
-                # Ubuntu/Debian: 使用 deadsnakes PPA 或直接安装
-                if ! apt-get install -y -qq python3.11 python3.11-venv python3.11-dev 2>/dev/null; then
-                    # 尝试添加 deadsnakes PPA
-                    add-apt-repository -y ppa:deadsnakes/ppa &>/dev/null || true
-                    apt-get update -qq && \
-                    apt-get install -y -qq python3.11 python3.11-venv python3.11-dev 2>/dev/null || true
-                fi
-                
-                # 验证安装成功
-                if command -v python3.11 &> /dev/null; then
-                    PYTHON_CMD="python3.11"
-                    print_success "✓ Python 3.11 已安装: $(python3.11 --version)"
-                else
-                    print_error "✗ 自动升级失败！请手动安装 Python 3.11："
-                    echo ""
-                    echo "  方法一（推荐）- 使用 deadsnakes PPA："
-                    echo "    sudo add-apt-repository ppa:deadsnakes/ppa"
-                    echo "    sudo apt update"
-                    echo "    sudo apt install python3.11 python3.11-venv python3.11-dev"
-                    echo ""
-                    echo "  方法二 - 使用 pyenv："
-                    echo "    curl https://pyenv.run | bash"
-                    echo "    ~/.pyenv/bin/pyenv install 3.11.9"
-                    echo "    ~/.pyenv/shims/python3.11 --version"
-                    echo ""
-                    echo "  安装后重新运行此脚本即可。"
-                    exit 1
-                fi
-            elif check_command yum; then
-                # CentOS/RHEL/Rocky
-                yum install -y python3.11 python3.11-pip 2>/dev/null || \
-                dnf install -y python3.11 python3.11-pip 2>/dev/null || {
-                    print_error "✗ 自动升级失败！请手动运行:"
-                    echo "  sudo yum install python3.11 python3.11-pip"
-                    echo "  或使用 dnf: sudo dnf install python3.11"
-                    exit 1
-                }
-                PYTHON_CMD="python3.11"
-            else
-                print_error "无法自动升级 Python！请手动安装 Python 3.11+ 后重试。"
-                exit 1
-            fi
-        elif [ "$PLATFORM" = "macos" ]; then
-            print_info "macOS 用户请使用 Homebrew 安装:"
-            echo "  brew install python@3.11"
-            exit 1
-        fi
-    else
-        PYTHON_CMD="python3"
-        print_success "✓ Python 版本符合要求 (>= 3.11)"
-    fi
-
-    # 自动安装 python3-venv（创建虚拟环境必需）
+    echo -e "${BOLD}正在准备安装环境...${NC}"
     echo ""
-    print_info "检查 Python 虚拟环境支持..."
-    if ! $PYTHON_CMD -m venv --help &>/dev/null 2>&1; then
-        print_warning "需要安装 python${PYTHON_MINOR}-venv 包..."
-        if [ "$PLATFORM" = "linux" ]; then
-            if check_command apt-get; then
-                VENV_PKG="python${PYTHON_MINOR}-venv"
-                [ "$PYTHON_MINOR" = "11" ] && VENV_PKG="python3.11-venv"
-                apt-get update -qq && apt-get install -y -qq "$VENV_PKG" && \
-                print_success "$VENV_PKG 已安装" || \
-                { print_error "自动安装失败，请手动运行: sudo apt install $VENV_PKG"; exit 1; }
-            elif check_command yum; then
-                yum install -y python3-virtualenv && \
-                print_success "python3-virtualenv 已安装" || \
-                { print_error "自动安装失败，请手动运行: sudo yum install python3-virtualenv"; exit 1; }
-            fi
-        elif [ "$PLATFORM" = "macos" ]; then
-            print_info "macOS 通常已内置 venv 支持。如果出错请: brew install python@3.11"
-        fi
-    else
-        print_success "虚拟环境支持就绪"
-    fi
-
-    # 检查 curl 或 wget
-    if check_command curl; then
-        DOWNLOAD_CMD="curl -sL"
-    elif check_command wget; then
-        DOWNLOAD_CMD="wget -qO-"
-    else
-        print_error "未找到 curl 或 wget！请先安装其中一个。"
-        exit 1
-    fi
-
-    # 检查 unzip（用于 zip 下载）
-    NEED_UNZIP=false
-    if ! check_command git; then
-        NEED_UNZIP=true
-        if ! check_command unzip; then
-            print_warning "未找到 git 和 unzip，正在尝试安装 unzip..."
-            if [ "$PLATFORM" = "linux" ]; then
-                (apt-get update -qq && apt-get install -y -qq unzip) &>/dev/null || \
-                (yum install -y unzip) &>/dev/null || \
-                print_error "无法自动安装 unzip。请手动运行: apt install unzip 或 yum install unzip"
-            fi
-        fi
-    fi
-
-    # 创建安装目录
-    print_info "安装到: $INSTALL_DIR"
-    mkdir -p "$INSTALL_DIR"
-    cd "$INSTALL_DIR"
-
-    # 下载并解压中文版
-    echo ""
-    print_info "正在下载 Hermes Agent 中文版..."
-
-    if check_command git && [ "$IS_INTERACTIVE" = true ]; then
-        # 使用 git 克隆（交互模式）
-        if [ -d ".git" ]; then
-            print_info "发现已有安装，正在更新..."
-            git fetch origin "$BRANCH" || true
-            git stash || true 2>/dev/null
-            git checkout "$BRANCH" || git checkout -b "$BRANCH" "origin/$BRANCH" || true
-            git pull origin "$BRANCH" || true
-            git stash pop || true 2>/dev/null
-        else
-            git clone "$REPO_URL_HTTPS" temp_install && \
-            shopt -s dotglob nullglob && \
-            mv temp_install/* . && \
-            mv temp_install/.* . 2>/dev/null && \
-            rmdir temp_install 2>/dev/null || rm -rf temp_install
-        fi
-    else
-        # 使用 zip 下载（非交互模式或无 git）
-        TEMP_ZIP="/tmp/hermes-zh-install.zip"
-        $DOWNLOAD_CMD "$REPO_URL_ZIP" -o "$TEMP_ZIP"
-        
-        if [ -f "$TEMP_ZIP" ]; then
-            print_success "下载完成，正在解压..."
-            
-            # 创建临时目录
-            TEMP_DIR="/tmp/hermes-zh-temp"
-            rm -rf "$TEMP_DIR"
-            mkdir -p "$TEMP_DIR"
-            unzip -o "$TEMP_ZIP" -d "$TEMP_DIR"
-            rm -f "$TEMP_ZIP"
-            
-            # 移动文件（排除临时目录）
-            EXTRACTED_DIR=$(ls -d "$TEMP_DIR"/hermes-agent-zh-main 2>/dev/null || echo "$TEMP_DIR")
-            
-            # 复制所有文件到当前目录
-            cp -rf "$EXTRACTED_DIR"/* . 2>/dev/null || true
-            cp -rf "$EXTRACTED_DIR"/.* . 2>/dev/null || true
-            
-            # 清理
-            rm -rf "$TEMP_DIR"
-            
-            print_success "解压完成"
-        else
-            print_error "下载失败！请检查网络连接。"
-            print_info "手动下载地址: $REPO_URL_ZIP"
-            exit 1
-        fi
-    fi
-
-    # 验证文件存在
-    if [ ! -f "pyproject.toml" ] && [ ! -f "setup.py" ]; then
-        print_error "安装失败！未找到 pyproject.toml 或 setup.py"
-        print_info "当前目录内容:"
-        ls -la | head -20
-        exit 1
-    fi
-
-    print_success "文件就绪"
-
+    
+    # 检测操作系统
+    detect_os
+    print_info "操作系统: $OS ${DISTRO:+($DISTRO)}"
+    
+    # 检查依赖
+    check_python
+    check_git
+    
+    # 创建目录
+    create_directories
+    
+    # 检查仓库
+    check_repository
+    
     # 创建虚拟环境
-    if [ "$USE_VENV" = true ]; then
-        echo ""
-        print_info "创建 Python 虚拟环境..."
-        
-        if [ ! -d "venv" ]; then
-            # 尝试创建虚拟环境，如果失败则尝试安装依赖后重试
-            if ! $PYTHON_CMD -m venv venv 2>/dev/null; then
-                print_warning "虚拟环境创建失败，正在尝试安装依赖..."
-                
-                # 尝试安装 python3-venv（使用正确的版本）
-                if check_command apt-get; then
-                    VENV_PKG="python3.11-venv"
-                    [ "$PYTHON_CMD" = "python3" ] && VENV_PKG="python3-venv"
-                    apt-get update -qq && apt-get install -y -qq "$VENV_PKG" python3-pip 2>/dev/null || true
-                elif check_command yum; then
-                    yum install -y python3-virtualenv python3-pip 2>/dev/null || true
-                fi
-                
-                # 重试创建虚拟环境
-                if ! $PYTHON_CMD -m venv venv; then
-                    print_error "无法创建虚拟环境！"
-                    print_info "请手动运行以下命令安装依赖："
-                    print_info "  Ubuntu/Debian: sudo apt install python3-venv python3-pip"
-                    print_info "  CentOS/RHEL:   sudo yum install python3-virtualenv python3-pip"
-                    exit 1
-                fi
-            fi
-        fi
-        
-        source venv/bin/activate
-        print_success "虚拟环境已激活: $(which python)"
-        
-        # 使用 python -m pip（更可靠）
-        PIP_CMD="python -m pip"
-        
-        # 升级 pip
-        $PIP_CMD install --upgrade pip --quiet 2>/dev/null || true
-        
-        # 安装 Hermes
-        echo ""
-        print_info "正在安装 Hermes Agent 及依赖..."
-        
-        if [ -f "pyproject.toml" ]; then
-            $PIP_CMD install -e . --quiet 2>/dev/null || $PIP_CMD install .
-        elif [ -f "setup.py" ]; then
-            $PIP_CMD install -e . --quiet 2>/dev/null || $PIP_CMD install .
-        else
-            print_error "未找到安装配置文件"
-            exit 1
-        fi
-        
-        print_success "安装完成！"
-    fi
-
-    # 添加到 PATH（如果使用默认路径）
-    if [ "$INSTALL_DIR" = "$HERMES_HOME/hermes-agent" ] && [ ! -f "$HOME/.bashrc" ] || ! grep -q "hermes-agent" "$HOME/.bashrc" 2>/dev/null; then
-        echo "" >> "$HOME/.bashrc"
-        echo '# Hermes Agent 中文版' >> "$HOME/.bashrc"
-        echo 'export PATH="$HOME/.hermes/hermes-agent:$PATH"' >> "$HOME/.bashrc"
-        print_info "已添加到 ~/.bashrc"
-    fi
-
-    # 运行设置向导
-    if [ "$RUN_SETUP" = true ] && [ "$IS_INTERACTIVE" = true ]; then
-        echo ""
-        echo -e "${GREEN}${BOLD}"
-        echo "╔══════════════════════════════════════════════════════════╗"
-        echo "║                                                          ║"
-        echo "║         🎌 Hermes Agent 中文版 安装成功！                  ║"
-        echo "║                                                          ║"
-        echo "║   所有用户界面均已翻译为简体中文                          ║"
-        echo "║   内置 XiDao Api 支持（Claude、GPT、GLM、Qwen）        ║"
-        echo "║                                                          ║"
-        echo "╚══════════════════════════════════════════════════════════╝"
-        echo -e "${NC}"
-        echo ""
-        
-        if [ "$USE_VENV" = true ]; then
-            source venv/bin/activate 2>/dev/null || true
-        fi
-        
-        print_info "启动中文设置向导..."
-        echo ""
-        
-        # 尝试运行 hermes setup
-        if command -v hermes &> /dev/null; then
-            hermes setup
-        elif [ -f "hermes" ]; then
-            ./hermes setup
-        else
-            python -m hermes_cli.main setup 2>/dev/null || \
-            python -c "from hermes_cli.setup import run_setup_wizard; import sys; run_setup_wizard(sys.argv[1:])" 
-        fi
-    else
-        echo ""
-        echo -e "${GREEN}${BOLD}"
-        echo "╔══════════════════════════════════════════════════════════╗"
-        echo "║         🎌 Hermes Agent 中文版 安装成功！                  ║"
-        echo "╚══════════════════════════════════════════════════════════╝"
-        echo -e "${NC}"
-        echo ""
-        print_info "下一步操作："
-        echo ""
-        echo "  1. 激活虚拟环境:"
-        if [ "$INSTALL_DIR" = "$HERMES_HOME/hermes-agent" ]; then
-            echo "     source \$HOME/.hermes/hermes-agent/venv/bin/activate"
-        else
-            echo "     source $INSTALL_DIR/venv/bin/activate"
-        fi
-        echo ""
-        echo "  2. 启动中文设置向导:"
-        echo "     hermes setup"
-        echo ""
-        echo "  3. 或直接开始聊天:"
-        echo "     hermes"
-        echo ""
-        echo -e "${CYAN}📖 完整文档: https://github.com/eddielueng/hermes-agent-zh${NC}"
-        echo ""
-    fi
+    create_venv
+    
+    # 安装依赖
+    install_dependencies
+    
+    # 显示完成信息
+    show_completion
 }
 
 # 运行主函数
