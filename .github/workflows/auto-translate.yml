@@ -152,11 +152,48 @@ jobs:
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
           
           git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream ${UPSTREAM_BRANCH}" || {
-            echo "⚠️ Merge had conflicts or warnings, continuing..."
+            echo "⚠️ Merge 有冲突，开始自动解决..."
           }
           echo "✅ Merge complete"
           echo "Files changed:"
           git diff --name-only HEAD~1 | head -30
+
+      - name: Auto-resolve merge conflicts
+        if: steps.fetch_upstream.outputs.has_changes == 'true' && steps.fetch_upstream.outputs.already_merged != 'true'
+        run: |
+          echo "=== 检测合并冲突 ==="
+          CONFLICT_FILES=$(git diff --name-only --diff-filter=U 2>/dev/null)
+          
+          if [ -n "$CONFLICT_FILES" ]; then
+            CONFLICT_COUNT=$(echo "$CONFLICT_FILES" | wc -l)
+            echo "⚠️  发现 ${CONFLICT_COUNT} 个冲突文件:"
+            echo "$CONFLICT_FILES"
+            echo ""
+            echo "🔧 策略: 取官方版本(theirs)，然后由 auto_translate.py 重新翻译为中文"
+            echo ""
+            
+            echo "$CONFLICT_FILES" | while read -r file; do
+              if [ -f "$file" ]; then
+                # 取官方上游版本（保证代码逻辑是最新正确的）
+                git checkout --theirs "$file"
+                git add "$file"
+                echo "  ✅ 已解决: $file (使用官方版本，待翻译)"
+              fi
+            done
+            
+            echo ""
+            RESOLVED=$(git diff --name-only --diff-filter=U 2>/dev/null | wc -l)
+            if [ "$RESOLVED" = "0" ]; then
+              echo "✅ 所有冲突已自动解决！"
+              # 完成合并提交
+              git commit -m "resolve: 自动解决合并冲突（${CONFLICT_COUNT}个文件取官方版本）" --no-edit || true
+            else
+              echo "❌ 仍有未解决的冲突！"
+              exit 1
+            fi
+          else
+            echo "✅ 无冲突文件，合并干净完成"
+          fi
 
       - name: Setup Python
         if: steps.fetch_upstream.outputs.has_changes == 'true'

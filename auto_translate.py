@@ -284,6 +284,18 @@ class AutoTranslator:
             stats.error_count += 1
             return stats
         
+        # 安全检测：检查文件是否包含未解决的合并冲突标记
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                raw_content = f.read()
+            if '<<<<<<< HEAD' in raw_content or '<<<<<<<<<' in raw_content:
+                print(f"   ⚠️ 跳过: {file_path} (包含未解决的合并冲突标记)")
+                print(f"      提示: 工作流应先解决冲突再运行翻译")
+                stats.skipped_count += 1
+                return stats
+        except Exception:
+            pass
+        
         # 备份原始文件
         backup_enabled = self.rules.get('global', {}).get('backup_original', True)
         if backup_enabled and not self.dry_run:
@@ -564,6 +576,27 @@ def main():
     
     # 初始化翻译器
     translator = AutoTranslator(rules_file=args.rules, dry_run=args.dry_run)
+    
+    # 全局安全检测：检查仓库中是否有未解决的合并冲突
+    if not args.report_only:
+        try:
+            result = subprocess.run(
+                ['git', 'diff', '--name-only', '--diff-filter=U'],
+                capture_output=True, text=True, cwd='.'
+            )
+            conflict_files = [f for f in result.stdout.strip().split('\n') if f]
+            if conflict_files:
+                print(f"\n❌ 错误: 发现 {len(conflict_files)} 个文件包含未解决的合并冲突！")
+                print("   冲突文件列表:")
+                for f in conflict_files[:10]:
+                    print(f"     • {f}")
+                if len(conflict_files) > 10:
+                    print(f"   ... 还有 {len(conflict_files) - 10} 个文件")
+                print("\n   请先解决合并冲突后再运行翻译脚本。")
+                print("   工作流中应配置 'Auto-resolve merge conflicts' 步骤。")
+                sys.exit(1)
+        except Exception:
+            pass
     
     # 仅生成报告
     if args.report_only:
