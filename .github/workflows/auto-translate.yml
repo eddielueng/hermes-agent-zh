@@ -239,12 +239,57 @@ jobs:
             echo "ℹ️ No new translations needed (files may already be in Chinese)"
           fi
 
+      - name: Validate Python syntax
+        if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
+        run: |
+          echo "=== 验证翻译后 Python 语法 ==="
+          ERROR_COUNT=0
+          
+          for f in $(git diff --name-only '*.py' 2>/dev/null); do
+            if [ -f "$f" ]; then
+              python3 -c "import ast; ast.parse(open('$f').read(), filename='$f')" 2>/dev/null
+              if [ $? -ne 0 ]; then
+                echo "❌ 语法错误: $f"
+                ERROR_COUNT=$((ERROR_COUNT + 1))
+              fi
+            fi
+          done
+          
+          if [ $ERROR_COUNT -gt 0 ]; then
+            echo ""
+            echo "⚠️ 发现 ${ERROR_COUNT} 个文件语法错误！回滚这些文件..."
+            for f in $(git diff --name-only '*.py' 2>/dev/null); do
+              if [ -f "${f}.backup" ]; then
+                cp "${f}.backup" "$f"
+                rm -f "${f}.backup"
+              fi
+            done
+            git add -u '*.py'
+            git commit -m "🔧 回滚语法错误的翻译文件" --amend --no-edit || true
+            echo "已回滚并重新提交"
+          else
+            echo "✅ 所有 Python 文件语法验证通过"
+          fi
+
       - name: Commit changes
         if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
         run: |
           git config user.name "Hermes Bot"
           git config user.email "bot@hermes-zh.com"
-          git add -A
+          # 只添加翻译相关的文件类型，避免提交 .backup/__pycache__ 等垃圾
+          git add '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
+          # 清理可能残留的 .backup 文件
+          find . -name "*.backup" -delete 2>/dev/null || true
+          git add -u '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
+          
+          # 检查是否有实际变更
+          CHANGED_FOR_COMMIT=$(git diff --cached --name-only 2>/dev/null | wc -l)
+          if [ "$CHANGED_FOR_COMMIT" = "0" ]; then
+            echo "No translatable changes to commit"
+            echo "changed_files=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
           git commit -m "🔄 Auto sync & translate: ${{ steps.translate.outputs.changed_files }} files" || echo "No new commits"
           BRANCH="auto-sync-$(date +%Y%m%d-%H%M%S)"
           git branch -M "${BRANCH}"
@@ -285,7 +330,7 @@ jobs:
           fi
 
       - name: Auto Merge PR
-        if: steps.create_pr.outputs.pr_number != '0' && steps.create_pr.outputs.pr_number != '' && github.event.inputs.dry_run != 'true'
+        if: steps.create_pr.outputs.pr_number != '' && steps.create_pr.outputs.pr_number != '0' && github.event.inputs.dry_run != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |

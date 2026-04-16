@@ -38,9 +38,51 @@ import yaml
 import argparse
 import subprocess
 import datetime
+import ast
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Set
 from dataclasses import dataclass, field
+
+
+def contains_chinese(text: str) -> bool:
+    """检测文本是否包含中文字符"""
+    if not text:
+        return False
+    for char in text:
+        if '\u4e00' <= char <= '\u9fff':
+            return True
+    return False
+
+
+def is_likely_user_facing(line: str) -> bool:
+    """判断一行代码是否包含用户可见的字符串（而非技术标识符）"""
+    user_facing_patterns = [
+        r'print\s*\(', r'input\s*\(', r'raise\s+\w+Error',
+        r'logger\.(warning|error|info|critical)\s*\(',
+        r'click\.echo|rich\.print|console\.print|typer\.echo',
+        r'Panel\(|Markdown\(|Text\(',
+        r'prompt_toolkit|questionary|inquirer',
+        r'\b(message|msg|text|label|title|description|hint|prompt|error|warning|success|info|help)\s*=',
+    ]
+    stripped = line.strip()
+    if stripped.startswith('#'):
+        return False
+    for pattern in user_facing_patterns:
+        if re.search(pattern, stripped):
+            return True
+    return False
+
+
+def validate_python_syntax(file_path: str) -> bool:
+    """验证 Python 文件语法是否有效"""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            source = f.read()
+        ast.parse(source, filename=file_path)
+        return True
+    except SyntaxError as e:
+        print(f"   ❌ 语法验证失败 {file_path}: {e}")
+        return False
 
 
 @dataclass
@@ -172,20 +214,31 @@ class AutoTranslator:
     def get_changed_files(self) -> List[str]:
         """
         获取自上次提交以来变更的文件列表
+        使用 merge-base 确保在 squash merge 后也能正确工作
         
         Returns:
             List[str]: 变更的文件路径列表
         """
         try:
-            # 获取新增和修改的文件
+            # 优先使用 merge-base（更可靠，适用于 squash merge 后）
             result = subprocess.run(
-                ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+                ["git", "diff", "--name-only", "HEAD", "upstream/main"],
                 capture_output=True,
                 text=True,
                 cwd="."
             )
-            
             files = [f for f in result.stdout.strip().split('\n') if f]
+            
+            if not files:
+                # 回退到 HEAD~1
+                result = subprocess.run(
+                    ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+                    capture_output=True,
+                    text=True,
+                    cwd="."
+                )
+                files = [f for f in result.stdout.strip().split('\n') if f]
+            
             return files
             
         except Exception as e:
@@ -229,6 +282,10 @@ class AutoTranslator:
         
         original = text.strip()
         
+        # 防重复翻译：如果文本已经包含中文，跳过
+        if contains_chinese(original):
+            return None
+        
         # 1. 检查是否已经在排除列表中
         exclusions = self.rules.get('exclusions', [])
         for exclusion in exclusions:
@@ -237,33 +294,39 @@ class AutoTranslator:
             if re.search(pattern, original, re.IGNORECASE):
                 return None
         
-        # 2. 检查特定文件的规则
+        # 2. 检查特定文件的规则（只做精确匹配，不用 startswith 避免破坏标识符）
         file_rules = self.rules.get('file_specific_rules', {})
         
-        # 先尝试精确匹配文件路径
         if context and context in file_rules:
             specific_rules = file_rules[context]
             for en, zh in specific_rules.items():
-                if original == en or original.startswith(en):
-                    return (original.replace(en, zh), f"file_rule:{context}")
+                if original == en:
+                    return (zh, f"file_rule:{context}:exact")
+                # 全词匹配：确保不会把 ExitCode 变成 退出Code
+                if re.search(r'\b' + re.escape(en) + r'\b', original) and len(en) > 3:
+                    return (re.sub(r'\b' + re.escape(en) + r'\b', zh, original, count=1), f"file_rule:{context}:word")
         
-        # 再尝试通配符匹配
+        # 通配符文件规则
         for pattern, rules in file_rules.items():
             if '*' in pattern:
                 import fnmatch
                 if fnmatch.fnmatch(context, pattern):
                     for en, zh in rules.items():
-                        if original == en or original.startswith(en):
-                            return (original.replace(en, zh), f"file_rule:{pattern}")
+                        if original == en:
+                            return (zh, f"file_rule:{pattern}:exact")
+                        if re.search(r'\b' + re.escape(en) + r'\b', original) and len(en) > 3:
+                            return (re.sub(r'\b' + re.escape(en) + r'\b', zh, original, count=1), f"file_rule:{pattern}:word")
         
-        # 3. 检查通用映射
+        # 3. 检查通用映射（只在完整消息上下文中使用，避免误替换代码中的单词）
         common_mappings = self.rules.get('common_mappings', {})
         for en, zh in common_mappings.items():
-            if original == en or original.endswith(en):
-                return (original.replace(en, zh, 1), "common_mapping")
-            if en in original:
-                # 部分匹配，替换第一个出现的
-                return (original.replace(en, zh, 1), "common_mapping_partial")
+            if original == en:
+                return (zh, "common_mapping:exact")
+            # 全词边界匹配（避免部分替换如 ErrorMessages）
+            if len(en) > 4 and re.search(r'\b' + re.escape(en) + r'\b', original):
+                new_text = re.sub(r'\b' + re.escape(en) + r'\b', zh, original, count=1)
+                if new_text != original:
+                    return (new_text, "common_mapping:word")
         
         return None
     
@@ -318,17 +381,39 @@ class AutoTranslator:
         for i, line in enumerate(lines, 1):
             line_num = i
             translated_line = line
+            stripped_line = line.strip()
             
-            # 匹配需要翻译的模式
+            # 跳过注释行和空行
+            if not stripped_line or stripped_line.startswith('#'):
+                new_lines.append(line)
+                stats.skipped_count += 1
+                continue
+            
+            # 防重复翻译：整行已包含中文则跳过（除非是混合中英文的新增文本）
+            chinese_ratio = sum(1 for c in stripped_line if '\u4e00' <= c <= '\u9fff') / max(len(stripped_line), 1)
+            if chinese_ratio > 0.3:
+                new_lines.append(line)
+                stats.skipped_count += 1
+                continue
+            
+            # 只处理用户可见的代码行（print/input/raise/logger/echo 等）
+            if not is_likely_user_facing(line):
+                new_lines.append(line)
+                stats.skipped_count += 1
+                continue
+            
+            # 精确匹配需要翻译的模式（只匹配用户交互相关的字符串）
             patterns_to_check = [
-                # Python 字符串字面量
-                (r'(["\'])([^"\']+?)\1', lambda m: (m.group(2), m.group(1))),
-                # f-string
-                (rf'f(["\'])([^"\']*?[A-Z][^"\']*?)\1', lambda m: (m.group(2), m.group(1))),
-                # print() 语句
-                (r'print\(f?["\']([^"\']+)["\']', lambda m: (m.group(1), None)),
-                # raise 语句
-                (r'raise\s+\w+Error\(["\']([^"\']+)["\']', lambda m: (m.group(1), None)),
+                # print / echo 语句中的字符串
+                (r'(?:print|click\.echo|rich\.print|console\.print|typer\.echo|logger\.(?:warning|error|info|critical))\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
+                # raise Error("...") 
+                (r'raise\s+\w+Error\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
+                # input("...") / Prompt.ask("...")
+                (r'(?:input|Prompt\.ask|questionary\.prompt)\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
+                # 变量赋值中的用户消息字符串 (message="...", label="...", title="...", etc.)
+                (r'\b(?:message|msg|text|label|title|description|hint|prompt|error_msg|warning_msg|success_msg|help_text)\s*=\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
+                # Panel/Markdown/Text(...) 中的字符串
+                (r'(?:Panel|Markdown|Text|Alert|Rule|Group)\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
             ]
             
             should_translate = False
@@ -339,26 +424,25 @@ class AutoTranslator:
                 match = re.search(pattern, line)
                 if match:
                     original_text, quote_char = extractor(match)
-                    if original_text and len(original_text) > 3:  # 至少4个字符才考虑翻译
+                    if original_text:
                         result = self.translate_string(original_text, context=file_path)
                         if result:
                             translated_text, rule_matched = result
                             
                             # 替换原文
-                            if quote_char:
+                            if quote_char is None:
+                                new_content = line.replace(original_text, translated_text, 1)
+                            else:
                                 new_content = line.replace(
                                     f"{quote_char}{original_text}{quote_char}",
                                     f"{quote_char}{translated_text}{quote_char}",
                                     1
                                 )
-                            else:
-                                new_content = line.replace(original_text, translated_text, 1)
                             
                             if new_content != line:
                                 translated_line = new_content
                                 should_translate = True
                                 
-                                # 记录翻译结果
                                 tr = TranslationResult(
                                     file_path=file_path,
                                     original_text=original_text,
@@ -381,6 +465,17 @@ class AutoTranslator:
                 with open(path, 'w', encoding='utf-8') as f:
                     f.writelines(new_lines)
                 
+                # 语法验证：确保翻译后文件仍然是合法 Python
+                if path.suffix == '.py':
+                    if not validate_python_syntax(path):
+                        print(f"   ⚠️ 翻译后语法无效，回滚备份")
+                        if backup_path.exists():
+                            import shutil
+                            shutil.copy2(backup_path, path)
+                        backup_path.unlink() if backup_path.exists() else None
+                        stats.error_count += 1
+                        return stats
+                
                 # 删除备份
                 if backup_enabled and backup_path.exists():
                     backup_path.unlink()
@@ -388,6 +483,10 @@ class AutoTranslator:
             except Exception as e:
                 print(f"   ❌ 写入失败 {file_path}: {e}")
                 stats.error_count += 1
+                # 尝试恢复备份
+                if backup_path.exists():
+                    import shutil
+                    shutil.copy2(backup_path, path)
         
         return stats
     

@@ -43,17 +43,14 @@ global:
 # 这些规则适用于所有文件
 
 common_mappings:
-  # 错误和状态消息
+  # 错误和状态消息（带标点确保是完整消息）
   "Error:": "错误："
   "Warning:": "警告："
   "Success:": "成功："
   "Failed:": "失败："
   "Cancelled.": "已取消。"
-  "completed": "完成"
-  "failed": "失败"
-  "success": "成功"
   
-  # 常用动词短语
+  # 常用动词短语（带空格确保是短语而非单词）
   "Starting ": "正在启动 "
   "Stopping ": "正在停止 "
   "Connecting to": "连接到"
@@ -66,7 +63,7 @@ common_mappings:
   "Installed ": "已安装 "
   "Removed ": "已移除 "
   
-  # 用户交互提示
+  # 用户交互提示（完整短语）
   "Enter ": "输入 "
   "Select ": "选择 "
   "Choose ": "选择 "
@@ -81,7 +78,7 @@ common_mappings:
   "Exit": "退出"
   "Quit": "退出"
   
-  # 时间相关
+  # 时间相关（完整短语）
   "just now": "刚刚"
   " ago": "前"
   "yesterday": "昨天"
@@ -89,16 +86,12 @@ common_mappings:
   "hours ago": "小时前"
   "days ago": "天前"
   
-  # 布尔值显示
+  # 布尔值显示（完整格式）
   "(current)": "（当前）"
   "(default)": "（默认）"
   "(recommended)": "（推荐）"
-  "enabled": "已启用"
-  "disabled": "已禁用"
-  "active": "活跃"
-  "inactive": "非活跃"
   
-  # 文件操作
+  # 文件操作（完整短语）
   "not found": "未找到"
   "does not exist": "不存在"
   "already exists": "已存在"
@@ -417,6 +410,22 @@ exclusions:
   # 不翻译日志格式字符串（调试信息）
   - pattern: "logger\\.(debug|info|warning|error)\\("
     reason: "日志调用"
+
+  # 不翻译 f-string 变量占位符
+  - pattern: "\\{[^}]+\\}"
+    reason: "f-string/格式化变量占位符"
+
+  # 不翻译 markdown 代码块内容
+  - pattern: "```[\\s\\S]*?```"
+    reason: "Markdown 代码块"
+
+  # 不翻译 docstring（三引号长字符串）
+  - pattern: '"""[\\s\\S]*?"""'
+    reason: "文档字符串"
+
+  # 不翻译路径字符串
+  - pattern: '[\'"][\\w/.-]+\\.(py|yaml|yml|json|md|txt|sh)[\'"]'
+    reason: "文件路径引用"
 
 # =============================================
 # ⚙️ 第五部分：高级选项
