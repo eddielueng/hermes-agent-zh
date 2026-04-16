@@ -116,7 +116,7 @@ def run_backup(args) -> None:
     hermes_root = get_default_hermes_root()
 
     if not hermes_root.is_dir():
-        print(f"Error: Hermes home directory not found at {hermes_root}")
+        print(f"错误: 在 {hermes_root} 未找到 Hermes 主目录")
         sys.exit(1)
 
     # Determine output path
@@ -172,7 +172,7 @@ def run_backup(args) -> None:
             files_to_add.append((fpath, rel))
 
     if not files_to_add:
-        print("No files to back up.")
+        print("没有文件需要备份。")
         return
 
     # Create the zip
@@ -214,11 +214,11 @@ def run_backup(args) -> None:
 
     # Summary
     print()
-    print(f"Backup complete: {out_path}")
-    print(f"  Files:       {file_count}")
-    print(f"  Original:    {_format_size(total_bytes)}")
-    print(f"  Compressed:  {_format_size(zip_size)}")
-    print(f"  Time:        {elapsed:.1f}s")
+    print(f"备份完成: {out_path}")
+    print(f"  文件数:       {file_count}")
+    print(f"  原始大小:    {_format_size(total_bytes)}")
+    print(f"  压缩大小:  {_format_size(zip_size)}")
+    print(f"  耗时:        {elapsed:.1f}s")
 
     if skipped_dirs:
         print(f"\n  Excluded directories:")
@@ -295,11 +295,11 @@ def run_import(args) -> None:
     zip_path = Path(args.zipfile).expanduser().resolve()
 
     if not zip_path.is_file():
-        print(f"Error: File not found: {zip_path}")
+        print(f"错误: 文件未找到: {zip_path}")
         sys.exit(1)
 
     if not zipfile.is_zipfile(zip_path):
-        print(f"Error: Not a valid zip file: {zip_path}")
+        print(f"错误: 无效的 zip 文件: {zip_path}")
         sys.exit(1)
 
     hermes_root = get_default_hermes_root()
@@ -308,15 +308,15 @@ def run_import(args) -> None:
         # Validate
         ok, reason = _validate_backup_zip(zf)
         if not ok:
-            print(f"Error: {reason}")
+            print(f"错误: {reason}")
             sys.exit(1)
 
         prefix = _detect_prefix(zf)
         members = [n for n in zf.namelist() if not n.endswith("/")]
         file_count = len(members)
 
-        print(f"Backup contains {file_count} files")
-        print(f"Target: {display_hermes_home()}")
+        print(f"备份包含 {file_count} 个文件")
+        print(f"目标: {display_hermes_home()}")
 
         if prefix:
             print(f"Detected archive prefix: {prefix!r} (will be stripped)")
@@ -327,20 +327,20 @@ def run_import(args) -> None:
 
         if (has_config or has_env) and not args.force:
             print()
-            print("Warning: Target directory already has Hermes configuration.")
-            print("Importing will overwrite existing files with backup contents.")
+            print("警告: 目标目录已包含 Hermes 配置。")
+            print("导入将使用备份内容覆盖现有文件。")
             print()
             try:
-                answer = input("Continue? [y/N] ").strip().lower()
+                answer = input("是否继续? [y/N] ").strip().lower()
             except (EOFError, KeyboardInterrupt):
-                print("\nAborted.")
+                print("\n已中止。")
                 sys.exit(1)
             if answer not in ("y", "yes"):
-                print("Aborted.")
+                print("已中止。")
                 return
 
         # Extract
-        print(f"\nImporting {file_count} files ...")
+        print(f"\n正在导入 {file_count} 个文件 ...")
         hermes_root.mkdir(parents=True, exist_ok=True)
 
         errors = []
@@ -375,14 +375,14 @@ def run_import(args) -> None:
                 errors.append(f"  {rel}: {exc}")
 
             if restored % 500 == 0:
-                print(f"  {restored}/{file_count} files ...")
+                print(f"  {restored}/{file_count} 个文件 ...")
 
         elapsed = time.monotonic() - t0
 
         # Summary
         print()
-        print(f"Import complete: {restored} files restored in {elapsed:.1f}s")
-        print(f"  Target: {display_hermes_home()}")
+        print(f"导入完成: 已恢复 {restored} 个文件，耗时 {elapsed:.1f}s")
+        print(f"  目标: {display_hermes_home()}")
 
         if errors:
             print(f"\n  Warnings ({len(errors)} files skipped):")
@@ -435,7 +435,7 @@ def run_import(args) -> None:
         # Guidance
         print()
         if not (hermes_root / "hermes-agent").is_dir():
-            print("Note: The hermes-agent codebase was not included in the backup.")
+            print("注意: 备份中未包含 hermes-agent 代码库。")
             print("  If this is a fresh install, run: hermes update")
 
         if restored_profiles:
@@ -647,9 +647,9 @@ def run_quick_backup(args) -> None:
     label = getattr(args, "label", None)
     snap_id = create_quick_snapshot(label=label)
     if snap_id:
-        print(f"State snapshot created: {snap_id}")
+        print(f"状态快照已创建: {snap_id}")
         snaps = list_quick_snapshots()
         print(f"  {len(snaps)} snapshot(s) stored in {display_hermes_home()}/state-snapshots/")
         print(f"  Restore with: /snapshot restore {snap_id}")
     else:
-        print("No state files found to snapshot.")
+        print("没有找到可快照的状态文件。")

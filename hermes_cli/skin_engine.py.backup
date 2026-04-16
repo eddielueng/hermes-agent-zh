@@ -178,11 +178,11 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
         },
         "branding": {
             "agent_name": "Hermes Agent",
-            "welcome": "Welcome to Hermes Agent! Type your message or /help for commands.",
-            "goodbye": "Goodbye! ⚕",
+            "welcome": "欢迎来到 Hermes Agent！输入您的消息或 /help 查看命令。",
+            "goodbye": "再见！⚕",
             "response_label": " ⚕ Hermes ",
             "prompt_symbol": "❯ ",
-            "help_header": "(^_^)? Available Commands",
+            "help_header": "(^_^)? 可用命令",
         },
         "tool_prefix": "┊",
     },
@@ -273,11 +273,11 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
         "spinner": {},
         "branding": {
             "agent_name": "Hermes Agent",
-            "welcome": "Welcome to Hermes Agent! Type your message or /help for commands.",
-            "goodbye": "Goodbye! ⚕",
+            "welcome": "欢迎来到 Hermes Agent！输入您的消息或 /help 查看命令。",
+            "goodbye": "再见！⚕",
             "response_label": " ⚕ Hermes ",
             "prompt_symbol": "❯ ",
-            "help_header": "[?] Available Commands",
+            "help_header": "[?] 可用命令",
         },
         "tool_prefix": "┊",
     },
@@ -304,11 +304,11 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
         "spinner": {},
         "branding": {
             "agent_name": "Hermes Agent",
-            "welcome": "Welcome to Hermes Agent! Type your message or /help for commands.",
-            "goodbye": "Goodbye! ⚕",
+            "welcome": "欢迎来到 Hermes Agent！输入您的消息或 /help 查看命令。",
+            "goodbye": "再见！⚕",
             "response_label": " ⚕ Hermes ",
             "prompt_symbol": "❯ ",
-            "help_header": "(^_^)? Available Commands",
+            "help_header": "(^_^)? 可用命令",
         },
         "tool_prefix": "┊",
     },
@@ -341,11 +341,11 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
         "spinner": {},
         "branding": {
             "agent_name": "Hermes Agent",
-            "welcome": "Welcome to Hermes Agent! Type your message or /help for commands.",
-            "goodbye": "Goodbye! ⚕",
+            "welcome": "欢迎来到 Hermes Agent！输入您的消息或 /help 查看命令。",
+            "goodbye": "再见！⚕",
             "response_label": " ⚕ Hermes ",
             "prompt_symbol": "❯ ",
-            "help_header": "[?] Available Commands",
+            "help_header": "[?] 可用命令",
         },
         "tool_prefix": "│",
     },
@@ -378,11 +378,11 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
         "spinner": {},
         "branding": {
             "agent_name": "Hermes Agent",
-            "welcome": "Welcome to Hermes Agent! Type your message or /help for commands.",
-            "goodbye": "Goodbye! \u2695",
-            "response_label": " \u2695 Hermes ",
-            "prompt_symbol": "\u276f ",
-            "help_header": "(^_^)? Available Commands",
+            "welcome": "欢迎来到 Hermes Agent！输入您的消息或 /help 查看命令。",
+            "goodbye": "再见！⚕",
+            "response_label": " ⚕ Hermes ",
+            "prompt_symbol": "❯ ",
+            "help_header": "(^_^)? 可用命令",
         },
         "tool_prefix": "\u250a",
     },
@@ -708,7 +708,9 @@ def init_skin_from_config(config: dict) -> None:
 
     Call this once during CLI init with the loaded config dict.
     """
-    display = config.get("display", {})
+    display = config.get("display") or {}
+    if not isinstance(display, dict):
+        display = {}
     skin_name = display.get("skin", "default")
     if isinstance(skin_name, str) and skin_name.strip():
         set_active_skin(skin_name.strip())

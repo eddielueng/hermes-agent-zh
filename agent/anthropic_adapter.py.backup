@@ -298,6 +298,33 @@ def build_anthropic_client(api_key: str, base_url: str = None):
     return _anthropic_sdk.Anthropic(**kwargs)
 
 
+def build_anthropic_bedrock_client(region: str):
+    """Create an AnthropicBedrock client for Bedrock Claude models.
+
+    Uses the Anthropic SDK's native Bedrock adapter, which provides full
+    Claude feature parity: prompt caching, thinking budgets, adaptive
+    thinking, fast mode — features not available via the Converse API.
+
+    Auth uses the boto3 default credential chain (IAM roles, SSO, env vars).
+    """
+    if _anthropic_sdk is None:
+        raise ImportError(
+            "The 'anthropic' package is required for the Bedrock provider. "
+            "Install it with: pip install 'anthropic>=0.39.0'"
+        )
+    if not hasattr(_anthropic_sdk, "AnthropicBedrock"):
+        raise ImportError(
+            "anthropic.AnthropicBedrock not available. "
+            "Upgrade with: pip install 'anthropic>=0.39.0'"
+        )
+    from httpx import Timeout
+
+    return _anthropic_sdk.AnthropicBedrock(
+        aws_region=region,
+        timeout=Timeout(timeout=900.0, connect=10.0),
+    )
+
+
 def read_claude_code_credentials() -> Optional[Dict[str, Any]]:
     """Read refreshable Claude Code OAuth credentials from ~/.claude/.credentials.json.
 
@@ -652,11 +679,11 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
     auth_url = f"https://claude.ai/oauth/authorize?{urlencode(params)}"
 
     print()
-    print("Authorize Hermes with your Claude Pro/Max subscription.")
+    print("使用您的 Claude Pro/Max 订阅授权 Hermes。")
     print()
-    print("╭─ Claude Pro/Max Authorization ────────────────────╮")
+    print("╭─ Claude Pro/Max 授权 ────────────────────╮")
     print("│                                                   │")
-    print("│  Open this link in your browser:                  │")
+    print("│  在浏览器中打开此链接:                          │")
     print("╰───────────────────────────────────────────────────╯")
     print()
     print(f"  {auth_url}")
@@ -664,20 +691,20 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
 
     try:
         webbrowser.open(auth_url)
-        print("  (Browser opened automatically)")
+        print("  （浏览器已自动打开）")
     except Exception:
         pass
 
     print()
-    print("After authorizing, you'll see a code. Paste it below.")
+    print("授权后，您会看到一个代码。请在下方粘贴该代码。")
     print()
     try:
-        auth_code = input("Authorization code: ").strip()
+        auth_code = input("授权代码: ").strip()
     except (KeyboardInterrupt, EOFError):
         return None
 
     if not auth_code:
-        print("No code entered.")
+        print("未输入代码。")
         return None
 
     splits = auth_code.split("#")
@@ -709,7 +736,7 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
         with urllib.request.urlopen(req, timeout=15) as resp:
             result = json.loads(resp.read().decode())
     except Exception as e:
-        print(f"Token exchange failed: {e}")
+        print(f"令牌交换失败: {e}")
         return None
 
     access_token = result.get("access_token", "")
@@ -717,7 +744,7 @@ def run_hermes_oauth_login_pure() -> Optional[Dict[str, Any]]:
     expires_in = result.get("expires_in", 3600)
 
     if not access_token:
-        print("No access token in response.")
+        print("响应中未包含访问令牌。")
         return None
 
     expires_at_ms = int(time.time() * 1000) + (expires_in * 1000)

@@ -47,6 +47,7 @@ from hermes_cli.cli_output import (  # noqa: E402 — late import block
 # Each entry: (toolset_name, label, description)
 # These map to keys in toolsets.py TOOLSETS dict.
 CONFIGURABLE_TOOLSETS = [
+<<<<<<< HEAD
     ("web",             "🔍 网络搜索与抓取",    "web_search, web_extract"),
     ("browser",         "🌐 浏览器自动化",       "navigate, click, type, scroll"),
     ("terminal",        "💻 终端与进程",          "terminal, process"),
@@ -65,6 +66,27 @@ CONFIGURABLE_TOOLSETS = [
     ("cronjob",         "⏰ 定时任务",            "创建/列表/更新/暂停/恢复/运行，可附加技能"),
     ("rl",              "🧪 强化学习训练",        "Tinker-Atropos 训练工具"),
     ("homeassistant",    "🏠 智能家居",           "智能家居设备控制"),
+=======
+    ("web",             "🔍 Web Search & Scraping",    "web_search, web_extract"),
+    ("browser",         "🌐 Browser Automation",       "navigate, click, type, scroll"),
+    ("terminal",        "💻 Terminal & Processes",      "terminal, process"),
+    ("file",            "📁 File Operations",           "read, write, patch, search"),
+    ("code_execution",  "⚡ Code Execution",            "execute_code"),
+    ("vision",          "👁️  Vision / Image Analysis",  "vision_analyze"),
+    ("image_gen",       "🎨 Image Generation",          "image_generate"),
+    ("moa",             "🧠 Mixture of Agents",         "mixture_of_agents"),
+    ("tts",             "🔊 Text-to-Speech",            "text_to_speech"),
+    ("skills",          "📚 Skills",                    "list, view, manage"),
+    ("todo",            "📋 Task Planning",             "todo"),
+    ("memory",          "💾 Memory",                    "persistent memory across sessions"),
+    ("session_search",  "🔎 Session Search",            "search past conversations"),
+    ("clarify",         "❓ Clarifying Questions",      "clarify"),
+    ("delegation",      "👥 Task Delegation",           "delegate_task"),
+    ("cronjob",         "⏰ Cron Jobs",                 "create/list/update/pause/resume/run, with optional attached skills"),
+    ("messaging",       "📨 Cross-Platform Messaging",  "send_message"),
+    ("rl",              "🧪 RL Training",               "Tinker-Atropos training tools"),
+    ("homeassistant",    "🏠 Home Assistant",           "smart home device control"),
+>>>>>>> upstream/main
 ]
 
 # Toolsets that are OFF by default for new installs.
@@ -120,8 +142,14 @@ TOOL_CATEGORIES = {
         "icon": "🔊",
         "providers": [
             {
+<<<<<<< HEAD
                 "name": "Nous 订阅",
                 "tag": "托管的 OpenAI TTS，费用计入您的订阅",
+=======
+                "name": "Nous Subscription",
+                "badge": "subscription",
+                "tag": "Managed OpenAI TTS billed to your subscription",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "tts_provider": "openai",
                 "requires_nous_auth": True,
@@ -129,22 +157,46 @@ TOOL_CATEGORIES = {
                 "override_env_vars": ["VOICE_TOOLS_OPENAI_KEY", "OPENAI_API_KEY"],
             },
             {
+<<<<<<< HEAD
                 "name": "微软 Edge TTS",
                 "tag": "免费 - 无需 API 密钥",
+=======
+                "name": "Microsoft Edge TTS",
+                "badge": "★ recommended · free",
+                "tag": "Good quality, no API key needed",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "tts_provider": "edge",
             },
             {
                 "name": "OpenAI TTS",
+<<<<<<< HEAD
                 "tag": "高级 - 高质量语音",
+=======
+                "badge": "paid",
+                "tag": "High quality voices",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "VOICE_TOOLS_OPENAI_KEY", "prompt": "OpenAI API 密钥", "url": "https://platform.openai.com/api-keys"},
                 ],
                 "tts_provider": "openai",
             },
             {
+                "name": "xAI TTS",
+                "tag": "Grok voices - requires xAI API key",
+                "env_vars": [
+                    {"key": "XAI_API_KEY", "prompt": "xAI API key", "url": "https://console.x.ai/"},
+                ],
+                "tts_provider": "xai",
+            },
+            {
                 "name": "ElevenLabs",
+<<<<<<< HEAD
                 "tag": "高级 - 最自然的声音",
+=======
+                "badge": "paid",
+                "tag": "Most natural voices",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "ELEVENLABS_API_KEY", "prompt": "ElevenLabs API 密钥", "url": "https://elevenlabs.io/app/settings/api-keys"},
                 ],
@@ -152,7 +204,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Mistral (Voxtral TTS)",
+<<<<<<< HEAD
                 "tag": "多语言，原生 Opus，需要 MISTRAL_API_KEY",
+=======
+                "badge": "paid",
+                "tag": "Multilingual, native Opus",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "MISTRAL_API_KEY", "prompt": "Mistral API 密钥", "url": "https://console.mistral.ai/"},
                 ],
@@ -167,8 +224,14 @@ TOOL_CATEGORIES = {
         "icon": "🔍",
         "providers": [
             {
+<<<<<<< HEAD
                 "name": "Nous 订阅",
                 "tag": "托管的 Firecrawl，费用计入您的订阅",
+=======
+                "name": "Nous Subscription",
+                "badge": "subscription",
+                "tag": "Managed Firecrawl billed to your subscription",
+>>>>>>> upstream/main
                 "web_backend": "firecrawl",
                 "env_vars": [],
                 "requires_nous_auth": True,
@@ -176,8 +239,14 @@ TOOL_CATEGORIES = {
                 "override_env_vars": ["FIRECRAWL_API_KEY", "FIRECRAWL_API_URL"],
             },
             {
+<<<<<<< HEAD
                 "name": "Firecrawl 云服务",
                 "tag": "托管服务 - 搜索、提取和爬取",
+=======
+                "name": "Firecrawl Cloud",
+                "badge": "★ recommended",
+                "tag": "Full-featured search, extract, and crawl",
+>>>>>>> upstream/main
                 "web_backend": "firecrawl",
                 "env_vars": [
                     {"key": "FIRECRAWL_API_KEY", "prompt": "Firecrawl API 密钥", "url": "https://firecrawl.dev"},
@@ -185,7 +254,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Exa",
+<<<<<<< HEAD
                 "tag": "AI 原生搜索和内容获取",
+=======
+                "badge": "paid",
+                "tag": "Neural search with semantic understanding",
+>>>>>>> upstream/main
                 "web_backend": "exa",
                 "env_vars": [
                     {"key": "EXA_API_KEY", "prompt": "Exa API 密钥", "url": "https://exa.ai"},
@@ -193,7 +267,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Parallel",
+<<<<<<< HEAD
                 "tag": "AI 原生搜索和提取",
+=======
+                "badge": "paid",
+                "tag": "AI-powered search and extract",
+>>>>>>> upstream/main
                 "web_backend": "parallel",
                 "env_vars": [
                     {"key": "PARALLEL_API_KEY", "prompt": "Parallel API 密钥", "url": "https://parallel.ai"},
@@ -201,15 +280,26 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Tavily",
+<<<<<<< HEAD
                 "tag": "AI 搜索、提取和爬取",
+=======
+                "badge": "free tier",
+                "tag": "Search, extract, and crawl — 1000 free searches/mo",
+>>>>>>> upstream/main
                 "web_backend": "tavily",
                 "env_vars": [
                     {"key": "TAVILY_API_KEY", "prompt": "Tavily API 密钥", "url": "https://app.tavily.com/home"},
                 ],
             },
             {
+<<<<<<< HEAD
                 "name": "Firecrawl 自托管",
                 "tag": "免费 - 运行您自己的实例",
+=======
+                "name": "Firecrawl Self-Hosted",
+                "badge": "free · self-hosted",
+                "tag": "Run your own Firecrawl instance (Docker)",
+>>>>>>> upstream/main
                 "web_backend": "firecrawl",
                 "env_vars": [
                     {"key": "FIRECRAWL_API_URL", "prompt": "您的 Firecrawl 实例地址（例如 http://localhost:3002）"},
@@ -222,8 +312,14 @@ TOOL_CATEGORIES = {
         "icon": "🎨",
         "providers": [
             {
+<<<<<<< HEAD
                 "name": "Nous 订阅",
                 "tag": "托管的 FAL 图像生成，费用计入您的订阅",
+=======
+                "name": "Nous Subscription",
+                "badge": "subscription",
+                "tag": "Managed FAL image generation billed to your subscription",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "requires_nous_auth": True,
                 "managed_nous_feature": "image_gen",
@@ -231,7 +327,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "FAL.ai",
+<<<<<<< HEAD
                 "tag": "FLUX 2 Pro，支持自动放大",
+=======
+                "badge": "paid",
+                "tag": "FLUX 2 Pro with auto-upscaling",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "FAL_KEY", "prompt": "FAL API 密钥", "url": "https://fal.ai/dashboard/keys"},
                 ],
@@ -243,8 +344,14 @@ TOOL_CATEGORIES = {
         "icon": "🌐",
         "providers": [
             {
+<<<<<<< HEAD
                 "name": "Nous 订阅 (Browser Use 云服务)",
                 "tag": "托管的 Browser Use，费用计入您的订阅",
+=======
+                "name": "Nous Subscription (Browser Use cloud)",
+                "badge": "subscription",
+                "tag": "Managed Browser Use billed to your subscription",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "browser_provider": "browser-use",
                 "requires_nous_auth": True,
@@ -253,15 +360,26 @@ TOOL_CATEGORIES = {
                 "post_setup": "agent_browser",
             },
             {
+<<<<<<< HEAD
                 "name": "本地浏览器",
                 "tag": "免费的无头 Chromium（无需 API 密钥）",
+=======
+                "name": "Local Browser",
+                "badge": "★ recommended · free",
+                "tag": "Headless Chromium, no API key needed",
+>>>>>>> upstream/main
                 "env_vars": [],
                 "browser_provider": "local",
                 "post_setup": "agent_browser",
             },
             {
                 "name": "Browserbase",
+<<<<<<< HEAD
                 "tag": "云浏览器，支持隐身和代理",
+=======
+                "badge": "paid",
+                "tag": "Cloud browser with stealth and proxies",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "BROWSERBASE_API_KEY", "prompt": "Browserbase API 密钥", "url": "https://browserbase.com"},
                     {"key": "BROWSERBASE_PROJECT_ID", "prompt": "Browserbase 项目 ID"},
@@ -271,7 +389,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Browser Use",
+<<<<<<< HEAD
                 "tag": "云浏览器，支持远程执行",
+=======
+                "badge": "paid",
+                "tag": "Cloud browser with remote execution",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "BROWSER_USE_API_KEY", "prompt": "Browser Use API 密钥", "url": "https://browser-use.com"},
                 ],
@@ -280,7 +403,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Firecrawl",
+<<<<<<< HEAD
                 "tag": "云浏览器，支持远程执行",
+=======
+                "badge": "paid",
+                "tag": "Cloud browser with remote execution",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "FIRECRAWL_API_KEY", "prompt": "Firecrawl API 密钥", "url": "https://firecrawl.dev"},
                 ],
@@ -289,7 +417,12 @@ TOOL_CATEGORIES = {
             },
             {
                 "name": "Camofox",
+<<<<<<< HEAD
                 "tag": "本地反检测浏览器（Firefox/Camoufox）",
+=======
+                "badge": "free · local",
+                "tag": "Anti-detection browser (Firefox/Camoufox)",
+>>>>>>> upstream/main
                 "env_vars": [
                     {"key": "CAMOFOX_URL", "prompt": "Camofox 服务器地址", "default": "http://localhost:9377",
                      "url": "https://github.com/jo-inc/camofox-browser"},
@@ -362,7 +495,7 @@ def _run_post_setup(post_setup_key: str):
             _print_warning("    未找到 Node.js - 浏览器工具需要: npm install (在 hermes-agent 目录下)")
 
     elif post_setup_key == "camofox":
-        camofox_dir = PROJECT_ROOT / "node_modules" / "@askjo" / "camoufox-browser"
+        camofox_dir = PROJECT_ROOT / "node_modules" / "@askjo" / "camofox-browser"
         if not camofox_dir.exists() and shutil.which("npm"):
             _print_info("    正在安装 Camofox 浏览器服务器...")
             import subprocess
@@ -375,10 +508,17 @@ def _run_post_setup(post_setup_key: str):
             else:
                 _print_warning("    npm 安装失败 - 请手动运行: npm install")
         if camofox_dir.exists():
+<<<<<<< HEAD
             _print_info("    启动 Camofox 服务器:")
             _print_info("      npx @askjo/camoufox-browser")
             _print_info("    首次运行会下载 Camoufox 引擎（约300MB）")
             _print_info("    或使用 Docker: docker run -p 9377:9377 -e CAMOFOX_PORT=9377 jo-inc/camofox-browser")
+=======
+            _print_info("    Start the Camofox server:")
+            _print_info("      npx @askjo/camofox-browser")
+            _print_info("    First run downloads the Camoufox engine (~300MB)")
+            _print_info("    Or use Docker: docker run -p 9377:9377 -e CAMOFOX_PORT=9377 jo-inc/camofox-browser")
+>>>>>>> upstream/main
         elif not shutil.which("npm"):
             _print_warning("    未找到 Node.js。请通过 Docker 安装 Camofox:")
             _print_info("      docker run -p 9377:9377 -e CAMOFOX_PORT=9377 jo-inc/camofox-browser")
@@ -838,7 +978,8 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
         # Plain text labels only (no ANSI codes in menu items)
         provider_choices = []
         for p in providers:
-            tag = f" ({p['tag']})" if p.get("tag") else ""
+            badge = f" [{p['badge']}]" if p.get("badge") else ""
+            tag = f" — {p['tag']}" if p.get("tag") else ""
             configured = ""
             env_vars = p.get("env_vars", [])
             if not env_vars or all(get_env_value(v["key"]) for v in env_vars):
@@ -847,8 +988,13 @@ def _configure_tool_category(ts_key: str, cat: dict, config: dict):
                 elif not env_vars:
                     configured = ""
                 else:
+<<<<<<< HEAD
                     configured = " [已配置]"
             provider_choices.append(f"{p['name']}{tag}{configured}")
+=======
+                    configured = " [configured]"
+            provider_choices.append(f"{p['name']}{badge}{tag}{configured}")
+>>>>>>> upstream/main
 
         # Add skip option
         provider_choices.append("跳过 — 保持默认 / 稍后配置")
@@ -1104,7 +1250,8 @@ def _configure_tool_category_for_reconfig(ts_key: str, cat: dict, config: dict):
 
         provider_choices = []
         for p in providers:
-            tag = f" ({p['tag']})" if p.get("tag") else ""
+            badge = f" [{p['badge']}]" if p.get("badge") else ""
+            tag = f" — {p['tag']}" if p.get("tag") else ""
             configured = ""
             env_vars = p.get("env_vars", [])
             if not env_vars or all(get_env_value(v["key"]) for v in env_vars):
@@ -1114,7 +1261,7 @@ def _configure_tool_category_for_reconfig(ts_key: str, cat: dict, config: dict):
                     configured = ""
                 else:
                     configured = " [configured]"
-            provider_choices.append(f"{p['name']}{tag}{configured}")
+            provider_choices.append(f"{p['name']}{badge}{tag}{configured}")
 
         default_idx = _detect_active_provider_index(providers, config)
 
