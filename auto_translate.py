@@ -39,6 +39,7 @@ import argparse
 import subprocess
 import datetime
 import ast
+import fnmatch
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Set
 from dataclasses import dataclass, field
@@ -309,7 +310,6 @@ class AutoTranslator:
         # 通配符文件规则
         for pattern, rules in file_rules.items():
             if '*' in pattern:
-                import fnmatch
                 if fnmatch.fnmatch(context, pattern):
                     for en, zh in rules.items():
                         if original == en:
@@ -418,26 +418,17 @@ class AutoTranslator:
             
             should_translate = False
             original_text = ""
-            quote_char = None
             
             for pattern, extractor in patterns_to_check:
                 match = re.search(pattern, line)
                 if match:
-                    original_text, quote_char = extractor(match)
+                    original_text = extractor(match)
                     if original_text:
                         result = self.translate_string(original_text, context=file_path)
                         if result:
                             translated_text, rule_matched = result
                             
-                            # 替换原文
-                            if quote_char is None:
-                                new_content = line.replace(original_text, translated_text, 1)
-                            else:
-                                new_content = line.replace(
-                                    f"{quote_char}{original_text}{quote_char}",
-                                    f"{quote_char}{translated_text}{quote_char}",
-                                    1
-                                )
+                            new_content = line.replace(original_text, translated_text, 1)
                             
                             if new_content != line:
                                 translated_line = new_content
