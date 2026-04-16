@@ -408,11 +408,7 @@ def _gateway_setup_hint() -> str:
 
         return GATEWAY_SECRET_CAPTURE_UNSUPPORTED_MESSAGE
     except Exception:
-<<<<<<< HEAD
         return "安全密钥输入不可用。请在本地 CLI 中加载此技能以进行提示，或手动将密钥添加到 ~/.hermes/.env。"
-=======
-        return f"Secure secret entry is not available. Load this skill in the local CLI to be prompted, or add the key to {display_hermes_home()}/.env manually."
->>>>>>> upstream/main
 
 
 def _build_setup_note(

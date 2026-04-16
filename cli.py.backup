@@ -5505,16 +5505,10 @@ class HermesCLI:
                     for p in plugins:
                         status = "✓" if p["enabled"] else "✗"
                         version = f" v{p['version']}" if p["version"] else ""
-<<<<<<< HEAD
                         tools = f"{p['tools']} 个工具" if p["tools"] else ""
                         hooks = f"{p['hooks']} 个钩子" if p["hooks"] else ""
-                        parts = [x for x in [tools, hooks] if x]
-=======
-                        tools = f"{p['tools']} tools" if p["tools"] else ""
-                        hooks = f"{p['hooks']} hooks" if p["hooks"] else ""
-                        commands = f"{p['commands']} commands" if p.get("commands") else ""
+                        commands = f"{p['commands']} 个命令" if p.get("commands") else ""
                         parts = [x for x in [tools, hooks, commands] if x]
->>>>>>> upstream/main
                         detail = f" ({', '.join(parts)})" if parts else ""
                         error = f" — {p['error']}" if p["error"] else ""
                         print(f"  {status} {p['name']}{version}{detail}{error}")

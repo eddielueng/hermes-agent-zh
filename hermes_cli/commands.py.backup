@@ -162,15 +162,9 @@ COMMAND_REGISTRY: list[CommandDef] = [
                gateway_only=True),
     CommandDef("debug", "上传调试报告（系统信息 + 日志）并获取可分享链接", "信息"),
 
-<<<<<<< HEAD
     # 退出
     CommandDef("quit", "退出 CLI", "退出",
                cli_only=True, aliases=("exit", "q")),
-=======
-    # Exit
-    CommandDef("quit", "Exit the CLI", "Exit",
-               cli_only=True, aliases=("exit",)),
->>>>>>> upstream/main
 ]
 
 
