@@ -989,6 +989,7 @@ def _prune_orphaned_branches(repo_root: str) -> None:
 _ACCENT_ANSI_DEFAULT = "\033[1;38;2;255;215;0m"  # True-color #FFD700 bold — fallback
 _BOLD = "\033[1m"
 _RST = "\033[0m"
+_STREAM_PAD = "    "  # 4-space indent for streamed response text (matches Panel padding)
 
 
 def _hex_to_ansi(hex_color: str, *, bold: bool = False) -> str:
@@ -1712,9 +1713,9 @@ class HermesCLI:
         # Parse and validate toolsets
         self.enabled_toolsets = toolsets
         if toolsets and "all" not in toolsets and "*" not in toolsets:
-            # Validate each toolset — MCP server names are added by
-            # _get_platform_tools() but aren't registered in TOOLSETS yet
-            # (that happens later in _sync_mcp_toolsets), so exclude them.
+            # Validate each toolset — MCP server names are resolved via
+            # live registry aliases (registered during discover_mcp_tools),
+            # but discovery hasn't run yet at this point, so exclude them.
             mcp_names = set((CLI_CONFIG.get("mcp_servers") or {}).keys())
             invalid = [t for t in toolsets if not validate_toolset(t) and t not in mcp_names]
             if invalid:
@@ -2580,7 +2581,7 @@ class HermesCLI:
         _tc = getattr(self, "_stream_text_ansi", "")
         while "\n" in self._stream_buf:
             line, self._stream_buf = self._stream_buf.split("\n", 1)
-            _cprint(f"{_tc}{line}{_RST}" if _tc else line)
+            _cprint(f"{_STREAM_PAD}{_tc}{line}{_RST}" if _tc else f"{_STREAM_PAD}{line}")
 
     def _flush_stream(self) -> None:
         """Emit any remaining partial line from the stream buffer and close the box."""
@@ -2597,7 +2598,7 @@ class HermesCLI:
 
         if self._stream_buf:
             _tc = getattr(self, "_stream_text_ansi", "")
-            _cprint(f"{_tc}{self._stream_buf}{_RST}" if _tc else self._stream_buf)
+            _cprint(f"{_STREAM_PAD}{_tc}{self._stream_buf}{_RST}" if _tc else f"{_STREAM_PAD}{self._stream_buf}")
             self._stream_buf = ""
 
         # Close the response box
@@ -3533,7 +3534,7 @@ class HermesCLI:
         if _remainder:
             _cprint(f"  {_DIM}Now type your prompt (or use --image in single-query mode): {_remainder}{_RST}")
         elif _is_termux_environment():
-            _cprint(f"  {_DIM}Tip: type your next message, or run hermes chat -q --image {_termux_example_image_path(image_path.name)} \"What do you see?\"{_RST}")
+            _cprint(f"  {_DIM}提示: 输入您的下一条消息，或运行 hermes chat -q --image {_termux_example_image_path(image_path.name)} \"您看到了什么？\"{_RST}")
 
     def _preprocess_images_with_vision(self, text: str, images: list, *, announce: bool = True) -> str:
         """Analyze attached images via the vision tool and return enriched text.
@@ -3896,23 +3897,14 @@ class HermesCLI:
     
     def _handle_profile_command(self):
         """Display active profile name and home directory."""
-        from hermes_constants import get_hermes_home, display_hermes_home
+        from hermes_constants import display_hermes_home
+        from hermes_cli.profiles import get_active_profile_name
 
-        home = get_hermes_home()
         display = display_hermes_home()
-
-        profiles_parent = Path.home() / ".hermes" / "profiles"
-        try:
-            rel = home.relative_to(profiles_parent)
-            profile_name = str(rel).split("/")[0]
-        except ValueError:
-            profile_name = None
+        profile_name = get_active_profile_name()
 
         print()
-        if profile_name:
-            print(f"  Profile: {profile_name}")
-        else:
-            print("  Profile: default")
+        print(f"  Profile: {profile_name}")
         print(f"  Home:    {display}")
         print()
 
@@ -4099,6 +4091,8 @@ class HermesCLI:
                 self.agent.flush_memories(self.conversation_history)
             except (Exception, KeyboardInterrupt):
                 pass
+            # Trigger memory extraction on the old session before session_id rotates.
+            self.agent.commit_memory_session(self.conversation_history)
             self._notify_session_boundary("on_session_finalize")
         elif self.agent:
             # First session or empty history — still finalize the old session
@@ -4587,16 +4581,19 @@ class HermesCLI:
                 self._close_model_picker()
                 return
             provider_data = providers[selected]
-            model_list = []
-            try:
-                from hermes_cli.models import provider_model_ids
-                live = provider_model_ids(provider_data["slug"])
-                if live:
-                    model_list = live
-            except Exception:
-                pass
+            # Use the curated model list from list_authenticated_providers()
+            # (same lists as `hermes model` and gateway pickers).
+            # Only fall back to the live provider catalog when the curated
+            # list is empty (e.g. user-defined endpoints with no curated list).
+            model_list = provider_data.get("models", [])
             if not model_list:
-                model_list = provider_data.get("models", [])
+                try:
+                    from hermes_cli.models import provider_model_ids
+                    live = provider_model_ids(provider_data["slug"])
+                    if live:
+                        model_list = live
+                except Exception:
+                    pass
             state["stage"] = "model"
             state["provider_data"] = provider_data
             state["model_list"] = model_list
@@ -5029,17 +5026,17 @@ class HermesCLI:
             print("|" + " " * 22 + "(^_^) Scheduled Tasks" + " " * 23 + "|")
             print("+" + "-" * 68 + "+")
             print()
-            print("  Commands:")
+            print("  命令:")
             print("    /cron list")
-            print('    /cron add "every 2h" "Check server status" [--skill blogwatcher]')
-            print('    /cron edit <job_id> --schedule "every 4h" --prompt "New task"')
-            print("    /cron edit <job_id> --skill blogwatcher --skill find-nearby")
-            print("    /cron edit <job_id> --remove-skill blogwatcher")
-            print("    /cron edit <job_id> --clear-skills")
-            print("    /cron pause <job_id>")
-            print("    /cron resume <job_id>")
-            print("    /cron run <job_id>")
-            print("    /cron remove <job_id>")
+            print('    /cron add "每2小时" "检查服务器状态" [--skill blogwatcher]')
+            print('    /cron edit <任务ID> --schedule "每4小时" --prompt "新任务"')
+            print("    /cron edit <任务ID> --skill blogwatcher --skill find-nearby")
+            print("    /cron edit <任务ID> --remove-skill blogwatcher")
+            print("    /cron edit <任务ID> --clear-skills")
+            print("    /cron pause <任务ID>")
+            print("    /cron resume <任务ID>")
+            print("    /cron run <任务ID>")
+            print("    /cron remove <任务ID>")
             print()
             result = _cron_api(action="list")
             jobs = result.get("jobs", []) if result.get("success") else []
@@ -5073,14 +5070,14 @@ class HermesCLI:
                 return
 
             print()
-            print("Scheduled Jobs:")
+            print("定时任务:")
             print("-" * 80)
             for job in jobs:
                 print(f"  ID: {job['job_id']}")
-                print(f"  Name: {job['name']}")
-                print(f"  State: {job.get('state', '?')}")
-                print(f"  Schedule: {job['schedule']} ({job.get('repeat', '?')})")
-                print(f"  Next run: {job.get('next_run_at', 'N/A')}")
+                print(f"  名称: {job['name']}")
+                print(f"  状态: {job.get('state', '?')}")
+                print(f"  计划: {job['schedule']} ({job.get('repeat', '?')})")
+                print(f"  下次运行: {job.get('next_run_at', 'N/A')}")
                 if job.get("skills"):
                     print(f"  Skills: {', '.join(job['skills'])}")
                 print(f"  Prompt: {job.get('prompt_preview', '')}")
@@ -5478,21 +5475,28 @@ class HermesCLI:
                 mgr = get_plugin_manager()
                 plugins = mgr.list_plugins()
                 if not plugins:
-                    print("No plugins installed.")
-                    print(f"Drop plugin directories into {display_hermes_home()}/plugins/ to get started.")
+                    print("未安装任何插件。")
+                    print(f"将插件目录放入 {display_hermes_home()}/plugins/ 即可开始使用。")
                 else:
-                    print(f"Plugins ({len(plugins)}):")
+                    print(f"插件 ({len(plugins)}):")
                     for p in plugins:
                         status = "✓" if p["enabled"] else "✗"
                         version = f" v{p['version']}" if p["version"] else ""
+<<<<<<< HEAD
+                        tools = f"{p['tools']} 个工具" if p["tools"] else ""
+                        hooks = f"{p['hooks']} 个钩子" if p["hooks"] else ""
+                        parts = [x for x in [tools, hooks] if x]
+=======
                         tools = f"{p['tools']} tools" if p["tools"] else ""
                         hooks = f"{p['hooks']} hooks" if p["hooks"] else ""
-                        parts = [x for x in [tools, hooks] if x]
+                        commands = f"{p['commands']} commands" if p.get("commands") else ""
+                        parts = [x for x in [tools, hooks, commands] if x]
+>>>>>>> upstream/main
                         detail = f" ({', '.join(parts)})" if parts else ""
                         error = f" — {p['error']}" if p["error"] else ""
                         print(f"  {status} {p['name']}{version}{detail}{error}")
             except Exception as e:
-                print(f"Plugin system error: {e}")
+                print(f"插件系统错误: {e}")
         elif canonical == "rollback":
             self._handle_rollback_command(cmd_original)
         elif canonical == "snapshot":
@@ -5761,7 +5765,7 @@ class HermesCLI:
                         border_style=_resp_color,
                         style=_resp_text,
                         box=rich_box.HORIZONTALS,
-                        padding=(1, 2),
+                        padding=(1, 4),
                     ))
                 else:
                     _cprint("  (No response generated)")
@@ -5885,7 +5889,7 @@ class HermesCLI:
                         title_align="left",
                         border_style=_resp_color,
                         box=rich_box.HORIZONTALS,
-                        padding=(1, 2),
+                        padding=(1, 4),
                     ))
                 else:
                     _cprint("  💬 /btw: (no response)")
@@ -5952,7 +5956,7 @@ class HermesCLI:
         parts = cmd.strip().split(None, 1)
         sub = parts[1].lower().strip() if len(parts) > 1 else "status"
 
-        _DEFAULT_CDP = "http://localhost:9222"
+        _DEFAULT_CDP = "http://127.0.0.1:9222"
         current = os.environ.get("BROWSER_CDP_URL", "").strip()
 
         if sub.startswith("connect"):
@@ -6079,7 +6083,7 @@ class HermesCLI:
                     )
             else:
                 print()
-                print("Browser is not connected to live Chrome (already using default mode)")
+                print("浏览器未连接到实时 Chrome（已在使用默认模式）")
                 print()
 
         elif sub == "status":
@@ -6120,11 +6124,11 @@ class HermesCLI:
 
         else:
             print()
-            print("Usage: /browser connect|disconnect|status")
+            print("用法: /browser connect|disconnect|status")
             print()
-            print("   connect      Connect browser tools to your live Chrome session")
-            print("   disconnect   Revert to default browser backend")
-            print("   status       Show current browser mode")
+            print("   connect      将浏览器工具连接到您的实时 Chrome 会话")
+            print("   disconnect   恢复为默认浏览器后端")
+            print("   status       显示当前浏览器模式")
             print()
 
     def _handle_skin_command(self, cmd: str):
@@ -6132,7 +6136,7 @@ class HermesCLI:
         try:
             from hermes_cli.skin_engine import list_skins, set_active_skin, get_active_skin_name
         except ImportError:
-            print("Skin engine not available.")
+            print("皮肤引擎不可用。")
             return
 
         parts = cmd.strip().split(maxsplit=1)
@@ -7051,8 +7055,8 @@ class HermesCLI:
             else:
                 self._enable_voice_mode()
         else:
-            _cprint(f"Unknown voice subcommand: {subcommand}")
-            _cprint("Usage: /voice [on|off|tts|status]")
+            _cprint(f"未知的语音子命令: {subcommand}")
+            _cprint("用法: /voice [on|off|tts|status]")
 
     def _enable_voice_mode(self):
         """Enable voice mode after checking requirements."""
@@ -7648,7 +7652,7 @@ class HermesCLI:
                         label = " ⚕ Hermes "
                         fill = w - 2 - len(label)
                         _cprint(f"\n{_ACCENT}╭─{label}{'─' * max(fill - 1, 0)}╮{_RST}")
-                    _cprint(sentence.rstrip())
+                    _cprint(f"{_STREAM_PAD}{sentence.rstrip()}")
 
                 tts_thread = threading.Thread(
                     target=stream_tts_to_speaker,
@@ -7879,7 +7883,7 @@ class HermesCLI:
                         border_style=_resp_color,
                         style=_resp_text,
                         box=rich_box.HORIZONTALS,
-                        padding=(1, 2),
+                        padding=(1, 4),
                     ))
 
 
@@ -7936,7 +7940,7 @@ class HermesCLI:
             return response
             
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"错误: {e}")
             return None
         finally:
             # Ensure streaming TTS resources are cleaned up even on error.
@@ -7978,16 +7982,16 @@ class HermesCLI:
                 except Exception:
                     pass
 
-            print("Resume this session with:")
+            print("恢复此会话:")
             print(f"  hermes --resume {self.session_id}")
             if session_title:
                 print(f"  hermes -c \"{session_title}\"")
             print()
-            print(f"Session:        {self.session_id}")
+            print(f"会话:        {self.session_id}")
             if session_title:
-                print(f"Title:          {session_title}")
-            print(f"Duration:       {duration_str}")
-            print(f"Messages:       {msg_count} ({user_msgs} user, {tool_calls} tool calls)")
+                print(f"标题:          {session_title}")
+            print(f"时长:       {duration_str}")
+            print(f"消息数:       {msg_count} ({user_msgs} 条用户消息, {tool_calls} 次工具调用)")
         else:
             try:
                 from hermes_cli.skin_engine import get_active_goodbye
@@ -8631,6 +8635,24 @@ class HermesCLI:
             self._should_exit = True
             event.app.exit()
 
+        _modal_prompt_active = Condition(
+            lambda: bool(self._secret_state or self._sudo_state)
+        )
+
+        @kb.add('escape', filter=_modal_prompt_active, eager=True)
+        def handle_escape_modal(event):
+            """ESC cancels active secret/sudo prompts."""
+            if self._secret_state:
+                self._cancel_secret_capture()
+                event.app.current_buffer.reset()
+                event.app.invalidate()
+                return
+            if self._sudo_state:
+                self._sudo_state["response_queue"].put("")
+                self._sudo_state = None
+                event.app.invalidate()
+                return
+
         @kb.add('c-z')
         def handle_ctrl_z(event):
             """Handle Ctrl+Z - suspend process to background (Unix only)."""
@@ -8928,9 +8950,9 @@ class HermesCLI:
             if cli_ref._voice_processing:
                 return "transcribing..."
             if cli_ref._sudo_state:
-                return "type password (hidden), Enter to skip"
+                return "type password (hidden), Enter to submit · ESC to skip"
             if cli_ref._secret_state:
-                return "type secret (hidden), Enter to skip"
+                return "type secret (hidden), Enter to submit · ESC to skip"
             if cli_ref._approval_state:
                 return ""
             if cli_ref._clarify_freetext:
@@ -9173,7 +9195,7 @@ class HermesCLI:
             prompt = state.get("prompt") or f"Enter value for {state.get('var_name', 'secret')}"
             metadata = state.get("metadata") or {}
             help_text = metadata.get("help")
-            body = 'Enter secret below (hidden), or press Enter to skip'
+            body = 'Enter secret below (hidden), ESC or Ctrl+C to skip'
             content_lines = [prompt, body]
             if help_text:
                 content_lines.insert(1, str(help_text))
@@ -9644,7 +9666,7 @@ class HermesCLI:
                             pass  # Non-fatal — don't break the main loop
 
                 except Exception as e:
-                    print(f"Error: {e}")
+                    print(f"错误: {e}")
         
         # Start processing thread
         process_thread = threading.Thread(target=process_loop, daemon=True)
@@ -9854,7 +9876,7 @@ def main(
     if gateway:
         import asyncio
         from gateway.run import start_gateway
-        print("Starting Hermes Gateway (messaging platforms)...")
+        print("正在启动 Hermes 网关（消息平台）...")
         asyncio.run(start_gateway())
         return
 

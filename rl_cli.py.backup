@@ -319,7 +319,7 @@ def main(
             
             envs = data.get("environments", [])
             if not envs:
-                print("No environments found.")
+                print("未找到任何环境。")
                 print("\nMake sure tinker-atropos is set up:")
                 print("  git submodule update --init")
                 return
@@ -347,10 +347,10 @@ def main(
     
     # Set default task if none provided
     if not task and not interactive:
-        print("\n⚠️  No task provided. Use --interactive for interactive mode or provide a task.")
-        print("\nExamples:")
-        print('  python rl_cli.py "Train a model on GSM8k math problems"')
-        print('  python rl_cli.py "Create an RL environment for code generation"')
+        print("\n⚠️  未提供任务。使用 --interactive 进入交互模式或提供任务。")
+        print("\n示例:")
+        print('  python rl_cli.py "在 GSM8k 数学问题上训练模型"')
+        print('  python rl_cli.py "创建一个用于代码生成的 RL 环境"')
         print('  python rl_cli.py --interactive')
         return
     
@@ -381,8 +381,8 @@ def main(
     if interactive:
         # Interactive mode - multiple conversations
         print("\n🔄 Interactive RL Training Mode")
-        print("Type 'quit' or 'exit' to end the session.")
-        print("Type 'status' to check active training runs.")
+        print("输入 'quit' 或 'exit' 结束会话。")
+        print("输入 'status' 检查活跃的训练运行。")
         print("-" * 40)
         
         while True:
