@@ -940,30 +940,19 @@ def _setup_tts_provider(config: dict):
         providers.append("nous-openai")
     choices.extend(
         [
-<<<<<<< HEAD
+    choices.extend(
+        [
             "Edge TTS（免费、基于云端、无需设置）",
             "ElevenLabs（优质音质、需要 API 密钥）",
             "OpenAI TTS（良好音质、需要 API 密钥）",
+            "xAI TTS（Grok 语音、需要 API 密钥）",
             "MiniMax TTS（高质量带声音克隆、需要 API 密钥）",
             "Mistral Voxtral TTS（多语言、原生 Opus、需要 API 密钥）",
             "NeuTTS（本地设备端、免费、约 300MB 模型下载）",
         ]
     )
-    providers.extend(["edge", "elevenlabs", "openai", "minimax", "mistral", "neutts"])
-    choices.append(f"保持当前（{current_label}）")
-=======
-            "Edge TTS (free, cloud-based, no setup needed)",
-            "ElevenLabs (premium quality, needs API key)",
-            "OpenAI TTS (good quality, needs API key)",
-            "xAI TTS (Grok voices, needs API key)",
-            "MiniMax TTS (high quality with voice cloning, needs API key)",
-            "Mistral Voxtral TTS (multilingual, native Opus, needs API key)",
-            "NeuTTS (local on-device, free, ~300MB model download)",
-        ]
-    )
     providers.extend(["edge", "elevenlabs", "openai", "xai", "minimax", "mistral", "neutts"])
-    choices.append(f"Keep current ({current_label})")
->>>>>>> upstream/main
+    choices.append(f"保持当前（{current_label}）")
     keep_current_idx = len(choices) - 1
     idx = prompt_choice("选择 TTS 提供商：", choices, keep_current_idx)
 
