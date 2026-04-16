@@ -370,11 +370,11 @@ show_completion() {
             echo ""
             echo "  cd $(pwd)"
             echo "  source venv/bin/activate"
-            echo "  herms"
+            echo "  hermes"
             echo ""
             echo -e "${GREEN}或一行命令启动：${NC}"
             echo ""
-            echo "  cd $(pwd) && source venv/bin/activate && herms"
+            echo "  cd $(pwd) && source venv/bin/activate && hermes"
             echo ""
             
             # 检测是否为非交互模式（curl | bash）
@@ -385,7 +385,7 @@ show_completion() {
         else
             echo -e "${GREEN}直接运行：${NC}"
             echo ""
-            echo "  herms"
+            echo "  hermes"
             echo ""
         fi
         
