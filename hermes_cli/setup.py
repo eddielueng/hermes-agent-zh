@@ -921,6 +921,7 @@ def _setup_tts_provider(config: dict):
         "edge": "Edge TTS",
         "elevenlabs": "ElevenLabs",
         "openai": "OpenAI TTS",
+        "xai": "xAI TTS",
         "minimax": "MiniMax TTS",
         "mistral": "Mistral Voxtral TTS",
         "neutts": "NeuTTS",
@@ -939,6 +940,7 @@ def _setup_tts_provider(config: dict):
         providers.append("nous-openai")
     choices.extend(
         [
+<<<<<<< HEAD
             "Edge TTS（免费、基于云端、无需设置）",
             "ElevenLabs（优质音质、需要 API 密钥）",
             "OpenAI TTS（良好音质、需要 API 密钥）",
@@ -949,6 +951,19 @@ def _setup_tts_provider(config: dict):
     )
     providers.extend(["edge", "elevenlabs", "openai", "minimax", "mistral", "neutts"])
     choices.append(f"保持当前（{current_label}）")
+=======
+            "Edge TTS (free, cloud-based, no setup needed)",
+            "ElevenLabs (premium quality, needs API key)",
+            "OpenAI TTS (good quality, needs API key)",
+            "xAI TTS (Grok voices, needs API key)",
+            "MiniMax TTS (high quality with voice cloning, needs API key)",
+            "Mistral Voxtral TTS (multilingual, native Opus, needs API key)",
+            "NeuTTS (local on-device, free, ~300MB model download)",
+        ]
+    )
+    providers.extend(["edge", "elevenlabs", "openai", "xai", "minimax", "mistral", "neutts"])
+    choices.append(f"Keep current ({current_label})")
+>>>>>>> upstream/main
     keep_current_idx = len(choices) - 1
     idx = prompt_choice("选择 TTS 提供商：", choices, keep_current_idx)
 
@@ -1011,6 +1026,23 @@ def _setup_tts_provider(config: dict):
                 print_success("OpenAI TTS API 密钥已保存")
             else:
                 print_warning("未提供 API 密钥。回退到 Edge TTS。")
+                selected = "edge"
+
+    elif selected == "xai":
+        existing = get_env_value("XAI_API_KEY")
+        if not existing:
+            print()
+            api_key = prompt("xAI API key for TTS", password=True)
+            if api_key:
+                save_env_value("XAI_API_KEY", api_key)
+                print_success("xAI TTS API key saved")
+            else:
+                from hermes_constants import display_hermes_home as _dhh
+                print_warning(
+                    "No xAI API key provided for TTS. Configure XAI_API_KEY via "
+                    f"hermes setup model or {_dhh()}/.env to use xAI TTS. "
+                    "Falling back to Edge TTS."
+                )
                 selected = "edge"
 
     elif selected == "minimax":
@@ -1612,9 +1644,19 @@ def _setup_telegram():
             return
 
     print_info("Create a bot via @BotFather on Telegram")
-    token = prompt("Telegram bot token", password=True)
-    if not token:
-        return
+    import re
+
+    while True:
+        token = prompt("Telegram bot token", password=True)
+        if not token:
+            return
+        if not re.match(r"^\d+:[A-Za-z0-9_-]{30,}$", token):
+            print_error(
+                "Invalid token format. Expected: <numeric_id>:<alphanumeric_hash> "
+                "(e.g., 123456789:ABCdefGHI-jklMNOpqrSTUvwxYZ)"
+            )
+            continue
+        break
     save_env_value("TELEGRAM_BOT_TOKEN", token)
     print_success("Telegram token saved")
 

@@ -531,14 +531,14 @@ def delete_profile(name: str, yes: bool = False) -> Path:
     skill_count = _count_skills(profile_dir)
 
     print(f"\nProfile: {name}")
-    print(f"Path:    {profile_dir}")
+    print(f"路径:    {profile_dir}")
     if model:
-        print(f"Model:   {model}" + (f" ({provider})" if provider else ""))
+        print(f"模型:   {model}" + (f" ({provider})" if provider else ""))
     if skill_count:
         print(f"Skills:  {skill_count}")
 
     items = [
-        "All config, API keys, memories, sessions, skills, cron jobs",
+        "所有配置、API 密钥、记忆、会话、技能、定时任务",
     ]
 
     # Check for service
@@ -562,7 +562,7 @@ def delete_profile(name: str, yes: bool = False) -> Path:
             print("\nCancelled.")
             return profile_dir
         if confirm != name:
-            print("Cancelled.")
+            print("已取消。")
             return profile_dir
 
     # 1. Disable service (prevents auto-restart)
