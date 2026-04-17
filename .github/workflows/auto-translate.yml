@@ -36,11 +36,10 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
@@ -49,150 +48,78 @@ jobs:
         run: |
           git config --global user.name "Hermes Bot"
           git config --global user.email "bot@hermes-zh.com"
-          echo "=== Current repo info ==="
-          git remote -v
-          echo "Current branch: $(git branch --show-current)"
-          echo "Current HEAD: $(git rev-parse HEAD)"
 
-      - name: Fetch and compare with upstream
+      - name: Fetch upstream
         id: fetch_upstream
         run: |
-          echo "=== Step 1: Add upstream remote ==="
+          echo "Adding upstream remote..."
           git remote remove upstream 2>/dev/null || true
           git remote add upstream https://github.com/${UPSTREAM_REPO}.git
-          echo "Remotes configured:"
-          git remote -v
-          
-          echo ""
-          echo "=== Step 2: Fetch upstream ${UPSTREAM_BRANCH} ==="
-          FETCH_OUTPUT=$(git fetch upstream ${UPSTREAM_BRANCH} 2>&1)
-          FETCH_EXIT_CODE=$?
-          echo "${FETCH_OUTPUT}"
-          echo "Fetch exit code: ${FETCH_EXIT_CODE}"
-          
-          if [ $FETCH_EXIT_CODE -ne 0 ]; then
-            echo "::error::FETCH FAILED!"
+
+          echo "Fetching upstream..."
+          if ! git fetch upstream ${UPSTREAM_BRANCH}; then
+            echo "::error::Failed to fetch upstream"
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "error=fetch_failed_exit_${FETCH_EXIT_CODE}" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
-          echo ""
-          echo "=== Step 3: Get commit SHAs ==="
+
           LOCAL=$(git rev-parse HEAD)
-          REMOTE=$(git rev-parse upstream/${UPSTREAM_BRANCH} 2>&1)
-          REMOTE_EXIT_CODE=$?
-          
-          echo "Local HEAD:  ${LOCAL}"
-          echo "Remote HEAD: ${REMOTE}"
-          echo "Remote exit code: ${REMOTE_EXIT_CODE}"
-          
-          if [ $REMOTE_EXIT_CODE -ne 0 ]; then
-            echo "::error::Cannot get upstream ref!"
-            echo "Available refs:"
-            git branch -r | head -10
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "error=no_upstream_ref" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-          
+          REMOTE=$(git rev-parse upstream/${UPSTREAM_BRANCH})
           echo "upstream_commit=${REMOTE}" >> $GITHUB_OUTPUT
-          
+
           if [ "$LOCAL" = "$REMOTE" ]; then
-            echo "::notice::Already up to date (same commit)"
+            echo "::notice::Already up to date"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
-          echo ""
-          echo "=== Step 4: Check differences ==="
-          
-          COMMITS_AHEAD=$(git rev-list --count HEAD..upstream/${UPSTREAM_BRANCH} 2>/dev/null || echo "?")
-          echo "Commits ahead: ${COMMITS_AHEAD}"
-          
-          if [ "$COMMITS_AHEAD" = "?" ] || [ "$COMMITS_AHEAD" = "0" ]; then
-            echo "::warning::Cannot count commits, trying direct merge..."
-            
-            BRANCH_NAME="auto-sync-$(date +%Y%m%d-%H%M%S)"
+
+          COMMITS_AHEAD=$(git rev-list --count HEAD..upstream/${UPSTREAM_BRANCH} || echo "0")
+          echo "::notice::Found ${COMMITS_AHEAD} commits to sync"
+
+          if [ "$COMMITS_AHEAD" = "0" ]; then
+            BRANCH_NAME="sync-$(date +%Y%m%d-%H%M%S)"
             git checkout -b "${BRANCH_NAME}"
-            
-            MERGE_OUTPUT=$(git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream" 2>&1) || true
-            echo "Merge output: ${MERGE_OUTPUT}"
-            
-            CHANGED_FILES=$(git diff --name-only HEAD~1 2>/dev/null | wc -l)
-            echo "Changed files after merge: ${CHANGED_FILES}"
-            
-            if [ "$CHANGED_FILES" != "0" ] && [ "$CHANGED_FILES" != "" ]; then
-              echo "::notice::Found changes via merge!"
-              echo "Changed files list:"
-              git diff --name-only HEAD~1 | head -20
+            git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream" || true
+
+            if [ $(git diff --name-only HEAD~1 | wc -l) -gt 0 ]; then
+              echo "::notice::Found changes via merge"
               echo "has_changes=true" >> $GITHUB_OUTPUT
               echo "commits_ahead=merged" >> $GITHUB_OUTPUT
               echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
               echo "already_merged=true" >> $GITHUB_OUTPUT
               exit 0
             else
-              echo "No changes after merge, cleaning up..."
-              git checkout main 2>/dev/null || git checkout master 2>/dev/null || true
-              git branch -D "${BRANCH_NAME}" 2>/dev/null || true
+              git checkout main || git checkout master || true
+              git branch -D "${BRANCH_NAME}" || true
               echo "has_changes=false" >> $GITHUB_OUTPUT
               exit 0
             fi
           else
-            echo "::notice::Found ${COMMITS_AHEAD} commits to sync"
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "commits_ahead=${COMMITS_AHEAD}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Merge upstream changes
+      - name: Merge changes
         if: steps.fetch_upstream.outputs.has_changes == 'true' && steps.fetch_upstream.outputs.already_merged != 'true'
         run: |
-          BRANCH_NAME="auto-sync-$(date +%Y%m%d-%H%M%S)"
+          BRANCH_NAME="sync-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "${BRANCH_NAME}"
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
-          
-          git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream ${UPSTREAM_BRANCH}" || {
-            echo "::warning::Merge has conflicts, starting auto-resolve..."
-          }
-          echo "::notice::Merge complete"
-          echo "Files changed:"
-          git diff --name-only HEAD~1 | head -30
+          git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream ${UPSTREAM_BRANCH}" || echo "::warning::Merge has conflicts"
 
-      - name: Auto-resolve merge conflicts
+      - name: Resolve conflicts
         if: steps.fetch_upstream.outputs.has_changes == 'true' && steps.fetch_upstream.outputs.already_merged != 'true'
         run: |
-          echo "=== Checking for merge conflicts ==="
-          CONFLICT_FILES=$(git diff --name-only --diff-filter=U 2>/dev/null)
-          
+          CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           if [ -n "$CONFLICT_FILES" ]; then
-            CONFLICT_COUNT=$(echo "$CONFLICT_FILES" | wc -l)
-            echo "::warning::Found ${CONFLICT_COUNT} conflict files:"
-            echo "$CONFLICT_FILES"
-            echo ""
-            echo "::notice::Strategy: Take official version (theirs), then re-translate via auto_translate.py"
-            echo ""
-            
+            echo "::warning::Resolving conflicts..."
             echo "$CONFLICT_FILES" | while read -r file; do
               if [ -f "$file" ]; then
-                # Take official upstream version (ensures code logic is latest and correct)
                 git checkout --theirs "$file"
                 git add "$file"
-                echo "  RESOLVED: $file (using official version, pending translation)"
               fi
             done
-            
-            echo ""
-            RESOLVED=$(git diff --name-only --diff-filter=U 2>/dev/null | wc -l)
-            if [ "$RESOLVED" = "0" ]; then
-              echo "::notice::All conflicts auto-resolved!"
-              # Complete the merge commit
-              git commit -m "resolve: Auto-resolved merge conflicts (${CONFLICT_COUNT} files took official version)" --no-edit || true
-            else
-              echo "::error::Still have unresolved conflicts!"
-              exit 1
-            fi
-          else
-            echo "::notice::No conflict files, clean merge completed"
+            git commit -m "resolve: Auto-resolved conflicts" --no-edit || true
           fi
 
       - name: Setup Python
@@ -209,198 +136,63 @@ jobs:
         id: translate
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
-          DRY_FLAG=""
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            DRY_FLAG="--dry-run"
-            echo "[DRY RUN] Preview mode - no files modified"
-          else
-            echo "[LIVE] Production mode - will modify files"
-          fi
-          
           mkdir -p output
-          
-          python auto_translate.py \
-            --rules translation_rules.yaml \
-            --output output/report.md \
-            ${DRY_FLAG} 2>&1 | tee output/log.txt || true
-          
-          CHANGED=$(git diff --name-only 2>/dev/null | wc -l)
+          python auto_translate.py --rules translation_rules.yaml --output output/report.md 2>&1 | tee output/log.txt || true
+          CHANGED=$(git diff --name-only | wc -l)
           echo "changed_files=${CHANGED}" >> $GITHUB_OUTPUT
-          
-          if [ $CHANGED -gt 0 ]; then
-            echo ""
-            echo "=== Translated Files ==="
-            git diff --name-only
-            echo ""
-            echo "=== Diff Stat ==="
-            git diff --stat | tail -3
-          else
-            echo ""
-            echo "::notice::No new translations needed (files may already be in Chinese)"
-          fi
 
-      - name: Validate Python syntax
-        if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
-        run: |
-          echo "=== Validating translated Python syntax ==="
-          ERROR_COUNT=0
-          
-          for f in $(git diff --name-only '*.py' 2>/dev/null); do
-            if [ -f "$f" ]; then
-              python3 -c "import ast; ast.parse(open('$f').read(), filename='$f')" 2>/dev/null
-              if [ $? -ne 0 ]; then
-                echo "::error::Syntax error: $f"
-                ERROR_COUNT=$((ERROR_COUNT + 1))
-              fi
-            fi
-          done
-          
-          if [ $ERROR_COUNT -gt 0 ]; then
-            echo ""
-            echo "::warning::Found ${ERROR_COUNT} files with syntax errors! Rolling back..."
-            for f in $(git diff --name-only '*.py' 2>/dev/null); do
-              if [ -f "${f}.backup" ]; then
-                cp "${f}.backup" "$f"
-                rm -f "${f}.backup"
-              fi
-            done
-            git add -u '*.py'
-            git commit -m "rollback: Reverted translated files with syntax errors" --amend --no-edit || true
-            echo "Rolled back and recommitted"
-          else
-            echo "::notice::All Python files passed syntax validation"
-          fi
-
-      - name: Commit changes
+      - name: Commit and push
         id: commit
         if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
         run: |
-          git config user.name "Hermes Bot"
-          git config user.email "bot@hermes-zh.com"
-          # Only add translatable file types, avoid committing .backup/__pycache__ etc.
-          git add '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
-          # Clean possible leftover .backup files
-          find . -name "*.backup" -delete 2>/dev/null || true
-          git add -u '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
-          
-          # Check if there are actual changes to commit
-          CHANGED_FOR_COMMIT=$(git diff --cached --name-only 2>/dev/null | wc -l)
-          if [ "$CHANGED_FOR_COMMIT" = "0" ]; then
-            echo "No translatable changes to commit"
+          git add '*.py' '*.md' '*.yaml' '*.yml' || true
+          find . -name "*.backup" -delete || true
+          git add -u '*.py' '*.md' '*.yaml' '*.yml' || true
+
+          if [ $(git diff --cached --name-only | wc -l) -eq 0 ]; then
             echo "changed_files=0" >> $GITHUB_OUTPUT
             exit 0
           fi
-          
-          git commit -m "chore: Auto sync & translate: ${{ steps.translate.outputs.changed_files }} files" || echo "No new commits"
-          BRANCH="auto-sync-$(date +%Y%m%d-%H%M%S)"
+
+          git commit -m "chore: Auto sync & translate" || true
+          BRANCH="sync-$(date +%Y%m%d-%H%M%S)"
           git branch -M "${BRANCH}"
           git push origin "${BRANCH}" --force
           echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
 
-      - name: Create Pull Request via API
+      - name: Create PR
         id: create_pr
-        if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
+        if: steps.commit.outputs.branch != '' && github.event.inputs.dry_run != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          BRANCH="${{ steps.commit.outputs.branch }}"
-          echo "Creating PR from branch: ${BRANCH}"
-          
           RESPONSE=$(curl -s -X POST \
             -H "Authorization: token ${GH_TOKEN}" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls" \
-            -d "{
-              \"title\": \"Auto sync & translate $(date '+%Y-%m-%d')\",
-              \"head\": \"${BRANCH}\",
-              \"base\": \"main\",
-              \"body\": \"## Automated Sync & Translation\\n\\n- **Upstream commits**: ${{ steps.fetch_upstream.outputs.commits_ahead }}\\n- **Files translated**: ${{ steps.translate.outputs.changed_files }}\\n\\n*Generated by Auto Translation Sync workflow*\"
-            }")
-          
-          echo "Response: ${RESPONSE}"
-          
-          # More robust PR number extraction: supports multiple response formats
-          PR_NUM=$(echo "${RESPONSE}" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    num = data.get('number')
-    if num:
-        print(num)
-    else:
-        print('0')
-except Exception:
-    print('0')
-" 2>/dev/null || echo "0")
-          
-          PR_URL=$(echo "${RESPONSE}" | python3 -c "
-import json, sys
-try:
-    data = json.load(sys.stdin)
-    url = data.get('html_url', '')
-    if url and 'github.com' in url:
-        print(url)
-    else:
-        print('')
-except Exception:
-    print('')
-" 2>/dev/null || echo "")
-          
-          if [ -n "$PR_URL" ] && [ "$PR_NUM" != "0" ]; then
-            echo "::notice::PR created: ${PR_URL} (#${PR_NUM})"
+            -d "{\"title\": \"Auto sync & translate $(date '+%Y-%m-%d')\", \"head\": \"${{ steps.commit.outputs.branch }}\", \"base\": \"main\", \"body\": \"Automated sync\"}")
+
+          PR_NUM=$(echo "${RESPONSE}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('number', 0))" 2>/dev/null || echo "0")
+          if [ "$PR_NUM" != "0" ]; then
+            echo "::notice::PR created #${PR_NUM}"
             echo "pr_number=${PR_NUM}" >> $GITHUB_OUTPUT
-            echo "pr_url=${PR_URL}" >> $GITHUB_OUTPUT
           else
-            echo "::error::PR creation failed or could not extract PR number"
-            echo "Raw response: ${RESPONSE}"
-            echo "pr_number=" >> $GITHUB_OUTPUT
+            echo "::error::PR creation failed"
           fi
 
-      - name: Auto Merge PR
+      - name: Merge PR
         if: steps.create_pr.outputs.pr_number != '' && steps.create_pr.outputs.pr_number != '0' && github.event.inputs.dry_run != 'true'
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          PR_NUM="${{ steps.create_pr.outputs.pr_number }}"
-          echo "Auto-merging PR #${PR_NUM}..."
-          
           MERGE_RESPONSE=$(curl -s -X PUT \
             -H "Authorization: token ${GH_TOKEN}" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls/${PR_NUM}/merge" \
-            -d '{"merge_method": "squash", "commit_title": "Auto sync & merge"}')
-          
-          MERGED=$(echo "${MERGE_RESPONSE}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('merged', False))" 2>/dev/null)
-          
-          if [ "$MERGED" = "True" ]; then
-            echo "::notice::PR #${PR_NUM} merged successfully!"
+            "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls/${{ steps.create_pr.outputs.pr_number }}/merge" \
+            -d '{"merge_method": "squash"}')
+
+          if echo "${MERGE_RESPONSE}" | python3 -c "import json,sys; sys.exit(0 if json.load(sys.stdin).get('merged') else 1)" 2>/dev/null; then
+            echo "::notice::PR merged successfully"
           else
-            echo "::warning::Auto-merge failed (may need manual review)"
-            echo "${MERGE_RESPONSE}"
+            echo "::warning::Auto-merge failed"
           fi
-
-      - name: Upload report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: translation-report-${{ github.run_id }}
-          path: output/
-          retention-days: 7
-          if-no-files-found: ignore
-
-  summary:
-    name: Summary
-    runs-on: ubuntu-latest
-    needs: sync-and-translate
-    if: always()
-    steps:
-      - run: |
-          echo "## Auto Translation Report" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Item | Value |" >> $GITHUB_STEP_SUMMARY
-          echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Status | \`${{ needs.sync-and-translate.result }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| Upstream Commit | \`${{ needs.sync-and-translate.steps.fetch_upstream.outputs.upstream_commit || 'N/A' }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| Changes Found | \`${{ needs.sync-and-translate.steps.fetch_upstream.outputs.commits_ahead || '0' }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| Error | \`${{ needs.sync-and-translate.steps.fetch_upstream.outputs.error || 'none' }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| Translated Files | \`${{ needs.sync-and-translate.steps.translate.outputs.changed_files || '0' }}\` |" >> $GITHUB_STEP_SUMMARY
