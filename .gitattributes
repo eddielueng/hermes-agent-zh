@@ -1,2 +1,4 @@
-# Auto-generated files — collapse diffs and exclude from language stats
-web/package-lock.json linguist-generated=true
+# Force Unix line endings for GitHub Actions workflows
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
