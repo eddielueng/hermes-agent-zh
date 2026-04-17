@@ -71,7 +71,7 @@ jobs:
           echo "Fetch exit code: ${FETCH_EXIT_CODE}"
           
           if [ $FETCH_EXIT_CODE -ne 0 ]; then
-            echo "❌ FETCH FAILED!"
+            echo "鉂?FETCH FAILED!"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "error=fetch_failed_exit_${FETCH_EXIT_CODE}" >> $GITHUB_OUTPUT
             exit 0
@@ -88,7 +88,7 @@ jobs:
           echo "Remote exit code: ${REMOTE_EXIT_CODE}"
           
           if [ $REMOTE_EXIT_CODE -ne 0 ]; then
-            echo "❌ Cannot get upstream ref!"
+            echo "鉂?Cannot get upstream ref!"
             echo "Available refs:"
             git branch -r | head -10
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -99,7 +99,7 @@ jobs:
           echo "upstream_commit=${REMOTE}" >> $GITHUB_OUTPUT
           
           if [ "$LOCAL" = "$REMOTE" ]; then
-            echo "✅ Already up to date (same commit)"
+            echo "鉁?Already up to date (same commit)"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -111,7 +111,7 @@ jobs:
           echo "Commits ahead: ${COMMITS_AHEAD}"
           
           if [ "$COMMITS_AHEAD" = "?" ] || [ "$COMMITS_AHEAD" = "0" ]; then
-            echo "⚠️ Cannot count commits, trying direct merge..."
+            echo "鈿狅笍 Cannot count commits, trying direct merge..."
             
             BRANCH_NAME="auto-sync-$(date +%Y%m%d-%H%M%S)"
             git checkout -b "${BRANCH_NAME}"
@@ -123,7 +123,7 @@ jobs:
             echo "Changed files after merge: ${CHANGED_FILES}"
             
             if [ "$CHANGED_FILES" != "0" ] && [ "$CHANGED_FILES" != "" ]; then
-              echo "✅ Found changes via merge!"
+              echo "鉁?Found changes via merge!"
               echo "Changed files list:"
               git diff --name-only HEAD~1 | head -20
               echo "has_changes=true" >> $GITHUB_OUTPUT
@@ -139,7 +139,7 @@ jobs:
               exit 0
             fi
           else
-            echo "✅ Found ${COMMITS_AHEAD} commits to sync"
+            echo "鉁?Found ${COMMITS_AHEAD} commits to sync"
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "commits_ahead=${COMMITS_AHEAD}" >> $GITHUB_OUTPUT
           fi
@@ -152,47 +152,47 @@ jobs:
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
           
           git merge upstream/${UPSTREAM_BRANCH} --no-edit -m "merge upstream ${UPSTREAM_BRANCH}" || {
-            echo "⚠️ Merge 有冲突，开始自动解决..."
+            echo "鈿狅笍 Merge 鏈夊啿绐侊紝寮€濮嬭嚜鍔ㄨВ鍐?.."
           }
-          echo "✅ Merge complete"
+          echo "鉁?Merge complete"
           echo "Files changed:"
           git diff --name-only HEAD~1 | head -30
 
       - name: Auto-resolve merge conflicts
         if: steps.fetch_upstream.outputs.has_changes == 'true' && steps.fetch_upstream.outputs.already_merged != 'true'
         run: |
-          echo "=== 检测合并冲突 ==="
+          echo "=== 妫€娴嬪悎骞跺啿绐?==="
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U 2>/dev/null)
           
           if [ -n "$CONFLICT_FILES" ]; then
             CONFLICT_COUNT=$(echo "$CONFLICT_FILES" | wc -l)
-            echo "⚠️  发现 ${CONFLICT_COUNT} 个冲突文件:"
+            echo "鈿狅笍  鍙戠幇 ${CONFLICT_COUNT} 涓啿绐佹枃浠?"
             echo "$CONFLICT_FILES"
             echo ""
-            echo "🔧 策略: 取官方版本(theirs)，然后由 auto_translate.py 重新翻译为中文"
+            echo "馃敡 绛栫暐: 鍙栧畼鏂圭増鏈?theirs)锛岀劧鍚庣敱 auto_translate.py 閲嶆柊缈昏瘧涓轰腑鏂?
             echo ""
             
             echo "$CONFLICT_FILES" | while read -r file; do
               if [ -f "$file" ]; then
-                # 取官方上游版本（保证代码逻辑是最新正确的）
+                # 鍙栧畼鏂逛笂娓哥増鏈紙淇濊瘉浠ｇ爜閫昏緫鏄渶鏂版纭殑锛?
                 git checkout --theirs "$file"
                 git add "$file"
-                echo "  ✅ 已解决: $file (使用官方版本，待翻译)"
+                echo "  鉁?宸茶В鍐? $file (浣跨敤瀹樻柟鐗堟湰锛屽緟缈昏瘧)"
               fi
             done
             
             echo ""
             RESOLVED=$(git diff --name-only --diff-filter=U 2>/dev/null | wc -l)
             if [ "$RESOLVED" = "0" ]; then
-              echo "✅ 所有冲突已自动解决！"
-              # 完成合并提交
-              git commit -m "resolve: 自动解决合并冲突（${CONFLICT_COUNT}个文件取官方版本）" --no-edit || true
+              echo "鉁?鎵€鏈夊啿绐佸凡鑷姩瑙ｅ喅锛?
+              # 瀹屾垚鍚堝苟鎻愪氦
+              git commit -m "resolve: 鑷姩瑙ｅ喅鍚堝苟鍐茬獊锛?{CONFLICT_COUNT}涓枃浠跺彇瀹樻柟鐗堟湰锛? --no-edit || true
             else
-              echo "❌ 仍有未解决的冲突！"
+              echo "鉂?浠嶆湁鏈В鍐崇殑鍐茬獊锛?
               exit 1
             fi
           else
-            echo "✅ 无冲突文件，合并干净完成"
+            echo "鉁?鏃犲啿绐佹枃浠讹紝鍚堝苟骞插噣瀹屾垚"
           fi
 
       - name: Setup Python
@@ -229,27 +229,27 @@ jobs:
           
           if [ $CHANGED -gt 0 ]; then
             echo ""
-            echo "=== ✅ Translated Files ==="
+            echo "=== 鉁?Translated Files ==="
             git diff --name-only
             echo ""
             echo "=== Diff Stat ==="
             git diff --stat | tail -3
           else
             echo ""
-            echo "ℹ️ No new translations needed (files may already be in Chinese)"
+            echo "鈩癸笍 No new translations needed (files may already be in Chinese)"
           fi
 
       - name: Validate Python syntax
         if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
         run: |
-          echo "=== 验证翻译后 Python 语法 ==="
+          echo "=== 楠岃瘉缈昏瘧鍚?Python 璇硶 ==="
           ERROR_COUNT=0
           
           for f in $(git diff --name-only '*.py' 2>/dev/null); do
             if [ -f "$f" ]; then
               python3 -c "import ast; ast.parse(open('$f').read(), filename='$f')" 2>/dev/null
               if [ $? -ne 0 ]; then
-                echo "❌ 语法错误: $f"
+                echo "鉂?璇硶閿欒: $f"
                 ERROR_COUNT=$((ERROR_COUNT + 1))
               fi
             fi
@@ -257,7 +257,7 @@ jobs:
           
           if [ $ERROR_COUNT -gt 0 ]; then
             echo ""
-            echo "⚠️ 发现 ${ERROR_COUNT} 个文件语法错误！回滚这些文件..."
+            echo "鈿狅笍 鍙戠幇 ${ERROR_COUNT} 涓枃浠惰娉曢敊璇紒鍥炴粴杩欎簺鏂囦欢..."
             for f in $(git diff --name-only '*.py' 2>/dev/null); do
               if [ -f "${f}.backup" ]; then
                 cp "${f}.backup" "$f"
@@ -265,10 +265,10 @@ jobs:
               fi
             done
             git add -u '*.py'
-            git commit -m "🔧 回滚语法错误的翻译文件" --amend --no-edit || true
-            echo "已回滚并重新提交"
+            git commit -m "馃敡 鍥炴粴璇硶閿欒鐨勭炕璇戞枃浠? --amend --no-edit || true
+            echo "宸插洖婊氬苟閲嶆柊鎻愪氦"
           else
-            echo "✅ 所有 Python 文件语法验证通过"
+            echo "鉁?鎵€鏈?Python 鏂囦欢璇硶楠岃瘉閫氳繃"
           fi
 
       - name: Commit changes
@@ -276,13 +276,13 @@ jobs:
         run: |
           git config user.name "Hermes Bot"
           git config user.email "bot@hermes-zh.com"
-          # 只添加翻译相关的文件类型，避免提交 .backup/__pycache__ 等垃圾
+          # 鍙坊鍔犵炕璇戠浉鍏崇殑鏂囦欢绫诲瀷锛岄伩鍏嶆彁浜?.backup/__pycache__ 绛夊瀮鍦?
           git add '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
-          # 清理可能残留的 .backup 文件
+          # 娓呯悊鍙兘娈嬬暀鐨?.backup 鏂囦欢
           find . -name "*.backup" -delete 2>/dev/null || true
           git add -u '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
           
-          # 检查是否有实际变更
+          # 妫€鏌ユ槸鍚︽湁瀹為檯鍙樻洿
           CHANGED_FOR_COMMIT=$(git diff --cached --name-only 2>/dev/null | wc -l)
           if [ "$CHANGED_FOR_COMMIT" = "0" ]; then
             echo "No translatable changes to commit"
@@ -290,7 +290,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "🔄 Auto sync & translate: ${{ steps.translate.outputs.changed_files }} files" || echo "No new commits"
+          git commit -m "馃攧 Auto sync & translate: ${{ steps.translate.outputs.changed_files }} files" || echo "No new commits"
           BRANCH="auto-sync-$(date +%Y%m%d-%H%M%S)"
           git branch -M "${BRANCH}"
           git push origin "${BRANCH}" --force
@@ -310,15 +310,15 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls" \
             -d "{
-              \"title\": \"🔄 Auto sync & translate $(date '+%Y-%m-%d')\",
+              \"title\": \"馃攧 Auto sync & translate $(date '+%Y-%m-%d')\",
               \"head\": \"${BRANCH}\",
               \"base\": \"main\",
-              \"body\": \"## Automated Sync & Translation\\n\\n- **Upstream commits**: ${{ steps.fetch_upstream.outputs.commits_ahead }}\\n- **Files translated**: ${{ steps.translate.outputs.changed_files }}\\n\\n🤖 *Generated by Auto Translation Sync workflow*\"
+              \"body\": \"## Automated Sync & Translation\\n\\n- **Upstream commits**: ${{ steps.fetch_upstream.outputs.commits_ahead }}\\n- **Files translated**: ${{ steps.translate.outputs.changed_files }}\\n\\n馃 *Generated by Auto Translation Sync workflow*\"
             }")
           
           echo "Response: ${RESPONSE}"
           
-          # 更健壮的 PR number 提取：支持多种响应格式
+          # 鏇村仴澹殑 PR number 鎻愬彇锛氭敮鎸佸绉嶅搷搴旀牸寮?
           PR_NUM=$(echo "${RESPONSE}" | python3 -c "
 import json, sys
 try:
@@ -346,11 +346,11 @@ except Exception:
 " 2>/dev/null || echo "")
           
           if [ -n "$PR_URL" ] && [ "$PR_NUM" != "0" ]; then
-            echo "✅ PR created: ${PR_URL} (#${PR_NUM})"
+            echo "鉁?PR created: ${PR_URL} (#${PR_NUM})"
             echo "pr_number=${PR_NUM}" >> $GITHUB_OUTPUT
             echo "pr_url=${PR_URL}" >> $GITHUB_OUTPUT
           else
-            echo "❌ PR creation failed or could not extract PR number"
+            echo "鉂?PR creation failed or could not extract PR number"
             echo "Raw response: ${RESPONSE}"
             echo "pr_number=" >> $GITHUB_OUTPUT
           fi
@@ -367,14 +367,14 @@ except Exception:
             -H "Authorization: token ${GH_TOKEN}" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls/${PR_NUM}/merge" \
-            -d '{"merge_method": "squash", "commit_title": "🔄 Auto sync & merge"}')
+            -d '{"merge_method": "squash", "commit_title": "馃攧 Auto sync & merge"}')
           
           MERGED=$(echo "${MERGE_RESPONSE}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('merged', False))" 2>/dev/null)
           
           if [ "$MERGED" = "True" ]; then
-            echo "✅ PR #${PR_NUM} merged successfully!"
+            echo "鉁?PR #${PR_NUM} merged successfully!"
           else
-            echo "⚠️ Auto-merge failed (may need manual review)"
+            echo "鈿狅笍 Auto-merge failed (may need manual review)"
             echo "${MERGE_RESPONSE}"
           fi
 
