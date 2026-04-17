@@ -318,15 +318,41 @@ jobs:
           
           echo "Response: ${RESPONSE}"
           
-          PR_URL=$(echo "${RESPONSE}" | python3 -c "import json,sys; print(json.load(sys.stdin).get('html_url', 'FAILED'))" 2>/dev/null)
-          PR_NUM=$(echo "${RESPONSE}" | python3 -c "import json,sys; print(json.load(sys.stdin).get('number', '0'))" 2>/dev/null)
+          # 更健壮的 PR number 提取：支持多种响应格式
+          PR_NUM=$(echo "${RESPONSE}" | python3 -c "
+import json, sys
+try:
+    data = json.load(sys.stdin)
+    num = data.get('number')
+    if num:
+        print(num)
+    else:
+        print('0')
+except Exception:
+    print('0')
+" 2>/dev/null || echo "0")
           
-          if [[ "$PR_URL" == *"github.com"* ]]; then
-            echo "✅ PR created: ${PR_URL}"
+          PR_URL=$(echo "${RESPONSE}" | python3 -c "
+import json, sys
+try:
+    data = json.load(sys.stdin)
+    url = data.get('html_url', '')
+    if url and 'github.com' in url:
+        print(url)
+    else:
+        print('')
+except Exception:
+    print('')
+" 2>/dev/null || echo "")
+          
+          if [ -n "$PR_URL" ] && [ "$PR_NUM" != "0" ]; then
+            echo "✅ PR created: ${PR_URL} (#${PR_NUM})"
             echo "pr_number=${PR_NUM}" >> $GITHUB_OUTPUT
+            echo "pr_url=${PR_URL}" >> $GITHUB_OUTPUT
           else
-            echo "❌ PR creation failed"
-            echo "Manual: https://github.com/eddielueng/hermes-agent-zh/compare/main...${BRANCH}"
+            echo "❌ PR creation failed or could not extract PR number"
+            echo "Raw response: ${RESPONSE}"
+            echo "pr_number=" >> $GITHUB_OUTPUT
           fi
 
       - name: Auto Merge PR
