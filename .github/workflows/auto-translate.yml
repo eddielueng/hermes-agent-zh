@@ -110,16 +110,40 @@ jobs:
       - name: Resolve conflicts
         if: steps.fetch_upstream.outputs.has_changes == 'true' && steps.fetch_upstream.outputs.already_merged != 'true'
         run: |
-          CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
+          echo "Checking for merge conflicts..."
+          CONFLICT_FILES=$(git diff --name-only --diff-filter=U 2>&1)
+          echo "Conflict files output: ${CONFLICT_FILES}"
+
           if [ -n "$CONFLICT_FILES" ]; then
-            echo "::warning::Resolving conflicts..."
+            echo "::warning::Found conflicts, resolving..."
+            CONFLICT_COUNT=$(echo "$CONFLICT_FILES" | wc -l)
+            echo "::notice::Resolving ${CONFLICT_COUNT} conflicting files"
+
             echo "$CONFLICT_FILES" | while read -r file; do
               if [ -f "$file" ]; then
+                echo "  Resolving: $file (taking upstream version)"
                 git checkout --theirs "$file"
                 git add "$file"
+              else
+                echo "::warning::File not found: $file, skipping..."
               fi
             done
-            git commit -m "resolve: Auto-resolved conflicts" --no-edit || true
+
+            # Check if all conflicts are resolved
+            REMAINING=$(git diff --name-only --diff-filter=U 2>/dev/null | wc -l)
+            if [ "$REMAINING" = "0" ]; then
+              echo "::notice::All conflicts resolved successfully"
+              git commit -m "resolve: Auto-resolved ${CONFLICT_COUNT} conflict files" --no-edit || {
+                echo "::error::Failed to commit resolved conflicts"
+                exit 1
+              }
+            else
+              echo "::error::Still have ${REMAINING} unresolved conflicts!"
+              git diff --name-only --diff-filter=U
+              exit 1
+            fi
+          else
+            echo "::notice::No conflicts found, clean merge!"
           fi
 
       - name: Setup Python
