@@ -182,9 +182,12 @@ jobs:
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
           mkdir -p output
-          python auto_translate.py --rules translation_rules.yaml --output output/report.md 2>&1 | tee output/log.txt || true
+          echo "=== Running translation with upstream sync ==="
+          echo "Upstream commit: ${{ steps.fetch_upstream.outputs.upstream_commit }}"
+          python auto_translate.py --rules translation_rules.yaml --upstream nousresearch/hermes-agent --output output/report.md 2>&1 | tee output/log.txt || true
           CHANGED=$(git diff --name-only | wc -l)
           echo "changed_files=${CHANGED}" >> $GITHUB_OUTPUT
+          echo "Translation complete. Changed files: ${CHANGED}"
 
       - name: Validate Python files AFTER translation
         if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
