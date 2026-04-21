@@ -169,30 +169,66 @@ jobs:
         run: |
           echo "=== Preparing to push directly to main ==="
           
+          # CRITICAL: Clean up .backup files first (they cause merge conflicts)
+          echo "Removing .backup files..."
+          find . -name "*.backup" -delete 2>/dev/null || true
+          git add -A 2>/dev/null || true
+          
+          # Force resolve any remaining merge conflicts by accepting upstream version
+          echo "Checking for unresolved conflicts..."
+          if git diff --name-only --diff-filter=U | grep -q .; then
+            echo "::warning::Found unresolved conflicts, force resolving..."
+            git diff --name-only --diff-filter=U | while read -r file; do
+              echo "  Resolving: $file (accepting ours)"
+              git checkout --ours "$file" 2>/dev/null || git rm --cached "$file" 2>/dev/null || true
+              git add "$file" 2>/dev/null || true
+            done
+          fi
+          
+          # Reset working directory to clean state for branch switching
+          git reset HEAD 2>/dev/null || true
+          git checkout -- . 2>/dev/null || true
+          git clean -fd 2>/dev/null || true
+          
           # If we're on a sync branch (from already_merged or Merge changes step), switch back to main first
           CURRENT_BRANCH=$(git branch --show-current)
           echo "Current branch: ${CURRENT_BRANCH}"
           
           if [ "$CURRENT_BRANCH" != "main" ]; then
             echo "Switching from ${CURRENT_BRANCH} to main..."
-            # Stash any uncommitted changes first
-            git stash || true
-            git checkout main
-            
-            # Cherry-pick or merge the translated changes from the sync branch
-            echo "Merging translated changes from ${CURRENT_BRANCH}..."
-            git merge "${CURRENT_BRANCH}" --no-edit -m "merge: Auto-sync & translate $(date '+%Y-%m-%d %H:%M')" || {
-              echo "::warning::Merge failed, trying alternative approach..."
-              git merge "${CURRENT_BRANCH}" --no-edit --allow-unrelated-histories -m "merge: Auto-sync & translate $(date '+%Y-%m-%d %H:%M')" || true
+            git checkout main || {
+              echo "::error::Failed to checkout main, forcing reset..."
+              git reset --hard origin/main || exit 1
             }
+            
+            # Try to merge the translated changes from the sync branch
+            echo "Merging translated changes from ${CURRENT_BRANCH}..."
+            if git merge "${CURRENT_BRANCH}" --no-edit -m "merge: Auto-sync & translate $(date '+%Y-%m-%d %H:%M')" 2>/dev/null; then
+              echo "::notice::Merge successful"
+            else
+              echo "::warning::Merge had conflicts, resolving automatically..."
+              git diff --name-only --diff-filter=U | while read -r file; do
+                echo "  Auto-resolving: $file"
+                git checkout --theirs "$file" 2>/dev/null || git checkout --ours "$file" 2>/dev/null || true
+                git add "$file" 2>/dev/null || true
+              done
+              # Commit the resolution if there are staged changes
+              if [ -n "$(git diff --cached --name-only)" ]; then
+                git commit -m "resolve: Auto-resolved merge conflicts" --no-edit || true
+              else
+                git merge --abort 2>/dev/null || true
+              fi
+            fi
             
             # Clean up the temp branch
             git branch -D "${CURRENT_BRANCH}" 2>/dev/null || true
           fi
           
-          # Add all translatable files
-          git add '*.py' '*.md' '*.yaml' '*.yml' || true
+          # Final cleanup: remove any remaining .backup files
           find . -name "*.backup" -delete 2>/dev/null || true
+          
+          # Add all translatable files
+          git add '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
           git add -u '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
           
           # Check if there are actual changes

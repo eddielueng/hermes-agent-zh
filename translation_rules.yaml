@@ -424,7 +424,7 @@ exclusions:
     reason: "文档字符串"
 
   # 不翻译路径字符串
-  - pattern: '[\'"][\\w/.-]+\\.(py|yaml|yml|json|md|txt|sh)[\'"]'
+  - pattern: "['\"]([\\w/.-]+\\.(py|yaml|yml|json|md|txt|sh))['\"]"
     reason: "文件路径引用"
 
 # =============================================
