@@ -940,8 +940,6 @@ def _setup_tts_provider(config: dict):
         providers.append("nous-openai")
     choices.extend(
         [
-    choices.extend(
-        [
             "Edge TTS（免费、基于云端、无需设置）",
             "ElevenLabs（优质音质、需要 API 密钥）",
             "OpenAI TTS（良好音质、需要 API 密钥）",
