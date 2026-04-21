@@ -145,6 +145,28 @@ jobs:
             echo "::notice::No conflicts found, clean merge!"
           fi
 
+      - name: Validate Python files BEFORE translation
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
+        run: |
+          echo "=== Validating all .py files before translation ==="
+          ERROR_COUNT=0
+          TOTAL=0
+          while IFS= read -r -d '' file; do
+            TOTAL=$((TOTAL + 1))
+            if ! python3 -c "import ast; ast.parse(open('$file', 'r', encoding='utf-8-sig').read())" 2>/dev/null; then
+              echo "::error::BROKEN FILE (pre-translation): $file"
+              # Try to restore from upstream
+              git checkout --theirs "$file" 2>/dev/null || {
+                git checkout upstream/main -- "$file" 2>/dev/null || true
+              }
+              ERROR_COUNT=$((ERROR_COUNT + 1))
+            fi
+          done < <(find . -name "*.py" -type f -print0)
+          echo "Checked $TOTAL files, found $ERROR_COUNT broken files"
+          if [ "$ERROR_COUNT" -gt 0 ]; then
+            echo "::warning::$ERROR_COUNT files were restored from upstream before translation"
+          fi
+
       - name: Setup Python
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         uses: actions/setup-python@v5
@@ -163,6 +185,39 @@ jobs:
           python auto_translate.py --rules translation_rules.yaml --output output/report.md 2>&1 | tee output/log.txt || true
           CHANGED=$(git diff --name-only | wc -l)
           echo "changed_files=${CHANGED}" >> $GITHUB_OUTPUT
+
+      - name: Validate Python files AFTER translation
+        if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
+        run: |
+          echo "=== Validating all .py files after translation ==="
+          ERROR_COUNT=0
+          FIXED_COUNT=0
+          for file in $(git diff --name-only '*.py'); do
+            if [ -f "$file" ]; then
+              if ! python3 -c "import ast; ast.parse(open('$file', 'r', encoding='utf-8-sig').read())" 2>/dev/null; then
+                echo "::error::BROKEN FILE (post-translation): $file — restoring from backup or upstream"
+                # Try .backup first, then upstream
+                if [ -f "${file}.backup" ]; then
+                  cp "${file}.backup" "$file"
+                  echo "  Restored from .backup"
+                else
+                  git checkout upstream/main -- "$file" 2>/dev/null || git checkout HEAD -- "$file" 2>/dev/null || true
+                  echo "  Restored from upstream/HEAD"
+                fi
+                FIXED_COUNT=$((FIXED_COUNT + 1))
+              fi
+            fi
+          done
+          # Also do a full scan for any other broken files
+          while IFS= read -r -d '' file; do
+            if ! python3 -c "import ast; ast.parse(open('$file', 'r', encoding='utf-8-sig').read())" 2>/dev/null; then
+              echo "::error::STILL BROKEN: $file — attempting restore"
+              git checkout upstream/main -- "$file" 2>/dev/null || true
+              ERROR_COUNT=$((ERROR_COUNT + 1))
+            fi
+          done < <(find . -name "*.py" -type f -print0)
+          echo "Fixed $FIXED_COUNT files, $ERROR_COUNT still broken"
+          find . -name "*.backup" -delete 2>/dev/null || true
 
       - name: Commit and push to main
         if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
