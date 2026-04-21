@@ -347,6 +347,10 @@ class AutoTranslator:
             stats.error_count += 1
             return stats
         
+        # === 特殊处理：SKILL.md 文件的 description 字段翻译 ===
+        if path.name == 'SKILL.md' or (path.suffix == '.md' and 'optional-skills' in str(path)):
+            return self._translate_skill_md(path, stats)
+        
         # 安全检测：检查文件是否包含未解决的合并冲突标记
         try:
             with open(path, 'r', encoding='utf-8') as f:
@@ -480,6 +484,95 @@ class AutoTranslator:
                     shutil.copy2(backup_path, path)
         
         return stats
+    
+    def _translate_skill_md(self, path: Path, stats: FileTranslationStats) -> FileTranslationStats:
+        """
+        翻译 SKILL.md 文件的 YAML frontmatter description 字段
+        
+        Args:
+            path: SKILL.md 文件路径
+            stats: 统计对象
+            
+        Returns:
+            FileTranslationStats: 翻译统计信息
+        """
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            lines = content.split('\n')
+            stats.total_lines = len(lines)
+            
+            # 检测 YAML frontmatter (以 --- 开头)
+            if not lines or not lines[0].strip().startswith('---'):
+                stats.skipped_count = len(lines)
+                return stats
+            
+            # 找到 frontmatter 的结束位置
+            frontmatter_end = -1
+            for i in range(1, len(lines)):
+                if lines[i].strip() == '---':
+                    frontmatter_end = i
+                    break
+            
+            if frontmatter_end == -1:
+                # 没有找到闭合的 frontmatter，跳过
+                stats.skipped_count = len(lines)
+                return stats
+            
+            # 在 frontmatter 中查找并翻译 description 字段
+            new_lines = list(lines)
+            translated_any = False
+            
+            for i in range(1, frontmatter_end):
+                line = new_lines[i]
+                
+                # 匹配 description: "..." 或 description: '...'
+                desc_match = re.match(r'^(\s*description\s*:\s*)["\'](.+?)["\']\s*$', line)
+                if desc_match:
+                    prefix = desc_match.group(1)
+                    original_desc = desc_match.group(2)
+                    
+                    # 跳过已经是中文的描述
+                    chinese_ratio = sum(1 for c in original_desc if '\u4e00' <= c <= '\u9fff') / max(len(original_desc), 1)
+                    if chinese_ratio > 0.3:
+                        stats.skipped_count += 1
+                        continue
+                    
+                    # 翻译描述
+                    result = self.translate_string(original_desc, context=str(path))
+                    if result and result[0] != original_desc:
+                        translated_desc = result[0]
+                        new_lines[i] = f'{prefix}"{translated_desc}"'
+                        translated_any = True
+                        stats.translated_count += 1
+                        print(f"   ✅ SKILL描述: {original_desc[:50]}... → {translated_desc[:50]}...")
+                    else:
+                        stats.skipped_count += 1
+                else:
+                    stats.skipped_count += 1
+            
+            # 处理 frontmatter 之后的内容（跳过）
+            for i in range(frontmatter_end + 1, len(new_lines)):
+                stats.skipped_count += 1
+            
+            if translated_any:
+                # 写回文件
+                backup_path = path.with_suffix(path.suffix + '.backup')
+                import shutil
+                shutil.copy2(path, backup_path)
+                
+                with open(path, 'w', encoding='utf-8') as f:
+                    f.write('\n'.join(new_lines))
+                
+                print(f"   ✅ 已更新 {path.name} 的 description")
+            
+            return stats
+            
+        except Exception as e:
+            print(f"   ❌ 翻译SKILL.md失败 {path}: {e}")
+            stats.error_count += 1
+            return stats
     
     def translate_files(self, file_paths: List[str]) -> Dict[str, FileTranslationStats]:
         """
