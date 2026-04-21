@@ -164,58 +164,59 @@ jobs:
           CHANGED=$(git diff --name-only | wc -l)
           echo "changed_files=${CHANGED}" >> $GITHUB_OUTPUT
 
-      - name: Commit and push
-        id: commit
+      - name: Commit and push to main
         if: steps.translate.outputs.changed_files != '0' && github.event.inputs.dry_run != 'true'
         run: |
+          echo "=== Preparing to push directly to main ==="
+          
+          # If we're on a sync branch (from already_merged or Merge changes step), switch back to main first
+          CURRENT_BRANCH=$(git branch --show-current)
+          echo "Current branch: ${CURRENT_BRANCH}"
+          
+          if [ "$CURRENT_BRANCH" != "main" ]; then
+            echo "Switching from ${CURRENT_BRANCH} to main..."
+            # Stash any uncommitted changes first
+            git stash || true
+            git checkout main
+            
+            # Cherry-pick or merge the translated changes from the sync branch
+            echo "Merging translated changes from ${CURRENT_BRANCH}..."
+            git merge "${CURRENT_BRANCH}" --no-edit -m "merge: Auto-sync & translate $(date '+%Y-%m-%d %H:%M')" || {
+              echo "::warning::Merge failed, trying alternative approach..."
+              git merge "${CURRENT_BRANCH}" --no-edit --allow-unrelated-histories -m "merge: Auto-sync & translate $(date '+%Y-%m-%d %H:%M')" || true
+            }
+            
+            # Clean up the temp branch
+            git branch -D "${CURRENT_BRANCH}" 2>/dev/null || true
+          fi
+          
+          # Add all translatable files
           git add '*.py' '*.md' '*.yaml' '*.yml' || true
-          find . -name "*.backup" -delete || true
-          git add -u '*.py' '*.md' '*.yaml' '*.yml' || true
-
-          if [ $(git diff --cached --name-only | wc -l) -eq 0 ]; then
-            echo "changed_files=0" >> $GITHUB_OUTPUT
+          find . -name "*.backup" -delete 2>/dev/null || true
+          git add -u '*.py' '*.md' '*.yaml' '*.yml' 2>/dev/null || true
+          
+          # Check if there are actual changes
+          STAGED=$(git diff --cached --name-only | wc -l)
+          echo "Staged files count: ${STAGED}"
+          
+          if [ "$STAGED" = "0" ]; then
+            echo "::notice::No files to commit (already up to date or no translation needed)"
             exit 0
           fi
-
-          git commit -m "chore: Auto sync & translate" || true
-          BRANCH="sync-$(date +%Y%m%d-%H%M%S)"
-          git branch -M "${BRANCH}"
-          git push origin "${BRANCH}" --force
-          echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
-
-      - name: Create PR
-        id: create_pr
-        if: steps.commit.outputs.branch != '' && github.event.inputs.dry_run != 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          RESPONSE=$(curl -s -X POST \
-            -H "Authorization: token ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls" \
-            -d "{\"title\": \"Auto sync & translate $(date '+%Y-%m-%d')\", \"head\": \"${{ steps.commit.outputs.branch }}\", \"base\": \"main\", \"body\": \"Automated sync\"}")
-
-          PR_NUM=$(echo "${RESPONSE}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('number', 0))" 2>/dev/null || echo "0")
-          if [ "$PR_NUM" != "0" ]; then
-            echo "::notice::PR created #${PR_NUM}"
-            echo "pr_number=${PR_NUM}" >> $GITHUB_OUTPUT
-          else
-            echo "::error::PR creation failed"
-          fi
-
-      - name: Merge PR
-        if: steps.create_pr.outputs.pr_number != '' && steps.create_pr.outputs.pr_number != '0' && github.event.inputs.dry_run != 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          MERGE_RESPONSE=$(curl -s -X PUT \
-            -H "Authorization: token ${GH_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/eddielueng/hermes-agent-zh/pulls/${{ steps.create_pr.outputs.pr_number }}/merge" \
-            -d '{"merge_method": "squash"}')
-
-          if echo "${MERGE_RESPONSE}" | python3 -c "import json,sys; sys.exit(0 if json.load(sys.stdin).get('merged') else 1)" 2>/dev/null; then
-            echo "::notice::PR merged successfully"
-          else
-            echo "::warning::Auto-merge failed"
-          fi
+          
+          echo "Files to commit:"
+          git diff --cached --name-only
+          
+          # Commit directly on main
+          git commit -m "🔄 Auto-sync & translate $(date '+%Y-%m-%d %H:%M')
+          
+          - Upstream: ${{ steps.fetch_upstream.outputs.upstream_commit }}
+          - Files: $(git diff --cached --name-only | wc -l)" || {
+            echo "::warning::Nothing new to commit, but there were staged files. May need amend."
+          }
+          
+          # Push directly to main
+          echo "Pushing to main branch..."
+          git push origin main
+          
+          echo "✅ Successfully pushed to main!"
