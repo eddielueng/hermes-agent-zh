@@ -1,14 +1,14 @@
 #!/bin/bash
 # ============================================================================
-# Hermes Agent 中文版 - 一键安装脚本
+# Hermes Agent 中文版 - 一键安装脚本 (v2)
 # ============================================================================
-# 专用安装脚本，确保安装的是完整中文化的版本
-# 不会覆盖为官方英文版
+# 参考 NousResearch 官方安装脚本，使用 uv 自动管理 Python 版本
+# 支持 Linux, macOS, WSL2, Android/Termux
 #
 # 用法：
-#   bash install-zh.sh
-#   或
 #   curl -fsSL https://raw.githubusercontent.com/eddielueng/hermes-agent-zh/main/scripts/install-zh.sh | bash
+#   或
+#   bash install-zh.sh [--no-venv] [--skip-setup] [--dir PATH]
 #
 # ============================================================================
 
@@ -21,51 +21,51 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
-NC='\033[0m' # 无颜色
+NC='\033[0m'
 BOLD='\033[1m'
 
 # 配置
-HERMES_HOME="$HOME/.hermes"
-INSTALL_DIR="${HERMES_INSTALL_DIR:-$HERMES_HOME/hermes-agent}"
-PYTHON_MIN_VERSION="3.10"
-PYTHON_RECOMMENDED="3.11"
 REPO_URL="https://github.com/eddielueng/hermes-agent-zh.git"
+HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
+INSTALL_DIR="${HERMES_INSTALL_DIR:-$HERMES_HOME/hermes-agent}"
+PYTHON_VERSION="3.11"
+NODE_VERSION="22"
 
 # 选项
 USE_VENV=true
 RUN_SETUP=true
+BRANCH="main"
+
+# 检测非交互模式 (curl | bash)
+if [ -t 0 ]; then
+    IS_INTERACTIVE=true
+else
+    IS_INTERACTIVE=false
+fi
 
 # 解析参数
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --no-venv)
-            USE_VENV=false
-            shift
-            ;;
-        --skip-setup)
-            RUN_SETUP=false
-            shift
-            ;;
-        --dir)
-            INSTALL_DIR="$2"
-            shift 2
-            ;;
+        --no-venv) USE_VENV=false; shift ;;
+        --skip-setup) RUN_SETUP=false; shift ;;
+        --branch) BRANCH="$2"; shift 2 ;;
+        --dir) INSTALL_DIR="$2"; shift 2 ;;
+        --hermes-home) HERMES_HOME="$2"; shift 2 ;;
         -h|--help)
-            echo "Hermes Agent 中文版 - 一键安装脚本"
+            echo "Hermes Agent 中文版 安装器 (v2)"
             echo ""
             echo "用法: $0 [选项]"
             echo ""
             echo "选项:"
-            echo "  --no-venv      不创建虚拟环境"
-            echo "  --skip-setup   跳过交互式设置向导"
-            echo "  --dir PATH     安装目录 (默认: ~/.hermes/hermes-agent)"
-            echo "  -h, --help     显示帮助信息"
+            echo "  --no-venv       不创建虚拟环境"
+            echo "  --skip-setup    跳过交互式设置向导"
+            echo "  --branch NAME   Git分支 (默认: main)"
+            echo "  --dir PATH      安装目录 (默认: ~/.hermes/hermes-agent)"
+            echo "  --hermes-home   数据目录 (默认: ~/.hermes)"
+            echo "  -h, --help      显示帮助信息"
             exit 0
             ;;
-        *)
-            echo "未知选项: $1"
-            exit 1
-            ;;
+        *) echo "未知选项: $1"; exit 1 ;;
     esac
 done
 
@@ -78,318 +78,376 @@ print_banner() {
     echo -e "${MAGENTA}${BOLD}"
     echo "╔══════════════════════════════════════════════════════════╗"
     echo "║                                                      ║"
-    echo "║          🎌 Hermes Agent 中文版 安装器               ║"
+    echo "║          🎌 Hermes Agent 中文版 安装器 v2            ║"
     echo "║                                                      ║"
     echo "║      完整中文化的 AI 代理系统 - 基于 NousResearch    ║"
+    echo "║          使用 uv 自动管理 Python 版本               ║"
     echo "║                                                      ║"
     echo "╚══════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
 
-print_step() {
-    echo ""
-    echo -e "${BLUE}▶ $1${NC}"
+log_info() { echo -e "${CYAN}→${NC} $1"; }
+log_success() { echo -e "${GREEN}✓${NC} $1"; }
+log_warn() { echo -e "${YELLOW}⚠${NC} $1"; }
+log_error() { echo -e "${RED}✗${NC} $1"; }
+
+prompt_yes_no() {
+    local question="$1"
+    local default="${2:-yes}"
+    local prompt_suffix answer=""
+
+    case "$default" in
+        [yY]|[yY][eE][sS]|[tT][rR][uU][eE]|1) prompt_suffix="[Y/n]" ;;
+        *) prompt_suffix="[y/N]" ;;
+    esac
+
+    if [ "$IS_INTERACTIVE" = true ]; then
+        read -r -p "$question $prompt_suffix " answer || answer=""
+    elif [ -r /dev/tty ] && [ -w /dev/tty ]; then
+        printf "%s %s " "$question" "$prompt_suffix" > /dev/tty
+        IFS= read -r answer < /dev/tty || answer=""
+    else
+        answer=""
+    fi
+
+    answer="${answer#"${answer%%[![:space:]]*}"}"
+    answer="${answer%"${answer##*[![:space:]]}"}"
+
+    if [ -z "$answer" ]; then
+        case "$default" in
+            [yY]|[yY][eE][sS]|[tT][rR][uU][eE]|1) return 0 ;; *) return 1 ;;
+        esac
+    fi
+    case "$answer" in [yY]|[yY][eE][sS]) return 0 ;; *) return 1 ;; esac
 }
 
-print_success() {
-    echo -e "${GREEN}✅ $1${NC}"
+is_termux() {
+    [ -n "${TERMUX_VERSION:-}" ] || [[ "${PREFIX:-}" == *"com.termux/files/usr"* ]]
 }
 
-print_warning() {
-    echo -e "${YELLOW}⚠️  $1${NC}"
+get_command_link_dir() {
+    if is_termux && [ -n "${PREFIX:-}" ]; then echo "$PREFIX/bin"
+    else echo "$HOME/.local/bin"; fi
 }
 
-print_error() {
-    echo -e "${RED}❌ $1${NC}"
-}
+# ============================================================================
+# 系统检测
+# ============================================================================
 
-print_info() {
-    echo -e "${CYAN}ℹ️  $1${NC}"
-}
-
-# 检测操作系统
 detect_os() {
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        OS="Linux"
-        if [ -f /etc/os-release ]; then
-            . /etc/os-release
-            DISTRO=$NAME
-        fi
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        OS="macOS"
-    elif [[ "$OSTYPE" == "linux-android"* ]]; then
-        OS="Termux"
-    else
-        OS="Unknown"
-    fi
+    case "$(uname -s)" in
+        Linux*)
+            if is_termux; then OS="android"; DISTRO="termux"
+            else
+                OS="linux"
+                if [ -f /etc/os-release ]; then . /etc/os-release; DISTRO="$ID"
+                else DISTRO="unknown"; fi
+            fi
+            ;;
+        Darwin*) OS="macos"; DISTRO="macos" ;;
+        CYGWIN*|MINGW*|MSYS*) OS="windows"; DISTRO="windows"
+            log_error "Windows 不支持原生安装，请使用 WSL2"
+            exit 1
+            ;;
+        *) OS="unknown"; DISTRO="unknown" ;;
+    esac
+    log_success "系统: $OS ($DISTRO)"
 }
 
-# 检查 Python 版本
-check_python() {
-    if command -v python3 &> /dev/null; then
-        PYTHON_CMD="python3"
-    elif command -v python &> /dev/null; then
-        PYTHON_CMD="python"
-    else
-        print_error "未找到 Python！请先安装 Python $PYTHON_MIN_VERSION 或更高版本"
-        exit 1
-    fi
-    
-    PYTHON_VERSION=$($PYTHON_CMD --version 2>&1 | awk '{print $2}')
-    print_info "检测到 Python 版本: $PYTHON_VERSION"
-    
-    # 提取主版本号和次版本号
-    PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
-    PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
-    
-    if [ "$PYTHON_MAJOR" -lt 3 ] || { [ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 10 ]; }; then
-        print_error "Python 版本过低 ($PYTHON_VERSION)，需要 $PYTHON_MIN_VERSION 或更高版本"
-        
-        if [[ "$OS" == "Linux" ]] && [[ "$DISTRO" == *"Ubuntu"* || "$DISTRO" == *"Debian"* ]]; then
-            print_info "建议运行以下命令升级 Python:"
-            echo "  sudo apt update"
-            echo "  sudo apt install -y python3.11 python3.11-venv python3-pip"
-        fi
-        
-        exit 1
-    fi
-    
-    if [ "$PYTHON_MINOR" -lt 11 ]; then
-        print_warning "建议使用 Python 3.11+ 以获得最佳体验 (当前: $PYTHON_VERSION)"
-    fi
-    
-    print_success "Python 版本检查通过: $PYTHON_VERSION"
-}
+# ============================================================================
+# 安装 uv (Python包管理器) - 核心改进！
+# ============================================================================
 
-# 检查 git
-check_git() {
-    if ! command -v git &> /dev/null; then
-        print_error "未找到 Git！请先安装 Git"
-        if [[ "$OS" == "Linux" ]]; then
-            print_info "Ubuntu/Debian: sudo apt install git"
-            print_info "CentOS/RHEL: sudo yum install git"
-        elif [[ "$OS" == "macOS" ]]; then
-            print_info "运行: xcode-select --install"
-        fi
-        exit 1
-    fi
-    print_success "Git 已安装: $(git --version)"
-}
-
-# 创建目录结构
-create_directories() {
-    print_step "创建安装目录..."
-    
-    if [ ! -d "$HERMES_HOME" ]; then
-        mkdir -p "$HERMES_HOME"
-        print_success "配置目录已创建: $HERMES_HOME"
-    else
-        print_info "配置目录已存在: $HERMES_HOME"
-    fi
-}
-
-# 克隆中文版仓库（支持 curl | bash 模式）
-clone_repository() {
-    print_step "获取 Hermes Agent 中文版代码..."
-
-    # 如果已经在正确的目录中（本地运行模式）
-    if [ -f "pyproject.toml" ] && (grep -q "Hermes Agent 中文版" README.md 2>/dev/null || grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null); then
-        print_success "✨ 已在中文版仓库中，跳过克隆"
+install_uv() {
+    if [ "$DISTRO" = "termux" ]; then
+        log_info "Termux 检测到 — 使用 Python 自带 venv + pip"
+        UV_CMD=""
         return 0
     fi
 
-    # curl | bash 模式：当前目录不是项目目录，需要克隆
-    if [ ! -f "$INSTALL_DIR/pyproject.toml" ] || [ ! -d "$INSTALL_DIR/hermes_cli" ]; then
-        print_info "正在从 GitHub 克隆中文版仓库..."
+    log_info "检查 uv 包管理器..."
 
-        # 删除旧的不完整安装
+    # 常见位置查找
+    for cmd_path in uv "$HOME/.local/bin/uv" "$HOME/.cargo/bin/uv"; do
+        if command -v "$cmd_path" &> /dev/null || [ -x "$cmd_path" ]; then
+            UV_CMD="$(command -v $cmd_path 2>/dev/null || echo $cmd_path)"
+            log_success "uv 已找到: $($UV_CMD --version 2>/dev/null)"
+            return 0
+        fi
+    done
+
+    # 自动安装 uv
+    log_info "正在安装 uv (快速 Python 包管理器)..."
+    if curl -LsSf https://astral.sh/uv/install.sh | sh 2>/dev/null; then
+        export PATH="$HOME/.local/bin:$PATH"
+        if [ -x "$HOME/.local/bin/uv" ]; then
+            UV_CMD="$HOME/.local/bin/uv"
+            log_success "uv 已安装: $($UV_CMD --version 2>/dev/null)"
+            return 0
+        fi
+    fi
+
+    log_error "uv 安装失败"
+    log_info "手动安装: https://docs.astral.sh/uv/getting-started/installation/"
+    exit 1
+}
+
+# ============================================================================
+# Python 版本检查与自动安装 - 核心改进！
+# ============================================================================
+
+check_python() {
+    if [ "$DISTRO" = "termux" ]; then
+        log_info "检查 Termux Python..."
+        if command -v python &>/dev/null; then
+            PYTHON_PATH="$(command -v python)"
+            PYTHON_VER="$($PYTHON_PATH --version 2>/dev/null)"
+            log_success "Python: $PYTHON_VER"
+            return 0
+        fi
+        log_info "通过 pkg 安装 Python..."
+        pkg install -y python >/dev/null
+        PYTHON_PATH="$(command -v python)"
+        log_success "Python 已安装: $($PYTHON_PATH --version 2>/dev/null)"
+        return 0
+    fi
+
+    # === 核心：使用 uv 管理 Python 版本 ===
+    log_info "检查 Python ${PYTHON_VERSION}..."
+
+    # 让 uv 查找合适的 Python
+    if PYTHON_PATH="$("$UV_CMD" python find "$PYTHON_VERSION" 2>/dev/null)"; then
+        PYTHON_FOUND_VER="$("$PYTHON_PATH" --version 2>/dev/null)"
+        log_success "Python 已找到: $PYTHON_FOUND_VER"
+        return 0
+    fi
+
+    # Python 未找到 — 通过 uv 自动安装（无需 sudo！）
+    log_warn "Python ${PYTHON_VERSION} 未找到，正在通过 uv 自动安装..."
+    if "$UV_CMD" python install "$PYTHON_VERSION"; then
+        PYTHON_PATH="$("$UV_CMD" python find "$PYTHON_VERSION")"
+        PYTHON_FOUND_VER="$("$PYTHON_PATH" --version 2>/dev/null)"
+        log_success "Python 已自动安装: $PYTHON_FOUND_VER"
+    else
+        log_error "Python ${PYTHON_VERSION} 安装失败"
+        log_info "请手动安装 Python ${PYTHON_VERSION} 后重试"
+        exit 1
+    fi
+}
+
+# ============================================================================
+# Git 检查
+# ============================================================================
+
+check_git() {
+    log_info "检查 Git..."
+    if command -v git &> /dev/null; then
+        log_success "Git $(git --version | awk '{print $3}')"
+        return 0
+    fi
+    log_error "未找到 Git"
+
+    case "$OS" in
+        linux)
+            case "$DISTRO" in
+                ubuntu|debian) log_info "  sudo apt update && sudo apt install git" ;;
+                fedora) log_info "  sudo dnf install git" ;;
+                arch) log_info "  sudo pacman -S git" ;;
+                *) log_info "  请用包管理器安装 git" ;;
+            esac
+            ;;
+        macos) log_info "  xcode-select --install 或 brew install git" ;;
+        android) log_info "  pkg install git" ;;
+    esac
+    exit 1
+}
+
+# ============================================================================
+# 克隆仓库
+# ============================================================================
+
+clone_repository() {
+    log_info "获取 Hermes Agent 中文版代码..."
+
+    # 如果已在正确目录
+    if [ -f "pyproject.toml" ] && grep -q "XiDao Api\|中文版\|hermes-agent-zh" README.md 2>/dev/null; then
+        log_success "已在中文版仓库中，跳过克隆"
+        cd "$(pwd)"
+        INSTALL_DIR="$(pwd)"
+        return 0
+    fi
+
+    # 需要克隆
+    if [ ! -f "$INSTALL_DIR/pyproject.toml" ] || [ ! -d "$INSTALL_DIR/hermes_cli" ]; then
+        log_info "正在从 GitHub 克隆中文版仓库..."
         rm -rf "$INSTALL_DIR" 2>/dev/null || true
 
-        # 克隆中文版仓库
-        git clone "$REPO_URL" "$INSTALL_DIR"
-
+        git clone --branch "$BRANCH" "$REPO_URL" "$INSTALL_DIR"
         if [ $? -eq 0 ]; then
             cd "$INSTALL_DIR"
-            print_success "✨ 中文版代码下载完成！"
-
-            # 验证是否为中文版
             if grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null; then
-                print_success "✅ 确认为中文版！"
+                log_success "代码下载完成，确认为中文版！"
             else
-                print_warning "⚠️  未检测到中文版标记，但继续安装..."
+                log_warn "未检测到中文版标记，但继续安装..."
             fi
         else
-            print_error "克隆失败！请检查网络连接或手动下载："
-            echo "  git clone https://github.com/eddielueng/hermes-agent-zh.git ~/.hermes/hermes-agent"
+            log_error "克隆失败！请检查网络连接"
             exit 1
         fi
     else
-        # 目录存在且有效
         cd "$INSTALL_DIR"
-
-        if grep -q "Hermes Agent 中文版" README.md 2>/dev/null || grep -q "XiDao Api" hermes_cli/models.py 2>/dev/null; then
-            print_success "✨ 检测到已有的中文版安装！"
-        else
-            print_warning "⚠️  检测到现有安装，但可能不是中文版"
-        fi
+        log_success "检测到已有中文版安装"
     fi
 }
 
-# 创建虚拟环境
-create_venv() {
+# ============================================================================
+# 创建虚拟环境并安装依赖 - 使用 uv！
+# ============================================================================
+
+setup_environment() {
     if [ "$USE_VENV" = false ]; then
-        print_info "跳过虚拟环境创建 (--no-venv)"
+        log_info "跳过虚拟环境 (--no-venv)"
         return
     fi
-    
-    print_step "创建 Python 虚拟环境..."
-    
-    if [ -d "venv" ]; then
-        # 检测是否为非交互模式
-        if [ ! -t 0 ]; then
-            print_info "发现已有的虚拟环境，非交互模式下保留现有环境"
+
+    # === 使用 uv 创建虚拟环境 ===
+    if [ -n "$UV_CMD" ] && [ -x "$(command -v $UV_CMD 2>/dev/null || echo $UV_CMD)" ]; then
+        log_info "使用 uv 创建虚拟环境..."
+        "$UV_CMD" venv
+        if [ $? -eq 0 ]; then
+            log_success "虚拟环境创建成功 (uv)"
+            source .venv/bin/activate
         else
-            print_warning "发现已有的虚拟环境，是否删除并重新创建？(y/N)"
-            read -r response
-            if [[ "$response" =~ ^[Yy]$ ]]; then
-                rm -rf venv
-                print_info "旧虚拟环境已删除"
+            log_warn "uv venv 失败，回退到标准方式..."
+            setup_venv_fallback
+        fi
+    else
+        setup_venv_fallback
+    fi
+
+    # === 使用 uv/pip 安装依赖 ===
+    log_info "升级包管理器..."
+    if [ -n "$UV_CMD" ] && command -v uv &>/dev/null; then
+        "$UV_CMD" pip install -U pip setuptools wheel -q 2>/dev/null || true
+    else
+        pip install --upgrade pip -q 2>/dev/null || true
+    fi
+    log_success "包管理器已就绪"
+
+    # === 安装项目依赖 ===
+    log_info "正在安装 Hermes Agent 及所有依赖（可能需要几分钟）..."
+    if [ -n "$UV_CMD" ] && command -v uv &>/dev/null; then
+        "$UV_CMD" pip install -e ".[dev]" 2>&1 || {
+            log_error "依赖安装失败！尝试标准pip..."
+            pip install -e ".[dev]" || exit 1
+        }
+    else
+        pip install -e ".[dev]" || exit 1
+    fi
+    log_success "所有依赖安装完成！"
+}
+
+# 回退：标准方式创建虚拟环境
+setup_venv_fallback() {
+    log_info "使用 Python 标准库创建虚拟环境..."
+
+    if [ -d ".venv" ] || [ -d "venv" ]; then
+        VENV_DIR=".venv"
+        [ -d "venv" ] && VENV_DIR="venv"
+        if [ "$IS_INTERACTIVE" = true ]; then
+            if prompt_yes_no "发现已有虚拟环境，是否删除重新创建？"; then
+                rm -rf .venv venv
             else
-                print_info "保留现有虚拟环境"
-                return
+                log_info "保留现有虚拟环境"
+                source "$VENV_DIR/bin/activate" 2>/dev/null || true
+                return 0
             fi
+        else
+            rm -rf .venv venv
         fi
     fi
-    
-    $PYTHON_CMD -m venv venv
-    
-    if [ $? -eq 0 ]; then
-        print_success "虚拟环境创建成功"
-    else
-        print_error "虚拟环境创建失败"
-        exit 1
-    fi
+
+    "$PYTHON_PATH" -m venv .venv
+    source .venv/bin/activate
+    log_success "虚拟环境已激活"
 }
 
-# 激活虚拟环境并安装依赖
-install_dependencies() {
-    print_step "激活虚拟环境..."
-    
-    if [ -d "venv" ]; then
-        source venv/bin/activate
-        print_success "虚拟环境已激活"
-    else
-        print_warning "未找到虚拟环境，使用系统 Python"
+# ============================================================================
+# 创建命令链接
+# ============================================================================
+
+create_command_link() {
+    local link_dir
+    link_dir="$(get_command_link_dir)"
+
+    mkdir -p "$link_dir"
+
+    # 确保 hermes 命令可用
+    if [ -d ".venv" ]; then
+        ln -sf "$(pwd)/.venv/bin/hermes" "$link_dir/hermes" 2>/dev/null || true
+    elif [ -d "venv" ]; then
+        ln -sf "$(pwd)/venv/bin/hermes" "$link_dir/hermes" 2>/dev/null || true
     fi
-    
-    print_step "升级 pip..."
-    pip install --upgrade pip -q
-    print_success "pip 已升级到最新版本"
-    
-    print_step "安装依赖包（这可能需要几分钟）..."
-    print_info "正在安装 Hermes Agent 及其所有依赖..."
-    
-    # 使用可编辑模式安装，这样修改源码后无需重新安装
-    pip install -e ".[dev]"
-    
-    if [ $? -eq 0 ]; then
-        print_success "✨ 所有依赖包安装完成！"
-    else
-        print_error "依赖包安装失败！"
-        print_info "可能的原因:"
-        echo "  1. 网络连接问题"
-        echo "  2. Python 版本不兼容"
-        echo "  3. 系统缺少必要的编译工具"
-        echo ""
-        print_info "尝试手动安装以查看详细错误:"
-        echo "  pip install -e \".[dev]\""
-        exit 1
+
+    # 确保在PATH中
+    if [[ ":$PATH:" != *":$link_dir:"* ]]; then
+        echo "export PATH=\"$link_dir:\$PATH\"" >> ~/.bashrc
+        echo "export PATH=\"$link_dir:\$PATH\"" >> ~/.zshrc 2>/dev/null || true
     fi
+
+    log_success "hermes 命令已添加到 $(get_command_link_display_dir)"
 }
 
-# 显示安装完成信息
+# ============================================================================
+# 完成提示
+# ============================================================================
+
 show_completion() {
     echo ""
     echo -e "${GREEN}${BOLD}╔══════════════════════════════════════════════════════════╗${NC}"
     echo -e "${GREEN}${BOLD}║                                                          ║${NC}"
-    echo -e "${GREEN}${BOLD}║          � Hermes Agent 中文版 安装完成！              ║${NC}"
+    echo -e "${GREEN}${BOLD}║     ✅ Hermes Agent 中文版 安装完成！                    ║${NC}"
     echo -e "${GREEN}${BOLD}║                                                          ║${NC}"
     echo -e "${GREEN}${BOLD}╚══════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${BOLD}🚀 启动方式:${NC}"
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
-    
-    if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
+
+    if [ -d ".venv" ] || [ -d "venv" ]; then
         echo -e "  ${GREEN}方式一（推荐）:${NC}"
         echo "    cd $(pwd)"
-        echo "    source venv/bin/activate"
+        echo "    source .venv/bin/activate  # 或 source venv/bin/activate"
         echo "    hermes"
         echo ""
         echo -e "  ${GREEN}方式二（一行命令）:${NC}"
-        echo "    cd $(pwd) && source venv/bin/activate && hermes"
+        echo "    cd $(pwd) && source .venv/bin/activate && hermes"
+        echo ""
+        echo -e "  ${GREEN}方式三（如果配置了PATH）:${NC}"
+        echo "    source ~/.bashrc && hermes"
     else
         echo -e "  ${GREEN}直接运行:${NC}"
         echo "    hermes"
     fi
-    
+
     echo ""
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${BOLD}📋 首次使用建议:${NC}"
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
     echo "  1. 启动后输入 ${YELLOW}/help${NC} 查看所有命令"
-    echo "  2. 输入 ${YELLOW}/model${NC} 选择 XiDao Api 作为服务商"
+    echo "  2. 输入 ${YELLOW}/model${NC} 选择 API 服务商（推荐 XiDao Api）"
     echo "  3. 输入 ${YELLOW}/tools${NC} 配置可用工具"
     echo "  4. 输入 ${YELLOW}/skills${NC} 管理技能插件"
     echo "  5. 输入 ${YELLOW}/skin${NC} 更换界面主题"
     echo ""
-    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${BOLD}⭐ 特色功能:${NC}"
-    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo ""
-    echo "  ✅ 完全中文化界面"
-    echo "  ✅ 内置 XiDao Api 服务商（首选推荐）"
-    echo "  ✅ 支持 23+ 主流 API 服务商"
-    echo "  ✅ 完整保留原版所有功能"
-    echo "  ✅ 支持网关服务（Telegram/Discord等）"
-    echo ""
-    
-    # 如果用户选择运行设置向导
-    if [ "$RUN_SETUP" = true ]; then
+
+    if [ "$IS_INTERACTIVE" = false ]; then
+        echo -e "${YELLOW}ℹ️  检测到非交互模式，请复制上面的启动命令到终端执行${NC}"
         echo ""
-        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e "${BOLD}🎯 下一步：启动 Hermes Agent 中文版${NC}"
-        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo ""
-        
-        if [ "$USE_VENV" = true ] && [ -d "venv" ]; then
-            echo -e "${GREEN}方式一（推荐）:${NC}"
-            echo ""
-            echo "  cd $(pwd)"
-            echo "  source venv/bin/activate"
-            echo "  hermes"
-            echo ""
-            echo -e "${GREEN}或一行命令启动：${NC}"
-            echo ""
-            echo "  cd $(pwd) && source venv/bin/activate && hermes"
-            echo ""
-            
-            # 检测是否为非交互模式（curl | bash）
-            if [ ! -t 0 ]; then
-                echo -e "${YELLOW}提示: 检测到非交互模式（curl | bash），请复制上面的命令到终端执行${NC}"
-                echo ""
-            fi
-        else
-            echo -e "${GREEN}直接运行：${NC}"
-            echo ""
-            echo "  hermes"
-            echo ""
-        fi
-        
-        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     fi
 }
 
@@ -399,33 +457,17 @@ show_completion() {
 
 main() {
     print_banner
-    
     echo -e "${BOLD}正在准备安装环境...${NC}"
     echo ""
-    
-    # 检测操作系统
+
     detect_os
-    print_info "操作系统: $OS ${DISTRO:+($DISTRO)}"
-    
-    # 检查依赖
+    install_uv
     check_python
     check_git
-    
-    # 创建目录
-    create_directories
-
-    # 克隆或验证中文版仓库（支持 curl | bash 模式）
     clone_repository
-    
-    # 创建虚拟环境
-    create_venv
-    
-    # 安装依赖
-    install_dependencies
-    
-    # 显示完成信息
+    setup_environment
+    create_command_link
     show_completion
 }
 
-# 运行主函数
 main "$@"
