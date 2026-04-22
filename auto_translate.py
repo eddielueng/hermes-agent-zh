@@ -526,6 +526,7 @@ class AutoTranslator:
             # 在 frontmatter 中查找并翻译 description 字段
             new_lines = list(lines)
             translated_any = False
+            desc_found = False
             
             for i in range(1, frontmatter_end):
                 line = new_lines[i]
@@ -533,17 +534,22 @@ class AutoTranslator:
                 # 匹配 description: "..." 或 description: '...' 或 description: ...（无引号）
                 desc_match = re.match(r'^(\s*description\s*:\s*)(?:"(.+?)"|\'(.+?)\'|(.+))\s*$', line)
                 if desc_match:
+                    desc_found = True
                     prefix = desc_match.group(1)
                     # 提取值（可能是双引号、单引号或无引号）
                     original_desc = desc_match.group(2) or desc_match.group(3) or desc_match.group(4) or ""
                     
+                    print(f"   🔍 SKILL描述匹配: {original_desc[:60]}...")
+                    
                     # 跳过已经是中文的描述
                     chinese_ratio = sum(1 for c in original_desc if '\u4e00' <= c <= '\u9fff') / max(len(original_desc), 1)
                     if chinese_ratio > 0.3:
+                        print(f"      ⏭️ 跳过（已是中文，比例: {chinese_ratio:.0%}）")
                         stats.skipped_count += 1
                         continue
                     
                     # 翻译描述
+                    print(f"      🔄 正在翻译...")
                     result = self.translate_string(original_desc, context=str(path))
                     if result and result[0] != original_desc:
                         translated_desc = result[0]
@@ -570,6 +576,9 @@ class AutoTranslator:
                     f.write('\n'.join(new_lines))
                 
                 print(f"   ✅ 已更新 {path.name} 的 description")
+            
+            if not desc_found:
+                print(f"   ⚠️ 未在frontmatter中找到description字段")
             
             return stats
             
