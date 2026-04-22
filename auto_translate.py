@@ -427,7 +427,10 @@ class AutoTranslator:
                 match = re.search(pattern, line)
                 if match:
                     original_text = extractor(match)
-                    if original_text:
+                    # extractor may return tuple (text, None) or plain string
+                    if isinstance(original_text, tuple):
+                        original_text = original_text[0]
+                    if original_text and isinstance(original_text, str):
                         result = self.translate_string(original_text, context=file_path)
                         if result:
                             translated_text, rule_matched = result
@@ -523,24 +526,32 @@ class AutoTranslator:
             # 在 frontmatter 中查找并翻译 description 字段
             new_lines = list(lines)
             translated_any = False
+            desc_found = False
             
             for i in range(1, frontmatter_end):
                 line = new_lines[i]
                 
-                # 匹配 description: "..." 或 description: '...'
-                desc_match = re.match(r'^(\s*description\s*:\s*)["\'](.+?)["\']\s*$', line)
+                # 匹配 description: "..." 或 description: '...' 或 description: ...（无引号）
+                desc_match = re.match(r'^(\s*description\s*:\s*)(?:"(.+?)"|\'(.+?)\'|(.+))\s*$', line)
                 if desc_match:
+                    desc_found = True
                     prefix = desc_match.group(1)
-                    original_desc = desc_match.group(2)
+                    # 提取值（可能是双引号、单引号或无引号）
+                    original_desc = desc_match.group(2) or desc_match.group(3) or desc_match.group(4) or ""
+                    
+                    print(f"   🔍 SKILL描述匹配: {original_desc[:60]}...")
                     
                     # 跳过已经是中文的描述
                     chinese_ratio = sum(1 for c in original_desc if '\u4e00' <= c <= '\u9fff') / max(len(original_desc), 1)
                     if chinese_ratio > 0.3:
+                        print(f"      ⏭️ 跳过（已是中文，比例: {chinese_ratio:.0%}）")
                         stats.skipped_count += 1
                         continue
                     
                     # 翻译描述
+                    print(f"      🔄 正在翻译...")
                     result = self.translate_string(original_desc, context=str(path))
+                    
                     if result and result[0] != original_desc:
                         translated_desc = result[0]
                         new_lines[i] = f'{prefix}"{translated_desc}"'
@@ -548,7 +559,28 @@ class AutoTranslator:
                         stats.translated_count += 1
                         print(f"   ✅ SKILL描述: {original_desc[:50]}... → {translated_desc[:50]}...")
                     else:
-                        stats.skipped_count += 1
+                        # 回退：使用common_mappings逐词替换
+                        translated_desc = original_desc
+                        common_mappings = self.rules.get('common_mappings', {})
+                        replaced_any = False
+                        sorted_mappings = sorted(common_mappings.items(), key=lambda x: len(x[0]), reverse=True)
+                        for en, zh in sorted_mappings:
+                            if len(en) > 2 and en.lower() in translated_desc.lower():
+                                pattern = r'\b' + re.escape(en) + r'\b'
+                                new_text = re.sub(pattern, zh, translated_desc, flags=re.IGNORECASE)
+                                if new_text != translated_desc:
+                                    translated_desc = new_text
+                                    replaced_any = True
+                        
+                        if not replaced_any or translated_desc == original_desc:
+                            print(f"      ⏭️ 翻译器无匹配，跳过")
+                            stats.skipped_count += 1
+                            continue
+
+                        new_lines[i] = f'{prefix}"{translated_desc}"'
+                        translated_any = True
+                        stats.translated_count += 1
+                        print(f"   ✅ SKILL描述(回退): {original_desc[:50]}... → {translated_desc[:50]}...")
                 else:
                     stats.skipped_count += 1
             
@@ -566,6 +598,9 @@ class AutoTranslator:
                     f.write('\n'.join(new_lines))
                 
                 print(f"   ✅ 已更新 {path.name} 的 description")
+            
+            if not desc_found:
+                print(f"   ⚠️ 未在frontmatter中找到description字段")
             
             return stats
             

@@ -105,6 +105,46 @@ common_mappings:
 file_specific_rules:
 
   # ----------------------------------------
+  # */SKILL.md - 所有技能文件的描述
+  # ----------------------------------------
+  "*/SKILL.md":
+    # 动词
+    "Manage": "管理"
+    "Create": "创建"
+    "Search": "搜索"
+    "Configure": "配置"
+    "Connect": "连接"
+    "Install": "安装"
+    "Build": "构建"
+    "Deploy": "部署"
+    "Monitor": "监控"
+    "Automate": "自动化"
+    "Generate": "生成"
+    "Analyze": "分析"
+    "Optimize": "优化"
+    
+    # 名词
+    "GitHub issues": "GitHub 问题"
+    "GitHub repositories": "GitHub 仓库"
+    "pull requests": "拉取请求"
+    "web applications": "Web 应用程序"
+    "Apple Notes": "Apple 备忘录"
+    "MCP servers": "MCP 服务器"
+    "machine learning models": "机器学习模型"
+    "research papers": "研究论文"
+    "PDF documents": "PDF 文档"
+    "YouTube videos": "YouTube 视频"
+    "smart home devices": "智能家居设备"
+    
+    # 短语
+    "via the": "通过"
+    "on macOS": "在 macOS 上"
+    "from the terminal": "从终端"
+    "with Hermes": "使用 Hermes"
+    "cross-session": "跨会话"
+    "user modeling": "用户建模"
+
+  # ----------------------------------------
   # hermes_cli/commands.py - 命令定义
   # ----------------------------------------
   "hermes_cli/commands.py":
@@ -394,11 +434,9 @@ exclusions:
   - pattern: "https?://[\\w\\./-]+"
     reason: "URL 地址"
     
-  # 不翻译环境变量名
-  - pattern: "\\b[A-Z_]{2,}\\b"
-    when: "in_string_literal"
-    reason: "环境变量名"
-    
+  # 注意：已移除环境变量名排除规则，因为它会误匹配 SKILL.md 中的正常大写缩写（如 CLI, MCP, QA）
+  # 如果需要排除环境变量名，请在 file_specific_rules 中针对特定文件配置
+      
   # 不翻译命令名称本身
   - pattern: "^/[a-z-]+"
     reason: "斜杠命令"

@@ -1,6 +1,6 @@
 ---
 name: dogfood
-description: Systematic exploratory QA testing of web applications — find bugs, capture evidence, and generate structured reports
+description: "Systematic exploratory QA testing of Web 应用程序 — find bugs, capture evidence, and generate structured reports"
 version: 1.0.0
 metadata:
   hermes:

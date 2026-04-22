@@ -145,6 +145,37 @@ jobs:
             echo "::notice::No conflicts found, clean merge!"
           fi
 
+      - name: Protect SKILL.md files (restore if deleted by upstream merge)
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
+        run: |
+          echo "=== Protecting SKILL.md files ==="
+          # After merging from upstream, SKILL.md files may be deleted
+          # because upstream doesn't have them. Restore from our branch.
+          
+          SAVED=0
+          # Check for any SKILL.md that was in our main but got removed
+          for skill_file in $(git diff --name-only --diff-filter=D HEAD 2>/dev/null | grep "SKILL.md$" || true); do
+            echo "Restoring deleted SKILL.md: $skill_file"
+            git checkout HEAD -- "$skill_file" 2>/dev/null || {
+              git show "main:$skill_file" > "$skill_file" 2>/dev/null || true
+            }
+            git add "$skill_file" 2>/dev/null || true
+            SAVED=$((SAVED + 1))
+          done
+          
+          # Also restore any .backup versions of SKILL.md
+          find . -name "SKILL.md.backup" -type f 2>/dev/null | while read -r backup; do
+            target="${backup%.backup}"
+            cp "$backup" "$target"
+            git add "$target" 2>/dev/null || true
+            rm -f "$backup"
+            SAVED=$((SAVED + 1))
+            echo "Restored from backup: $target"
+          done
+          
+          SKILL_COUNT=$(find . -name "SKILL.md" -type f 2>/dev/null | wc -l)
+          echo "Protected/Restored $SAVED SKILL.md files. Total SKILL.md: ${SKILL_COUNT}"
+
       - name: Validate Python files BEFORE translation
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
@@ -183,17 +214,29 @@ jobs:
         run: |
           mkdir -p output
           
-          # CRITICAL: Remove all .backup files before translation
-          # They contain merge conflict markers that cause the translator to abort
-          echo "=== Cleaning up .backup files ==="
-          find . -name "*.backup" -delete 2>/dev/null || true
-          BACKUP_COUNT=$(find . -name "*.backup" 2>/dev/null | wc -l)
-          echo "Removed backup files. Remaining: ${BACKUP_COUNT}"
+          # CRITICAL: Handle .backup files before translation
+          # SKILL.md files get renamed to SKILL.md.backup during upstream merge
+          # We need to RESTORE them, not delete them!
+          echo "=== Handling .backup files ==="
           
-          # Also reset any conflicted states on .backup files in git
-          git rm --cached "*.backup" 2>/dev/null || true
+          # Restore SKILL.md from .backup files (these are skill definitions, not conflict backups)
+          echo "Restoring SKILL.md files from .backup..."
+          find . -name "SKILL.md.backup" -type f 2>/dev/null | while read -r backup_file; do
+            target="${backup_file%.backup}"
+            cp "$backup_file" "$target" 2>/dev/null || true
+            echo "  Restored: $target"
+          done
+          
+          # Delete all remaining .backup files (actual merge conflict backups with markers)
+          echo "Removing other .backup files..."
+          find . -name "*.backup" -delete 2>/dev/null || true
+          
+          BACKUP_COUNT=$(find . -name "*.backup" 2>/dev/null | wc -l)
+          SKILL_COUNT=$(find . -name "SKILL.md" -type f 2>/dev/null | wc -l)
+          echo "Remaining .backup: ${BACKUP_COUNT}, SKILL.md files: ${SKILL_COUNT}"
+          
           git add -u "*.backup" 2>/dev/null || true
-          git checkout -- "*.backup" 2>/dev/null || true
+          git rm --cached "*.backup" 2>/dev/null || true
           find . -name "*.backup" -delete 2>/dev/null || true
           
           echo "=== Running translation with upstream sync ==="

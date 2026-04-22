@@ -1,6 +1,6 @@
 ---
 name: opencode
-description: Delegate coding tasks to OpenCode CLI agent for feature implementation, refactoring, PR review, and long-running autonomous sessions. Requires the opencode CLI installed and authenticated.
+description: "Delegate coding tasks to OpenCode CLI agent for feature implementation, refactoring, PR review, and long-running autonomous sessions. Requires the opencode CLI 已安装 and authenticated."
 version: 1.2.0
 author: Hermes Agent
 license: MIT
