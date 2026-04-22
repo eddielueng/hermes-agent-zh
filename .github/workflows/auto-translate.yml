@@ -212,7 +212,7 @@ jobs:
           for file in $(git diff --name-only '*.py'); do
             if [ -f "$file" ]; then
               if ! python3 -c "import ast; ast.parse(open('$file', 'r', encoding='utf-8-sig').read())" 2>/dev/null; then
-                echo "::error::BROKEN FILE (post-translation): $file 鈥?restoring from backup or upstream"
+                echo "::error::BROKEN FILE (post-translation): $file — restoring from backup or upstream"
                 # Try .backup first, then upstream
                 if [ -f "${file}.backup" ]; then
                   cp "${file}.backup" "$file"
@@ -228,7 +228,7 @@ jobs:
           # Also do a full scan for any other broken files
           while IFS= read -r -d '' file; do
             if ! python3 -c "import ast; ast.parse(open('$file', 'r', encoding='utf-8-sig').read())" 2>/dev/null; then
-              echo "::error::STILL BROKEN: $file 鈥?attempting restore"
+              echo "::error::STILL BROKEN: $file — attempting restore"
               git checkout upstream/main -- "$file" 2>/dev/null || true
               ERROR_COUNT=$((ERROR_COUNT + 1))
             fi
@@ -316,7 +316,7 @@ jobs:
           git diff --cached --name-only
           
           # Commit directly on main
-          git commit -m "馃攧 Auto-sync & translate $(date '+%Y-%m-%d %H:%M')
+          git commit -m "🔄 Auto-sync & translate $(date '+%Y-%m-%d %H:%M')
           
           - Upstream: ${{ steps.fetch_upstream.outputs.upstream_commit }}
           - Files: $(git diff --cached --name-only | wc -l)" || {
@@ -327,4 +327,4 @@ jobs:
           echo "Pushing to main branch..."
           git push origin main
           
-          echo "鉁?Successfully pushed to main!"
+          echo "✅ Successfully pushed to main!"
