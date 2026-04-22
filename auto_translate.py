@@ -1,33 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Hermes Agent 涓枃鐗?- 鑷姩鍖栨眽鍖栬剼鏈?
+Hermes Agent 中文版 - 自动化汉化脚本
 
-鍔熻兘锛?
-1. 浠庡畼鏂逛粨搴撳悓姝ユ渶鏂颁唬鐮?
-2. 鏅鸿兘璇嗗埆鏂板/淇敼鐨勭敤鎴峰彲瑙佹枃鏈?
-3. 鏍规嵁棰勫畾涔夎鍒欒嚜鍔ㄧ炕璇戜负涓枃
-4. 淇濇寔宸叉湁缈昏瘧涓嶅彉
-5. 鐢熸垚璇︾粏鐨勭炕璇戞姤鍛?
+功能：
+1. 从官方仓库同步最新代码
+2. 智能识别新增/修改的用户可见文本
+3. 根据预定义规则自动翻译为中文
+4. 保持已有翻译不变
+5. 生成详细的翻译报告
 
-浣跨敤鏂规硶锛?
-    # 鍩烘湰鐢ㄦ硶锛堜粠瀹樻柟浠撳簱鍚屾锛?
+使用方法：
+    # 基本用法（从官方仓库同步）
     python auto_translate.py --upstream nousresearch/hermes-agent
     
-    # 鎸囧畾瑙勫垯鏂囦欢
+    # 指定规则文件
     python auto_translate.py --rules translation_rules.yaml --upstream nousresearch/hermes-agent
     
-    # 浠呮鏌ワ紙涓嶅疄闄呬慨鏀癸級
+    # 仅检查（不实际修改）
     python auto_translate.py --dry-run --upstream nousresearch/hermes-agent
     
-    # 缈昏瘧鎸囧畾鏂囦欢
+    # 翻译指定文件
     python auto_translate.py --files hermes_cli/main.py hermes_cli/commands.py
     
-    # 鐢熸垚鎶ュ憡
+    # 生成报告
     python auto_translate.py --report-only
 
-浣滆€咃細Hermes Agent 涓枃鐗堢ぞ鍖?
-鐗堟湰锛?.0.0
+作者：Hermes Agent 中文版社区
+版本：1.0.0
 """
 
 import os
@@ -46,7 +46,7 @@ from dataclasses import dataclass, field
 
 
 def contains_chinese(text: str) -> bool:
-    """妫€娴嬫枃鏈槸鍚﹀寘鍚腑鏂囧瓧绗?""
+    """检测文本是否包含中文字符"""
     if not text:
         return False
     for char in text:
@@ -56,7 +56,7 @@ def contains_chinese(text: str) -> bool:
 
 
 def is_likely_user_facing(line: str) -> bool:
-    """鍒ゆ柇涓€琛屼唬鐮佹槸鍚﹀寘鍚敤鎴峰彲瑙佺殑瀛楃涓诧紙鑰岄潪鎶€鏈爣璇嗙锛?""
+    """判断一行代码是否包含用户可见的字符串（而非技术标识符）"""
     user_facing_patterns = [
         r'print\s*\(', r'input\s*\(', r'raise\s+\w+Error',
         r'logger\.(warning|error|info|critical)\s*\(',
@@ -75,20 +75,20 @@ def is_likely_user_facing(line: str) -> bool:
 
 
 def validate_python_syntax(file_path: str) -> bool:
-    """楠岃瘉 Python 鏂囦欢璇硶鏄惁鏈夋晥"""
+    """验证 Python 文件语法是否有效"""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             source = f.read()
         ast.parse(source, filename=file_path)
         return True
     except SyntaxError as e:
-        print(f"   鉂?璇硶楠岃瘉澶辫触 {file_path}: {e}")
+        print(f"   ❌ 语法验证失败 {file_path}: {e}")
         return False
 
 
 @dataclass
 class TranslationResult:
-    """缈昏瘧缁撴灉鏁版嵁绫?""
+    """翻译结果数据类"""
     file_path: str
     original_text: str
     translated_text: str
@@ -99,7 +99,7 @@ class TranslationResult:
 
 @dataclass
 class FileTranslationStats:
-    """鏂囦欢缈昏瘧缁熻"""
+    """文件翻译统计"""
     file_path: str
     total_lines: int = 0
     translated_count: int = 0
@@ -109,29 +109,29 @@ class FileTranslationStats:
 
 
 class AutoTranslator:
-    """鑷姩鍖栫炕璇戝櫒涓荤被"""
+    """自动化翻译器主类"""
 
     def __init__(self, rules_file: str = "translation_rules.yaml", dry_run: bool = False):
         """
-        鍒濆鍖栫炕璇戝櫒
+        初始化翻译器
         
         Args:
-            rules_file: 缈昏瘧瑙勫垯閰嶇疆鏂囦欢璺緞
-            dry_run: 鏄惁浠呴瑙堜笉瀹為檯淇敼
+            rules_file: 翻译规则配置文件路径
+            dry_run: 是否仅预览不实际修改
         """
         self.rules_file = Path(rules_file)
         self.dry_run = dry_run
         self.rules: Dict = {}
         self.stats: Dict[str, FileTranslationStats] = {}
         
-        # 鍔犺浇瑙勫垯
+        # 加载规则
         self._load_rules()
     
     def _load_rules(self):
-        """鍔犺浇缈昏瘧瑙勫垯閰嶇疆"""
+        """加载翻译规则配置"""
         if not self.rules_file.exists():
-            print(f"鉂?瑙勫垯鏂囦欢涓嶅瓨鍦? {self.rules_file}")
-            print("鈿狅笍 灏嗕娇鐢ㄩ粯璁よ鍒欙紙绌鸿鍒欓泦锛?)
+            print(f"❌ 规则文件不存在: {self.rules_file}")
+            print("⚠️ 将使用默认规则（空规则集）")
             self.rules = {'global': {'enabled': True, 'file_patterns': ['*.py', '*.md', '*.yaml', '*.yml']}, 'common_mappings': {}, 'exclusions': [], 'file_specific_rules': {}}
             return
 
@@ -139,36 +139,36 @@ class AutoTranslator:
             with open(self.rules_file, 'r', encoding='utf-8') as f:
                 self.rules = yaml.safe_load(f)
         except Exception as e:
-            print(f"鉂?瑙勫垯鏂囦欢璇诲彇澶辫触: {e}")
-            print("鈿狅笍 灏嗕娇鐢ㄩ粯璁よ鍒?)
+            print(f"❌ 规则文件读取失败: {e}")
+            print("⚠️ 将使用默认规则")
             self.rules = {'global': {'enabled': True, 'file_patterns': ['*.py', '*.md', '*.yaml', '*.yml']}, 'common_mappings': {}, 'exclusions': [], 'file_specific_rules': {}}
             return
 
         global_settings = self.rules.get('global', {})
         if not global_settings.get('enabled', True):
-            print("鈿狅笍 鑷姩缈昏瘧宸茬鐢?(enabled: false)")
+            print("⚠️ 自动翻译已禁用 (enabled: false)")
             return
 
-        print(f"鉁?宸插姞杞借鍒欐枃浠? {self.rules_file}")
-        print(f"   妯″紡: {'棰勮妯″紡' if self.dry_run else '瀹為檯缈昏瘧'}")
+        print(f"✅ 已加载规则文件: {self.rules_file}")
+        print(f"   模式: {'预览模式' if self.dry_run else '实际翻译'}")
     
     def sync_from_upstream(self, upstream_repo: str, branch: str = "main") -> bool:
         """
-        浠庝笂娓镐粨搴撳悓姝ヤ唬鐮?
+        从上游仓库同步代码
         
         Args:
-            upstream_repo: 涓婃父浠撳簱鍦板潃锛堝 nousresearch/hermes-agent锛?
-            branch: 瑕佸悓姝ョ殑鍒嗘敮
+            upstream_repo: 上游仓库地址（如 nousresearch/hermes-agent）
+            branch: 要同步的分支
             
         Returns:
-            bool: 鏄惁鎴愬姛鍚屾
+            bool: 是否成功同步
         """
-        print(f"\n馃攧 姝ｅ湪浠庝笂娓镐粨搴撳悓姝?..")
-        print(f"   涓婃父: {upstream_repo}")
-        print(f"   鍒嗘敮: {branch}")
+        print(f"\n🔄 正在从上游仓库同步...")
+        print(f"   上游: {upstream_repo}")
+        print(f"   分支: {branch}")
         
         try:
-            # 娣诲姞涓婃父杩滅▼浠撳簱锛堝鏋滀笉瀛樺湪锛?
+            # 添加上游远程仓库（如果不存在）
             result = subprocess.run(
                 ["git", "remote", "get-url", "upstream"],
                 capture_output=True,
@@ -182,9 +182,9 @@ class AutoTranslator:
                     check=True,
                     cwd="."
                 )
-                print("   鉁?宸叉坊鍔犱笂娓歌繙绋嬩粨搴?)
+                print("   ✅ 已添加上游远程仓库")
             
-            # 鑾峰彇涓婃父鏈€鏂颁唬鐮?
+            # 获取上游最新代码
             subprocess.run(
                 ["git", "fetch", "upstream", branch],
                 check=True,
@@ -192,7 +192,7 @@ class AutoTranslator:
                 cwd="."
             )
             
-            # 鍚堝苟涓婃父鏇存敼
+            # 合并上游更改
             result = subprocess.run(
                 ["git", "merge", f"upstream/{branch}", "--no-edit"],
                 capture_output=True,
@@ -201,27 +201,27 @@ class AutoTranslator:
             )
             
             if result.returncode == 0:
-                print("   鉁?鍚屾鎴愬姛锛?)
+                print("   ✅ 同步成功！")
                 return True
             else:
-                print(f"   鈿狅笍 鍚堝苟鏃跺嚭鐜板啿绐佹垨閿欒")
+                print(f"   ⚠️ 合并时出现冲突或错误")
                 print(f"   {result.stderr}")
                 return False
                 
         except Exception as e:
-            print(f"   鉂?鍚屾澶辫触: {e}")
+            print(f"   ❌ 同步失败: {e}")
             return False
     
     def get_changed_files(self) -> List[str]:
         """
-        鑾峰彇鑷笂娆℃彁浜や互鏉ュ彉鏇寸殑鏂囦欢鍒楄〃
-        浣跨敤 merge-base 纭繚鍦?squash merge 鍚庝篃鑳芥纭伐浣?
+        获取自上次提交以来变更的文件列表
+        使用 merge-base 确保在 squash merge 后也能正确工作
         
         Returns:
-            List[str]: 鍙樻洿鐨勬枃浠惰矾寰勫垪琛?
+            List[str]: 变更的文件路径列表
         """
         try:
-            # 浼樺厛浣跨敤 merge-base锛堟洿鍙潬锛岄€傜敤浜?squash merge 鍚庯級
+            # 优先使用 merge-base（更可靠，适用于 squash merge 后）
             result = subprocess.run(
                 ["git", "diff", "--name-only", "HEAD", "upstream/main"],
                 capture_output=True,
@@ -231,7 +231,7 @@ class AutoTranslator:
             files = [f for f in result.stdout.strip().split('\n') if f]
             
             if not files:
-                # 鍥為€€鍒?HEAD~1
+                # 回退到 HEAD~1
                 result = subprocess.run(
                     ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
                     capture_output=True,
@@ -243,22 +243,22 @@ class AutoTranslator:
             return files
             
         except Exception as e:
-            print(f"鈿狅笍 鏃犳硶鑾峰彇鍙樻洿鏂囦欢鍒楄〃: {e}")
+            print(f"⚠️ 无法获取变更文件列表: {e}")
             return []
     
     def should_translate_file(self, file_path: str) -> bool:
         """
-        鍒ゆ柇鏂囦欢鏄惁闇€瑕佺炕璇?
+        判断文件是否需要翻译
         
         Args:
-            file_path: 鏂囦欢璺緞
+            file_path: 文件路径
             
         Returns:
-            bool: 鏄惁搴旇缈昏瘧璇ユ枃浠?
+            bool: 是否应该翻译该文件
         """
         path = Path(file_path)
         
-        # 妫€鏌ユ枃浠舵墿灞曞悕
+        # 检查文件扩展名
         patterns = self.rules.get('global', {}).get('file_patterns', ['*.py'])
         
         for pattern in patterns:
@@ -269,25 +269,25 @@ class AutoTranslator:
     
     def translate_string(self, text: str, context: str = "") -> Optional[Tuple[str, str]]:
         """
-        缈昏瘧鍗曚釜瀛楃涓?
+        翻译单个字符串
         
         Args:
-            text: 瑕佺炕璇戠殑鑻辨枃鏂囨湰
-            context: 涓婁笅鏂囦俊鎭紙濡傛枃浠惰矾寰勶級
+            text: 要翻译的英文文本
+            context: 上下文信息（如文件路径）
             
         Returns:
-            Optional[Tuple[str, str]]: (缈昏瘧鍚庣殑鏂囨湰, 鍖归厤鐨勮鍒? 鎴?None锛堟棤闇€缈昏瘧锛?
+            Optional[Tuple[str, str]]: (翻译后的文本, 匹配的规则) 或 None（无需翻译）
         """
         if not text or not text.strip():
             return None
         
         original = text.strip()
         
-        # 闃查噸澶嶇炕璇戯細濡傛灉鏂囨湰宸茬粡鍖呭惈涓枃锛岃烦杩?
+        # 防重复翻译：如果文本已经包含中文，跳过
         if contains_chinese(original):
             return None
         
-        # 1. 妫€鏌ユ槸鍚﹀凡缁忓湪鎺掗櫎鍒楄〃涓?
+        # 1. 检查是否已经在排除列表中
         exclusions = self.rules.get('exclusions', [])
         for exclusion in exclusions:
             pattern = exclusion.get('pattern', '')
@@ -295,7 +295,7 @@ class AutoTranslator:
             if re.search(pattern, original, re.IGNORECASE):
                 return None
         
-        # 2. 妫€鏌ョ壒瀹氭枃浠剁殑瑙勫垯锛堝彧鍋氱簿纭尮閰嶏紝涓嶇敤 startswith 閬垮厤鐮村潖鏍囪瘑绗︼級
+        # 2. 检查特定文件的规则（只做精确匹配，不用 startswith 避免破坏标识符）
         file_rules = self.rules.get('file_specific_rules', {})
         
         if context and context in file_rules:
@@ -303,11 +303,11 @@ class AutoTranslator:
             for en, zh in specific_rules.items():
                 if original == en:
                     return (zh, f"file_rule:{context}:exact")
-                # 鍏ㄨ瘝鍖归厤锛氱‘淇濅笉浼氭妸 ExitCode 鍙樻垚 閫€鍑篊ode
+                # 全词匹配：确保不会把 ExitCode 变成 退出Code
                 if re.search(r'\b' + re.escape(en) + r'\b', original) and len(en) > 3:
                     return (re.sub(r'\b' + re.escape(en) + r'\b', zh, original, count=1), f"file_rule:{context}:word")
         
-        # 閫氶厤绗︽枃浠惰鍒?
+        # 通配符文件规则
         for pattern, rules in file_rules.items():
             if '*' in pattern:
                 if fnmatch.fnmatch(context, pattern):
@@ -317,12 +317,12 @@ class AutoTranslator:
                         if re.search(r'\b' + re.escape(en) + r'\b', original) and len(en) > 3:
                             return (re.sub(r'\b' + re.escape(en) + r'\b', zh, original, count=1), f"file_rule:{pattern}:word")
         
-        # 3. 妫€鏌ラ€氱敤鏄犲皠锛堝彧鍦ㄥ畬鏁存秷鎭笂涓嬫枃涓娇鐢紝閬垮厤璇浛鎹唬鐮佷腑鐨勫崟璇嶏級
+        # 3. 检查通用映射（只在完整消息上下文中使用，避免误替换代码中的单词）
         common_mappings = self.rules.get('common_mappings', {})
         for en, zh in common_mappings.items():
             if original == en:
                 return (zh, "common_mapping:exact")
-            # 鍏ㄨ瘝杈圭晫鍖归厤锛堥伩鍏嶉儴鍒嗘浛鎹㈠ ErrorMessages锛?
+            # 全词边界匹配（避免部分替换如 ErrorMessages）
             if len(en) > 4 and re.search(r'\b' + re.escape(en) + r'\b', original):
                 new_text = re.sub(r'\b' + re.escape(en) + r'\b', zh, original, count=1)
                 if new_text != original:
@@ -332,13 +332,13 @@ class AutoTranslator:
     
     def translate_file(self, file_path: str) -> FileTranslationStats:
         """
-        缈昏瘧鍗曚釜鏂囦欢
+        翻译单个文件
         
         Args:
-            file_path: 鏂囦欢璺緞
+            file_path: 文件路径
             
         Returns:
-            FileTranslationStats: 缈昏瘧缁熻淇℃伅
+            FileTranslationStats: 翻译统计信息
         """
         stats = FileTranslationStats(file_path=file_path)
         path = Path(file_path)
@@ -347,35 +347,35 @@ class AutoTranslator:
             stats.error_count += 1
             return stats
         
-        # === 鐗规畩澶勭悊锛歋KILL.md 鏂囦欢鐨?description 瀛楁缈昏瘧 ===
+        # === 特殊处理：SKILL.md 文件的 description 字段翻译 ===
         if path.name == 'SKILL.md' or (path.suffix == '.md' and 'optional-skills' in str(path)):
             return self._translate_skill_md(path, stats)
         
-        # 瀹夊叏妫€娴嬶細妫€鏌ユ枃浠舵槸鍚﹀寘鍚湭瑙ｅ喅鐨勫悎骞跺啿绐佹爣璁?
+        # 安全检测：检查文件是否包含未解决的合并冲突标记
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 raw_content = f.read()
             if '<<<<<<< HEAD' in raw_content or '<<<<<<<<<' in raw_content:
-                print(f"   鈿狅笍 璺宠繃: {file_path} (鍖呭惈鏈В鍐崇殑鍚堝苟鍐茬獊鏍囪)")
-                print(f"      鎻愮ず: 宸ヤ綔娴佸簲鍏堣В鍐冲啿绐佸啀杩愯缈昏瘧")
+                print(f"   ⚠️ 跳过: {file_path} (包含未解决的合并冲突标记)")
+                print(f"      提示: 工作流应先解决冲突再运行翻译")
                 stats.skipped_count += 1
                 return stats
         except Exception:
             pass
         
-        # 澶囦唤鍘熷鏂囦欢
+        # 备份原始文件
         backup_enabled = self.rules.get('global', {}).get('backup_original', True)
         if backup_enabled and not self.dry_run:
             backup_path = path.with_suffix(path.suffix + '.backup')
             import shutil
             shutil.copy2(path, backup_path)
         
-        # 璇诲彇鏂囦欢鍐呭
+        # 读取文件内容
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
         except Exception as e:
-            print(f"   鉂?鏃犳硶璇诲彇鏂囦欢 {file_path}: {e}")
+            print(f"   ❌ 无法读取文件 {file_path}: {e}")
             stats.error_count += 1
             return stats
         
@@ -387,36 +387,36 @@ class AutoTranslator:
             translated_line = line
             stripped_line = line.strip()
             
-            # 璺宠繃娉ㄩ噴琛屽拰绌鸿
+            # 跳过注释行和空行
             if not stripped_line or stripped_line.startswith('#'):
                 new_lines.append(line)
                 stats.skipped_count += 1
                 continue
             
-            # 闃查噸澶嶇炕璇戯細鏁磋宸插寘鍚腑鏂囧垯璺宠繃锛堥櫎闈炴槸娣峰悎涓嫳鏂囩殑鏂板鏂囨湰锛?
+            # 防重复翻译：整行已包含中文则跳过（除非是混合中英文的新增文本）
             chinese_ratio = sum(1 for c in stripped_line if '\u4e00' <= c <= '\u9fff') / max(len(stripped_line), 1)
             if chinese_ratio > 0.3:
                 new_lines.append(line)
                 stats.skipped_count += 1
                 continue
             
-            # 鍙鐞嗙敤鎴峰彲瑙佺殑浠ｇ爜琛岋紙print/input/raise/logger/echo 绛夛級
+            # 只处理用户可见的代码行（print/input/raise/logger/echo 等）
             if not is_likely_user_facing(line):
                 new_lines.append(line)
                 stats.skipped_count += 1
                 continue
             
-            # 绮剧‘鍖归厤闇€瑕佺炕璇戠殑妯″紡锛堝彧鍖归厤鐢ㄦ埛浜や簰鐩稿叧鐨勫瓧绗︿覆锛?
+            # 精确匹配需要翻译的模式（只匹配用户交互相关的字符串）
             patterns_to_check = [
-                # print / echo 璇彞涓殑瀛楃涓?
+                # print / echo 语句中的字符串
                 (r'(?:print|click\.echo|rich\.print|console\.print|typer\.echo|logger\.(?:warning|error|info|critical))\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
                 # raise Error("...") 
                 (r'raise\s+\w+Error\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
                 # input("...") / Prompt.ask("...")
                 (r'(?:input|Prompt\.ask|questionary\.prompt)\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
-                # 鍙橀噺璧嬪€间腑鐨勭敤鎴锋秷鎭瓧绗︿覆 (message="...", label="...", title="...", etc.)
+                # 变量赋值中的用户消息字符串 (message="...", label="...", title="...", etc.)
                 (r'\b(?:message|msg|text|label|title|description|hint|prompt|error_msg|warning_msg|success_msg|help_text)\s*=\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
-                # Panel/Markdown/Text(...) 涓殑瀛楃涓?
+                # Panel/Markdown/Text(...) 中的字符串
                 (r'(?:Panel|Markdown|Text|Alert|Rule|Group)\s*\(\s*f?["\']([^"\']{4,}?)["\']', lambda m: (m.group(1), None)),
             ]
             
@@ -454,16 +454,16 @@ class AutoTranslator:
             if not should_translate:
                 stats.skipped_count += 1
         
-        # 鍐欏叆缈昏瘧鍚庣殑鏂囦欢
+        # 写入翻译后的文件
         if stats.translated_count > 0 and not self.dry_run:
             try:
                 with open(path, 'w', encoding='utf-8') as f:
                     f.writelines(new_lines)
                 
-                # 璇硶楠岃瘉锛氱‘淇濈炕璇戝悗鏂囦欢浠嶇劧鏄悎娉?Python
+                # 语法验证：确保翻译后文件仍然是合法 Python
                 if path.suffix == '.py':
                     if not validate_python_syntax(path):
-                        print(f"   鈿狅笍 缈昏瘧鍚庤娉曟棤鏁堬紝鍥炴粴澶囦唤")
+                        print(f"   ⚠️ 翻译后语法无效，回滚备份")
                         if backup_path.exists():
                             import shutil
                             shutil.copy2(backup_path, path)
@@ -471,14 +471,14 @@ class AutoTranslator:
                         stats.error_count += 1
                         return stats
                 
-                # 鍒犻櫎澶囦唤
+                # 删除备份
                 if backup_enabled and backup_path.exists():
                     backup_path.unlink()
                     
             except Exception as e:
-                print(f"   鉂?鍐欏叆澶辫触 {file_path}: {e}")
+                print(f"   ❌ 写入失败 {file_path}: {e}")
                 stats.error_count += 1
-                # 灏濊瘯鎭㈠澶囦唤
+                # 尝试恢复备份
                 if backup_path.exists():
                     import shutil
                     shutil.copy2(backup_path, path)
@@ -487,14 +487,14 @@ class AutoTranslator:
     
     def _translate_skill_md(self, path: Path, stats: FileTranslationStats) -> FileTranslationStats:
         """
-        缈昏瘧 SKILL.md 鏂囦欢鐨?YAML frontmatter description 瀛楁
+        翻译 SKILL.md 文件的 YAML frontmatter description 字段
         
         Args:
-            path: SKILL.md 鏂囦欢璺緞
-            stats: 缁熻瀵硅薄
+            path: SKILL.md 文件路径
+            stats: 统计对象
             
         Returns:
-            FileTranslationStats: 缈昏瘧缁熻淇℃伅
+            FileTranslationStats: 翻译统计信息
         """
         try:
             with open(path, 'r', encoding='utf-8') as f:
@@ -503,12 +503,12 @@ class AutoTranslator:
             lines = content.split('\n')
             stats.total_lines = len(lines)
             
-            # 妫€娴?YAML frontmatter (浠?--- 寮€澶?
+            # 检测 YAML frontmatter (以 --- 开头)
             if not lines or not lines[0].strip().startswith('---'):
                 stats.skipped_count = len(lines)
                 return stats
             
-            # 鎵惧埌 frontmatter 鐨勭粨鏉熶綅缃?
+            # 找到 frontmatter 的结束位置
             frontmatter_end = -1
             for i in range(1, len(lines)):
                 if lines[i].strip() == '---':
@@ -516,48 +516,48 @@ class AutoTranslator:
                     break
             
             if frontmatter_end == -1:
-                # 娌℃湁鎵惧埌闂悎鐨?frontmatter锛岃烦杩?
+                # 没有找到闭合的 frontmatter，跳过
                 stats.skipped_count = len(lines)
                 return stats
             
-            # 鍦?frontmatter 涓煡鎵惧苟缈昏瘧 description 瀛楁
+            # 在 frontmatter 中查找并翻译 description 字段
             new_lines = list(lines)
             translated_any = False
             
             for i in range(1, frontmatter_end):
                 line = new_lines[i]
                 
-                # 鍖归厤 description: "..." 鎴?description: '...'
+                # 匹配 description: "..." 或 description: '...'
                 desc_match = re.match(r'^(\s*description\s*:\s*)["\'](.+?)["\']\s*$', line)
                 if desc_match:
                     prefix = desc_match.group(1)
                     original_desc = desc_match.group(2)
                     
-                    # 璺宠繃宸茬粡鏄腑鏂囩殑鎻忚堪
+                    # 跳过已经是中文的描述
                     chinese_ratio = sum(1 for c in original_desc if '\u4e00' <= c <= '\u9fff') / max(len(original_desc), 1)
                     if chinese_ratio > 0.3:
                         stats.skipped_count += 1
                         continue
                     
-                    # 缈昏瘧鎻忚堪
+                    # 翻译描述
                     result = self.translate_string(original_desc, context=str(path))
                     if result and result[0] != original_desc:
                         translated_desc = result[0]
                         new_lines[i] = f'{prefix}"{translated_desc}"'
                         translated_any = True
                         stats.translated_count += 1
-                        print(f"   鉁?SKILL鎻忚堪: {original_desc[:50]}... 鈫?{translated_desc[:50]}...")
+                        print(f"   ✅ SKILL描述: {original_desc[:50]}... → {translated_desc[:50]}...")
                     else:
                         stats.skipped_count += 1
                 else:
                     stats.skipped_count += 1
             
-            # 澶勭悊 frontmatter 涔嬪悗鐨勫唴瀹癸紙璺宠繃锛?
+            # 处理 frontmatter 之后的内容（跳过）
             for i in range(frontmatter_end + 1, len(new_lines)):
                 stats.skipped_count += 1
             
             if translated_any:
-                # 鍐欏洖鏂囦欢
+                # 写回文件
                 backup_path = path.with_suffix(path.suffix + '.backup')
                 import shutil
                 shutil.copy2(path, backup_path)
@@ -565,47 +565,47 @@ class AutoTranslator:
                 with open(path, 'w', encoding='utf-8') as f:
                     f.write('\n'.join(new_lines))
                 
-                print(f"   鉁?宸叉洿鏂?{path.name} 鐨?description")
+                print(f"   ✅ 已更新 {path.name} 的 description")
             
             return stats
             
         except Exception as e:
-            print(f"   鉂?缈昏瘧SKILL.md澶辫触 {path}: {e}")
+            print(f"   ❌ 翻译SKILL.md失败 {path}: {e}")
             stats.error_count += 1
             return stats
     
     def translate_files(self, file_paths: List[str]) -> Dict[str, FileTranslationStats]:
         """
-        鎵归噺缈昏瘧澶氫釜鏂囦欢
+        批量翻译多个文件
         
         Args:
-            file_paths: 鏂囦欢璺緞鍒楄〃
+            file_paths: 文件路径列表
             
         Returns:
-            Dict: 鍚勬枃浠剁殑缈昏瘧缁熻
+            Dict: 各文件的翻译统计
         """
         results = {}
         total_translations = 0
         
-        print(f"\n馃摑 寮€濮嬬炕璇?{len(file_paths)} 涓枃浠?..\n")
+        print(f"\n📝 开始翻译 {len(file_paths)} 个文件...\n")
         
         for i, file_path in enumerate(file_paths, 1):
             if not self.should_translate_file(file_path):
                 continue
             
-            print(f"[{i}/{len(file_paths)}] 姝ｅ湪澶勭悊: {file_path}")
+            print(f"[{i}/{len(file_paths)}] 正在处理: {file_path}")
             
             stats = self.translate_file(file_path)
             results[file_path] = stats
             total_translations += stats.translated_count
             
             if stats.translated_count > 0:
-                print(f"   鉁?缈昏瘧浜?{stats.translated_count} 鏉℃枃鏈?)
+                print(f"   ✅ 翻译了 {stats.translated_count} 条文本")
             else:
-                print(f"   鈩癸笍 鏃犻渶缈昏瘧")
+                print(f"   ℹ️ 无需翻译")
         
         print(f"\n{'='*60}")
-        print(f"鉁?缈昏瘧瀹屾垚锛佸叡缈昏瘧 {total_translations} 鏉℃枃鏈?)
+        print(f"✅ 翻译完成！共翻译 {total_translations} 条文本")
         print(f"{'='*60}\n")
         
         self.stats = results
@@ -613,36 +613,36 @@ class AutoTranslator:
     
     def generate_report(self, output_file: str = "translation_report.md") -> str:
         """
-        鐢熸垚缈昏瘧鎶ュ憡
+        生成翻译报告
         
         Args:
-            output_file: 杈撳嚭鏂囦欢璺緞
+            output_file: 输出文件路径
             
         Returns:
-            str: 鎶ュ憡鍐呭
+            str: 报告内容
         """
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        report = f"""# 馃攧 Hermes Agent 鑷姩姹夊寲鎶ュ憡
+        report = f"""# 🔄 Hermes Agent 自动汉化报告
 
-**鐢熸垚鏃堕棿**: {now}  
-**杩愯妯″紡**: {"棰勮锛堟湭瀹為檯淇敼锛? if self.dry_run else "姝ｅ紡缈昏瘧"}  
-**瑙勫垯鏂囦欢**: {self.rules_file}
+**生成时间**: {now}  
+**运行模式**: {"预览（未实际修改）" if self.dry_run else "正式翻译"}  
+**规则文件**: {self.rules_file}
 
 ---
 
-## 馃搳 鎬讳綋缁熻
+## 📊 总体统计
 
-| 鎸囨爣 | 鏁板€?|
+| 指标 | 数值 |
 |------|------|
-| 澶勭悊鏂囦欢鏁?| {len(self.stats)} |
-| 鎬荤炕璇戞潯鐩暟 | {sum(s.translated_count for s in self.stats.values())} |
-| 鎬昏烦杩囪鏁?| {sum(s.skipped_count for s in self.stats.values())} |
-| 閿欒鏁伴噺 | {sum(s.error_count for s in self.stats.values())} |
+| 处理文件数 | {len(self.stats)} |
+| 总翻译条目数 | {sum(s.translated_count for s in self.stats.values())} |
+| 总跳过行数 | {sum(s.skipped_count for s in self.stats.values())} |
+| 错误数量 | {sum(s.error_count for s in self.stats.values())} |
 
 ---
 
-## 馃摑 璇︾粏缈昏瘧璁板綍
+## 📝 详细翻译记录
 
 """
         
@@ -650,12 +650,12 @@ class AutoTranslator:
             if stats.translated_count == 0:
                 continue
                 
-            report += f"### 馃搫 {file_path}\n\n"
-            report += f"| 鍘熸枃 | 璇戞枃 | 琛屽彿 | 鍖归厤瑙勫垯 |\n"
+            report += f"### 📄 {file_path}\n\n"
+            report += f"| 原文 | 译文 | 行号 | 匹配规则 |\n"
             report += f"|------|------|------|----------|\n"
             
             for tr in stats.translations:
-                # 鎴柇杩囬暱鐨勬枃鏈?
+                # 截断过长的文本
                 orig = tr.original_text[:50] + "..." if len(tr.original_text) > 50 else tr.original_text
                 trans = tr.translated_text[:50] + "..." if len(tr.translated_text) > 50 else tr.translated_text
                 
@@ -665,16 +665,16 @@ class AutoTranslator:
         
         report += """---
 
-## 鈿欙笍 閰嶇疆淇℃伅
+## ⚙️ 配置信息
 
-- **瑙勫垯鏂囦欢**: `translation_rules.yaml`
-- **鍏ㄥ眬璁剧疆**:
+- **规则文件**: `translation_rules.yaml`
+- **全局设置**:
 """
         for key, value in self.rules.get('global', {}).items():
             report += f"  - {key}: {value}\n"
         
         report += """
-- **鎺掗櫎瑙勫垯**: 
+- **排除规则**: 
 """
         for excl in self.rules.get('exclusions', []):
             report += f"  - `{excl.get('pattern', '')}` ({excl.get('reason', '')})\n"
@@ -683,84 +683,84 @@ class AutoTranslator:
 
 ---
 
-*姝ゆ姤鍛婄敱 `auto_translate.py` 鑷姩鐢熸垚*
+*此报告由 `auto_translate.py` 自动生成*
 """
         
-        # 鍐欏叆鏂囦欢
+        # 写入文件
         if not self.dry_run:
             with open(output_file, 'w', encoding='utf-8') as f:
                 f.write(report)
-            print(f"馃搫 鎶ュ憡宸蹭繚瀛樺埌: {output_file}")
+            print(f"📄 报告已保存到: {output_file}")
         
         return report
 
 
 def main():
-    """涓诲嚱鏁?""
+    """主函数"""
     parser = argparse.ArgumentParser(
-        description="Hermes Agent 鑷姩鍖栨眽鍖栧伐鍏?,
+        description="Hermes Agent 自动化汉化工具",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-绀轰緥鐢ㄦ硶:
-  %(prog)s --upstream nousresearch/hermes-agent     # 浠庡畼鏂瑰悓姝ュ苟缈昏瘧
-  %(prog)s --files hermes_cli/main.py               # 缈昏瘧鎸囧畾鏂囦欢
-  %(prog)s --dry-run --upstream nousresearch/hermes  # 棰勮妯″紡
-  %(prog)s --report-only                             # 浠呯敓鎴愭姤鍛?
+示例用法:
+  %(prog)s --upstream nousresearch/hermes-agent     # 从官方同步并翻译
+  %(prog)s --files hermes_cli/main.py               # 翻译指定文件
+  %(prog)s --dry-run --upstream nousresearch/hermes  # 预览模式
+  %(prog)s --report-only                             # 仅生成报告
         """
     )
     
     parser.add_argument(
         '--upstream', '-u',
         type=str,
-        help='涓婃父浠撳簱鍦板潃锛堝 nousresearch/hermes-agent锛?
+        help='上游仓库地址（如 nousresearch/hermes-agent）'
     )
     
     parser.add_argument(
         '--rules', '-r',
         type=str,
         default='translation_rules.yaml',
-        help='缈昏瘧瑙勫垯閰嶇疆鏂囦欢锛堥粯璁? translation_rules.yaml锛?
+        help='翻译规则配置文件（默认: translation_rules.yaml）'
     )
     
     parser.add_argument(
         '--files', '-f',
         nargs='+',
         type=str,
-        help='瑕佺炕璇戠殑鏂囦欢鍒楄〃'
+        help='要翻译的文件列表'
     )
     
     parser.add_argument(
         '--dry-run', '-d',
         action='store_true',
-        help='棰勮妯″紡锛氬彧鏄剧ず灏嗚缈昏瘧鐨勫唴瀹癸紝涓嶅疄闄呬慨鏀?
+        help='预览模式：只显示将要翻译的内容，不实际修改'
     )
     
     parser.add_argument(
         '--report-only',
         action='store_true',
-        help='浠呯敓鎴愭姤鍛婏紝涓嶅仛浠讳綍缈昏瘧'
+        help='仅生成报告，不做任何翻译'
     )
     
     parser.add_argument(
         '--branch', '-b',
         type=str,
         default='main',
-        help='瑕佸悓姝ョ殑涓婃父鍒嗘敮锛堥粯璁? main锛?
+        help='要同步的上游分支（默认: main）'
     )
     
     parser.add_argument(
         '--output', '-o',
         type=str,
         default='translation_report.md',
-        help='鎶ュ憡杈撳嚭鏂囦欢锛堥粯璁? translation_report.md锛?
+        help='报告输出文件（默认: translation_report.md）'
     )
     
     args = parser.parse_args()
     
-    # 鍒濆鍖栫炕璇戝櫒
+    # 初始化翻译器
     translator = AutoTranslator(rules_file=args.rules, dry_run=args.dry_run)
     
-    # 鍏ㄥ眬瀹夊叏妫€娴嬶細妫€鏌ヤ粨搴撲腑鏄惁鏈夋湭瑙ｅ喅鐨勫悎骞跺啿绐?
+    # 全局安全检测：检查仓库中是否有未解决的合并冲突
     skipped_conflicts = []
     if not args.report_only:
         try:
@@ -770,15 +770,15 @@ def main():
             )
             conflict_files = [f for f in result.stdout.strip().split('\n') if f]
             if conflict_files:
-                print(f"\n鈿狅笍 璀﹀憡: 鍙戠幇 {len(conflict_files)} 涓枃浠跺寘鍚湭瑙ｅ喅鐨勫悎骞跺啿绐?)
-                print("   鍐茬獊鏂囦欢鍒楄〃:")
+                print(f"\n⚠️ 警告: 发现 {len(conflict_files)} 个文件包含未解决的合并冲突")
+                print("   冲突文件列表:")
                 for f in conflict_files[:10]:
-                    print(f"     鈥?{f}")
+                    print(f"     • {f}")
                 if len(conflict_files) > 10:
-                    print(f"   ... 杩樻湁 {len(conflict_files) - 10} 涓枃浠?)
+                    print(f"   ... 还有 {len(conflict_files) - 10} 个文件")
                 
-                # 鑷姩瑙ｅ喅鍐茬獊锛氭帴鍙梪pstream鐗堟湰
-                print("\n   馃敡 鑷姩瑙ｅ喅鍐茬獊锛堟帴鍙椾笂娓哥増鏈級...")
+                # 自动解决冲突：接受upstream版本
+                print("\n   🔧 自动解决冲突（接受上游版本）...")
                 for f in conflict_files:
                     try:
                         subprocess.run(
@@ -791,19 +791,19 @@ def main():
                         )
                         skipped_conflicts.append(f)
                     except Exception as e:
-                        print(f"     鉂?鏃犳硶瑙ｅ喅: {f} ({e})")
+                        print(f"     ❌ 无法解决: {f} ({e})")
                 
                 if skipped_conflicts:
-                    print(f"   鉁?宸茶嚜鍔ㄨВ鍐?{len(skipped_conflicts)} 涓啿绐佹枃浠讹紝璺宠繃缈昏瘧")
+                    print(f"   ✅ 已自动解决 {len(skipped_conflicts)} 个冲突文件，跳过翻译")
         except Exception as e:
-            print(f"   鈿狅笍 鍐茬獊妫€娴嬪け璐? {e}锛岀户缁墽琛?..")
+            print(f"   ⚠️ 冲突检测失败: {e}，继续执行...")
     
-    # 浠呯敓鎴愭姤鍛?
+    # 仅生成报告
     if args.report_only:
-        # 鍏堟壂鎻忔墍鏈夋枃浠?
+        # 先扫描所有文件
         all_py_files = []
         for root, dirs, files in os.walk('.'):
-            # 鎺掗櫎闅愯棌鐩綍鍜岃櫄鎷熺幆澧?
+            # 排除隐藏目录和虚拟环境
             dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__', '.git']]
             for file in files:
                 if translator.should_translate_file(os.path.join(root, file)):
@@ -814,18 +814,18 @@ def main():
         print(report)
         return
     
-    # 浠庝笂娓稿悓姝?
+    # 从上游同步
     if args.upstream:
         success = translator.sync_from_upstream(args.upstream, args.branch)
         if not success:
-            print("\n鈿狅笍 鍚屾澶辫触锛屼絾灏嗙户缁炕璇戝綋鍓嶆枃浠?..")
+            print("\n⚠️ 同步失败，但将继续翻译当前文件...")
 
-        # 鑾峰彇鍙樻洿鐨勬枃浠?
+        # 获取变更的文件
         changed_files = translator.get_changed_files()
 
         if not changed_files:
-            print("\n鈩癸笍 娌℃湁妫€娴嬪埌鏂扮殑鍙樻洿锛屽皢鎵弿鎵€鏈夋枃浠惰繘琛岀炕璇?)
-            # 鍗充娇娌℃湁鍙樻洿涔熸壂鎻忔墍鏈夋枃浠?
+            print("\nℹ️ 没有检测到新的变更，将扫描所有文件进行翻译")
+            # 即使没有变更也扫描所有文件
             all_py_files = []
             for root, dirs, files in os.walk('.'):
                 dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__', '.git', 'venv', '.venv']]
@@ -834,34 +834,34 @@ def main():
                         all_py_files.append(os.path.join(root, file))
 
             if all_py_files:
-                print(f"\n馃搵 鎵惧埌 {len(all_py_files)} 涓彲缈昏瘧鏂囦欢")
+                print(f"\n📋 找到 {len(all_py_files)} 个可翻译文件")
                 translator.translate_files(all_py_files)
             return
         
-        print(f"\n馃搵 妫€娴嬪埌 {len(changed_files)} 涓彉鏇存枃浠?")
-        for f in changed_files[:10]:  # 鍙樉绀哄墠10涓?
-            print(f"   鈥?{f}")
+        print(f"\n📋 检测到 {len(changed_files)} 个变更文件:")
+        for f in changed_files[:10]:  # 只显示前10个
+            print(f"   • {f}")
         if len(changed_files) > 10:
-            print(f"   ... 杩樻湁 {len(changed_files) - 10} 涓枃浠?)
+            print(f"   ... 还有 {len(changed_files) - 10} 个文件")
         
-        # 杩囨护闇€瑕佺炕璇戠殑鏂囦欢
+        # 过滤需要翻译的文件
         files_to_translate = [f for f in changed_files if translator.should_translate_file(f)]
         
         if not files_to_translate:
-            print("\n鈩癸笍 鍙樻洿鐨勬枃浠朵腑鏃犻渶缈昏瘧鐨勫唴瀹?)
+            print("\nℹ️ 变更的文件中无需翻译的内容")
             return
         
-        print(f"\n鍏朵腑 {len(files_to_translate)} 涓枃浠跺彲鑳介渶瑕佺炕璇?)
+        print(f"\n其中 {len(files_to_translate)} 个文件可能需要翻译")
         
-        # 鎵ц缈昏瘧
+        # 执行翻译
         translator.translate_files(files_to_translate)
     
-    # 缈昏瘧鎸囧畾鏂囦欢
+    # 翻译指定文件
     elif args.files:
         translator.translate_files(args.files)
     
     else:
-        # 榛樿锛氱炕璇戝綋鍓嶇洰褰曟墍鏈夌浉鍏虫枃浠?
+        # 默认：翻译当前目录所有相关文件
         all_py_files = []
         for root, dirs, files in os.walk('.'):
             dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__', '.git', 'venv', '.venv']]
@@ -870,18 +870,18 @@ def main():
                     all_py_files.append(os.path.join(root, file))
 
         if not all_py_files:
-            print("鈩癸笍 鏈壘鍒板彲缈昏瘧鐨勬枃浠?)
+            print("ℹ️ 未找到可翻译的文件")
             return
 
         translator.translate_files(all_py_files)
     
-    # 鐢熸垚鎶ュ憡
+    # 生成报告
     if translator.stats:
         report = translator.generate_report(args.output)
         
         if args.dry_run:
             print("\n" + "="*60)
-            print("馃攳 棰勮妯″紡 - 浠ヤ笂鏄皢浼氳缈昏瘧鐨勫唴瀹?)
+            print("🔍 预览模式 - 以上是将会被翻译的内容")
             print("="*60)
 
 
