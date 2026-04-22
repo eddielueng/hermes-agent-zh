@@ -145,6 +145,37 @@ jobs:
             echo "::notice::No conflicts found, clean merge!"
           fi
 
+      - name: Protect SKILL.md files (restore if deleted by upstream merge)
+        if: steps.fetch_upstream.outputs.has_changes == 'true'
+        run: |
+          echo "=== Protecting SKILL.md files ==="
+          # After merging from upstream, SKILL.md files may be deleted
+          # because upstream doesn't have them. Restore from our branch.
+          
+          SAVED=0
+          # Check for any SKILL.md that was in our main but got removed
+          for skill_file in $(git diff --name-only --diff-filter=D HEAD 2>/dev/null | grep "SKILL.md$" || true); do
+            echo "Restoring deleted SKILL.md: $skill_file"
+            git checkout HEAD -- "$skill_file" 2>/dev/null || {
+              git show "main:$skill_file" > "$skill_file" 2>/dev/null || true
+            }
+            git add "$skill_file" 2>/dev/null || true
+            SAVED=$((SAVED + 1))
+          done
+          
+          # Also restore any .backup versions of SKILL.md
+          find . -name "SKILL.md.backup" -type f 2>/dev/null | while read -r backup; do
+            target="${backup%.backup}"
+            cp "$backup" "$target"
+            git add "$target" 2>/dev/null || true
+            rm -f "$backup"
+            SAVED=$((SAVED + 1))
+            echo "Restored from backup: $target"
+          done
+          
+          SKILL_COUNT=$(find . -name "SKILL.md" -type f 2>/dev/null | wc -l)
+          echo "Protected/Restored $SAVED SKILL.md files. Total SKILL.md: ${SKILL_COUNT}"
+
       - name: Validate Python files BEFORE translation
         if: steps.fetch_upstream.outputs.has_changes == 'true'
         run: |
