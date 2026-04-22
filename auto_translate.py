@@ -427,7 +427,10 @@ class AutoTranslator:
                 match = re.search(pattern, line)
                 if match:
                     original_text = extractor(match)
-                    if original_text:
+                    # extractor may return tuple (text, None) or plain string
+                    if isinstance(original_text, tuple):
+                        original_text = original_text[0]
+                    if original_text and isinstance(original_text, str):
                         result = self.translate_string(original_text, context=file_path)
                         if result:
                             translated_text, rule_matched = result
