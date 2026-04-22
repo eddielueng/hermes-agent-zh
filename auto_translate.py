@@ -530,11 +530,12 @@ class AutoTranslator:
             for i in range(1, frontmatter_end):
                 line = new_lines[i]
                 
-                # 匹配 description: "..." 或 description: '...'
-                desc_match = re.match(r'^(\s*description\s*:\s*)["\'](.+?)["\']\s*$', line)
+                # 匹配 description: "..." 或 description: '...' 或 description: ...（无引号）
+                desc_match = re.match(r'^(\s*description\s*:\s*)(?:"(.+?)"|\'(.+?)\'|(.+))\s*$', line)
                 if desc_match:
                     prefix = desc_match.group(1)
-                    original_desc = desc_match.group(2)
+                    # 提取值（可能是双引号、单引号或无引号）
+                    original_desc = desc_match.group(2) or desc_match.group(3) or desc_match.group(4) or ""
                     
                     # 跳过已经是中文的描述
                     chinese_ratio = sum(1 for c in original_desc if '\u4e00' <= c <= '\u9fff') / max(len(original_desc), 1)
