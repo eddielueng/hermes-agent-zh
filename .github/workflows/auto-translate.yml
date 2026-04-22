@@ -183,17 +183,29 @@ jobs:
         run: |
           mkdir -p output
           
-          # CRITICAL: Remove all .backup files before translation
-          # They contain merge conflict markers that cause the translator to abort
-          echo "=== Cleaning up .backup files ==="
-          find . -name "*.backup" -delete 2>/dev/null || true
-          BACKUP_COUNT=$(find . -name "*.backup" 2>/dev/null | wc -l)
-          echo "Removed backup files. Remaining: ${BACKUP_COUNT}"
+          # CRITICAL: Handle .backup files before translation
+          # SKILL.md files get renamed to SKILL.md.backup during upstream merge
+          # We need to RESTORE them, not delete them!
+          echo "=== Handling .backup files ==="
           
-          # Also reset any conflicted states on .backup files in git
-          git rm --cached "*.backup" 2>/dev/null || true
+          # Restore SKILL.md from .backup files (these are skill definitions, not conflict backups)
+          echo "Restoring SKILL.md files from .backup..."
+          find . -name "SKILL.md.backup" -type f 2>/dev/null | while read -r backup_file; do
+            target="${backup_file%.backup}"
+            cp "$backup_file" "$target" 2>/dev/null || true
+            echo "  Restored: $target"
+          done
+          
+          # Delete all remaining .backup files (actual merge conflict backups with markers)
+          echo "Removing other .backup files..."
+          find . -name "*.backup" -delete 2>/dev/null || true
+          
+          BACKUP_COUNT=$(find . -name "*.backup" 2>/dev/null | wc -l)
+          SKILL_COUNT=$(find . -name "SKILL.md" -type f 2>/dev/null | wc -l)
+          echo "Remaining .backup: ${BACKUP_COUNT}, SKILL.md files: ${SKILL_COUNT}"
+          
           git add -u "*.backup" 2>/dev/null || true
-          git checkout -- "*.backup" 2>/dev/null || true
+          git rm --cached "*.backup" 2>/dev/null || true
           find . -name "*.backup" -delete 2>/dev/null || true
           
           echo "=== Running translation with upstream sync ==="
