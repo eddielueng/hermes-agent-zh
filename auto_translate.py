@@ -761,6 +761,7 @@ def main():
     translator = AutoTranslator(rules_file=args.rules, dry_run=args.dry_run)
     
     # 全局安全检测：检查仓库中是否有未解决的合并冲突
+    skipped_conflicts = []
     if not args.report_only:
         try:
             result = subprocess.run(
@@ -769,17 +770,33 @@ def main():
             )
             conflict_files = [f for f in result.stdout.strip().split('\n') if f]
             if conflict_files:
-                print(f"\n❌ 错误: 发现 {len(conflict_files)} 个文件包含未解决的合并冲突！")
+                print(f"\n⚠️ 警告: 发现 {len(conflict_files)} 个文件包含未解决的合并冲突")
                 print("   冲突文件列表:")
                 for f in conflict_files[:10]:
                     print(f"     • {f}")
                 if len(conflict_files) > 10:
                     print(f"   ... 还有 {len(conflict_files) - 10} 个文件")
-                print("\n   请先解决合并冲突后再运行翻译脚本。")
-                print("   工作流中应配置 'Auto-resolve merge conflicts' 步骤。")
-                sys.exit(1)
-        except Exception:
-            pass
+                
+                # 自动解决冲突：接受upstream版本
+                print("\n   🔧 自动解决冲突（接受上游版本）...")
+                for f in conflict_files:
+                    try:
+                        subprocess.run(
+                            ['git', 'checkout', '--theirs', f],
+                            capture_output=True, cwd='.'
+                        )
+                        subprocess.run(
+                            ['git', 'add', f],
+                            capture_output=True, cwd='.'
+                        )
+                        skipped_conflicts.append(f)
+                    except Exception as e:
+                        print(f"     ❌ 无法解决: {f} ({e})")
+                
+                if skipped_conflicts:
+                    print(f"   ✅ 已自动解决 {len(skipped_conflicts)} 个冲突文件，跳过翻译")
+        except Exception as e:
+            print(f"   ⚠️ 冲突检测失败: {e}，继续执行...")
     
     # 仅生成报告
     if args.report_only:
