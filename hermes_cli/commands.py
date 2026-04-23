@@ -57,114 +57,121 @@ class CommandDef:
 # ---------------------------------------------------------------------------
 
 COMMAND_REGISTRY: list[CommandDef] = [
-    # 会话管理
-    CommandDef("new", "开始新会话（全新的会话ID和历史记录）", "会话",
+    # Session
+    CommandDef("new", "Start a new session (fresh session ID + history)", "Session",
                aliases=("reset",)),
-    CommandDef("clear", "清屏并开始新会话", "会话",
+    CommandDef("clear", "Clear screen and start a new session", "Session",
                cli_only=True),
-    CommandDef("history", "显示对话历史", "会话",
+    CommandDef("history", "Show conversation history", "Session",
                cli_only=True),
-    CommandDef("save", "保存当前对话", "会话",
+    CommandDef("save", "Save the current conversation", "Session",
                cli_only=True),
-    CommandDef("retry", "重试上一条消息（重新发送给代理）", "会话"),
-    CommandDef("undo", "撤销最后一次用户/助手交互", "会话"),
-    CommandDef("title", "为当前会话设置标题", "会话",
-               args_hint="[名称]"),
-    CommandDef("branch", "分支当前会话（探索不同的路径）", "会话",
-               aliases=("fork",), args_hint="[名称]"),
-    CommandDef("compress", "手动压缩对话上下文", "会话",
-               args_hint="[聚焦主题]"),
-    CommandDef("rollback", "列出或恢复文件系统检查点", "会话",
-               args_hint="[编号]"),
-    CommandDef("snapshot", "创建或恢复 Hermes 配置/状态快照", "会话",
+    CommandDef("retry", "Retry the last message (resend to agent)", "Session"),
+    CommandDef("undo", "Remove the last user/assistant exchange", "Session"),
+    CommandDef("title", "Set a title for the current session", "Session",
+               args_hint="[name]"),
+    CommandDef("branch", "Branch the current session (explore a different path)", "Session",
+               aliases=("fork",), args_hint="[name]"),
+    CommandDef("compress", "Manually compress conversation context", "Session",
+               args_hint="[focus topic]"),
+    CommandDef("rollback", "List or restore filesystem checkpoints", "Session",
+               args_hint="[number]"),
+    CommandDef("snapshot", "Create or restore state snapshots of Hermes config/state", "Session",
                aliases=("snap",), args_hint="[create|restore <id>|prune]"),
-    CommandDef("stop", "终止所有运行中的后台进程", "会话"),
-    CommandDef("approve", "批准待处理的危险命令", "会话",
+    CommandDef("stop", "Kill all running background processes", "Session"),
+    CommandDef("approve", "Approve a pending dangerous command", "Session",
                gateway_only=True, args_hint="[session|always]"),
-    CommandDef("deny", "拒绝待处理的危险命令", "会话",
+    CommandDef("deny", "Deny a pending dangerous command", "Session",
                gateway_only=True),
-    CommandDef("background", "在后台运行提示词", "会话",
-               aliases=("bg",), args_hint="<提示词>"),
-    CommandDef("btw", "使用会话上下文的临时侧边问题（不使用工具，不持久化）", "会话",
-               args_hint="<问题>"),
-    CommandDef("queue", "将提示词排队等待下一轮（不中断当前操作）", "会话",
-               aliases=("q",), args_hint="<提示词>"),
-    CommandDef("status", "显示会话信息", "会话"),
-    CommandDef("profile", "显示当前配置文件名和主目录", "信息"),
-    CommandDef("sethome", "将此聊天设为主频道", "会话",
+    CommandDef("background", "Run a prompt in the background", "Session",
+               aliases=("bg",), args_hint="<prompt>"),
+    CommandDef("btw", "Ephemeral side question using session context (no tools, not persisted)", "Session",
+               args_hint="<question>"),
+    CommandDef("agents", "Show active agents and running tasks", "Session",
+               aliases=("tasks",)),
+    CommandDef("queue", "Queue a prompt for the next turn (doesn't interrupt)", "Session",
+               aliases=("q",), args_hint="<prompt>"),
+    CommandDef("steer", "Inject a message after the next tool call without interrupting", "Session",
+               args_hint="<prompt>"),
+    CommandDef("status", "Show session info", "Session"),
+    CommandDef("profile", "Show active profile name and home directory", "Info"),
+    CommandDef("sethome", "Set this chat as the home channel", "Session",
                gateway_only=True, aliases=("set-home",)),
-    CommandDef("resume", "恢复之前命名的会话", "会话",
-               args_hint="[名称]"),
+    CommandDef("resume", "Resume a previously-named session", "Session",
+               args_hint="[name]"),
 
-    # 配置
-    CommandDef("config", "显示当前配置", "配置",
+    # Configuration
+    CommandDef("config", "Show current configuration", "Configuration",
                cli_only=True),
-    CommandDef("model", "切换本次会话的模型", "配置", args_hint="[模型] [--global]"),
-    CommandDef("provider", "显示可用的提供商和当前提供商",
-               "配置"),
+    CommandDef("model", "Switch model for this session", "Configuration", args_hint="[model] [--provider name] [--global]"),
+    CommandDef("provider", "Show available providers and current provider",
+               "Configuration"),
+    CommandDef("gquota", "Show Google Gemini Code Assist quota usage", "Info"),
 
-    CommandDef("personality", "设置预定义的人格", "配置",
-               args_hint="[名称]"),
-    CommandDef("statusbar", "切换上下文/模型状态栏", "配置",
+    CommandDef("personality", "Set a predefined personality", "Configuration",
+               args_hint="[name]"),
+    CommandDef("statusbar", "Toggle the context/model status bar", "Configuration",
                cli_only=True, aliases=("sb",)),
-    CommandDef("verbose", "循环切换工具进度显示：关闭 -> 新增 -> 全部 -> 详细",
+    CommandDef("verbose", "Cycle tool progress display: off -> new -> all -> verbose",
                "Configuration", cli_only=True,
                gateway_config_gate="display.tool_progress_command"),
-    CommandDef("yolo", "切换 YOLO 模式（跳过所有危险命令审批）",
-               "配置"),
-    CommandDef("reasoning", "管理推理强度和显示", "配置",
-               args_hint="[级别|显示|隐藏]",
+    CommandDef("yolo", "Toggle YOLO mode (skip all dangerous command approvals)",
+               "Configuration"),
+    CommandDef("reasoning", "Manage reasoning effort and display", "Configuration",
+               args_hint="[level|show|hide]",
                subcommands=("none", "minimal", "low", "medium", "high", "xhigh", "show", "hide", "on", "off")),
-    CommandDef("fast", "切换快速模式 — OpenAI 优先处理 / Anthropic 快速模式（正常/快速）", "配置",
+    CommandDef("fast", "Toggle fast mode — OpenAI Priority Processing / Anthropic Fast Mode (Normal/Fast)", "Configuration",
                args_hint="[normal|fast|status]",
                subcommands=("normal", "fast", "status", "on", "off")),
-    CommandDef("skin", "显示或更改显示皮肤/主题", "配置",
-               cli_only=True, args_hint="[名称]"),
-    CommandDef("voice", "切换语音模式", "配置",
+    CommandDef("skin", "Show or change the display skin/theme", "Configuration",
+               args_hint="[name]"),
+    CommandDef("voice", "Toggle voice mode", "Configuration",
                args_hint="[on|off|tts|status]", subcommands=("on", "off", "tts", "status")),
 
-    # 工具与技能
-    CommandDef("tools", "管理工具：/tools [list|disable|enable] [名称...]", "工具与技能",
-               args_hint="[list|disable|enable] [名称...]", cli_only=True),
-    CommandDef("toolsets", "列出可用的工具集", "工具与技能",
+    # Tools & Skills
+    CommandDef("tools", "Manage tools: /tools [list|disable|enable] [name...]", "Tools & Skills",
+               args_hint="[list|disable|enable] [name...]", cli_only=True),
+    CommandDef("toolsets", "List available toolsets", "Tools & Skills",
                cli_only=True),
-    CommandDef("skills", "搜索、安装、检查或管理技能",
-               "工具与技能", cli_only=True,
+    CommandDef("skills", "Search, install, inspect, or manage skills",
+               "Tools & Skills", cli_only=True,
                subcommands=("search", "browse", "inspect", "install")),
-    CommandDef("cron", "管理定时任务", "工具与技能",
-               cli_only=True, args_hint="[子命令]",
+    CommandDef("cron", "Manage scheduled tasks", "Tools & Skills",
+               cli_only=True, args_hint="[subcommand]",
                subcommands=("list", "add", "create", "edit", "pause", "resume", "run", "remove")),
-    CommandDef("reload", "将 .env 变量重新加载到运行中的会话", "工具与技能"),
-    CommandDef("reload-mcp", "从配置重新加载 MCP 服务器", "工具与技能",
+    CommandDef("reload", "Reload .env variables into the running session", "Tools & Skills"),
+    CommandDef("reload-mcp", "Reload MCP servers from config", "Tools & Skills",
                aliases=("reload_mcp",)),
-    CommandDef("browser", "通过 CDP 将浏览器工具连接到你的实时 Chrome", "工具与技能",
+    CommandDef("browser", "Connect browser tools to your live Chrome via CDP", "Tools & Skills",
                cli_only=True, args_hint="[connect|disconnect|status]",
                subcommands=("connect", "disconnect", "status")),
-    CommandDef("plugins", "列出已安装插件及其状态",
-               "工具与技能", cli_only=True),
+    CommandDef("plugins", "List installed plugins and their status",
+               "Tools & Skills", cli_only=True),
 
-    # 信息
-    CommandDef("commands", "浏览所有命令和技能（分页）", "信息",
-               gateway_only=True, args_hint="[页码]"),
-    CommandDef("help", "显示可用命令", "信息"),
-    CommandDef("restart", "在排空活动运行后优雅重启网关", "会话",
+    # Info
+    CommandDef("commands", "Browse all commands and skills (paginated)", "Info",
+               gateway_only=True, args_hint="[page]"),
+    CommandDef("help", "Show available commands", "Info"),
+    CommandDef("restart", "Gracefully restart the gateway after draining active runs", "Session",
                gateway_only=True),
-    CommandDef("usage", "显示当前会话的令牌使用情况和速率限制", "信息"),
-    CommandDef("insights", "显示使用洞察和分析", "信息",
-               args_hint="[天数]"),
-    CommandDef("platforms", "显示网关/消息平台状态", "信息",
+    CommandDef("usage", "Show token usage and rate limits for the current session", "Info"),
+    CommandDef("insights", "Show usage insights and analytics", "Info",
+               args_hint="[days]"),
+    CommandDef("platforms", "Show gateway/messaging platform status", "Info",
                cli_only=True, aliases=("gateway",)),
-    CommandDef("paste", "检查剪贴板是否有图片并附加", "信息",
+    CommandDef("copy", "Copy the last assistant response to clipboard", "Info",
+               cli_only=True, args_hint="[number]"),
+    CommandDef("paste", "Attach clipboard image from your clipboard", "Info",
                cli_only=True),
-    CommandDef("image", "附加本地图片文件用于下一条提示词", "信息",
-               cli_only=True, args_hint="<路径>"),
-    CommandDef("update", "将 Hermes Agent 更新到最新版本", "信息",
+    CommandDef("image", "Attach a local image file for your next prompt", "Info",
+               cli_only=True, args_hint="<path>"),
+    CommandDef("update", "Update Hermes Agent to the latest version", "Info",
                gateway_only=True),
-    CommandDef("debug", "上传调试报告（系统信息 + 日志）并获取可分享链接", "信息"),
+    CommandDef("debug", "Upload debug report (system info + logs) and get shareable links", "Info"),
 
-    # 退出
-    CommandDef("quit", "退出 CLI", "退出",
-               cli_only=True, aliases=("exit", "q")),
+    # Exit
+    CommandDef("quit", "Exit the CLI", "Exit",
+               cli_only=True, aliases=("exit",)),
 ]
 
 
@@ -253,6 +260,73 @@ GATEWAY_KNOWN_COMMANDS: frozenset[str] = frozenset(
 )
 
 
+def is_gateway_known_command(name: str | None) -> bool:
+    """Return True if ``name`` resolves to a gateway-dispatchable slash command.
+
+    This covers both built-in commands (``GATEWAY_KNOWN_COMMANDS`` derived
+    from ``COMMAND_REGISTRY``) and plugin-registered commands, which are
+    looked up lazily so importing this module never forces plugin
+    discovery. Gateway code uses this to decide whether to emit
+    ``command:<name>`` hooks — plugin commands get the same lifecycle
+    events as built-ins.
+    """
+    if not name:
+        return False
+    if name in GATEWAY_KNOWN_COMMANDS:
+        return True
+    for plugin_name, _description, _args_hint in _iter_plugin_command_entries():
+        if plugin_name == name:
+            return True
+    return False
+
+
+# Commands with explicit Level-2 running-agent handlers in gateway/run.py.
+# Listed here for introspection / tests; semantically a subset of
+# "all resolvable commands" — which is the real bypass set (see
+# should_bypass_active_session below).
+ACTIVE_SESSION_BYPASS_COMMANDS: frozenset[str] = frozenset(
+    {
+        "agents",
+        "approve",
+        "background",
+        "commands",
+        "deny",
+        "help",
+        "new",
+        "profile",
+        "queue",
+        "restart",
+        "status",
+        "steer",
+        "stop",
+        "update",
+    }
+)
+
+
+def should_bypass_active_session(command_name: str | None) -> bool:
+    """Return True for any resolvable slash command.
+
+    Rationale: every gateway-registered slash command either has a
+    specific Level-2 handler in gateway/run.py (/stop, /new, /model,
+    /approve, etc.) or reaches the running-agent catch-all that returns
+    a "busy — wait or /stop first" response. In both paths the command
+    is dispatched, not queued.
+
+    Queueing is always wrong for a recognized slash command because the
+    safety net in gateway.run discards any command text that reaches
+    the pending queue — which meant a mid-run /model (or /reasoning,
+    /voice, /insights, /title, /resume, /retry, /undo, /compress,
+    /usage, /provider, /reload-mcp, /sethome, /reset) would silently
+    interrupt the agent AND get discarded, producing a zero-char
+    response. See issue #5057 / PRs #6252, #10370, #4665.
+
+    ACTIVE_SESSION_BYPASS_COMMANDS remains the subset of commands with
+    explicit Level-2 handlers; the rest fall through to the catch-all.
+    """
+    return resolve_command(command_name) is not None if command_name else False
+
+
 def _resolve_config_gates() -> set[str]:
     """Return canonical names of commands whose ``gateway_config_gate`` is truthy.
 
@@ -317,12 +391,47 @@ def gateway_help_lines() -> list[str]:
     return lines
 
 
+def _iter_plugin_command_entries() -> list[tuple[str, str, str]]:
+    """Yield (name, description, args_hint) tuples for all plugin slash commands.
+
+    Plugin commands are registered via
+    :func:`hermes_cli.plugins.PluginContext.register_command`. They behave
+    like ``CommandDef`` entries for gateway surfacing: they appear in the
+    Telegram command menu, in Slack's ``/hermes`` subcommand mapping, and
+    (via :func:`gateway.platforms.discord._register_slash_commands`) in
+    Discord's native slash command picker.
+
+    Lookup is lazy so importing this module never forces plugin discovery
+    (which can trigger filesystem scans and environment-dependent
+    behavior).
+    """
+    try:
+        from hermes_cli.plugins import get_plugin_commands
+    except Exception:
+        return []
+    try:
+        commands = get_plugin_commands() or {}
+    except Exception:
+        return []
+    entries: list[tuple[str, str, str]] = []
+    for name, meta in commands.items():
+        if not isinstance(name, str) or not isinstance(meta, dict):
+            continue
+        description = str(meta.get("description") or f"Run /{name}")
+        args_hint = str(meta.get("args_hint") or "").strip()
+        entries.append((name, description, args_hint))
+    return entries
+
+
 def telegram_bot_commands() -> list[tuple[str, str]]:
     """Return (command_name, description) pairs for Telegram setMyCommands.
 
     Telegram command names cannot contain hyphens, so they are replaced with
     underscores.  Aliases are skipped -- Telegram shows one menu entry per
     canonical command.
+
+    Plugin-registered slash commands are included so plugins get native
+    autocomplete in Telegram without touching core code.
     """
     overrides = _resolve_config_gates()
     result: list[tuple[str, str]] = []
@@ -332,6 +441,10 @@ def telegram_bot_commands() -> list[tuple[str, str]]:
         tg_name = _sanitize_telegram_name(cmd.name)
         if tg_name:
             result.append((tg_name, cmd.description))
+    for name, description, _args_hint in _iter_plugin_command_entries():
+        tg_name = _sanitize_telegram_name(name)
+        if tg_name:
+            result.append((tg_name, description))
     return result
 
 
@@ -443,9 +556,8 @@ def _collect_gateway_skill_entries(
     # --- Tier 1: Plugin slash commands (never trimmed) ---------------------
     plugin_pairs: list[tuple[str, str]] = []
     try:
-        from hermes_cli.plugins import get_plugin_manager
-        pm = get_plugin_manager()
-        plugin_cmds = getattr(pm, "_plugin_commands", {})
+        from hermes_cli.plugins import get_plugin_commands
+        plugin_cmds = get_plugin_commands()
         for cmd_name in sorted(plugin_cmds):
             name = sanitize_name(cmd_name) if sanitize_name else cmd_name
             if not name:
@@ -697,6 +809,9 @@ def slack_subcommand_map() -> dict[str, str]:
 
     Maps both canonical names and aliases so /hermes bg do stuff works
     the same as /hermes background do stuff.
+
+    Plugin-registered slash commands are included so ``/hermes <plugin-cmd>``
+    routes through the plugin handler.
     """
     overrides = _resolve_config_gates()
     mapping: dict[str, str] = {}
@@ -706,6 +821,9 @@ def slack_subcommand_map() -> dict[str, str]:
         mapping[cmd.name] = f"/{cmd.name}"
         for alias in cmd.aliases:
             mapping[alias] = f"/{alias}"
+    for name, _description, _args_hint in _iter_plugin_command_entries():
+        if name not in mapping:
+            mapping[name] = f"/{name}"
     return mapping
 
 
@@ -871,12 +989,22 @@ class SlashCommandCompleter(Completer):
                     display_meta=meta,
                 )
 
-        # If the user typed @file: or @folder:, delegate to path completions
+        # If the user typed @file: / @folder: (or just @file / @folder with
+        # no colon yet), delegate to path completions.  Accepting the bare
+        # form lets the picker surface directories as soon as the user has
+        # typed `@folder`, without requiring them to first accept the static
+        # `@folder:` hint and re-trigger completion.
         for prefix in ("@file:", "@folder:"):
-            if word.startswith(prefix):
-                path_part = word[len(prefix):] or "."
+            bare = prefix[:-1]
+
+            if word == bare or word.startswith(prefix):
+                want_dir = prefix == "@folder:"
+                path_part = '' if word == bare else word[len(prefix):]
                 expanded = os.path.expanduser(path_part)
-                if expanded.endswith("/"):
+
+                if not expanded or expanded == ".":
+                    search_dir, match_prefix = ".", ""
+                elif expanded.endswith("/"):
                     search_dir, match_prefix = expanded, ""
                 else:
                     search_dir = os.path.dirname(expanded) or "."
@@ -892,15 +1020,21 @@ class SlashCommandCompleter(Completer):
                 for entry in sorted(entries):
                     if match_prefix and not entry.lower().startswith(prefix_lower):
                         continue
-                    if count >= limit:
-                        break
                     full_path = os.path.join(search_dir, entry)
                     is_dir = os.path.isdir(full_path)
+                    # `@folder:` must only surface directories; `@file:` only
+                    # regular files.  Without this filter `@folder:` listed
+                    # every .env / .gitignore in the cwd, defeating the
+                    # explicit prefix and confusing users expecting a
+                    # directory picker.
+                    if want_dir != is_dir:
+                        continue
+                    if count >= limit:
+                        break
                     display_path = os.path.relpath(full_path)
                     suffix = "/" if is_dir else ""
-                    kind = "folder" if is_dir else "file"
                     meta = "dir" if is_dir else _file_size_label(full_path)
-                    completion = f"@{kind}:{display_path}{suffix}"
+                    completion = f"{prefix}{display_path}{suffix}"
                     yield Completion(
                         completion,
                         start_position=-len(word),
@@ -1043,6 +1177,51 @@ class SlashCommandCompleter(Completer):
                 display_meta=f"{fp}  {meta}" if meta else fp,
             )
 
+    @staticmethod
+    def _skin_completions(sub_text: str, sub_lower: str):
+        """Yield completions for /skin from available skins."""
+        try:
+            from hermes_cli.skin_engine import list_skins
+            for s in list_skins():
+                name = s["name"]
+                if name.startswith(sub_lower) and name != sub_lower:
+                    yield Completion(
+                        name,
+                        start_position=-len(sub_text),
+                        display=name,
+                        display_meta=s.get("description", "") or s.get("source", ""),
+                    )
+        except Exception:
+            pass
+
+    @staticmethod
+    def _personality_completions(sub_text: str, sub_lower: str):
+        """Yield completions for /personality from configured personalities."""
+        try:
+            from hermes_cli.config import load_config
+            personalities = load_config().get("agent", {}).get("personalities", {})
+            if "none".startswith(sub_lower) and "none" != sub_lower:
+                yield Completion(
+                    "none",
+                    start_position=-len(sub_text),
+                    display="none",
+                    display_meta="clear personality overlay",
+                )
+            for name, prompt in personalities.items():
+                if name.startswith(sub_lower) and name != sub_lower:
+                    if isinstance(prompt, dict):
+                        meta = prompt.get("description") or prompt.get("system_prompt", "")[:50]
+                    else:
+                        meta = str(prompt)[:50]
+                    yield Completion(
+                        name,
+                        start_position=-len(sub_text),
+                        display=name,
+                        display_meta=meta,
+                    )
+        except Exception:
+            pass
+
     def _model_completions(self, sub_text: str, sub_lower: str):
         """Yield completions for /model from config aliases + built-in aliases."""
         seen = set()
@@ -1097,10 +1276,17 @@ class SlashCommandCompleter(Completer):
             sub_text = parts[1] if len(parts) > 1 else ""
             sub_lower = sub_text.lower()
 
-            # Dynamic model alias completions for /model
-            if " " not in sub_text and base_cmd == "/model":
-                yield from self._model_completions(sub_text, sub_lower)
-                return
+            # Dynamic completions for commands with runtime lists
+            if " " not in sub_text:
+                if base_cmd == "/model":
+                    yield from self._model_completions(sub_text, sub_lower)
+                    return
+                if base_cmd == "/skin":
+                    yield from self._skin_completions(sub_text, sub_lower)
+                    return
+                if base_cmd == "/personality":
+                    yield from self._personality_completions(sub_text, sub_lower)
+                    return
 
             # Static subcommand completions
             if " " not in sub_text and base_cmd in SUBCOMMANDS and self._command_allowed(base_cmd):
