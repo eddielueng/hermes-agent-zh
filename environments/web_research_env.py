@@ -271,7 +271,7 @@ class WebResearchEnv(HermesAgentBaseEnv):
         """Load the FRAMES benchmark or fall back to built-in samples."""
         if HF_AVAILABLE:
             try:
-                logger.info("Loading FRAMES benchmark from HuggingFace...")
+                logger.info("正在加载 FRAMES benchmark from HuggingFace...")
                 ds = load_dataset(self.config.dataset_name, split="test")
                 self._items = [
                     {

@@ -1504,7 +1504,7 @@ def qr_scan_for_bot_info(
     generate_url = f"{_QR_GENERATE_URL}?source=hermes"
 
     # ── Step 1: Fetch QR code ──
-    print("  Connecting to WeCom...", end="", flush=True)
+    print("连接到 WeCom...", end="", flush=True)
     try:
         req = urllib.request.Request(generate_url, headers={"User-Agent": "HermesAgent/1.0"})
         with urllib.request.urlopen(req, timeout=15) as resp:

@@ -894,7 +894,7 @@ BROWSER_TOOL_SCHEMAS = [
 def _create_local_session(task_id: str) -> Dict[str, str]:
     import uuid
     session_name = f"h_{uuid.uuid4().hex[:10]}"
-    logger.info("Created local browser session %s for task %s",
+    logger.info("已创建 local browser session %s for task %s",
                 session_name, task_id)
     return {
         "session_name": session_name,
@@ -908,7 +908,7 @@ def _create_cdp_session(task_id: str, cdp_url: str) -> Dict[str, str]:
     """Create a session that connects to a user-supplied CDP endpoint."""
     import uuid
     session_name = f"cdp_{uuid.uuid4().hex[:10]}"
-    logger.info("Created CDP browser session %s → %s for task %s",
+    logger.info("已创建 CDP browser session %s → %s for task %s",
                 session_name, cdp_url, task_id)
     return {
         "session_name": session_name,
@@ -1120,7 +1120,7 @@ def _run_browser_command(
     try:
         browser_cmd = _find_agent_browser()
     except FileNotFoundError as e:
-        logger.warning("agent-browser CLI not found: %s", e)
+        logger.warning("agent-browser CLI 未找到: %s", e)
         return {"success": False, "error": str(e)}
 
     if _requires_real_termux_browser_install(browser_cmd):
@@ -2407,7 +2407,7 @@ if __name__ == "__main__":
                 print("   - bare npx fallback found (insufficient on Termux local mode)")
                 print(f"     Install: {_browser_install_hint()}")
         except FileNotFoundError:
-            print("   - agent-browser CLI not found")
+            print("- agent-browser CLI 未找到")
             print(f"     Install: {_browser_install_hint()}")
         if _cp is not None and not _cp.is_configured():
             print(f"   - {_cp.provider_name()} credentials not configured")

@@ -343,8 +343,8 @@ def _prompt_for_sudo_password(timeout_seconds: int = 45) -> str:
         print("┌" + "─" * 58 + "┐")
         print("│  🔐 SUDO PASSWORD REQUIRED" + " " * 30 + "│")
         print("├" + "─" * 58 + "┤")
-        print("│  Enter password below (input is hidden), or:            │")
-        print("│    • Press Enter to skip (command fails gracefully)     │")
+        print("│  输入 password below (input is hidden), or:            │")
+        print("│    • Press 输入 to skip (command fails gracefully)     │")
         print(f"│    • Wait {timeout_seconds}s to auto-skip" + " " * 27 + "│")
         print("└" + "─" * 58 + "┘")
         print()
@@ -366,7 +366,7 @@ def _prompt_for_sudo_password(timeout_seconds: int = 45) -> str:
             return password
         else:
             print("\n  ⏱ Timeout - continuing without sudo")
-            print("    (Press Enter to dismiss)")
+            print("(Press 输入 to dismiss)")
             print()
             sys.stdout.flush()
             return ""
@@ -1180,7 +1180,7 @@ def cleanup_all_environments():
     for path in glob.glob(str(scratch_dir / "hermes-*")):
         try:
             shutil.rmtree(path, ignore_errors=True)
-            logger.info("Removed orphaned: %s", path)
+            logger.info("已移除 orphaned: %s", path)
         except OSError as e:
             logger.debug("Failed to remove orphaned path %s: %s", path, e)
     
@@ -1867,7 +1867,7 @@ def check_terminal_requirements() -> bool:
             from tools.environments.docker import find_docker
             docker = find_docker()
             if not docker:
-                logger.error("Docker executable not found in PATH or common install locations")
+                logger.error("Docker executable 未找到 in PATH or common install locations")
                 return False
             result = subprocess.run([docker, "version"], capture_output=True, timeout=5)
             return result.returncode == 0

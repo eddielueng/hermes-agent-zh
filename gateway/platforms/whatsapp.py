@@ -354,12 +354,12 @@ class WhatsAppAdapter(BasePlatformAdapter):
         This launches the Node.js bridge process and waits for it to be ready.
         """
         if not check_whatsapp_requirements():
-            logger.warning("[%s] Node.js not found. WhatsApp requires Node.js.", self.name)
+            logger.warning("[%s] Node.js 未找到. WhatsApp requires Node.js.", self.name)
             return False
         
         bridge_path = Path(self._bridge_script)
         if not bridge_path.exists():
-            logger.warning("[%s] Bridge script not found: %s", self.name, bridge_path)
+            logger.warning("[%s] Bridge script 未找到: %s", self.name, bridge_path)
             return False
         
         logger.info("[%s] Bridge found at %s", self.name, bridge_path)

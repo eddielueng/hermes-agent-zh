@@ -4338,7 +4338,7 @@ class AIAgent:
                 seen.add(key)
                 unique.append(tc)
             else:
-                logger.warning("Removed duplicate tool call: %s", tc.function.name)
+                logger.warning("已移除 duplicate tool call: %s", tc.function.name)
         return unique if len(unique) < len(tool_calls) else tool_calls
 
     def _repair_tool_call(self, tool_name: str) -> str | None:
@@ -8807,7 +8807,7 @@ class AIAgent:
         
         if not self.quiet_mode:
             _print_preview = _summarize_user_message_for_log(user_message)
-            self._safe_print(f"💬 Starting conversation: '{_print_preview[:60]}{'...' if len(_print_preview) > 60 else ''}'")
+            self._safe_print(f"💬 正在启动 conversation:'{_print_preview[:60]}{'...' if len(_print_preview) > 60 else ''}'")
         
         # ── System prompt (cached per session for prefix caching) ──
         # Built once on first call, reused for all subsequent calls.

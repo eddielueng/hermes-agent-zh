@@ -293,7 +293,7 @@ async def mixture_of_agents_tool(
     }
     
     try:
-        logger.info("Starting Mixture-of-Agents processing...")
+        logger.info("正在启动 Mixture-of-Agents processing...")
         logger.info("Query: %s", user_prompt[:100])
         
         # Validate API key availability

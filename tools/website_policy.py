@@ -73,7 +73,7 @@ def _iter_blocklist_file_rules(path: Path) -> List[str]:
     try:
         raw = path.read_text(encoding="utf-8")
     except FileNotFoundError:
-        logger.warning("Shared blocklist file not found (skipping): %s", path)
+        logger.warning("Shared blocklist file 未找到 (skipping): %s", path)
         return []
     except (OSError, UnicodeDecodeError) as exc:
         logger.warning("Failed to read shared blocklist file %s (skipping): %s", path, exc)

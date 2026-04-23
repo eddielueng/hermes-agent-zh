@@ -1001,7 +1001,7 @@ Write only the summary, starting with "[CONTEXT SUMMARY]:" prefix."""
             return
         
         # Load ALL entries from all files
-        console.print("\n[dim]Loading all entries...[/dim]")
+        console.print("\n[dim]正在加载 all entries...[/dim]")
         all_entries = []  # List of (file_path, entry_idx, entry)
         
         for file_path in jsonl_files:

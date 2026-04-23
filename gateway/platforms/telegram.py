@@ -944,7 +944,7 @@ class TelegramAdapter(BasePlatformAdapter):
         self._mark_disconnected()
         self._app = None
         self._bot = None
-        logger.info("[%s] Disconnected from Telegram", self.name)
+        logger.info("[%s] 已断开连接 Telegram", self.name)
 
     def _should_thread_reply(self, reply_to: Optional[str], chunk_index: int) -> bool:
         """Determine if this message chunk should thread to the original message.
@@ -1444,7 +1444,7 @@ class TelegramAdapter(BasePlatformAdapter):
                 None,
             )
             if not provider:
-                await query.answer(text="Provider not found.")
+                await query.answer(text="Provider 未找到.")
                 return
 
             models = provider.get("models", [])

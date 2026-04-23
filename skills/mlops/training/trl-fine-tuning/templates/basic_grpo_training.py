@@ -156,12 +156,12 @@ def main():
     """Main training function."""
 
     # Load data
-    print("Loading dataset...")
+    print("正在加载 dataset...")
     dataset = get_dataset()
     print(f"Dataset size: {len(dataset)}")
 
     # Setup model
-    print("Loading model...")
+    print("正在加载 model...")
     model, tokenizer = setup_model_and_tokenizer()
 
     # Training configuration
@@ -215,7 +215,7 @@ def main():
     )
 
     # Train
-    print("Starting training...")
+    print("正在启动 training...")
     trainer.train()
 
     # Save final model

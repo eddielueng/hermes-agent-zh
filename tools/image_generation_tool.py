@@ -829,7 +829,7 @@ if __name__ == "__main__":
         import fal_client  # noqa: F401
         print("✅ fal_client library available")
     except ImportError:
-        print("❌ fal_client library not found — pip install fal-client")
+        print("❌ fal_client library 未找到 — pip install fal-client")
         raise SystemExit(1)
 
     model_id, meta = _resolve_fal_model()

@@ -396,7 +396,7 @@ class HermesACPAgent(acp.Agent):
     ) -> LoadSessionResponse | None:
         state = self.session_manager.update_cwd(session_id, cwd)
         if state is None:
-            logger.warning("load_session: session %s not found", session_id)
+            logger.warning("load_session: session %s 未找到", session_id)
             return None
         await self._register_session_mcp_servers(state, mcp_servers)
         logger.info("Loaded session %s", session_id)
@@ -412,7 +412,7 @@ class HermesACPAgent(acp.Agent):
     ) -> ResumeSessionResponse:
         state = self.session_manager.update_cwd(session_id, cwd)
         if state is None:
-            logger.warning("resume_session: session %s not found, creating new", session_id)
+            logger.warning("resume_session: session %s 未找到, creating new", session_id)
             state = self.session_manager.create_session(cwd=cwd)
         await self._register_session_mcp_servers(state, mcp_servers)
         logger.info("Resumed session %s", state.session_id)
@@ -508,7 +508,7 @@ class HermesACPAgent(acp.Agent):
         """Run Hermes on the user's prompt and stream events back to the editor."""
         state = self.session_manager.get_session(session_id)
         if state is None:
-            logger.error("prompt: session %s not found", session_id)
+            logger.error("prompt: session %s 未找到", session_id)
             return PromptResponse(stop_reason="refusal")
 
         user_text = _extract_text(prompt).strip()

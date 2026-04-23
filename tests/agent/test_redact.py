@@ -246,7 +246,7 @@ class TestElevenLabsTavilyExaKeys:
         assert "abc123def456ghi" not in result
 
     def test_elevenlabs_key_in_log_line(self):
-        text = "Connecting to ElevenLabs with key sk_abc123def456ghi789jklmnopqrstu"
+        text = "连接到 ElevenLabs with key sk_abc123def456ghi789jklmnopqrstu"
         result = redact_sensitive_text(text)
         assert "abc123def456ghi" not in result
 

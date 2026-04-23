@@ -562,7 +562,7 @@ class HindsightMemoryProvider(MemoryProvider):
                         logger.warning("Auto-upgrade failed: %s. Run: uv pip install 'hindsight-client>=%s'",
                                        e, _MIN_CLIENT_VERSION)
                 else:
-                    logger.warning("uv not found. Run: pip install 'hindsight-client>=%s'", _MIN_CLIENT_VERSION)
+                    logger.warning("uv 未找到. Run: pip install'hindsight-client>=%s'", _MIN_CLIENT_VERSION)
         except Exception:
             pass  # packaging not available or other issue — proceed anyway
 

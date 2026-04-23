@@ -252,7 +252,7 @@ def main():
     if config['env_type'] != 'modal':
         print(f"\n⚠️  WARNING: TERMINAL_ENV is set to '{config['env_type']}', not 'modal'")
         print("   To test Modal specifically, set TERMINAL_ENV=modal")
-        response = input("\n   Continue testing with current backend? (y/n): ")
+        response = input("\n   继续 testing with current backend? (y/n):")
         if response.lower() != 'y':
             print("Aborting.")
             return

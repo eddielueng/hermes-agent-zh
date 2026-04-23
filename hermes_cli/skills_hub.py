@@ -431,7 +431,7 @@ def do_install(identifier: str, category: str = "", force: bool = False,
             ))
         c.print(f"[bold]Install '{bundle.name}'?[/]")
         try:
-            answer = input("Confirm [y/N]: ").strip().lower()
+            answer = input("确认 [y/N]:").strip().lower()
         except (EOFError, KeyboardInterrupt):
             answer = "n"
         if answer not in ("y", "yes"):
@@ -613,7 +613,7 @@ def do_list(source_filter: str = "all", console: Optional[Console] = None) -> No
 
     all_skills = _find_all_skills()
 
-    table = Table(title="Installed Skills")
+    table = Table(title="已安装 Skills")
     table.add_column("Name", style="bold cyan")
     table.add_column("Category", style="dim")
     table.add_column("Source", style="dim")
@@ -745,7 +745,7 @@ def do_uninstall(name: str, console: Optional[Console] = None,
     if not skip_confirm:
         c.print(f"\n[bold]Uninstall '{name}'?[/]")
         try:
-            answer = input("Confirm [y/N]: ").strip().lower()
+            answer = input("确认 [y/N]:").strip().lower()
         except (EOFError, KeyboardInterrupt):
             answer = "n"
         if answer not in ("y", "yes"):
@@ -781,7 +781,7 @@ def do_reset(name: str, restore: bool = False,
         c.print(f"\n[bold]Restore '{name}' from bundled source?[/]")
         c.print("[dim]This will DELETE your current copy and re-copy the bundled version.[/]")
         try:
-            answer = input("Confirm [y/N]: ").strip().lower()
+            answer = input("确认 [y/N]:").strip().lower()
         except (EOFError, KeyboardInterrupt):
             answer = "n"
         if answer not in ("y", "yes"):

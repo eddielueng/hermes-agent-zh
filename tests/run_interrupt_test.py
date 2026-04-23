@@ -100,7 +100,7 @@ def main() -> int:
                     import traceback
                     traceback.print_exc()
 
-    print("Starting agent thread...")
+    print("正在启动 agent thread...")
     agent_thread = threading.Thread(target=run_delegate, daemon=True)
     agent_thread.start()
 

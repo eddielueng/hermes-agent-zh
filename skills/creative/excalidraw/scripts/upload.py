@@ -28,7 +28,7 @@ import urllib.request
 try:
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 except ImportError:
-    print("Error: 'cryptography' package is required for upload.")
+    print("错误：'cryptography' package is required for upload.")
     print("Install it with: pip install cryptography")
     sys.exit(1)
 

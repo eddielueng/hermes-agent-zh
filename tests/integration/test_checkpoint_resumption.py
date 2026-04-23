@@ -141,7 +141,7 @@ def test_current_implementation():
     
     # Start monitoring in a separate process would be ideal, but for simplicity
     # we'll just check before and after
-    print(f"\n▶️  Starting batch run...")
+    print(f"\n▶️  正在启动 batch run...")
     print(f"   Dataset: {dataset_file}")
     print(f"   Batch size: 3 (4 batches total)")
     print(f"   Workers: 2")
@@ -233,7 +233,7 @@ def test_interruption_and_resume():
     
     checkpoint_file = output_dir / "checkpoint.json"
     
-    print(f"\n▶️  Starting first run (will process 5 prompts, then simulate interruption)...")
+    print(f"\n▶️  正在启动 first run (will process 5 prompts, then simulate interruption)...")
     
     temp_dataset = Path("tests/test_data/checkpoint_test_resume_partial.jsonl")
     try:
@@ -268,7 +268,7 @@ def test_interruption_and_resume():
         print(f"✅ First run completed: {initial_completed} prompts saved to checkpoint")
         
         # Now try to resume with full dataset
-        print(f"\n▶️  Starting resume run with full dataset (15 prompts)...")
+        print(f"\n▶️  正在启动 resume run with full dataset (15 prompts)...")
         
         runner2 = BatchRunner(
             dataset_file=str(dataset_file),

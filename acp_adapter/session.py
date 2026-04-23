@@ -170,7 +170,7 @@ class SessionManager:
             self._sessions[session_id] = state
         _register_task_cwd(session_id, cwd)
         self._persist(state)
-        logger.info("Created ACP session %s (cwd=%s)", session_id, cwd)
+        logger.info("已创建 ACP session %s (cwd=%s)", session_id, cwd)
         return state
 
     def get_session(self, session_id: str) -> Optional[SessionState]:

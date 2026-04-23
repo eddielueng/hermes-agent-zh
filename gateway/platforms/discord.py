@@ -557,7 +557,7 @@ class DiscordAdapter(BasePlatformAdapter):
                 except Exception:
                     logger.warning("Opus codec found at %s but failed to load", opus_path)
             if not discord.opus.is_loaded():
-                logger.warning("Opus codec not found — voice channel playback disabled")
+                logger.warning("Opus codec 未找到 — voice channel playback disabled")
 
         if not self.config.token:
             logger.error("[%s] No bot token configured", self.name)
@@ -2006,7 +2006,7 @@ class DiscordAdapter(BasePlatformAdapter):
         async def slash_personality(interaction: discord.Interaction, name: str = ""):
             await self._run_simple_slash(interaction, f"/personality {name}".strip())
 
-        @tree.command(name="retry", description="Retry your last message")
+        @tree.command(name="retry", description="重试 your last message")
         async def slash_retry(interaction: discord.Interaction):
             await self._run_simple_slash(interaction, "/retry", "Retrying~")
 
@@ -3579,7 +3579,7 @@ if DISCORD_AVAILABLE:
             self.add_item(select)
 
             cancel_btn = discord.ui.Button(
-                label="Cancel", style=discord.ButtonStyle.red, custom_id="model_cancel"
+                label="取消", style=discord.ButtonStyle.red, custom_id="model_cancel"
             )
             cancel_btn.callback = self._on_cancel
             self.add_item(cancel_btn)
@@ -3621,7 +3621,7 @@ if DISCORD_AVAILABLE:
             self.add_item(back_btn)
 
             cancel_btn = discord.ui.Button(
-                label="Cancel", style=discord.ButtonStyle.red, custom_id="model_cancel2"
+                label="取消", style=discord.ButtonStyle.red, custom_id="model_cancel2"
             )
             cancel_btn.callback = self._on_cancel
             self.add_item(cancel_btn)

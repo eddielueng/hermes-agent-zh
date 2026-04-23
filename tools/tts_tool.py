@@ -261,7 +261,7 @@ def _convert_to_opus(mp3_path: str) -> Optional[str]:
     except subprocess.TimeoutExpired:
         logger.warning("ffmpeg OGG conversion timed out after 30s")
     except FileNotFoundError:
-        logger.warning("ffmpeg not found in PATH")
+        logger.warning("ffmpeg 未找到 in PATH")
     except Exception as e:
         logger.warning("ffmpeg OGG conversion failed: %s", e, exc_info=True)
     return None
@@ -880,7 +880,7 @@ def _generate_kittentts(text: str, output_path: str, tts_config: Dict[str, Any])
     # Use cached model instance if available
     global _kittentts_model_cache
     if model_name not in _kittentts_model_cache:
-        logger.info("[KittenTTS] Loading model: %s", model_name)
+        logger.info("[KittenTTS] 正在加载 model: %s", model_name)
         _kittentts_model_cache[model_name] = KittenTTS(model_name)
         logger.info("[KittenTTS] Model loaded successfully")
 

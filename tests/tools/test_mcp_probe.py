@@ -100,7 +100,7 @@ class TestProbeMcpServerTools:
 
         async def fake_connect(name, cfg):
             if name == "broken":
-                raise ConnectionError("Server not found")
+                raise ConnectionError("Server 未找到")
             return mock_server
 
         with patch("tools.mcp_tool._MCP_AVAILABLE", True), \

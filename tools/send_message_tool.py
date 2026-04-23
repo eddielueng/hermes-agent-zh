@@ -1015,7 +1015,7 @@ async def _send_signal(extra, chat_id, message, media_files=None):
             if os.path.exists(media_path):
                 attachment_paths.append(media_path)
             else:
-                logger.warning("Signal media file not found, skipping: %s", media_path)
+                logger.warning("Signal media file 未找到, skipping: %s", media_path)
 
         if attachment_paths:
             params["attachments"] = attachment_paths

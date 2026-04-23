@@ -488,7 +488,7 @@ class HonchoSessionManager:
         # Cache under the original key so callers find it by the expected name
         self._cache[key] = session
 
-        logger.info("Created new session for %s (honcho: %s)", key, session.honcho_session_id)
+        logger.info("已创建 new session for %s (honcho: %s)", key, session.honcho_session_id)
         return session
 
     _REASONING_LEVELS = ("minimal", "low", "medium", "high", "max")
@@ -1082,7 +1082,7 @@ class HonchoSessionManager:
                 "content": content.strip(),
                 "session_id": session.honcho_session_id,
             }])
-            logger.info("Created conclusion about %s for %s: %s", target_peer_id, session_key, content[:80])
+            logger.info("已创建 conclusion about %s for %s: %s", target_peer_id, session_key, content[:80])
             return True
         except Exception as e:
             logger.error("Failed to create conclusion: %s", e)
@@ -1114,7 +1114,7 @@ class HonchoSessionManager:
                 target_peer = self._get_or_create_peer(target_peer_id)
                 scope = target_peer.conclusions_of(target_peer_id)
             scope.delete(conclusion_id)
-            logger.info("Deleted conclusion %s for %s", conclusion_id, session_key)
+            logger.info("已删除 conclusion %s for %s", conclusion_id, session_key)
             return True
         except Exception as e:
             logger.error("Failed to delete conclusion %s: %s", conclusion_id, e)
@@ -1141,7 +1141,7 @@ class HonchoSessionManager:
                 return None
             peer_obj = self._get_or_create_peer(peer_id)
             result = peer_obj.set_card(card)
-            logger.info("Updated peer card for %s (%d facts)", peer_id, len(card))
+            logger.info("已更新 peer card for %s (%d facts)", peer_id, len(card))
             return result
         except Exception as e:
             logger.error("Failed to set peer card: %s", e)

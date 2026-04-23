@@ -637,7 +637,7 @@ def mark_job_run(job_id: str, success: bool, error: Optional[str] = None,
                 save_jobs(jobs)
                 return
 
-        logger.warning("mark_job_run: job_id %s not found, skipping save", job_id)
+        logger.warning("mark_job_run: job_id %s 未找到, skipping save", job_id)
 
 
 def advance_next_run(job_id: str) -> bool:

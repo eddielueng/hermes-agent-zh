@@ -103,7 +103,7 @@ def _install_dependencies(provider_name: str) -> None:
     import shutil
     uv_path = shutil.which("uv")
     if not uv_path:
-        print(f"  ⚠ uv not found — cannot install dependencies")
+        print(f"⚠ uv 未找到 — cannot install dependencies")
         print(f"  Install uv: curl -LsSf https://astral.sh/uv/install.sh | sh")
         print(f"  Then re-run: hermes memory setup")
         return
@@ -434,7 +434,7 @@ def cmd_status(args) -> None:
 
     providers = _get_available_providers()
     if providers:
-        print(f"\n  Installed plugins:")
+        print(f"\n  已安装 plugins:")
         for pname, desc, _ in providers:
             active = " ← active" if pname == provider_name else ""
             print(f"    • {pname}  ({desc}){active}")

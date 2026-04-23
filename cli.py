@@ -203,7 +203,7 @@ def _load_prefill_messages(file_path: str) -> List[Dict[str, Any]]:
     if not path.is_absolute():
         path = _hermes_home / path
     if not path.exists():
-        logger.warning("Prefill messages file not found: %s", path)
+        logger.warning("Prefill messages file 未找到: %s", path)
         return []
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -5725,7 +5725,7 @@ class HermesCLI:
                 skills=skills or None,
             )
             if result.get("success"):
-                print(f"(^_^)b Created job: {result['job_id']}")
+                print(f"(^_^)b 已创建 job: {result['job_id']}")
                 print(f"  Schedule: {result['schedule']}")
                 if result.get("skills"):
                     print(f"  Skills: {', '.join(result['skills'])}")
@@ -5772,7 +5772,7 @@ class HermesCLI:
             )
             if result.get("success"):
                 job = result["job"]
-                print(f"(^_^)b Updated job: {job['job_id']}")
+                print(f"(^_^)b 已更新 job: {job['job_id']}")
                 print(f"  Schedule: {job['schedule']}")
                 if job.get("skills"):
                     print(f"  Skills: {', '.join(job['skills'])}")
@@ -5803,7 +5803,7 @@ class HermesCLI:
                 print("  It will run on the next scheduler tick.")
             else:
                 removed = result.get("removed_job", {})
-                print(f"(^_^)b Removed job: {removed.get('name', job_id)} ({job_id})")
+                print(f"(^_^)b 已移除 job: {removed.get('name', job_id)} ({job_id})")
             return
 
         print(f"(._.) Unknown cron command: {subcommand}")
@@ -5991,7 +5991,7 @@ class HermesCLI:
                                 if self._session_db.set_session_title(self.session_id, new_title):
                                     _cprint(f"  Session title set: {new_title}")
                                 else:
-                                    _cprint("  Session not found in database.")
+                                    _cprint("Session 未找到 in database.")
                             except ValueError as e:
                                 _cprint(f"  {e}")
                         else:
@@ -10240,7 +10240,7 @@ class HermesCLI:
                 return []
             stage = state.get("stage", "provider")
             if stage == "provider":
-                title = "⚙ Model Picker — Select Provider"
+                title = "⚙ Model Picker — 选择 Provider"
                 choices = []
                 _providers = state.get("providers")
                 for p in _providers if isinstance(_providers, list) else []:
@@ -10259,7 +10259,7 @@ class HermesCLI:
                 if model_list:
                     hint = f"Select a model ({len(model_list)} available)"
                 else:
-                    hint = "No models listed for this provider. Use Back or Cancel."
+                    hint = "No models listed for this provider. Use Back or 取消."
 
             box_width = _panel_box_width(title, [hint] + choices, min_width=46, max_width=84)
             inner_text_width = max(8, box_width - 6)
@@ -10880,7 +10880,7 @@ def main(
     if gateway:
         import asyncio
         from gateway.run import start_gateway
-        print("Starting Hermes Gateway (messaging platforms)...")
+        print("正在启动 Hermes Gateway (messaging platforms)...")
         asyncio.run(start_gateway())
         return
 

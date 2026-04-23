@@ -505,7 +505,7 @@ class TestSSHBulkUploadEdgeCases:
             call_count += 1
             if call_count == 1:
                 return mock_tar  # tar Popen succeeds
-            raise OSError("SSH binary not found")
+            raise OSError("SSH binary 未找到")
 
         with patch.object(subprocess, "run",
                           return_value=subprocess.CompletedProcess([], 0)), \

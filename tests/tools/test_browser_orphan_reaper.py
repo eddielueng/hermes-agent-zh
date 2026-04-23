@@ -329,7 +329,7 @@ class TestOwnerPidCrossProcess:
         import tools.browser_tool as bt
 
         def raise_oserror(*a, **kw):
-            raise OSError("permission denied")
+            raise OSError("权限被拒绝")
 
         monkeypatch.setattr("builtins.open", raise_oserror)
 

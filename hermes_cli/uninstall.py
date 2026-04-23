@@ -360,7 +360,7 @@ def run_uninstall(args):
             )).strip().lower()
         except (KeyboardInterrupt, EOFError):
             print()
-            print("Cancelled.")
+            print("已取消。")
             return
         remove_profiles = resp in ("y", "yes")
 

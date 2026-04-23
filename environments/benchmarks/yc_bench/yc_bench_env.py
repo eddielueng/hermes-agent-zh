@@ -240,7 +240,7 @@ def _read_final_score(db_path: str) -> Dict[str, Any]:
     'sim_events' not 'simulation_log'.
     """
     if not os.path.exists(db_path):
-        logger.warning("DB not found at %s", db_path)
+        logger.warning("DB 未找到 at %s", db_path)
         return {
             "final_funds_cents": 0,
             "survived": False,
@@ -681,7 +681,7 @@ class YCBenchEvalEnv(HermesAgentBaseEnv):
 
         # --- Print config summary ---
         print(f"\n{'='*60}")
-        print("Starting YC-Bench Evaluation")
+        print("正在启动 YC-Bench Evaluation")
         print(f"{'='*60}")
         print(f"  Presets: {self.config.presets}")
         print(f"  Seeds: {self.config.seeds}")

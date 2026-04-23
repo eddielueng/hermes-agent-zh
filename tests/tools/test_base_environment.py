@@ -134,7 +134,7 @@ class TestInitSessionFailure:
         env = _TestableEnv()
 
         def failing_run_bash(*args, **kwargs):
-            raise RuntimeError("bash not found")
+            raise RuntimeError("bash 未找到")
 
         env._run_bash = failing_run_bash
         env.init_session()

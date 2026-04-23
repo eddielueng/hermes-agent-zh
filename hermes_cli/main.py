@@ -567,7 +567,7 @@ def _session_browse_picker(sessions: list) -> Optional[str]:
                 return sessions[idx]["id"]
             print(f"  Invalid selection. Enter 1-{len(sessions)} or q to cancel.")
         except ValueError:
-            print("  Invalid input. Enter a number or q to cancel.")
+            print("Invalid input. 输入 a number or q to cancel.")
         except (KeyboardInterrupt, EOFError):
             print()
             return None
@@ -1307,7 +1307,7 @@ def cmd_whatsapp(args):
         print("\n→ Installing WhatsApp bridge dependencies (this can take a few minutes)...")
         npm = shutil.which("npm")
         if not npm:
-            print("  ✗ npm not found on PATH — install Node.js first")
+            print("✗ npm 未找到 on PATH — install Node.js first")
             return
         try:
             result = subprocess.run(
@@ -1388,7 +1388,7 @@ def cmd_whatsapp(args):
             print("  Next steps:")
             print("    1. Start the gateway:  hermes gateway")
             print("    2. Open WhatsApp → Message Yourself")
-            print("    3. Type a message — the agent will reply")
+            print("3. 输入 a message — the agent will reply")
             print()
             print("  Tip: Agent responses are prefixed with '⚕ Hermes Agent'")
             print("  so you can tell them apart from your own messages.")
@@ -1905,7 +1905,7 @@ def _aux_flow_provider_model(
     # to a raw input prompt.
     if not model_list:
         print(f"No curated model list for {provider_slug}.")
-        print("Enter a model slug manually (blank = use provider default):")
+        print("输入 a model slug manually (blank = use provider default):")
         try:
             val = input("Model: ").strip()
         except (KeyboardInterrupt, EOFError):
@@ -1988,7 +1988,7 @@ def _prompt_provider_choice(choices, *, default=0):
         pass
 
     # Fallback: numbered list
-    print("Select provider:")
+    print("选择 provider:")
     for i, c in enumerate(choices, 1):
         marker = "→" if i - 1 == default else " "
         print(f"  {marker} {i}. {c}")
@@ -2031,7 +2031,7 @@ def _model_flow_openrouter(config, current_model=""):
             print()
             return
         if not key:
-            print("Cancelled.")
+            print("已取消。")
             return
         save_env_value("OPENROUTER_API_KEY", key)
         print("API key saved.")
@@ -2091,7 +2091,7 @@ def _model_flow_ai_gateway(config, current_model=""):
             print()
             return
         if not key:
-            print("Cancelled.")
+            print("已取消。")
             return
         save_env_value("AI_GATEWAY_API_KEY", key)
         print("API key saved.")
@@ -2148,7 +2148,7 @@ def _model_flow_nous(config, current_model="", args=None):
 
     state = get_provider_auth_state("nous")
     if not state or not state.get("access_token"):
-        print("Not logged into Nous Portal. Starting login...")
+        print("Not logged into Nous Portal. 正在启动 login...")
         print()
         try:
             mock_args = argparse.Namespace(
@@ -2312,7 +2312,7 @@ def _model_flow_openai_codex(config, current_model=""):
 
     status = get_codex_auth_status()
     if not status.get("logged_in"):
-        print("Not logged into OpenAI Codex. Starting login...")
+        print("Not logged into OpenAI Codex. 正在启动 login...")
         print()
         try:
             mock_args = argparse.Namespace()
@@ -2429,12 +2429,12 @@ def _model_flow_google_gemini_cli(_config, current_model=""):
     print("   for the lowest-risk experience.")
     print()
     try:
-        proceed = input("Continue with OAuth login? [y/N]: ").strip().lower()
+        proceed = input("继续 with OAuth login? [y/N]:").strip().lower()
     except (EOFError, KeyboardInterrupt):
-        print("Cancelled.")
+        print("已取消。")
         return
     if proceed not in {"y", "yes"}:
-        print("Cancelled.")
+        print("已取消。")
         return
 
     status = get_gemini_oauth_auth_status()
@@ -2785,7 +2785,7 @@ def _remove_custom_provider(config):
             menu_highlight_style=("fg_red",),
             cycle_cursor=True,
             clear_screen=False,
-            title="Select provider to remove:",
+            title="选择 provider to remove:",
         )
         idx = menu.show()
         from hermes_cli.curses_ui import flush_stdin
@@ -2870,7 +2870,7 @@ def _model_flow_named_custom(config, provider_info):
             flush_stdin()
             print()
             if idx is None or idx >= len(models):
-                print("Cancelled.")
+                print("已取消。")
                 return
             model_name = models[idx]
         except (ImportError, NotImplementedError, OSError, subprocess.SubprocessError):
@@ -2882,11 +2882,11 @@ def _model_flow_named_custom(config, provider_info):
             try:
                 val = input(f"Choice [1-{len(models) + 1}]: ").strip()
                 if not val:
-                    print("Cancelled.")
+                    print("已取消。")
                     return
                 idx = int(val) - 1
                 if idx < 0 or idx >= len(models):
-                    print("Cancelled.")
+                    print("已取消。")
                     return
                 model_name = models[idx]
             except (ValueError, KeyboardInterrupt, EOFError):
@@ -2900,7 +2900,7 @@ def _model_flow_named_custom(config, provider_info):
             print("\nCancelled.")
             return
     else:
-        print("Could not fetch models from endpoint. Enter model name manually.")
+        print("Could not fetch models from endpoint. 输入 model name manually.")
         try:
             model_name = input("Model name: ").strip()
         except (KeyboardInterrupt, EOFError):
@@ -3021,7 +3021,7 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
             menu_highlight_style=("fg_green",),
             cycle_cursor=True,
             clear_screen=False,
-            title="Select reasoning effort:",
+            title="选择 reasoning effort:",
         )
         idx = menu.show()
         from hermes_cli.curses_ui import flush_stdin
@@ -3038,7 +3038,7 @@ def _prompt_reasoning_effort_selection(efforts, current_effort=""):
     except (ImportError, NotImplementedError, OSError, subprocess.SubprocessError):
         pass
 
-    print("Select reasoning effort:")
+    print("选择 reasoning effort:")
     for i, effort in enumerate(ordered, 1):
         print(f"  {i}. {_label(effort)}")
     n = len(ordered)
@@ -3103,8 +3103,8 @@ def _model_flow_copilot(config, current_model=""):
         print()
         print("  Options:")
         print("    1. Login with GitHub (OAuth device code flow)")
-        print("    2. Enter a token manually")
-        print("    3. Cancel")
+        print("2. 输入 a token manually")
+        print("3. 取消")
         print()
         try:
             choice = input("  Choice [1-3]: ").strip()
@@ -3136,7 +3136,7 @@ def _model_flow_copilot(config, current_model=""):
                 print()
                 return
             if not new_key:
-                print("  Cancelled.")
+                print("已取消。")
                 return
             # Validate token type
             try:
@@ -3152,7 +3152,7 @@ def _model_flow_copilot(config, current_model=""):
             print("  Token saved.")
             print()
         else:
-            print("  Cancelled.")
+            print("已取消。")
             return
 
         creds = resolve_api_key_provider_credentials(provider_id)
@@ -3414,7 +3414,7 @@ def _model_flow_kimi(config, current_model=""):
                 print()
                 return
             if not new_key:
-                print("Cancelled.")
+                print("已取消。")
                 return
             save_env_value(key_env, new_key)
             existing_key = new_key
@@ -3455,7 +3455,7 @@ def _model_flow_kimi(config, current_model=""):
         selected = _prompt_model_selection(model_list, current_model=current_model)
     else:
         try:
-            selected = input("Enter model name: ").strip()
+            selected = input("输入 model name:").strip()
         except (KeyboardInterrupt, EOFError):
             selected = None
 
@@ -3533,7 +3533,7 @@ def _model_flow_stepfun(config, current_model=""):
                 print()
                 return
             if not new_key:
-                print("Cancelled.")
+                print("已取消。")
                 return
             save_env_value(key_env, new_key)
             existing_key = new_key
@@ -3650,7 +3650,7 @@ def _model_flow_bedrock_api_key(config, region, current_model=""):
             print()
             return
         if not api_key:
-            print("  Cancelled.")
+            print("已取消。")
             return
         save_env_value("AWS_BEARER_TOKEN_BEDROCK", api_key)
         existing_key = api_key
@@ -3753,12 +3753,12 @@ def _model_flow_bedrock(config, current_model=""):
     region = region_input or current_region
 
     # 2b. Authentication mode
-    print("  Choose authentication method:")
+    print("选择 authentication method:")
     print()
     print("    1. IAM credential chain (recommended)")
     print("       Works with EC2 instance roles, SSO, env vars, aws configure")
     print("    2. Bedrock API Key")
-    print("       Enter your Bedrock API Key directly — also supports")
+    print("输入 your Bedrock API Key directly — also supports")
     print("       team scenarios where an admin distributes keys")
     print()
     try:
@@ -3927,7 +3927,7 @@ def _model_flow_api_key_provider(config, provider_id, current_model=""):
                 print()
                 return
             if not new_key:
-                print("Cancelled.")
+                print("已取消。")
                 return
             save_env_value(key_env, new_key)
             print("API key saved.")
@@ -4186,7 +4186,7 @@ def _model_flow_anthropic(config, current_model=""):
         print()
         print("    1. Use existing credentials")
         print("    2. Reauthenticate (new OAuth login)")
-        print("    3. Cancel")
+        print("3. 取消")
         print()
         try:
             choice = input("  Choice [1/2/3]: ").strip()
@@ -4202,11 +4202,11 @@ def _model_flow_anthropic(config, current_model=""):
     if needs_auth:
         # Show auth method choice
         print()
-        print("  Choose authentication method:")
+        print("选择 authentication method:")
         print()
         print("    1. Claude Pro/Max subscription (OAuth login)")
         print("    2. Anthropic API key (pay-per-token)")
-        print("    3. Cancel")
+        print("3. 取消")
         print()
         try:
             choice = input("  Choice [1/2/3]: ").strip()
@@ -4230,7 +4230,7 @@ def _model_flow_anthropic(config, current_model=""):
                 print()
                 return
             if not api_key:
-                print("  Cancelled.")
+                print("已取消。")
                 return
             save_anthropic_api_key(api_key, save_fn=save_env_value)
             print("  ✓ API key saved.")
@@ -5077,7 +5077,7 @@ def _sync_with_upstream_if_needed(git_cmd: list[str], cwd: Path) -> None:
         )
         return
 
-    print("  ✓ Updated from upstream")
+    print("✓ 已更新 from upstream")
 
     # Try to sync fork back to origin
     print("→ Syncing fork...")
@@ -6078,7 +6078,7 @@ def _cmd_update_impl(args, gateway_mode: bool):
 
         print()
         print("Tip: You can now select a provider and model:")
-        print("  hermes model              # Select provider and model")
+        print("hermes model              # 选择 provider and model")
 
     except subprocess.CalledProcessError as e:
         if sys.platform == "win32":
@@ -6403,7 +6403,7 @@ def cmd_profile(args):
 
         if remove:
             if remove_wrapper_script(alias_name):
-                print(f"✓ Removed alias '{alias_name}'")
+                print(f"✓ 已移除 alias'{alias_name}'")
             else:
                 print(f"No alias '{alias_name}' found to remove.")
         else:
@@ -8269,10 +8269,10 @@ Examples:
                 if not _confirm_prompt(
                     f"Delete session '{resolved_session_id}' and all its messages? [y/N] "
                 ):
-                    print("Cancelled.")
+                    print("已取消。")
                     return
             if db.delete_session(resolved_session_id):
-                print(f"Deleted session '{resolved_session_id}'.")
+                print(f"已删除 session'{resolved_session_id}'.")
             else:
                 print(f"Session '{args.session_id}' not found.")
 
@@ -8283,7 +8283,7 @@ Examples:
                 if not _confirm_prompt(
                     f"Delete all ended sessions older than {days} days{source_msg}? [y/N] "
                 ):
-                    print("Cancelled.")
+                    print("已取消。")
                     return
             count = db.prune_sessions(older_than_days=days, source=args.source)
             print(f"Pruned {count} session(s).")
@@ -8316,7 +8316,7 @@ Examples:
 
             selected_id = _session_browse_picker(sessions)
             if not selected_id:
-                print("Cancelled.")
+                print("已取消。")
                 return
 
             # Launch hermes --resume <id> by replacing the current process

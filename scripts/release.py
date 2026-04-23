@@ -890,7 +890,7 @@ def main():
             print(f"  ✓ Pushed to origin")
         else:
             print(f"  ✗ Failed to push to origin: {push_result.stderr.strip()}")
-            print("    Continue manually after fixing access:")
+            print("继续 manually after fixing access:")
             print("    git push origin HEAD --tags")
 
         # Build semver-named Python artifacts so downstream packagers
@@ -928,7 +928,7 @@ def main():
             print(f"\n  🎉 Release v{new_version} ({tag_name}) published!")
         else:
             if result is None:
-                print("  ✗ GitHub release skipped: `gh` CLI not found.")
+                print("✗ GitHub release skipped: `gh` CLI 未找到.")
             else:
                 print(f"  ✗ GitHub release failed: {result.stderr.strip()}")
             print(f"    Release notes kept at: {changelog_file}")

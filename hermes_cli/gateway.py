@@ -1716,7 +1716,7 @@ def systemd_status(deep: bool = False, system: bool = False, full: bool = False)
         print()
 
     if not systemd_unit_is_current(system=system):
-        print("⚠ Installed gateway service definition is outdated")
+        print("⚠ 已安装 gateway service definition is outdated")
         print(f"  Run: {'sudo ' if system else ''}hermes gateway restart{scope_flag}  # auto-refreshes the unit")
         print()
 
@@ -1921,7 +1921,7 @@ def refresh_launchd_plist_if_needed() -> bool:
     # Bootout/bootstrap so launchd picks up the new definition
     subprocess.run(["launchctl", "bootout", f"{_launchd_domain()}/{label}"], check=False, timeout=90)
     subprocess.run(["launchctl", "bootstrap", _launchd_domain(), str(plist_path)], check=False, timeout=30)
-    print("↻ Updated gateway launchd service definition to match the current Hermes install")
+    print("↻ 已更新 gateway launchd service definition to match the current Hermes install")
     return True
 
 
@@ -2140,7 +2140,7 @@ def run_gateway(verbose: int = 0, quiet: bool = False, replace: bool = False):
     print("│           ⚕ Hermes Gateway Starting...                 │")
     print("├─────────────────────────────────────────────────────────┤")
     print("│  Messaging platforms + cron scheduler                    │")
-    print("│  Press Ctrl+C to stop                                   │")
+    print("│  按 Ctrl+C to stop                                   │")
     print("└─────────────────────────────────────────────────────────┘")
     print()
     
@@ -3852,7 +3852,7 @@ def gateway_command(args):
             _wait_for_gateway_exit(timeout=10.0, force_after=5.0)
 
             # Start the current profile's service fresh
-            print("Starting gateway...")
+            print("正在启动 gateway...")
             if supports_systemd_services() and (get_systemd_unit_path(system=False).exists() or get_systemd_unit_path(system=True).exists()):
                 systemd_start(system=system)
             elif is_macos() and get_launchd_plist_path().exists():
@@ -3907,7 +3907,7 @@ def gateway_command(args):
             _wait_for_gateway_exit(timeout=10.0, force_after=5.0)
 
             # Start fresh
-            print("Starting gateway...")
+            print("正在启动 gateway...")
             run_gateway(verbose=0)
     
     elif subcmd == "status":

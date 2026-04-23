@@ -174,7 +174,7 @@ class TestLaunchdPlistPath:
                 assert path_value.startswith(venv_bin + ":")
                 break
         else:
-            raise AssertionError("PATH key not found in plist")
+            raise AssertionError("PATH key 未找到 in plist")
 
     def test_plist_path_includes_node_modules_bin(self):
         plist = gateway_cli.generate_launchd_plist()
@@ -187,7 +187,7 @@ class TestLaunchdPlistPath:
                 assert node_bin in path_value.split(":")
                 break
         else:
-            raise AssertionError("PATH key not found in plist")
+            raise AssertionError("PATH key 未找到 in plist")
 
     def test_plist_path_includes_current_env_path(self, monkeypatch):
         monkeypatch.setenv("PATH", "/custom/bin:/usr/bin:/bin")
@@ -208,7 +208,7 @@ class TestLaunchdPlistPath:
                 assert parts.count(venv_bin) == 1
                 break
         else:
-            raise AssertionError("PATH key not found in plist")
+            raise AssertionError("PATH key 未找到 in plist")
 
 
 class TestLaunchdPlistCurrentness:

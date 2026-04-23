@@ -223,7 +223,7 @@ def test_managed_modal_execute_returns_descriptive_error_on_missing_exec(monkeyp
         if method == "POST" and url.endswith("/execs"):
             return _FakeResponse(202, {"execId": json["execId"], "status": "running"})
         if method == "GET" and "/execs/" in url:
-            return _FakeResponse(404, {"error": "not found"}, text="not found")
+            return _FakeResponse(404, {"error": "未找到"}, text="not found")
         if method == "POST" and url.endswith("/terminate"):
             return _FakeResponse(200, {"status": "terminated"})
         raise AssertionError(f"Unexpected request: {method} {url}")

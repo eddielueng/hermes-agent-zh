@@ -227,7 +227,7 @@ def _verify_cosign(checksums_path: str, sig_path: str, cert_path: str) -> bool |
     """
     cosign = shutil.which("cosign")
     if not cosign:
-        logger.info("cosign not found on PATH")
+        logger.info("cosign 未找到 on PATH")
         return None
 
     try:
@@ -305,7 +305,7 @@ def _install_tirith(*, log_failures: bool = True) -> tuple[str | None, str]:
         sig_path = os.path.join(tmpdir, "checksums.txt.sig")
         cert_path = os.path.join(tmpdir, "checksums.txt.pem")
 
-        logger.info("tirith not found — downloading latest release for %s...", target)
+        logger.info("tirith 未找到 — downloading latest release for %s...", target)
 
         try:
             _download_file(f"{base_url}/{archive_name}", archive_path)
@@ -426,7 +426,7 @@ def _resolve_tirith_path(configured_path: str) -> str:
         if found:
             _resolved_path = found
             return found
-        logger.warning("Configured tirith path %r not found; scanning disabled", configured_path)
+        logger.warning("Configured tirith path %r 未找到; scanning disabled", configured_path)
         _resolved_path = _INSTALL_FAILED
         _install_failure_reason = "explicit_path_missing"
         return expanded

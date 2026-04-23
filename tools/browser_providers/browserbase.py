@@ -151,7 +151,7 @@ class BrowserbaseProvider(CloudBrowserProvider):
             features_enabled["custom_timeout"] = True
 
         feature_str = ", ".join(k for k, v in features_enabled.items() if v)
-        logger.info("Created Browserbase session %s with features: %s", session_name, feature_str)
+        logger.info("已创建 Browserbase session %s with features: %s", session_name, feature_str)
 
         return {
             "session_name": session_name,

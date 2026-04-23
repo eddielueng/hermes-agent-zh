@@ -329,7 +329,7 @@ async def _spawn_training_run(run_state: RunState, config_path: Path):
     
     try:
         # Step 1: Start the Atropos API server (run-api)
-        logger.info("[%s] Starting Atropos API server (run-api)...", run_id)
+        logger.info("[%s] 正在启动 Atropos API server (run-api)...", run_id)
         
         # File must stay open while the subprocess runs; we store the handle
         # on run_state so _stop_training_run() can close it when done.
@@ -395,7 +395,7 @@ async def _spawn_training_run(run_state: RunState, config_path: Path):
             _stop_training_run(run_state)
             return
         
-        logger.info("[%s] Starting environment: %s serve", run_id, env_info.file_path)
+        logger.info("[%s] 正在启动 environment: %s serve", run_id, env_info.file_path)
         
         env_log_file = open(env_log, "w")  # closed by _stop_training_run
         run_state.env_log_file = env_log_file
@@ -465,7 +465,7 @@ def _stop_training_run(run_state: RunState):
     """Stop all processes for a training run."""
     # Stop in reverse order: env -> trainer -> api
     if run_state.env_process and run_state.env_process.poll() is None:
-        logger.info("[%s] Stopping environment process...", run_state.run_id)
+        logger.info("[%s] 正在停止 environment process...", run_state.run_id)
         run_state.env_process.terminate()
         try:
             run_state.env_process.wait(timeout=10)
@@ -473,7 +473,7 @@ def _stop_training_run(run_state: RunState):
             run_state.env_process.kill()
     
     if run_state.trainer_process and run_state.trainer_process.poll() is None:
-        logger.info("[%s] Stopping trainer process...", run_state.run_id)
+        logger.info("[%s] 正在停止 trainer process...", run_state.run_id)
         run_state.trainer_process.terminate()
         try:
             run_state.trainer_process.wait(timeout=10)
@@ -481,7 +481,7 @@ def _stop_training_run(run_state: RunState):
             run_state.trainer_process.kill()
     
     if run_state.api_process and run_state.api_process.poll() is None:
-        logger.info("[%s] Stopping API server...", run_state.run_id)
+        logger.info("[%s] 正在停止 API server...", run_state.run_id)
         run_state.api_process.terminate()
         try:
             run_state.api_process.wait(timeout=10)

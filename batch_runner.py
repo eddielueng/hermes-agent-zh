@@ -801,7 +801,7 @@ class BatchRunner:
             resume (bool): Whether to resume from checkpoint
         """
         print("\n" + "=" * 70)
-        print("🚀 Starting Batch Processing")
+        print("🚀 正在启动 Batch Processing")
         print("=" * 70)
         
         # Smart resume: scan batch files by content to find completed prompts
@@ -895,7 +895,7 @@ class BatchRunner:
             ]
             
             print(f"✅ Created {len(tasks)} batch tasks")
-            print("🚀 Starting parallel batch processing...\n")
+            print("🚀 正在启动 parallel batch processing...\n")
             
             # Use rich Progress for better visual tracking with persistent bottom bar
             # redirect_stdout/stderr lets rich manage all output so progress bar stays clean

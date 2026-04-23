@@ -2938,7 +2938,7 @@ def _prompt_model_selection(
         if idx < len(ordered):
             return ordered[idx]
         elif idx == len(ordered):
-            custom = input("Enter model name: ").strip()
+            custom = input("输入 model name:").strip()
             return custom if custom else None
         return None
     except (ImportError, NotImplementedError, OSError, subprocess.SubprocessError):

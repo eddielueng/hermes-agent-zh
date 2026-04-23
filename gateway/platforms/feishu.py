@@ -4593,7 +4593,7 @@ def _qr_register_inner(
     timeout_seconds: int,
 ) -> Optional[dict]:
     """Run init → begin → poll → probe. Raises on network/protocol errors."""
-    print("  Connecting to Feishu / Lark...", end="", flush=True)
+    print("连接到 Feishu / Lark...", end="", flush=True)
     _init_registration(initial_domain)
     begin = _begin_registration(initial_domain)
     print(" done.")

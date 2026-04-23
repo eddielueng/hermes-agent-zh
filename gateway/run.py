@@ -1305,7 +1305,7 @@ class GatewayRunner:
         if not path.is_absolute():
             path = _hermes_home / path
         if not path.exists():
-            logger.warning("Prefill messages file not found: %s", path)
+            logger.warning("Prefill messages file 未找到: %s", path)
             return []
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -1928,7 +1928,7 @@ class GatewayRunner:
         
         Returns True if at least one adapter connected successfully.
         """
-        logger.info("Starting Hermes Gateway...")
+        logger.info("正在启动 Hermes Gateway...")
         logger.info("Session storage: %s", self.config.sessions_dir)
         try:
             from hermes_cli.profiles import get_active_profile_name
@@ -2084,7 +2084,7 @@ class GatewayRunner:
             adapter.set_busy_session_handler(self._handle_active_session_busy_message)
             
             # Try to connect
-            logger.info("Connecting to %s...", platform.value)
+            logger.info("连接到 %s...", platform.value)
             self._update_platform_runtime_status(
                 platform.value,
                 platform_state="connecting",
@@ -2259,7 +2259,7 @@ class GatewayRunner:
             )
         asyncio.create_task(self._platform_reconnect_watcher())
 
-        logger.info("Press Ctrl+C to stop")
+        logger.info("按 Ctrl+C to stop")
         
         return True
     

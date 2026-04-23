@@ -210,7 +210,7 @@ def _run_git(
     except FileNotFoundError as exc:
         missing_target = getattr(exc, "filename", None)
         if missing_target == "git":
-            logger.error("Git executable not found: %s", " ".join(cmd), exc_info=True)
+            logger.error("Git executable 未找到: %s", " ".join(cmd), exc_info=True)
             return False, "", "git not found"
         msg = f"working directory not found: {normalized_working_dir}"
         logger.error("Git command failed before execution: %s (%s)", " ".join(cmd), msg, exc_info=True)

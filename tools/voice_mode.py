@@ -856,7 +856,7 @@ def play_audio_file(file_path: str) -> bool:
     global _active_playback
 
     if not os.path.isfile(file_path):
-        logger.warning("Audio file not found: %s", file_path)
+        logger.warning("Audio file 未找到: %s", file_path)
         return False
 
     # Try sounddevice for WAV files

@@ -63,7 +63,7 @@ class FirecrawlProvider(CloudBrowserProvider):
         data = response.json()
         session_name = f"hermes_{task_id}_{uuid.uuid4().hex[:8]}"
 
-        logger.info("Created Firecrawl browser session %s", session_name)
+        logger.info("已创建 Firecrawl browser session %s", session_name)
 
         return {
             "session_name": session_name,

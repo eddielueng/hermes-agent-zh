@@ -2640,7 +2640,7 @@ def migrate_config(interactive: bool = True, quiet: bool = False) -> Dict[str, A
                     if migrated_keys:
                         print(f"  ✓ Migrated compression.summary_* → auxiliary.compression: {', '.join(migrated_keys)}")
                     else:
-                        print("  ✓ Removed unused compression.summary_* keys")
+                        print("✓ 已移除 unused compression.summary_* keys")
 
     # ── Version 20 → 21: plugins are now opt-in; grandfather existing user plugins ──
     # The loader now requires plugins to appear in ``plugins.enabled`` before

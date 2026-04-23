@@ -158,7 +158,7 @@ class BrowserUseProvider(CloudBrowserProvider):
         session_name = f"hermes_{task_id}_{uuid.uuid4().hex[:8]}"
         external_call_id = response.headers.get("x-external-call-id") if managed_mode else None
 
-        logger.info("Created Browser Use session %s", session_name)
+        logger.info("已创建 Browser Use session %s", session_name)
 
         cdp_url = session_data.get("cdpUrl") or session_data.get("connectUrl") or ""
 
